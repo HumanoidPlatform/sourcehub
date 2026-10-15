@@ -4,8 +4,8 @@
 // publicly, and gating applies to samples and prices, not to whether a dataset
 // exists). They read /public/catalogue, which answers for published listings
 // and their sample files only. Someone without an account asks for a quote
-// through a short form that reaches Ops; someone signed in is sent to the
-// console page, where the quote is a deal with the seller.
+// through a short form that reaches the seller (db/430), who replies by email;
+// someone signed in is sent to the console page, where the quote is a deal.
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ import { useAuth } from "@shared/auth";
 import { BrandMark, PRODUCT } from "@shared/brand";
 import { fmtDate } from "@shared/format";
 import {
-  CATEGORIES, categoryLabel, DatasetCard, Preview, regionsText, sizeText, usesText,
+  CATEGORIES, categoryLabel, DatasetCard, Preview, regionsText, sizeText, sourceText, usesText,
 } from "./shared";
 
 function PublicFrame({ children, title }: { children: React.ReactNode; title: string }) {
@@ -71,7 +71,7 @@ export function PublicCataloguePage() {
       <h1 tabIndex={-1} style={{ margin: "0 0 4px", fontSize: 24 }}>Datasets</h1>
       <p className="muted" style={{ margin: "0 0 18px", maxWidth: 720 }}>
         Photo and video datasets collected through {PRODUCT} and by its partners. Every listing is reviewed before it
-        appears here. Sample files are free to view; full datasets are licensed on a quote.
+        appears here. Sample files are free to view; ask the seller for a quote on all of a dataset or part of it.
       </p>
       <div className="btnrow" style={{ marginBottom: 16 }}>
         <input
@@ -111,7 +111,7 @@ export function PublicCataloguePage() {
               category={d.category}
               regions={d.regions}
               uses={d.permitted_uses}
-              count={d.item_count}
+              count={d.file_count}
               bytes={d.total_bytes}
               price={d.indicative_price_text}
             />
@@ -144,14 +144,14 @@ export function PublicDatasetPage() {
             <div>
               <h1 tabIndex={-1} style={{ margin: "0 0 4px", fontSize: 24 }}>{d.title}</h1>
               <p className="muted" style={{ margin: 0 }}>
-                {d.seller_name} · {categoryLabel(d.category)} · {sizeText(d.item_count, d.total_bytes)} · version {d.version_number}
+                {d.seller_name} · {categoryLabel(d.category)} · {sizeText(d.file_count, d.total_bytes)}
               </p>
             </div>
             {d.summary && <p style={{ margin: 0, fontSize: 15 }}>{d.summary}</p>}
             {d.description && <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{d.description}</div>}
             <section className="panel">
               <div className="panel-head"><div className="titles"><h2 style={{ margin: 0, fontSize: 14.5 }}>Samples</h2>
-                <span className="sub">Free to view. The full dataset is licensed.</span></div></div>
+                <span className="sub">A few files from the dataset, free to view.</span></div></div>
               <div className="panel-body">
                 {d.samples?.length ? (
                   <div className="samplegrid">
@@ -178,10 +178,11 @@ export function PublicDatasetPage() {
               <div className="panel-body">
                 <Dl
                   rows={[
+                    ["Files", sizeText(d.file_count, d.total_bytes)],
                     ["Price", d.indicative_price_text || "On request"],
                     ["Licensed for", usesText(d.permitted_uses)],
                     ["Regions", regionsText(d.regions)],
-                    ["Source", d.source === "contract" ? "Captured through the platform" : "Supplied by the seller"],
+                    ["Source", sourceText(d.source)],
                     ["Listed", fmtDate(d.published_at)],
                   ]}
                 />
@@ -190,7 +191,7 @@ export function PublicDatasetPage() {
                 ) : null}
               </div>
             </section>
-            {!session && <LeadForm slug={d.slug} />}
+            {!session && <LeadForm slug={d.slug} seller={d.seller_name} />}
           </aside>
         </div>
       )}
@@ -198,7 +199,7 @@ export function PublicDatasetPage() {
   );
 }
 
-function LeadForm({ slug }: { slug: string }) {
+function LeadForm({ slug, seller }: { slug: string; seller: string }) {
   const [f, setF] = useState({ name: "", email: "", company: "", intended_use: "", message: "" });
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setF((x) => ({ ...x, [k]: e.target.value }));
@@ -208,8 +209,7 @@ function LeadForm({ slug }: { slug: string }) {
   if (send.isSuccess) {
     return (
       <Callout tone="success" title="Thank you">
-        Your request has reached our team. We will reply to {f.email} with a quote and, if you are new to the platform,
-        how to open an account.
+        Your request has reached the seller{seller ? `, ${seller}` : ""}. They will reply to {f.email} with a quote.
       </Callout>
     );
   }
@@ -226,7 +226,7 @@ function LeadForm({ slug }: { slug: string }) {
         }}
       >
         <Field label="Your name" required>{(id) => <input id={id} className={inputCls} value={f.name} onChange={set("name")} />}</Field>
-        <Field label="Work email" required hint="We reply to business addresses.">
+        <Field label="Email" required>
           {(id) => <input id={id} type="email" className={inputCls} value={f.email} onChange={set("email")} />}
         </Field>
         <Field label="Organisation" required>{(id) => <input id={id} className={inputCls} value={f.company} onChange={set("company")} />}</Field>

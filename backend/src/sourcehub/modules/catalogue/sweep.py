@@ -1,16 +1,16 @@
-"""catalogue.sweep — the clock that copies relisted captures into platform storage.
+"""catalogue.sweep — the clock that copies a contract listing's samples into platform storage.
 
-Relisting an approved contract (service.relist_contract) records one
-pending datahub_dataset_item per capture and copies nothing: a contract can hold
-thousands of files and delivery is a click in the console. This pass does the
-copying, a batch per owner per tick: the platform's storage fetches a
-short-lived signed GET of the capture in the client's bucket
-(storage.copy_between). Azure pulls it server-side; Google streams it through
-this process in chunks, nothing held beyond one chunk.
+The owner of a contract listing picks a few accepted captures as its samples
+(service.pick_samples), which records one pending datahub_dataset_sample per
+capture and copies nothing. This pass does the copying, a batch per owner per
+tick: the platform's storage fetches a short-lived signed GET of the capture
+in the client's bucket (storage.copy_between). Azure pulls it server-side;
+Google streams it through this process in chunks, nothing held beyond one
+chunk. The rest of a dataset is never copied: the seller hands it over.
 
 A copy that cannot be made is marked failed with the reason, and the owner
 either retries it or removes it before submitting the listing. When an owner's
-dataset has nothing left pending, the owner is told.
+listing has no sample left pending, the owner is told.
 
 Same shape as marketplace.sweep: a task inside the API process, one org
 session per owner, an advisory lock so one API worker does the work, and
@@ -45,7 +45,7 @@ async def _copy_owner(session: AsyncSession, owner: uuid.UUID) -> tuple[int, int
                 text(
                     "SELECT id, dataset_id, storage_key, filename, source_storage_key, "
                     "       source_storage_target_id "
-                    "FROM datahub_dataset_item WHERE owner_org_id = :o AND copy_status = 'pending' "
+                    "FROM datahub_dataset_sample WHERE owner_org_id = :o AND copy_status = 'pending' "
                     "ORDER BY created_at LIMIT :n FOR UPDATE SKIP LOCKED"
                 ),
                 {"o": owner, "n": settings.catalogue_copy_batch},
@@ -80,7 +80,7 @@ async def _copy_owner(session: AsyncSession, owner: uuid.UUID) -> tuple[int, int
             copied += 1
             await session.execute(
                 text(
-                    "UPDATE datahub_dataset_item SET copy_status = 'copied', copy_error = NULL WHERE id = :id"
+                    "UPDATE datahub_dataset_sample SET copy_status = 'copied', copy_error = NULL WHERE id = :id"
                 ),
                 {"id": r["id"]},
             )
@@ -88,7 +88,7 @@ async def _copy_owner(session: AsyncSession, owner: uuid.UUID) -> tuple[int, int
             failed += 1
             await session.execute(
                 text(
-                    "UPDATE datahub_dataset_item SET copy_status = 'failed', copy_error = :e WHERE id = :id"
+                    "UPDATE datahub_dataset_sample SET copy_status = 'failed', copy_error = :e WHERE id = :id"
                 ),
                 {"e": error, "id": r["id"]},
             )
@@ -99,7 +99,7 @@ async def _copy_owner(session: AsyncSession, owner: uuid.UUID) -> tuple[int, int
                     text(
                         "SELECT count(*) FILTER (WHERE copy_status = 'pending') AS pending, "
                         "       count(*) FILTER (WHERE copy_status = 'failed') AS failed "
-                        "FROM datahub_dataset_item WHERE dataset_id = :d"
+                        "FROM datahub_dataset_sample WHERE dataset_id = :d"
                     ),
                     {"d": ds},
                 )
@@ -114,9 +114,9 @@ async def _copy_owner(session: AsyncSession, owner: uuid.UUID) -> tuple[int, int
             await notifier.notify(
                 session,
                 owner,
-                f"The files for {title} are copied in"
+                f"The samples for {title} are copied in"
                 + (f"; {left['failed']} could not be copied" if left["failed"] else "")
-                + ". Describe it, pick samples and submit it for review.",
+                + ". Describe it and submit it for review.",
                 "catalogue_listing",
                 {"id": str(ds)},
             )

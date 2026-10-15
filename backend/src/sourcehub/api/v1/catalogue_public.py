@@ -23,27 +23,6 @@ router = APIRouter()
 # Five quote requests per address per hour, per API worker.
 _leads = RateLimiter(limit=5, window_seconds=3600)
 
-# Addresses that say nothing about a buyer's organisation. A dataset licence is
-# a business purchase; Ops would have to ask again before replying to one.
-_FREE_MAIL = frozenset(
-    {
-        "gmail.com",
-        "googlemail.com",
-        "yahoo.com",
-        "hotmail.com",
-        "outlook.com",
-        "live.com",
-        "icloud.com",
-        "aol.com",
-        "proton.me",
-        "protonmail.com",
-        "gmx.com",
-        "mail.com",
-        "yandex.com",
-        "rediffmail.com",
-    }
-)
-
 
 class LeadIn(BaseModel):
     name: str = Field(min_length=1, max_length=200)
@@ -74,9 +53,6 @@ async def create_lead(slug: str, body: LeadIn, request: Request) -> dict[str, st
             status.HTTP_429_TOO_MANY_REQUESTS,
             "Too many requests from here. Try again in an hour.",
         )
-    domain = str(body.email).rsplit("@", 1)[-1].lower()
-    if domain in _FREE_MAIL:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Use your work email address.")
     try:
         await catalogue.create_lead(
             slug,

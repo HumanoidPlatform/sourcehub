@@ -1,7 +1,8 @@
-"""catalogue — datasets for sale: listing, review, quotes, licences, downloads.
+"""catalogue — datasets for sale: listing, samples, review, quotes and the deal chat.
 
 RLS decides what each caller sees; capabilities decide which calls they may
-make; the triggers in db/390 decide which moves are possible. See
+make; the triggers in db/390 and db/420 decide which moves are possible. The
+files of a dataset change hands outside the platform. See
 modules/catalogue/service.py.
 """
 
@@ -12,7 +13,6 @@ from decimal import Decimal
 from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -46,6 +46,9 @@ class DatasetIn(BaseModel):
     permitted_uses: list[PermittedUse] | None = None
     licence_terms: str | None = Field(default=None, max_length=20000)
     indicative_price_text: str | None = Field(default=None, max_length=200)
+    # what the listing says it holds; a contract listing's is counted, not typed
+    file_count: int | None = Field(default=None, ge=0, le=100_000_000)
+    total_bytes: int | None = Field(default=None, ge=0)
 
 
 class FileIn(BaseModel):
@@ -60,15 +63,14 @@ class UploadedIn(BaseModel):
     key: str = Field(min_length=1, max_length=1024)
     filename: str | None = Field(default=None, max_length=255)
     content_type: str | None = Field(default=None, max_length=200)
-    sha256: str | None = Field(default=None, max_length=64)
 
 
 class ConfirmIn(BaseModel):
     uploads: list[UploadedIn] = Field(max_length=catalogue.MAX_UPLOADS_PER_CALL)
 
 
-class SamplesIn(BaseModel):
-    item_ids: list[uuid.UUID] = Field(max_length=catalogue.MAX_SAMPLES)
+class PickIn(BaseModel):
+    asset_ids: list[uuid.UUID] = Field(max_length=catalogue.MAX_SAMPLES)
 
 
 class ReasonIn(BaseModel):
@@ -82,12 +84,16 @@ class NoteIn(BaseModel):
 class QuoteRequestIn(BaseModel):
     intended_use: str = Field(min_length=3, max_length=2000)
     requested_uses: list[PermittedUse] = Field(default_factory=list)
+    # how many files the buyer wants; none means the whole dataset
+    requested_quantity: int | None = Field(default=None, gt=0)
     message: str | None = Field(default=None, max_length=4000)
 
 
 class QuoteIn(BaseModel):
     amount: Decimal = Field(ge=0, max_digits=14, decimal_places=2)
     currency: str = Field(pattern=r"^[A-Za-z]{3}$")
+    # how many files the quote covers, as agreed in the chat; none = all
+    quantity: int | None = Field(default=None, gt=0)
     terms: str | None = Field(default=None, max_length=20000)
     uses: list[PermittedUse] = Field(min_length=1)
 
@@ -96,8 +102,16 @@ class PaidIn(BaseModel):
     invoice_number: str | None = Field(default=None, max_length=100)
 
 
+class MessageIn(BaseModel):
+    body: str = Field(min_length=1, max_length=catalogue.MAX_MESSAGE)
+
+
 class LeadStatusIn(BaseModel):
     status: LeadStatus
+
+
+class LeadReplyIn(BaseModel):
+    body: str = Field(min_length=1, max_length=10000)
 
 
 def _conflict(e: Exception) -> HTTPException:
@@ -147,16 +161,16 @@ async def dataset_detail(
         raise _not_found("Dataset") from None
 
 
-@router.get("/catalogue/items/{item_id}/url")
-async def item_url(
-    item_id: uuid.UUID,
+@router.get("/catalogue/samples/{sample_id}/url")
+async def sample_url(
+    sample_id: uuid.UUID,
     principal: Principal = Depends(get_principal),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.item_url(session, principal, item_id)
+        return await catalogue.sample_url(session, principal, sample_id)
     except LookupError:
-        raise _not_found("File") from None
+        raise _not_found("Sample") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
 
@@ -235,7 +249,7 @@ async def upload_urls(
         raise _conflict(e) from None
 
 
-@router.post("/catalogue/datasets/{dataset_id}/items")
+@router.post("/catalogue/datasets/{dataset_id}/samples")
 async def confirm_uploads(
     dataset_id: uuid.UUID,
     body: ConfirmIn,
@@ -252,30 +266,44 @@ async def confirm_uploads(
         raise _conflict(e) from None
 
 
-@router.delete("/catalogue/datasets/{dataset_id}/items/{item_id}")
-async def remove_item(
+@router.delete("/catalogue/datasets/{dataset_id}/samples/{sample_id}")
+async def remove_sample(
     dataset_id: uuid.UUID,
-    item_id: uuid.UUID,
+    sample_id: uuid.UUID,
     principal: Principal = Depends(require_capability("catalogue.list")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.remove_item(session, principal, dataset_id, item_id)
+        return await catalogue.remove_sample(session, principal, dataset_id, sample_id)
     except LookupError:
-        raise _not_found("File") from None
+        raise _not_found("Sample") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
 
 
-@router.put("/catalogue/datasets/{dataset_id}/samples")
-async def set_samples(
+@router.get("/catalogue/datasets/{dataset_id}/captures")
+async def contract_captures(
     dataset_id: uuid.UUID,
-    body: SamplesIn,
+    principal: Principal = Depends(require_capability("catalogue.list")),
+    session: AsyncSession = Depends(get_session),
+) -> list[dict[str, Any]]:
+    try:
+        return await catalogue.contract_captures(session, principal, dataset_id)
+    except LookupError:
+        raise _not_found("Dataset") from None
+    except catalogue.CatalogueError as e:
+        raise _conflict(e) from None
+
+
+@router.put("/catalogue/datasets/{dataset_id}/picked-samples")
+async def pick_samples(
+    dataset_id: uuid.UUID,
+    body: PickIn,
     principal: Principal = Depends(require_capability("catalogue.list")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.set_samples(session, principal, dataset_id, body.item_ids)
+        return await catalogue.pick_samples(session, principal, dataset_id, body.asset_ids)
     except LookupError:
         raise _not_found("Dataset") from None
     except catalogue.CatalogueError as e:
@@ -339,21 +367,6 @@ async def withdraw_dataset(
         raise _conflict(e) from None
 
 
-@router.post("/catalogue/items/{item_id}/withdraw")
-async def withdraw_item(
-    item_id: uuid.UUID,
-    body: ReasonIn,
-    principal: Principal = Depends(require_any_capability("catalogue.list", "catalogue.review")),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.withdraw_item(session, principal, item_id, body.reason)
-    except LookupError:
-        raise _not_found("File") from None
-    except catalogue.CatalogueError as e:
-        raise _conflict(e) from None
-
-
 # ---------------------------------------------------------------------------
 # Review — operations
 # ---------------------------------------------------------------------------
@@ -396,9 +409,11 @@ async def reject(
         raise _conflict(e) from None
 
 
+# Public quote requests. The seller reads and works those on its own listings;
+# Ops read every one and change none (db/430: RLS decides which rows).
 @router.get("/catalogue/leads")
 async def list_leads(
-    principal: Principal = Depends(require_capability("catalogue.review")),
+    principal: Principal = Depends(require_any_capability("catalogue.list", "catalogue.review")),
     session: AsyncSession = Depends(get_session),
 ) -> list[dict[str, Any]]:
     return await catalogue.list_leads(session)
@@ -408,7 +423,7 @@ async def list_leads(
 async def set_lead_status(
     lead_id: uuid.UUID,
     body: LeadStatusIn,
-    principal: Principal = Depends(require_capability("catalogue.review")),
+    principal: Principal = Depends(require_capability("catalogue.list")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
@@ -417,16 +432,44 @@ async def set_lead_status(
         raise _not_found("Lead") from None
 
 
+@router.get("/catalogue/leads/{lead_id}/replies")
+async def lead_replies(
+    lead_id: uuid.UUID,
+    principal: Principal = Depends(require_any_capability("catalogue.list", "catalogue.review")),
+    session: AsyncSession = Depends(get_session),
+) -> list[dict[str, Any]]:
+    try:
+        return await catalogue.list_lead_replies(session, lead_id)
+    except LookupError:
+        raise _not_found("Lead") from None
+
+
+# The platform emails the seller's reply, Reply-To the seller.
+@router.post("/catalogue/leads/{lead_id}/replies", status_code=status.HTTP_201_CREATED)
+async def reply_to_lead(
+    lead_id: uuid.UUID,
+    body: LeadReplyIn,
+    principal: Principal = Depends(require_capability("catalogue.list")),
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
+    try:
+        return await catalogue.reply_to_lead(session, principal, lead_id, body.body)
+    except LookupError:
+        raise _not_found("Lead") from None
+    except catalogue.CatalogueError as e:
+        raise _conflict(e) from None
+
+
 # ---------------------------------------------------------------------------
-# Deals
+# Deals and their chat
 # ---------------------------------------------------------------------------
+
+_DEAL_READERS = ("catalogue.buy", "catalogue.quote", "catalogue.review")
 
 
 @router.get("/catalogue/deals")
 async def list_deals(
-    principal: Principal = Depends(
-        require_any_capability("catalogue.buy", "catalogue.quote", "catalogue.review")
-    ),
+    principal: Principal = Depends(require_any_capability(*_DEAL_READERS)),
     session: AsyncSession = Depends(get_session),
 ) -> list[dict[str, Any]]:
     return await catalogue.list_deals(session, principal)
@@ -435,9 +478,7 @@ async def list_deals(
 @router.get("/catalogue/deals/{deal_id}")
 async def get_deal(
     deal_id: uuid.UUID,
-    principal: Principal = Depends(
-        require_any_capability("catalogue.buy", "catalogue.quote", "catalogue.review")
-    ),
+    principal: Principal = Depends(require_any_capability(*_DEAL_READERS)),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
@@ -460,6 +501,7 @@ async def request_quote(
             dataset_id,
             intended_use=body.intended_use,
             requested_uses=list(body.requested_uses),
+            requested_quantity=body.requested_quantity,
             message=body.message,
         )
     except LookupError:
@@ -482,6 +524,7 @@ async def quote(
             deal_id,
             amount=body.amount,
             currency=body.currency,
+            quantity=body.quantity,
             terms=body.terms,
             uses=list(body.uses),
         )
@@ -534,81 +577,57 @@ async def accept(
         raise _conflict(e) from None
 
 
-# ---------------------------------------------------------------------------
-# Licences
-# ---------------------------------------------------------------------------
-
-
-@router.get("/catalogue/licences")
-async def list_licences(
-    principal: Principal = Depends(
-        require_any_capability("catalogue.buy", "catalogue.quote", "catalogue.review")
-    ),
-    session: AsyncSession = Depends(get_session),
-) -> list[dict[str, Any]]:
-    return await catalogue.list_licences(session, principal)
-
-
-@router.get("/catalogue/licences/{licence_id}")
-async def get_licence(
-    licence_id: uuid.UUID,
-    principal: Principal = Depends(
-        require_any_capability("catalogue.buy", "catalogue.quote", "catalogue.review")
-    ),
-    session: AsyncSession = Depends(get_session),
-) -> dict[str, Any]:
-    try:
-        return await catalogue.get_licence(session, principal, licence_id)
-    except LookupError:
-        raise _not_found("Licence") from None
-
-
-@router.get("/catalogue/licences/{licence_id}/manifest", response_class=PlainTextResponse)
-async def manifest(
-    licence_id: uuid.UUID,
-    principal: Principal = Depends(
-        require_any_capability("catalogue.buy", "catalogue.quote", "catalogue.review")
-    ),
-    session: AsyncSession = Depends(get_session),
-) -> PlainTextResponse:
-    try:
-        body = await catalogue.manifest_csv(session, principal, licence_id)
-    except LookupError:
-        raise _not_found("Licence") from None
-    except catalogue.CatalogueError as e:
-        raise _conflict(e) from None
-    return PlainTextResponse(
-        body,
-        media_type="text/csv",
-        headers={"Content-Disposition": f'attachment; filename="licence-{licence_id}.csv"'},
-    )
-
-
-@router.post("/catalogue/licences/{licence_id}/paid")
+@router.post("/catalogue/deals/{deal_id}/paid")
 async def mark_paid(
-    licence_id: uuid.UUID,
+    deal_id: uuid.UUID,
     body: PaidIn,
     principal: Principal = Depends(require_capability("catalogue.quote")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.mark_paid(session, principal, licence_id, body.invoice_number)
+        return await catalogue.mark_paid(session, principal, deal_id, body.invoice_number)
     except LookupError:
-        raise _not_found("Licence") from None
+        raise _not_found("Quote") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None
 
 
-@router.post("/catalogue/licences/{licence_id}/revoke")
-async def revoke(
-    licence_id: uuid.UUID,
-    body: ReasonIn,
-    principal: Principal = Depends(require_any_capability("catalogue.quote", "catalogue.review")),
+@router.post("/catalogue/deals/{deal_id}/delivered")
+async def mark_delivered(
+    deal_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("catalogue.quote")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.revoke(session, principal, licence_id, body.reason)
+        return await catalogue.mark_delivered(session, principal, deal_id)
     except LookupError:
-        raise _not_found("Licence") from None
+        raise _not_found("Quote") from None
+    except catalogue.CatalogueError as e:
+        raise _conflict(e) from None
+
+
+@router.get("/catalogue/deals/{deal_id}/messages")
+async def list_messages(
+    deal_id: uuid.UUID,
+    principal: Principal = Depends(require_any_capability(*_DEAL_READERS)),
+    session: AsyncSession = Depends(get_session),
+) -> list[dict[str, Any]]:
+    try:
+        return await catalogue.list_messages(session, principal, deal_id)
+    except LookupError:
+        raise _not_found("Quote") from None
+
+
+@router.post("/catalogue/deals/{deal_id}/messages", status_code=status.HTTP_201_CREATED)
+async def post_message(
+    deal_id: uuid.UUID,
+    body: MessageIn,
+    principal: Principal = Depends(require_any_capability("catalogue.buy", "catalogue.quote")),
+    session: AsyncSession = Depends(get_session),
+) -> dict[str, Any]:
+    try:
+        return await catalogue.post_message(session, principal, deal_id, body.body)
+    except LookupError:
+        raise _not_found("Quote") from None
     except catalogue.CatalogueError as e:
         raise _conflict(e) from None

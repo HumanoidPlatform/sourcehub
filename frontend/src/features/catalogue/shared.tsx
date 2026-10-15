@@ -1,15 +1,18 @@
-// catalogue — pieces every catalogue screen uses: labels, file previews, the
-// evidence panel, dataset cards.
+// catalogue — pieces every catalogue screen uses: labels, sample previews,
+// dataset cards, and the list of quote requests from the public page.
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { get } from "@api/client";
-import type { DatasetEvidence, DatasetItem, PermittedUse } from "@api/types";
-import { Dl } from "@ds/primitives";
-import { fmtDate } from "@shared/format";
+import { get, patch, post } from "@api/client";
+import type { CatalogueLead, DatasetSample, LeadReply, PermittedUse } from "@api/types";
+import {
+  Button, Callout, DataTable, Dialog, Empty, Field, Panel, Pill, Skeleton, textareaCls, useToast,
+} from "@ds/primitives";
 import { labelOf, labelsOf, PERMITTED_USES } from "@features/marketplace/vocabularies";
 import { fmtBytes } from "@features/delivery/components/AssetGallery";
 import { countryLabel } from "@shared/countries";
+import { fmtDateTime } from "@shared/format";
 
 export { fmtBytes };
 
@@ -38,18 +41,18 @@ export function sizeText(count: number | null | undefined, bytes: number | null 
 export const isImage = (mime: string | null | undefined) => !!mime && mime.startsWith("image/");
 export const isVideo = (mime: string | null | undefined) => !!mime && mime.startsWith("video/");
 
-/** A preview of a file someone may already see. The URL lives 15 minutes,
- *  so it is cached for 13, as AssetGallery does. */
-export function ItemPreview({ item, height = 120 }: { item: DatasetItem; height?: number }) {
-  const viewable = item.copy_status === undefined || item.copy_status === "copied";
+/** A preview of a listing's sample. The URL lives 15 minutes, so it is
+ *  cached for 13, as AssetGallery does. */
+export function SamplePreview({ sample, height = 120 }: { sample: DatasetSample; height?: number }) {
+  const viewable = sample.copy_status === undefined || sample.copy_status === "copied";
   const url = useQuery({
-    queryKey: ["catalogue-item-url", item.id],
-    queryFn: () => get<{ url: string }>(`/catalogue/items/${item.id}/url`),
-    enabled: viewable && !item.withdrawn_at && (isImage(item.mime_type) || isVideo(item.mime_type)),
+    queryKey: ["catalogue-sample-url", sample.id],
+    queryFn: () => get<{ url: string }>(`/catalogue/samples/${sample.id}/url`),
+    enabled: viewable && (isImage(sample.mime_type) || isVideo(sample.mime_type)),
     staleTime: 13 * 60 * 1000,
     retry: false,
   });
-  return <Preview src={url.data?.url} mime={item.mime_type} name={item.filename} height={height} />;
+  return <Preview src={url.data?.url} mime={sample.mime_type} name={sample.filename} height={height} />;
 }
 
 export function Preview({
@@ -68,22 +71,16 @@ export function Preview({
   );
 }
 
-/** What can be said about how the files were made — and, as plainly, what
- *  cannot. Nothing about the people shown is recorded, so nothing is claimed. */
-export function EvidencePanel({ evidence }: { evidence: DatasetEvidence | null | undefined }) {
-  if (!evidence) return null;
-  const relisted = evidence.source === "contract";
-  return (
-    <Dl
-      rows={[
-        ["Where it came from", relisted ? "Captured through the platform, for a contract" : "Uploaded by the seller"],
-        ["Captured", evidence.captured_from ? `${fmtDate(evidence.captured_from)} – ${fmtDate(evidence.captured_to)}` : "Not recorded"],
-        ["Device checks on capture", evidence.with_device_checks ? `${evidence.with_device_checks.toLocaleString()} files` : "Not recorded"],
-        ["Passed the aggregator's and partner's review", relisted ? "Every file" : "Not applicable"],
-        ["Consent from people shown", "Not recorded by the platform — see the seller's licence terms"],
-      ]}
-    />
-  );
+/** Where a listing's data came from, in a buyer's words. */
+export const sourceText = (source: "upload" | "contract" | undefined): string =>
+  source === "contract"
+    ? "Captured through the platform for a contract, and reviewed by the aggregator and the delivery partner"
+    : "Supplied by the seller";
+
+/** "500 files" or "the whole dataset (3,000 files)" */
+export function quantityText(n: number | null | undefined, total?: number | null): string {
+  if (n == null) return `The whole dataset${total ? ` (${total.toLocaleString()} files)` : ""}`;
+  return `${n.toLocaleString()} file${n === 1 ? "" : "s"}`;
 }
 
 /** A dataset as a card in a grid. `to` is where the card leads. */
@@ -98,7 +95,7 @@ export function DatasetCard({
   regions: string[];
   uses: PermittedUse[];
   count?: number;
-  bytes?: number;
+  bytes?: number | null;
   price?: string | null;
   badge?: React.ReactNode;
 }) {
@@ -122,5 +119,141 @@ export function DatasetCard({
       </div>
       <div className="small muted" style={{ marginTop: "auto" }}>{price || "Price on request"}</div>
     </article>
+  );
+}
+
+/* --- quote requests from the public page ------------------------------------ */
+
+/**
+ * People without an account asking for a quote (db/430). The seller sees the
+ * requests on its own listings, replies from here (the platform emails it,
+ * Reply-To the seller) and marks them; Ops see every request, its seller and
+ * the replies, and change none.
+ */
+export function LeadsPanel({ leads, loading, readOnly = false }: {
+  leads: CatalogueLead[] | undefined;
+  loading: boolean;
+  readOnly?: boolean;
+}) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const [open, setOpen] = useState<CatalogueLead | null>(null);
+  const mark = useMutation({
+    mutationFn: ({ id, status }: { id: string; status: CatalogueLead["status"] }) => patch(`/catalogue/leads/${id}`, { status }),
+    onSuccess: () => void qc.invalidateQueries({ queryKey: ["catalogue-leads"] }),
+    onError: (e) => toast("Not saved", e instanceof Error ? e.message : "Something went wrong", "critical"),
+  });
+  return (
+    <Panel flush>
+      {loading ? <Skeleton rows={4} label="Loading quote requests" /> : !leads?.length ? (
+        <Empty
+          title="No quote requests yet"
+          hint={readOnly
+            ? "People without an account ask for quotes on the public dataset pages; each request goes to the dataset's seller."
+            : "People without an account can ask for a quote on your published listings. Their requests appear here."}
+        />
+      ) : (
+        <DataTable
+          rows={leads}
+          rowKey={(r) => r.id}
+          filter={{ label: "Filter requests", placeholder: "Filter by company, email or dataset…", text: (r) => `${r.company} ${r.email} ${r.dataset_title} ${r.seller_name}` }}
+          columns={[
+            { header: "Received", cell: (r) => fmtDateTime(r.created_at), sortBy: (r) => r.created_at },
+            { header: "From", className: "cell-primary", cell: (r) => <>{r.name} · {r.company}<div className="cell-meta">{r.email}</div></> },
+            { header: "Dataset", cell: (r) => <Link to={`/catalogue/${r.dataset_slug}`}>{r.dataset_title}</Link> },
+            ...(readOnly ? [{ header: "Seller", cell: (r: CatalogueLead) => r.seller_name, sortBy: (r: CatalogueLead) => r.seller_name }] : []),
+            {
+              header: "Intended use",
+              cell: (r) => <>{r.intended_use}{r.message && <div className="cell-meta">{r.message}</div>}</>,
+            },
+            {
+              header: "Status",
+              cell: (r) => <>
+                <Pill tone={r.status === "new" ? "attention" : r.status === "contacted" ? "active" : "neutral"}>
+                  {r.status === "new" ? "New" : r.status === "contacted" ? "Contacted" : "Closed"}
+                </Pill>
+                {r.reply_count > 0 && <div className="cell-meta">{r.reply_count} {r.reply_count === 1 ? "reply" : "replies"} sent</div>}
+              </>,
+            },
+            {
+              header: "Actions", hideHeader: true, className: "right",
+              cell: (r) => (
+                <div className="rowactions">
+                  {readOnly ? (
+                    r.reply_count > 0 && <Button size="sm" onClick={() => setOpen(r)}>Replies</Button>
+                  ) : (
+                    <>
+                      <Button size="sm" variant={r.status === "new" ? "primary" : undefined} onClick={() => setOpen(r)}>
+                        {r.status === "closed" ? "Replies" : "Reply"}
+                      </Button>
+                      {r.status === "new" && <Button size="sm" onClick={() => mark.mutate({ id: r.id, status: "contacted" })}>Contacted</Button>}
+                      {r.status !== "closed" && <Button size="sm" onClick={() => mark.mutate({ id: r.id, status: "closed" })}>Close</Button>}
+                    </>
+                  )}
+                </div>
+              ),
+            },
+          ]}
+        />
+      )}
+      {open && <LeadReplyDialog lead={open} canReply={!readOnly && open.status !== "closed"} onClose={() => setOpen(null)} />}
+    </Panel>
+  );
+}
+
+function LeadReplyDialog({ lead, canReply, onClose }: { lead: CatalogueLead; canReply: boolean; onClose: () => void }) {
+  const qc = useQueryClient();
+  const toast = useToast();
+  const [body, setBody] = useState("");
+  const replies = useQuery({
+    queryKey: ["catalogue-lead-replies", lead.id],
+    queryFn: () => get<LeadReply[]>(`/catalogue/leads/${lead.id}/replies`),
+  });
+  const send = useMutation({
+    mutationFn: () => post<LeadReply>(`/catalogue/leads/${lead.id}/replies`, { body: body.trim() }),
+    onSuccess: () => {
+      setBody("");
+      toast("Reply sent", `Emailed to ${lead.email}. Their answer comes to your inbox.`);
+      void qc.invalidateQueries({ queryKey: ["catalogue-leads"] });
+      void qc.invalidateQueries({ queryKey: ["catalogue-lead-replies", lead.id] });
+    },
+  });
+  return (
+    <Dialog
+      title={canReply ? `Reply to ${lead.name}` : "Replies"}
+      sub={`${lead.company} · ${lead.dataset_title}`}
+      onClose={onClose}
+      busy={send.isPending}
+      foot={
+        <>
+          <Button onClick={onClose}>{canReply ? "Cancel" : "Close"}</Button>
+          {canReply && (
+            <Button variant="primary" disabled={!body.trim() || send.isPending} onClick={() => send.mutate()}>
+              {send.isPending ? "Sending…" : "Send email"}
+            </Button>
+          )}
+        </>
+      }
+    >
+      <div className="small" style={{ background: "var(--ground)", borderRadius: 6, padding: "8px 10px" }}>
+        <div style={{ fontWeight: 600 }}>{lead.name} asked, {fmtDateTime(lead.created_at)}</div>
+        <div>{lead.intended_use}</div>
+        {lead.message && <div style={{ whiteSpace: "pre-wrap", marginTop: 4 }}>{lead.message}</div>}
+      </div>
+      {replies.isLoading ? <Skeleton rows={2} label="Loading replies" /> : (replies.data ?? []).map((r) => (
+        <div key={r.id} className="small" style={{ borderLeft: "3px solid var(--line)", padding: "4px 10px" }}>
+          <div style={{ fontWeight: 600 }}>{r.sender_name}, {fmtDateTime(r.created_at)}</div>
+          <div style={{ whiteSpace: "pre-wrap" }}>{r.body}</div>
+        </div>
+      ))}
+      {canReply && (
+        <>
+          <Field label="Your reply" required hint={`Sent to ${lead.email} from the platform, with your address to reply to.`}>
+            {(id) => <textarea id={id} className={textareaCls} rows={7} value={body} onChange={(e) => setBody(e.target.value)} />}
+          </Field>
+          {send.isError && <Callout tone="critical" title="Not sent">{(send.error as Error).message}</Callout>}
+        </>
+      )}
+    </Dialog>
   );
 }

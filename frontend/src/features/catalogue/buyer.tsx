@@ -1,16 +1,17 @@
-// catalogue — browsing, asking for a quote, the deal room, licences.
+// catalogue — browsing, asking for a quote, and the deal room with its chat.
 //
-// One flow for both sides of a sale: the buyer asks, the seller quotes, the
-// buyer accepts, the seller marks the invoice paid, the files open. The deal
-// page shows each side its own next step (my_side from the API). The rules
-// themselves are the database's (db/390); a button here only offers a move
-// the API would accept.
+// One flow for both sides of a sale: the buyer asks (saying how many files,
+// if not all), the two agree in the deal's chat, the seller quotes, the buyer
+// accepts, and the seller marks the deal paid and then delivered. The files
+// change hands outside the platform. The deal page shows each side its own
+// next step (my_side from the API); the rules themselves are the database's
+// (db/420), and a button here only offers a move the API would accept.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ApiError, get, getText, post } from "@api/client";
-import type { Dataset, DatasetDeal, DatasetLicence, PermittedUse } from "@api/types";
+import { ApiError, get, post } from "@api/client";
+import type { Dataset, DatasetDeal, DealMessage, PermittedUse } from "@api/types";
 import {
   Button, Callout, CheckGroup, DataTable, Dialog, Dl, Empty, Field, inputCls, Panel, Pill, Skeleton,
   textareaCls, useToast, View,
@@ -19,22 +20,23 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime, money } from "@shared/format";
 import { can } from "@shared/rbac";
 import { ReasonDialog } from "@shared/reason-dialog";
-import { datasetStatus, dealStatus, licenceStatus, statusMeta } from "@shared/status";
+import { datasetStatus, dealStatus, statusMeta } from "@shared/status";
 import { PERMITTED_USES } from "@features/marketplace/vocabularies";
 import {
-  CATEGORIES, categoryLabel, DatasetCard, EvidencePanel, ItemPreview, regionsText, sizeText, usesText,
+  CATEGORIES, categoryLabel, DatasetCard, quantityText, regionsText, SamplePreview, sizeText, sourceText,
+  usesText,
 } from "./shared";
 
 const errText = (e: unknown) => (e instanceof Error ? e.message : "Something went wrong");
 
 /** The catalogue's own tabs, so a buyer moves between them without the rail. */
-function CatalogueTabs({ current }: { current: "browse" | "deals" | "licences" | "mine" }) {
+function CatalogueTabs({ current }: { current: "browse" | "deals" | "mine" | "requests" }) {
   const session = useSession();
   const tabs: [string, string, string, boolean][] = [
     ["browse", "/catalogue", "Browse", true],
     ["deals", "/catalogue/deals", "Quotes", can(session, "catalogue.buy") || can(session, "catalogue.quote")],
-    ["licences", "/catalogue/licences", "Licences", can(session, "catalogue.buy") || can(session, "catalogue.quote")],
     ["mine", "/catalogue/mine", "My listings", can(session, "catalogue.list")],
+    ["requests", "/catalogue/requests", "Public requests", can(session, "catalogue.list")],
   ];
   return (
     <nav className="seg" aria-label="Dataset catalogue" style={{ marginBottom: 16 }}>
@@ -68,7 +70,7 @@ export function CataloguePage() {
   return (
     <View
       title="Datasets"
-      sub="Finished datasets you can license, reviewed by the platform before they are listed."
+      sub="Finished datasets, reviewed by the platform before they are listed. Ask the seller for the files you need."
       actions={<Link className="btn" to="/datasets">Public page</Link>}
     >
       <CatalogueTabs current="browse" />
@@ -97,7 +99,7 @@ export function CataloguePage() {
               category={d.category}
               regions={d.regions}
               uses={d.permitted_uses}
-              count={d.item_count}
+              count={d.file_count}
               bytes={d.total_bytes}
               price={d.indicative_price_text}
               badge={d.is_owner ? <span className="vbadge" data-tone="new">Yours</span> : undefined}
@@ -126,19 +128,18 @@ export function DatasetPage() {
 
   const st = statusMeta(datasetStatus, d.status);
   const open = d.my_deal && ["requested", "quoted"].includes(d.my_deal.status);
-  const items = d.items ?? [];
-  const version = d.versions?.[d.versions.length - 1];
+  const samples = d.samples ?? [];
   return (
     <View
       title={d.title}
-      sub={<>{d.owner_name} · {categoryLabel(d.category)} · {sizeText(version?.item_count ?? items.length, version?.total_bytes)}{version ? ` · version ${version.number}` : ""}</>}
+      sub={<>{d.owner_name} · {categoryLabel(d.category)} · {sizeText(d.file_count, d.total_bytes)}</>}
       actions={
         <>
           {d.status !== "published" && <Pill tone={st.tone}>{st.label}</Pill>}
           {d.is_owner && <Link className="btn" to={`/catalogue/mine/${d.id}`}>Manage listing</Link>}
           {!d.is_owner && d.my_deal && (
             <Link className="btn" to={`/catalogue/deals/${d.my_deal.id}`}>
-              {open ? "Open your quote request" : "Your last quote"}
+              {open ? "Open your quote request" : "Your last deal"}
             </Link>
           )}
           {!d.is_owner && !open && d.status === "published" && can(session, "catalogue.buy") && (
@@ -156,24 +157,17 @@ export function DatasetPage() {
               {d.description && <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{d.description}</div>}
             </Panel>
           )}
-          <Panel
-            title={items.some((i) => !i.is_sample) ? "Files" : "Samples"}
-            sub={items.some((i) => !i.is_sample) ? "Every file of the version you hold" : "Free to view; the full dataset is licensed"}
-          >
-            {items.length === 0 ? <p className="muted" style={{ margin: 0 }}>No files to show.</p> : (
+          <Panel title="Samples" sub="A few files from the dataset, free to view">
+            {samples.length === 0 ? <p className="muted" style={{ margin: 0 }}>No samples to show.</p> : (
               <div className="samplegrid">
-                {items.slice(0, 60).map((i) => (
-                  <figure key={i.id}>
-                    <ItemPreview item={i} height={130} />
-                    <figcaption>
-                      {i.filename}
-                      {i.withdrawn_at && <> · <b>withdrawn</b></>}
-                    </figcaption>
+                {samples.map((s) => (
+                  <figure key={s.id}>
+                    <SamplePreview sample={s} height={130} />
+                    <figcaption>{s.filename}</figcaption>
                   </figure>
                 ))}
               </div>
             )}
-            {items.length > 60 && <p className="small muted" style={{ margin: 0 }}>Showing 60 of {items.length}. The licence manifest lists every file.</p>}
           </Panel>
           <Panel title="Licence terms" sub="Set by the seller">
             <div style={{ whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{d.licence_terms || "Given with the quote."}</div>
@@ -182,14 +176,17 @@ export function DatasetPage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Panel>
             <Dl rows={[
+              ["Files", sizeText(d.file_count, d.total_bytes)],
               ["Price", d.indicative_price_text || "On request"],
               ["Licensed for", usesText(d.permitted_uses)],
               ["Regions", regionsText(d.regions)],
+              ["Source", sourceText(d.source)],
               ["Listed", fmtDate(d.published_at)],
             ]} />
-          </Panel>
-          <Panel title="How it was made" sub="What the platform recorded">
-            <EvidencePanel evidence={d.evidence} />
+            <p className="small muted" style={{ margin: 0 }}>
+              Ask for all of it or only some: you agree the number of files and the price with the seller, who hands the
+              files over to you directly.
+            </p>
           </Panel>
           {can(session, "rfp.create") && (
             <Panel title="Need more like this?">
@@ -211,11 +208,17 @@ function AskQuoteDialog({ dataset, onClose }: { dataset: Dataset; onClose: () =>
   const qc = useQueryClient();
   const [use, setUse] = useState("");
   const [uses, setUses] = useState<PermittedUse[]>(dataset.permitted_uses.slice(0, 1));
+  const [all, setAll] = useState(true);
+  const [qty, setQty] = useState("");
   const [message, setMessage] = useState("");
+  const n = Number(qty);
+  const qtyOk = all || (Number.isInteger(n) && n > 0 && (!dataset.file_count || n <= dataset.file_count));
   const ask = useMutation({
     mutationFn: () =>
       post<DatasetDeal>(`/catalogue/datasets/${dataset.id}/deals`, {
-        intended_use: use.trim(), requested_uses: uses, message: message.trim() || null,
+        intended_use: use.trim(), requested_uses: uses,
+        requested_quantity: all ? null : n,
+        message: message.trim() || null,
       }),
     onSuccess: (deal) => {
       void qc.invalidateQueries({ queryKey: ["catalogue-dataset"] });
@@ -226,21 +229,38 @@ function AskQuoteDialog({ dataset, onClose }: { dataset: Dataset; onClose: () =>
   return (
     <Dialog
       title="Request a quote"
-      sub={dataset.title}
+      sub={`${dataset.title} · ${sizeText(dataset.file_count, dataset.total_bytes)}`}
       onClose={onClose}
       busy={ask.isPending}
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={use.trim().length < 3 || ask.isPending} onClick={() => ask.mutate()}>
+          <Button variant="primary" disabled={use.trim().length < 3 || !qtyOk || ask.isPending} onClick={() => ask.mutate()}>
             {ask.isPending ? "Sending…" : "Send to the seller"}
           </Button>
         </>
       }
     >
       <p className="small muted" style={{ margin: 0 }}>
-        {dataset.owner_name} will reply with a price and terms. Nothing is owed until you accept a quote.
+        {dataset.owner_name} replies in the deal's chat and then sends a quote. Nothing is owed until you accept one.
       </p>
+      <fieldset style={{ border: 0, padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+        <legend className="small" style={{ fontWeight: 600, marginBottom: 6 }}>How many files</legend>
+        <label className="checkline">
+          <input type="radio" name="qty" checked={all} onChange={() => setAll(true)} />
+          <span>{quantityText(null, dataset.file_count)}</span>
+        </label>
+        <label className="checkline">
+          <input type="radio" name="qty" checked={!all} onChange={() => setAll(false)} />
+          <span>Some of it</span>
+        </label>
+        {!all && (
+          <Field label="Number of files" required hint={dataset.file_count ? `Up to ${dataset.file_count.toLocaleString()}` : undefined}>
+            {(id) => <input id={id} className={inputCls} inputMode="numeric" style={{ maxWidth: 200 }} value={qty}
+              onChange={(e) => setQty(e.target.value.replace(/[^0-9]/g, ""))} />}
+          </Field>
+        )}
+      </fieldset>
       <Field label="What will you use it for?" required>
         {(id) => <textarea id={id} className={textareaCls} value={use} onChange={(e) => setUse(e.target.value)} />}
       </Field>
@@ -250,7 +270,7 @@ function AskQuoteDialog({ dataset, onClose }: { dataset: Dataset; onClose: () =>
         value={uses}
         onChange={setUses}
       />
-      <Field label="Anything else for the seller">
+      <Field label="First message to the seller" hint="Which files, how you want them delivered, deadlines. It opens the chat.">
         {(id) => <textarea id={id} className={textareaCls} value={message} onChange={(e) => setMessage(e.target.value)} />}
       </Field>
       {ask.isError && <Callout tone="critical" title="Not sent">{errText(ask.error)}</Callout>}
@@ -278,6 +298,7 @@ export function DealsPage() {
               { header: "Dataset", cell: (r) => r.dataset_title, sortBy: (r) => r.dataset_title, className: "cell-primary" },
               { header: "You are", cell: (r) => (r.my_side === "buyer" ? "Buying" : r.my_side === "seller" ? "Selling" : "Operations") },
               { header: "With", cell: (r) => (r.my_side === "buyer" ? r.seller_name : r.buyer_name) },
+              { header: "Files", className: "num", cell: (r) => quantityText(r.quote_quantity ?? r.requested_quantity, r.file_count) },
               {
                 header: "Status",
                 sortBy: (r) => r.status,
@@ -287,7 +308,7 @@ export function DealsPage() {
                 },
               },
               { header: "Quote", className: "num", cell: (r) => (r.quote_amount ? money(r.quote_amount, r.currency ?? "USD") : "—") },
-              { header: "Asked", cell: (r) => fmtDate(r.created_at), sortBy: (r) => r.created_at },
+              { header: "Updated", cell: (r) => fmtDate(r.updated_at), sortBy: (r) => r.updated_at },
               { header: "Actions", hideHeader: true, className: "right", cell: (r) => <Link className="btn" data-size="sm" to={`/catalogue/deals/${r.id}`}>Open</Link> },
             ]}
           />
@@ -304,16 +325,21 @@ export function DealPage() {
   const [quoting, setQuoting] = useState(false);
   const [declining, setDeclining] = useState(false);
   const [accepting, setAccepting] = useState(false);
+  const [paying, setPaying] = useState(false);
   const deal = useQuery({ queryKey: ["catalogue-deal", id], queryFn: () => get<DatasetDeal>(`/catalogue/deals/${id}`) });
   const refresh = () => {
     void qc.invalidateQueries({ queryKey: ["catalogue-deal", id] });
     void qc.invalidateQueries({ queryKey: ["catalogue-deals"] });
-    void qc.invalidateQueries({ queryKey: ["catalogue-licences"] });
   };
   const withdraw = useMutation({
     mutationFn: () => post(`/catalogue/deals/${id}/withdraw`),
     onSuccess: () => { refresh(); toast("Quote request withdrawn"); },
     onError: (e) => toast("Could not withdraw", errText(e), "critical"),
+  });
+  const delivered = useMutation({
+    mutationFn: () => post(`/catalogue/deals/${id}/delivered`),
+    onSuccess: () => { refresh(); toast("Marked delivered", "The buyer has been told."); },
+    onError: (e) => toast("Not saved", errText(e), "critical"),
   });
   const k = deal.data;
   if (deal.isLoading) return <View title="Quote"><Skeleton rows={5} label="Loading the quote" /></View>;
@@ -326,33 +352,37 @@ export function DealPage() {
   return (
     <View
       title={`Quote · ${k.dataset_title}`}
-      sub={<>{buyer ? `From ${k.seller_name}` : `For ${k.buyer_name}`} · version {k.version_number}</>}
+      sub={buyer ? `From ${k.seller_name}` : `For ${k.buyer_name}`}
       actions={<Pill tone={st.tone}>{st.label}</Pill>}
     >
       <CatalogueTabs current="deals" />
       <div className="pubgrid">
         <div style={{ display: "flex", flexDirection: "column", gap: 16, minWidth: 0 }}>
+          <DealChat deal={k} />
           <Panel title="The request" sub={`Asked ${fmtDateTime(k.created_at)}`}>
             <Dl rows={[
               ["Dataset", <Link key="d" to={`/catalogue/${k.dataset_slug}`}>{k.dataset_title}</Link>],
               ["Buyer", k.buyer_name ?? "—"],
+              ["Files asked for", quantityText(k.requested_quantity, k.file_count)],
               ["Intended use", k.intended_use],
               ["Uses asked for", usesText(k.requested_uses)],
-              ["Message", k.message || "—"],
             ]} />
           </Panel>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Panel title="The quote" sub={k.quoted_at ? `Sent ${fmtDateTime(k.quoted_at)}` : "Not quoted yet"}>
             {k.quote_amount ? (
               <Dl rows={[
                 ["Price", <b key="p">{money(k.quote_amount, k.currency ?? "USD")}</b>],
+                ["Files", quantityText(k.quote_quantity, k.file_count)],
                 ["Uses covered", usesText(k.quote_uses)],
                 ["Terms", <div key="t" style={{ whiteSpace: "pre-wrap" }}>{k.quote_terms || "The listing's licence terms"}</div>],
+                ...(k.paid_at ? [["Paid", `${fmtDate(k.paid_at)}${k.invoice_number ? ` · invoice ${k.invoice_number}` : ""}`] as [string, string]] : []),
+                ...(k.delivered_at ? [["Delivered", fmtDate(k.delivered_at)] as [string, string]] : []),
               ]} />
-            ) : <p className="muted" style={{ margin: 0 }}>{seller ? "Send a price and terms." : "The seller has not replied yet."}</p>}
+            ) : <p className="muted" style={{ margin: 0 }}>{seller ? "Agree the files and price in the chat, then send a quote." : "The seller has not quoted yet."}</p>}
             {k.decision_note && <Callout tone="neutral" title="Note">{k.decision_note}</Callout>}
           </Panel>
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Panel title="Next step">
             {seller && live && (
               <div className="btnrow">
@@ -372,19 +402,22 @@ export function DealPage() {
                 <Button onClick={() => withdraw.mutate()} disabled={withdraw.isPending}>Withdraw the request</Button>
               </>
             )}
-            {k.status === "accepted" && (
+            {k.status === "accepted" && (seller ? (
+              <>
+                <p className="small" style={{ margin: 0 }}>Invoice the buyer, and mark the deal paid once the money arrives.</p>
+                <Button variant="primary" onClick={() => setPaying(true)}>Mark paid</Button>
+              </>
+            ) : <p className="small" style={{ margin: 0 }}>The seller will invoice you. Payment is between you and them.</p>)}
+            {k.status === "paid" && (seller ? (
               <>
                 <p className="small" style={{ margin: 0 }}>
-                  {k.licence_status === "active"
-                    ? "The licence is active."
-                    : seller
-                      ? "Invoice the buyer, then mark the licence paid on the Licences tab. The files open to them then."
-                      : "The seller will invoice you. The files open once they mark it paid."}
+                  Hand the {quantityText(k.quote_quantity, k.file_count).toLowerCase()} over to the buyer, then mark the deal delivered.
                 </p>
-                <Link className="btn" to="/catalogue/licences">Licences</Link>
+                <Button variant="primary" onClick={() => delivered.mutate()} disabled={delivered.isPending}>Mark delivered</Button>
               </>
-            )}
-            {!live && k.status !== "accepted" && <p className="small muted" style={{ margin: 0 }}>Nothing more to do.</p>}
+            ) : <p className="small" style={{ margin: 0 }}>Paid. The seller will hand the files over to you directly.</p>)}
+            {k.status === "delivered" && <p className="small" style={{ margin: 0 }}>Delivered on {fmtDate(k.delivered_at)}. Nothing more to do.</p>}
+            {(k.status === "declined" || k.status === "withdrawn") && <p className="small muted" style={{ margin: 0 }}>Nothing more to do.</p>}
           </Panel>
         </div>
       </div>
@@ -400,20 +433,96 @@ export function DealPage() {
         />
       )}
       {accepting && <AcceptDialog deal={k} onClose={() => setAccepting(false)} onDone={() => { refresh(); toast("Quote accepted", "The seller will invoice you."); }} />}
+      {paying && <MarkPaidDialog deal={k} onClose={() => setPaying(false)} onDone={() => { refresh(); toast("Marked paid"); }} />}
     </View>
+  );
+}
+
+/** The conversation on a deal. Buyer and seller write; Ops read. It refreshes
+ *  while the page is open, so the other side's replies appear by themselves. */
+function DealChat({ deal }: { deal: DatasetDeal }) {
+  const qc = useQueryClient();
+  const [body, setBody] = useState("");
+  const end = useRef<HTMLDivElement>(null);
+  const messages = useQuery({
+    queryKey: ["catalogue-deal-messages", deal.id],
+    queryFn: () => get<DealMessage[]>(`/catalogue/deals/${deal.id}/messages`),
+    refetchInterval: 15_000,
+  });
+  const rows = messages.data ?? [];
+  useEffect(() => {
+    end.current?.scrollIntoView?.({ block: "nearest" });
+  }, [rows.length]);
+  const send = useMutation({
+    mutationFn: () => post<DealMessage>(`/catalogue/deals/${deal.id}/messages`, { body: body.trim() }),
+    onSuccess: () => {
+      setBody("");
+      void qc.invalidateQueries({ queryKey: ["catalogue-deal-messages", deal.id] });
+      void qc.invalidateQueries({ queryKey: ["catalogue-deal", deal.id] });
+    },
+  });
+  const closed = deal.status === "declined" || deal.status === "withdrawn";
+  const party = deal.my_side !== "operations";
+  return (
+    <Panel
+      title="Chat"
+      sub={party ? `With ${deal.my_side === "buyer" ? deal.seller_name : deal.buyer_name}: agree which files, how many, and the price` : "Between the buyer and the seller; operations read only"}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, maxHeight: 360, overflowY: "auto" }} aria-live="polite">
+        {messages.isLoading ? <Skeleton rows={3} label="Loading the chat" /> : rows.length === 0 ? (
+          <p className="muted" style={{ margin: 0 }}>No messages yet.</p>
+        ) : rows.map((m) => (
+          <div key={m.id} style={{
+            alignSelf: m.mine ? "flex-end" : "flex-start", maxWidth: "80%",
+            background: m.mine ? "var(--accent-soft, var(--surface-2))" : "var(--surface-2)",
+            border: "1px solid var(--line)", borderRadius: "var(--r-control)", padding: "8px 10px",
+          }}>
+            <div className="small muted">{m.sender_name} · {fmtDateTime(m.created_at)}</div>
+            <div style={{ whiteSpace: "pre-wrap" }}>{m.body}</div>
+          </div>
+        ))}
+        <div ref={end} />
+      </div>
+      {party && !closed && (
+        <form
+          style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 12 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (body.trim()) send.mutate();
+          }}
+        >
+          <textarea className={textareaCls} aria-label="Message" placeholder="Write a message…" maxLength={4000}
+            value={body} onChange={(e) => setBody(e.target.value)} />
+          <div className="btnrow">
+            <Button type="submit" variant="primary" disabled={!body.trim() || send.isPending}>
+              {send.isPending ? "Sending…" : "Send"}
+            </Button>
+            {send.isError && <span className="small" style={{ color: "var(--t-critical)" }}>{errText(send.error)}</span>}
+          </div>
+        </form>
+      )}
+      {closed && <p className="small muted" style={{ margin: "8px 0 0" }}>This deal is closed; the chat is read-only.</p>}
+    </Panel>
   );
 }
 
 function QuoteDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: () => void; onDone: () => void }) {
   const [amount, setAmount] = useState(deal.quote_amount ?? "");
   const [currency, setCurrency] = useState(deal.currency ?? "USD");
+  const startQty = deal.quote_quantity ?? deal.requested_quantity;
+  const [all, setAll] = useState(startQty == null);
+  const [qty, setQty] = useState(startQty != null ? String(startQty) : "");
   const [terms, setTerms] = useState(deal.quote_terms ?? "");
   const [uses, setUses] = useState<PermittedUse[]>(deal.quote_uses.length ? deal.quote_uses : deal.requested_uses);
+  const n = Number(qty);
+  const qtyOk = all || (Number.isInteger(n) && n > 0 && (!deal.file_count || n <= deal.file_count));
   const send = useMutation({
-    mutationFn: () => post(`/catalogue/deals/${deal.id}/quote`, { amount, currency, terms: terms.trim() || null, uses }),
+    mutationFn: () => post(`/catalogue/deals/${deal.id}/quote`, {
+      amount, currency, quantity: all ? null : n, terms: terms.trim() || null, uses,
+    }),
     onSuccess: () => { onDone(); onClose(); },
   });
-  const ok = Number(amount) >= 0 && amount.trim() !== "" && /^[A-Za-z]{3}$/.test(currency) && uses.length > 0;
+  const ok = Number(amount) >= 0 && amount.trim() !== "" && /^[A-Za-z]{3}$/.test(currency) && uses.length > 0 && qtyOk;
   return (
     <Dialog
       title={deal.status === "quoted" ? "Revise the quote" : "Send a quote"}
@@ -429,6 +538,23 @@ function QuoteDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: ()
         </>
       }
     >
+      <fieldset style={{ border: 0, padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 6 }}>
+        <legend className="small" style={{ fontWeight: 600, marginBottom: 6 }}>Files the quote covers, as agreed in the chat</legend>
+        <label className="checkline">
+          <input type="radio" name="qqty" checked={all} onChange={() => setAll(true)} />
+          <span>{quantityText(null, deal.file_count)}</span>
+        </label>
+        <label className="checkline">
+          <input type="radio" name="qqty" checked={!all} onChange={() => setAll(false)} />
+          <span>A number of files</span>
+        </label>
+        {!all && (
+          <Field label="Number of files" required hint={deal.file_count ? `Up to ${deal.file_count.toLocaleString()}` : undefined}>
+            {(id) => <input id={id} className={inputCls} inputMode="numeric" style={{ maxWidth: 200 }} value={qty}
+              onChange={(e) => setQty(e.target.value.replace(/[^0-9]/g, ""))} />}
+          </Field>
+        )}
+      </fieldset>
       <div className="formgrid">
         <Field label="Price" required>{(id) => <input id={id} className={inputCls} inputMode="decimal" value={amount} onChange={(e) => setAmount(e.target.value)} />}</Field>
         <Field label="Currency" required hint="Three letters, e.g. USD or INR">
@@ -436,7 +562,7 @@ function QuoteDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: ()
         </Field>
       </div>
       <CheckGroup label="Uses the licence covers" options={PERMITTED_USES} value={uses} onChange={setUses} />
-      <Field label="Terms" hint="Anything beyond the listing's licence terms: delivery, exclusivity window, what happens to withdrawn files.">
+      <Field label="Terms" hint="Anything beyond the listing's licence terms: which files, how and when you deliver them.">
         {(id) => <textarea id={id} className={textareaCls} value={terms} onChange={(e) => setTerms(e.target.value)} />}
       </Field>
       {send.isError && <Callout tone="critical" title="Not sent">{errText(send.error)}</Callout>}
@@ -466,173 +592,45 @@ function AcceptDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: (
     >
       <Dl rows={[
         ["Price", money(deal.quote_amount, deal.currency ?? "USD")],
+        ["Files", quantityText(deal.quote_quantity, deal.file_count)],
         ["Uses covered", usesText(deal.quote_uses)],
         ["Terms", <div key="t" style={{ whiteSpace: "pre-wrap" }}>{deal.quote_terms || "The listing's licence terms"}</div>],
       ]} />
       <p className="small muted" style={{ margin: 0 }}>
-        Accepting issues a licence on these terms for version {deal.version_number}. {deal.seller_name} then invoices you;
-        payment is between you and them. The files open once they mark it paid.
+        Accepting fixes these terms. {deal.seller_name} then invoices you; payment is between you and them, and they hand
+        the files over to you directly.
       </p>
       {accept.isError && <Callout tone="critical" title="Not accepted">{errText(accept.error)}</Callout>}
     </Dialog>
   );
 }
 
-/* --- licences ------------------------------------------------------------------ */
-
-export function LicencesPage() {
-  const qc = useQueryClient();
-  const toast = useToast();
-  const [paying, setPaying] = useState<DatasetLicence | null>(null);
-  const [open, setOpen] = useState<string | null>(null);
-  const lic = useQuery({ queryKey: ["catalogue-licences"], queryFn: () => get<DatasetLicence[]>("/catalogue/licences") });
-  const rows = lic.data ?? [];
-  const download = async (l: DatasetLicence) => {
-    try {
-      const csv = await getText(`/catalogue/licences/${l.id}/manifest`);
-      const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${l.dataset_slug}-v${l.version_number}-manifest.csv`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch (e) {
-      toast("Could not download the manifest", errText(e), "critical");
-    }
-  };
-  const withdrawnNotices = rows.filter((l) => l.my_side === "buyer" && l.withdrawn_count > 0);
-  return (
-    <View title="Licences" sub="Datasets you have licensed, and licences you have issued as a seller.">
-      <CatalogueTabs current="licences" />
-      {withdrawnNotices.length > 0 && (
-        <Callout tone="attention" title="Files withdrawn from datasets you hold">
-          {withdrawnNotices.map((l) => (
-            <div key={l.id}>
-              {l.withdrawn_count} file{l.withdrawn_count === 1 ? "" : "s"} withdrawn from {l.dataset_title}.{" "}
-              <button type="button" className="linkbtn" onClick={() => setOpen(l.id)} style={{ background: "none", border: 0, padding: 0, color: "var(--accent)", cursor: "pointer" }}>
-                See which, and why
-              </button>
-            </div>
-          ))}
-        </Callout>
-      )}
-      <Panel flush>
-        {lic.isLoading ? <Skeleton rows={4} label="Loading licences" /> : rows.length === 0 ? (
-          <Empty title="No licences yet" hint="A licence is issued when a quote is accepted." />
-        ) : (
-          <DataTable
-            rows={rows}
-            rowKey={(r) => r.id}
-            columns={[
-              { header: "Dataset", cell: (r) => <Link to={`/catalogue/${r.dataset_slug}`}>{r.dataset_title}</Link>, sortBy: (r) => r.dataset_title, className: "cell-primary" },
-              { header: "Version", cell: (r) => `v${r.version_number}`, className: "num" },
-              { header: "You are", cell: (r) => (r.my_side === "buyer" ? "Buyer" : r.my_side === "seller" ? "Seller" : "Operations") },
-              { header: "With", cell: (r) => (r.my_side === "buyer" ? r.seller_name : r.buyer_name) },
-              { header: "Amount", className: "num", cell: (r) => money(r.amount, r.currency), sortBy: (r) => Number(r.amount) },
-              {
-                header: "Status",
-                cell: (r) => {
-                  const m = statusMeta(licenceStatus, r.status);
-                  return <>
-                    <Pill tone={m.tone}>{m.label}</Pill>
-                    {r.withdrawn_count > 0 && <> <Pill tone="attention">{r.withdrawn_count} withdrawn</Pill></>}
-                  </>;
-                },
-              },
-              { header: "Issued", cell: (r) => fmtDate(r.issued_at), sortBy: (r) => r.issued_at },
-              {
-                header: "Actions",
-                hideHeader: true,
-                className: "right",
-                cell: (r) => (
-                  <div className="rowactions">
-                    {r.my_side === "seller" && r.status === "awaiting_payment" && (
-                      <Button size="sm" variant="primary" onClick={() => setPaying(r)}>Mark paid</Button>
-                    )}
-                    {r.status === "active" && r.my_side !== "seller" && (
-                      <Button size="sm" onClick={() => void download(r)}>Manifest</Button>
-                    )}
-                    <Button size="sm" onClick={() => setOpen(r.id)}>Details</Button>
-                  </div>
-                ),
-              },
-            ]}
-          />
-        )}
-      </Panel>
-      {paying && (
-        <MarkPaidDialog
-          licence={paying}
-          onClose={() => setPaying(null)}
-          onDone={() => { void qc.invalidateQueries({ queryKey: ["catalogue-licences"] }); toast("Marked paid", "The buyer can now download the files."); }}
-        />
-      )}
-      {open && <LicenceDialog id={open} onClose={() => setOpen(null)} />}
-    </View>
-  );
-}
-
-function MarkPaidDialog({ licence, onClose, onDone }: { licence: DatasetLicence; onClose: () => void; onDone: () => void }) {
+function MarkPaidDialog({ deal, onClose, onDone }: { deal: DatasetDeal; onClose: () => void; onDone: () => void }) {
   const [inv, setInv] = useState("");
   const paid = useMutation({
-    mutationFn: () => post(`/catalogue/licences/${licence.id}/paid`, { invoice_number: inv.trim() || null }),
+    mutationFn: () => post(`/catalogue/deals/${deal.id}/paid`, { invoice_number: inv.trim() || null }),
     onSuccess: () => { onDone(); onClose(); },
   });
   return (
     <Dialog
-      title="Mark this licence paid?"
-      sub={`${licence.dataset_title} · ${licence.buyer_name}`}
+      title="Mark this deal paid?"
+      sub={`${deal.dataset_title} · ${deal.buyer_name}`}
       onClose={onClose}
       busy={paid.isPending}
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="primary" disabled={paid.isPending} onClick={() => paid.mutate()}>
-            {paid.isPending ? "Saving…" : `Paid: ${money(licence.amount, licence.currency)}`}
+            {paid.isPending ? "Saving…" : `Paid: ${money(deal.quote_amount, deal.currency ?? "USD")}`}
           </Button>
         </>
       }
     >
       <p className="small muted" style={{ margin: 0 }}>
-        Do this once the money has arrived. The buyer can then download every file of version {licence.version_number}.
-        It cannot be undone, though the licence can be revoked.
+        Do this once the money has arrived. It cannot be undone. Mark the deal delivered after you hand the files over.
       </p>
       <Field label="Your invoice number">{(id) => <input id={id} className={inputCls} value={inv} onChange={(e) => setInv(e.target.value)} />}</Field>
       {paid.isError && <Callout tone="critical" title="Not saved">{errText(paid.error)}</Callout>}
-    </Dialog>
-  );
-}
-
-function LicenceDialog({ id, onClose }: { id: string; onClose: () => void }) {
-  const l = useQuery({ queryKey: ["catalogue-licence", id], queryFn: () => get<DatasetLicence>(`/catalogue/licences/${id}`) });
-  const d = l.data;
-  return (
-    <Dialog title="Licence" sub={d?.dataset_title} onClose={onClose} size="wide" foot={<Button onClick={onClose}>Close</Button>}>
-      {!d ? <Skeleton rows={4} label="Loading the licence" /> : (
-        <>
-          <Dl rows={[
-            ["Dataset", `${d.dataset_title} · version ${d.version_number} · ${sizeText(d.item_count, d.total_bytes)}`],
-            ["Buyer", d.buyer_name ?? "—"],
-            ["Seller", d.seller_name ?? "—"],
-            ["Amount", money(d.amount, d.currency)],
-            ["Licensed uses", usesText(d.permitted_uses)],
-            ["Status", statusMeta(licenceStatus, d.status).label + (d.paid_at ? ` · paid ${fmtDate(d.paid_at)}` : "")],
-            ["Invoice", d.invoice_number || "—"],
-            ["Terms", <div key="t" style={{ whiteSpace: "pre-wrap" }}>{d.terms_snapshot || "The listing's licence terms at the time"}</div>],
-            ["Listing", statusMeta(datasetStatus, d.dataset_status).label],
-          ]} />
-          {(d.withdrawn_items ?? []).length > 0 && (
-            <Callout tone="attention" title="Withdrawn since you licensed it">
-              <ul style={{ margin: 0, paddingLeft: 18 }}>
-                {d.withdrawn_items!.map((w) => (
-                  <li key={w.filename}><b>{w.filename}</b> — {w.withdrawn_reason} ({fmtDate(w.withdrawn_at)})</li>
-                ))}
-              </ul>
-              <p className="small" style={{ margin: "6px 0 0" }}>Your licence terms say what to do with copies you hold.</p>
-            </Callout>
-          )}
-        </>
-      )}
     </Dialog>
   );
 }

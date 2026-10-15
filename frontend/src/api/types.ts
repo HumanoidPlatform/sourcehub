@@ -1022,47 +1022,37 @@ export interface Overview {
   attention: OverviewAttention[];
 }
 
-/* --- dataset catalogue (db/390, api/v1/catalogue.py) ----------------------- */
+/* --- dataset catalogue (db/390 + db/420, api/v1/catalogue.py) ---------------
+ * A listing shows the dataset, how many files it holds and a few samples. The
+ * buyer and seller agree the quantity and price in the deal's chat; the files
+ * change hands outside the platform. */
 
 export type DatasetStatus = "draft" | "in_review" | "published" | "rejected" | "withdrawn";
-export type DealStatus = "requested" | "quoted" | "accepted" | "declined" | "withdrawn";
-export type LicenceStatus = "awaiting_payment" | "active" | "revoked";
+export type DealStatus = "requested" | "quoted" | "accepted" | "paid" | "delivered" | "declined" | "withdrawn";
 
-export interface DatasetVersion {
+/** One of the few files shown on a listing. */
+export interface DatasetSample {
   id: string;
-  number: number;
-  status: "open" | "final";
-  item_count: number;
-  total_bytes: number;
-  /** what relisting left out, and why */
-  notes: string | null;
-  finalized_at: string | null;
-}
-
-export interface DatasetItem {
-  id: string;
-  version_id: string;
   filename: string;
   mime_type: string | null;
   size_bytes: number | null;
-  sha256: string | null;
-  is_sample: boolean;
-  captured_at: string | null;
-  withdrawn_at: string | null;
-  withdrawn_reason: string | null;
   /** owner and operations only */
   copy_status?: "pending" | "copied" | "failed";
   copy_error?: string | null;
+  /** a contract listing's sample: the capture it was copied from */
+  source_asset_id?: string | null;
 }
 
-export interface DatasetEvidence {
-  source: "upload" | "contract";
-  captured_from: string | null;
-  captured_to: string | null;
-  with_device_checks: number;
-  passed_review: boolean;
-  /** never recorded today, so always null */
-  people_in_frame_consent: boolean | null;
+/** An accepted capture of a contract listing, offered to its owner as a sample. */
+export interface ContractCapture {
+  asset_id: string;
+  filename: string | null;
+  mime_type: string | null;
+  size_bytes: number | null;
+  captured_at: string | null;
+  /** a short-lived preview into the client's bucket; null when it cannot be reached */
+  url: string | null;
+  picked: boolean;
 }
 
 export interface Dataset {
@@ -1078,6 +1068,10 @@ export interface Dataset {
   permitted_uses: PermittedUse[];
   licence_terms: string | null;
   indicative_price_text: string | null;
+  /** how many files the dataset holds; counted for a contract listing */
+  file_count: number;
+  total_bytes: number | null;
+  sample_count: number;
   source: "upload" | "contract";
   status: DatasetStatus;
   owner_org_id: string;
@@ -1093,76 +1087,58 @@ export interface Dataset {
   reviewed_at?: string | null;
   created_at?: string;
   updated_at?: string;
-  // list views
-  version_number?: number;
-  item_count?: number;
-  total_bytes?: number;
-  sample_count?: number;
+  // my listings
   pending_copies?: number;
   open_requests?: number;
   // detail view
-  versions?: DatasetVersion[];
-  items?: DatasetItem[];
-  evidence?: DatasetEvidence | null;
+  samples?: DatasetSample[];
   my_deal?: { id: string; status: DealStatus } | null;
 }
 
+/** A quote request, then the agreement: the accepted deal is the contract. */
 export interface DatasetDeal {
   id: string;
   dataset_id: string;
   dataset_title: string;
   dataset_slug: string;
-  version_id: string;
-  version_number: number;
+  /** what the listing holds */
+  file_count: number;
   buyer_org_id: string;
   buyer_name: string | null;
   seller_org_id: string;
   seller_name: string | null;
   intended_use: string;
   requested_uses: PermittedUse[];
+  /** how many files the buyer asked for; null = the whole dataset */
+  requested_quantity: number | null;
   message: string | null;
   status: DealStatus;
   quote_amount: string | null;
   currency: string | null;
   quote_terms: string | null;
   quote_uses: PermittedUse[];
+  /** how many files the quote covers; null = the whole dataset */
+  quote_quantity: number | null;
   quoted_at: string | null;
   decided_at: string | null;
   decision_note: string | null;
+  invoice_number: string | null;
+  paid_at: string | null;
+  delivered_at: string | null;
   created_at: string;
-  licence_id: string | null;
-  licence_status: LicenceStatus | null;
+  updated_at: string;
+  message_count: number;
   my_side: "buyer" | "seller" | "operations";
 }
 
-export interface DatasetLicence {
+export interface DealMessage {
   id: string;
-  deal_id: string;
-  dataset_id: string;
-  dataset_title: string;
-  dataset_slug: string;
-  dataset_status: DatasetStatus;
-  version_id: string;
-  version_number: number;
-  item_count: number;
-  total_bytes: number;
-  withdrawn_count: number;
-  buyer_org_id: string;
-  buyer_name: string | null;
-  seller_org_id: string;
-  seller_name: string | null;
-  permitted_uses: PermittedUse[];
-  terms_snapshot: string | null;
-  amount: string;
-  currency: string;
-  status: LicenceStatus;
-  invoice_number: string | null;
-  paid_at: string | null;
-  revoked_at: string | null;
-  revoked_reason: string | null;
-  issued_at: string;
-  my_side: "buyer" | "seller" | "operations";
-  withdrawn_items?: { filename: string; withdrawn_at: string; withdrawn_reason: string }[];
+  seq: number;
+  sender_org_id: string;
+  sender_name: string;
+  body: string;
+  created_at: string;
+  mine: boolean;
 }
 
 export interface CatalogueLead {
@@ -1170,12 +1146,25 @@ export interface CatalogueLead {
   dataset_id: string;
   dataset_title: string;
   dataset_slug: string;
+  seller_name: string;
   name: string;
   email: string;
   company: string;
   intended_use: string;
   message: string | null;
   status: "new" | "contacted" | "closed";
+  reply_count: number;
+  last_reply_at: string | null;
+  created_at: string;
+}
+
+/** A seller's reply to a public quote request, emailed by the platform (db/430). */
+export interface LeadReply {
+  id: string;
+  lead_id: string;
+  sender_name: string;
+  reply_to: string;
+  body: string;
   created_at: string;
 }
 
@@ -1194,9 +1183,8 @@ export interface PublicDataset {
   indicative_price_text: string | null;
   seller_name: string;
   source?: "upload" | "contract";
-  version_number: number;
-  item_count: number;
-  total_bytes: number;
+  file_count: number;
+  total_bytes: number | null;
   sample_count?: number;
   published_at: string | null;
   samples?: { id: string; filename: string; mime_type: string | null; size_bytes: number | null; url: string }[];

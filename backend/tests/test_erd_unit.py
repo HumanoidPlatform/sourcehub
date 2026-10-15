@@ -54,8 +54,11 @@ def test_every_table_is_read_and_grouped(model: Any) -> None:
     # table and the pricing_basis enum, 37 before db/330 folded
     # onboarding_approval (and its enum) onto the request row; db/350 added
     # capture_batch and its enum; db/380 added rating_kind; db/390 added the
-    # seven catalogue tables and no enum (their states are CHECKed text)
-    assert len(model.tables) == 44
+    # seven catalogue tables and no enum (their states are CHECKed text);
+    # db/400 dropped user_consent; db/420 dropped the version, item and
+    # licence tables and added datahub_dataset_sample and datahub_deal_message;
+    # db/430 added datahub_lead_reply
+    assert len(model.tables) == 43
     assert len(model.enums) == 31
     assert sorted(model.views) == []
 

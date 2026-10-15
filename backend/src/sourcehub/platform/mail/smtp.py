@@ -46,13 +46,19 @@ class SMTPDeliveryError(OSError):
     """
 
 
-def _build(to: str, subject: str, body: str, html: str | None = None) -> EmailMessage:
+def _build(
+    to: str, subject: str, body: str, html: str | None = None, reply_to: str | None = None
+) -> EmailMessage:
     msg = EmailMessage()
     # Gmail rewrites From: to the authenticated mailbox regardless, so send
     # what it expects rather than a fiction it will overwrite.
     msg["From"] = formataddr((settings.smtp_from_name, settings.smtp_from))
     msg["To"] = to
     msg["Subject"] = subject
+    # Sent by the platform for someone else (a seller answering a quote
+    # request): the answer goes to them, not to the platform mailbox.
+    if reply_to:
+        msg["Reply-To"] = reply_to
     # A Message-ID with a real domain keeps this out of the obvious spam
     # buckets; without one some providers generate a suspicious default.
     msg["Message-ID"] = make_msgid(domain=settings.smtp_from.rsplit("@", 1)[-1])
@@ -105,8 +111,10 @@ def _open() -> smtplib.SMTP:
         ) from None
 
 
-def _send_sync(to: str, subject: str, body: str, html: str | None) -> None:
-    msg = _build(to, subject, body, html)
+def _send_sync(
+    to: str, subject: str, body: str, html: str | None, reply_to: str | None = None
+) -> None:
+    msg = _build(to, subject, body, html, reply_to)
     try:
         with _open() as smtp:
             smtp.send_message(msg)
@@ -143,8 +151,10 @@ def _send_many_sync(messages: Sequence[Message]) -> list[str | None]:
     return errors
 
 
-async def send_mail(to: str, subject: str, body: str, html: str | None = None) -> None:
-    await asyncio.to_thread(_send_sync, to, subject, body, html)
+async def send_mail(
+    to: str, subject: str, body: str, html: str | None = None, reply_to: str | None = None
+) -> None:
+    await asyncio.to_thread(_send_sync, to, subject, body, html, reply_to)
 
 
 async def send_many(messages: Sequence[Message]) -> list[str | None]:

@@ -42,10 +42,11 @@ def test_the_migration_follows_0043():
     assert re.search(r'^down_revision = "0043"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_new_file_is_last_in_the_bundle():
+def test_the_new_file_follows_400_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
-    assert m.group(1).split()[-2:] == ["400_no_worker_consent", "410_catalogue_names"]
+    listed = m.group(1).split()
+    assert listed[listed.index("410_catalogue_names") - 1] == "400_no_worker_consent"
 
 
 def test_no_comment_line_ends_a_statement_or_opens_a_body():
@@ -119,6 +120,6 @@ def test_the_catalogue_never_joins_organisation():
     service = SERVICE.read_text(encoding="utf-8")
     assert "JOIN organisation" not in service
     assert "datahub_org_name(d.owner_org_id) AS owner_name" in service
+    # licences went in db/420; the deal is the agreement
     for side in ("buyer", "seller"):
         assert f"datahub_org_name(k.{side}_org_id) AS {side}_name" in service
-        assert f"datahub_org_name(l.{side}_org_id) AS {side}_name" in service

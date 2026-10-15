@@ -3,40 +3,42 @@
 Business rules, and the ONLY public surface of this module.
 
 Beside the RFP marketplace, where a client orders data that does not exist
-yet, the catalogue sells data that does (db/390). Two ways a dataset comes to exist:
+yet, the catalogue lists data that does (db/390, reshaped by db/420). Two ways
+a listing comes to exist:
 
-  * its owner uploads it — a delivery partner's or an aggregator's own data,
-    or a client's exclusive data it now wants to sell;
+  * its owner creates it — a delivery partner's or an aggregator's own data,
+    or a client's exclusive data it now wants to sell — saying how many files
+    it holds and uploading a few samples;
   * the client approves a contract whose request was not exclusive, and the
-    delivery partner chooses to list it: a draft holding copies of the
-    accepted captures.
+    delivery partner chooses to list it: the count comes from the accepted
+    captures, and the partner picks some of them as samples.
 
-Either way the owner describes it, picks the sample files the public will
-see, and submits it; operations publish it or send it back. A buyer asks for
-a quote, the seller quotes, the buyer accepts, and a licence is issued
-awaiting payment; the seller marks the invoice paid and the buyer can then
-download every file of the version it licensed.
+Either way the owner describes it and submits it; operations publish it or
+send it back. A buyer asks for a quote and the two sides agree, in the deal's
+chat, how many files and at what price; the seller quotes, the buyer accepts,
+and the seller marks the deal paid and then delivered. The files change hands
+outside the platform: it keeps nothing of a dataset but its samples.
 
-What the database guarantees, so this module cannot get it wrong
-(db/390): only operations publish or reject; a final version's files cannot
-change except to be withdrawn; a deal's seller and a licence's every term
-come from the listing and the accepted quote, never from the caller; and the
-transition triggers allow each move to one party only. Moves here are one
-conditional UPDATE each, and a trigger's refusal leaves as a CatalogueError.
+What the database guarantees, so this module cannot get it wrong (db/420):
+only operations publish or reject; what a listing says, its count included,
+is fixed once in review; samples change only while the listing is a draft; a
+deal's seller comes from the listing, never the caller; the agreed terms are
+fixed once accepted; and the transition triggers allow each move to one party
+only. Moves here are one conditional UPDATE each, and a trigger's refusal
+leaves as a CatalogueError.
 
-Files live in SourceHub's own storage (platform_target), never a client's
-bucket: relisted captures are copies, made by the sweep (catalogue.sweep).
+Samples live in SourceHub's own storage (platform_target), never a client's
+bucket: a contract listing's samples are copies, made by the sweep
+(catalogue.sweep).
 """
 
 from __future__ import annotations
 
-import csv
-import io
-import json
 import re
 import secrets
 import uuid
 from decimal import Decimal
+from email.utils import formataddr
 from typing import Any
 
 from sqlalchemy import text
@@ -47,6 +49,7 @@ from sourcehub.api.security import AccessClaims
 from sourcehub.db.session import anonymous_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.notify import service as notifier
+from sourcehub.modules.storage import service as storage_svc
 from sourcehub.platform import storage
 
 
@@ -55,8 +58,16 @@ class CatalogueError(Exception):
 
 
 SELLER_KINDS = frozenset({"tenant", "aggregator", "client"})
-MAX_UPLOADS_PER_CALL = 200
+MAX_UPLOADS_PER_CALL = 50
 MAX_SAMPLES = 50
+# captures offered to a contract listing's owner to pick samples from
+MAX_CAPTURES_SHOWN = 300
+MAX_MESSAGE = 4000
+MAX_MESSAGES_PER_DEAL = 500
+
+# A deal still being negotiated, and one that is settled.
+OPEN_DEAL = ("requested", "quoted")
+AGREED_DEAL = ("accepted", "paid", "delivered")
 
 
 # ---------------------------------------------------------------------------
@@ -71,18 +82,12 @@ def _money(value: Any) -> str | None:
 def _reason(e: DBAPIError) -> str:
     """The trigger's own sentence, without the driver's framing."""
     msg = str(getattr(e, "orig", e))
-    for prefix in (
-        "dataset licence",
-        "dataset deal",
-        "dataset version",
-        "dataset item",
-        "dataset ",
-    ):
+    for prefix in ("dataset deal", "dataset sample", "dataset "):
         at = msg.find(prefix)
         if at >= 0:
             line = msg[at:].split("\n", 1)[0].strip()
             # "dataset <uuid>: …" reads better without the id
-            return re.sub(r"^dataset (deal |licence )?[0-9a-f-]{36}: ", "", line)
+            return re.sub(r"^dataset (deal )?[0-9a-f-]{36}: ", "", line)
     if "datahub_dataset_deal_open_key" in msg:
         return "You already have an open quote request for this dataset."
     if "datahub_dataset_deal_not_own" in msg:
@@ -107,11 +112,14 @@ def _safe_filename(name: str) -> str:
 _DATASET_COLUMNS = (
     "d.id, d.owner_org_id, d.source, d.contract_id, d.slug, d.title, d.summary, d.description, "
     "d.category, d.use_cases, d.regions, d.languages, d.permitted_uses, d.licence_terms, "
-    "d.indicative_price_text, d.status, d.submitted_at, d.review_note, d.reviewed_at, "
-    "d.published_at, d.withdrawn_at, d.withdrawn_reason, d.created_at, d.updated_at, "
+    "d.indicative_price_text, d.file_count, d.total_bytes, d.status, d.submitted_at, "
+    "d.review_note, d.reviewed_at, d.published_at, d.withdrawn_at, d.withdrawn_reason, "
+    "d.created_at, d.updated_at, "
     # the seller's name, which organisation's own policies hide from another
     # partner (db/410); never a join, or the listing would vanish with it
-    "datahub_org_name(d.owner_org_id) AS owner_name"
+    "datahub_org_name(d.owner_org_id) AS owner_name, "
+    "(SELECT count(*) FROM datahub_dataset_sample s WHERE s.dataset_id = d.id "
+    "   AND s.copy_status = 'copied') AS sample_count"
 )
 
 
@@ -130,6 +138,9 @@ def _dataset(m: Any, claims: AccessClaims | None) -> dict[str, Any]:
         "permitted_uses": list(m["permitted_uses"] or []),
         "licence_terms": m["licence_terms"],
         "indicative_price_text": m["indicative_price_text"],
+        "file_count": m["file_count"],
+        "total_bytes": m["total_bytes"],
+        "sample_count": m["sample_count"],
         "source": m["source"],
         "status": m["status"],
         "owner_org_id": m["owner_org_id"],
@@ -154,33 +165,21 @@ def _dataset(m: Any, claims: AccessClaims | None) -> dict[str, Any]:
     return out
 
 
-def _version(m: Any) -> dict[str, Any]:
-    return {
-        "id": m["id"],
-        "number": m["number"],
-        "status": m["status"],
-        "item_count": m["item_count"],
-        "total_bytes": m["total_bytes"],
-        "notes": m["notes"],
-        "finalized_at": m["finalized_at"],
-    }
-
-
-def _item(m: Any, *, owner_view: bool) -> dict[str, Any]:
+def _sample(m: Any, *, owner_view: bool) -> dict[str, Any]:
     out = {
         "id": m["id"],
-        "version_id": m["version_id"],
         "filename": m["filename"],
         "mime_type": m["mime_type"],
         "size_bytes": m["size_bytes"],
-        "sha256": m["sha256"],
-        "is_sample": m["is_sample"],
-        "captured_at": m["captured_at"],
-        "withdrawn_at": m["withdrawn_at"],
-        "withdrawn_reason": m["withdrawn_reason"],
     }
     if owner_view:
-        out.update({"copy_status": m["copy_status"], "copy_error": m["copy_error"]})
+        out.update(
+            {
+                "copy_status": m["copy_status"],
+                "copy_error": m["copy_error"],
+                "source_asset_id": m["source_asset_id"],
+            }
+        )
     return out
 
 
@@ -199,25 +198,11 @@ async def _dataset_row(session: AsyncSession, dataset_id: uuid.UUID) -> Any:
     return m
 
 
-async def _open_version(session: AsyncSession, dataset_id: uuid.UUID) -> Any:
-    v = await _one(
-        session,
-        "SELECT * FROM datahub_dataset_version WHERE dataset_id = :id AND status = 'open' "
-        "ORDER BY number DESC LIMIT 1",
-        {"id": dataset_id},
-    )
-    if v is None:
-        raise CatalogueError("This dataset has no open version to change.")
-    return v
-
-
-async def _latest_final(session: AsyncSession, dataset_id: uuid.UUID) -> Any:
-    return await _one(
-        session,
-        "SELECT * FROM datahub_dataset_version WHERE dataset_id = :id AND status = 'final' "
-        "ORDER BY number DESC LIMIT 1",
-        {"id": dataset_id},
-    )
+async def _owned(session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, what: str) -> Any:
+    m = await _dataset_row(session, dataset_id)
+    if m["owner_org_id"] != claims.org_id:
+        raise CatalogueError(f"Only the dataset's owner {what}.")
+    return m
 
 
 async def _ops_org(session: AsyncSession) -> uuid.UUID | None:
@@ -239,7 +224,7 @@ async def list_published(
     category: str | None = None,
 ) -> list[dict[str, Any]]:
     """Every listing on sale, newest first. RLS shows published rows to any
-    signed-in organisation; the latest final version gives the size."""
+    signed-in organisation."""
     where = ["d.status = 'published'"]
     params: dict[str, Any] = {}
     if q:
@@ -252,13 +237,7 @@ async def list_published(
         (
             await session.execute(
                 text(
-                    f"SELECT {_DATASET_COLUMNS}, v.number AS version_number, v.item_count, "
-                    "       v.total_bytes, "
-                    "       (SELECT count(*) FROM datahub_dataset_item i WHERE i.version_id = v.id "
-                    "          AND i.is_sample AND i.withdrawn_at IS NULL) AS sample_count "
-                    "FROM datahub_dataset d "
-                    "JOIN LATERAL (SELECT * FROM datahub_dataset_version v WHERE v.dataset_id = d.id "
-                    "              AND v.status = 'final' ORDER BY v.number DESC LIMIT 1) v ON true "
+                    f"SELECT {_DATASET_COLUMNS} FROM datahub_dataset d "
                     f"WHERE {' AND '.join(where)} ORDER BY d.published_at DESC"
                 ),
                 params,
@@ -267,86 +246,33 @@ async def list_published(
         .mappings()
         .all()
     )
-    out = []
-    for m in rows:
-        d = _dataset(m, claims)
-        d.update(
-            {
-                "version_number": m["version_number"],
-                "item_count": m["item_count"],
-                "total_bytes": m["total_bytes"],
-                "sample_count": m["sample_count"],
-            }
-        )
-        out.append(d)
-    return out
-
-
-async def _evidence(session: AsyncSession, version_id: uuid.UUID, source: str) -> dict[str, Any]:
-    """What can be said about how the files were made, from what is recorded.
-
-    Relisted captures carry their capture time and the device checks from the
-    phone, and every one passed the aggregator's and the partner's review (only
-    'ready' captures are relisted). Nothing is claimed about the people shown
-    in them: no consent from them is recorded.
-    """
-    m = await _one(
-        session,
-        "SELECT count(*) AS n, min(captured_at) AS first, max(captured_at) AS last, "
-        "       count(*) FILTER (WHERE check_summary <> '{}'::jsonb) AS with_checks "
-        "FROM datahub_dataset_item WHERE version_id = :v AND withdrawn_at IS NULL",
-        {"v": version_id},
-    )
-    relisted = source == "contract"
-    return {
-        "source": source,
-        "captured_from": m["first"] if m else None,
-        "captured_to": m["last"] if m else None,
-        "with_device_checks": int(m["with_checks"]) if m else 0,
-        "passed_review": relisted,
-        "people_in_frame_consent": None,
-    }
+    return [_dataset(m, claims) for m in rows]
 
 
 async def dataset_detail(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
 ) -> dict[str, Any]:
-    """A listing as the caller may see it. RLS decides which files: the owner
-    and operations see every one; a buyer with an active licence sees its
-    version's; everyone else, the samples of what is on sale."""
+    """A listing as the caller may see it, with its samples. RLS shows the
+    owner and operations every sample, anyone else the copied ones of a
+    listing on sale."""
     m = await _dataset_row(session, dataset_id)
     d = _dataset(m, claims)
     owner_view = d["is_owner"] or claims.role == "platform_admin"
-    versions = (
+    samples = (
         (
             await session.execute(
-                text("SELECT * FROM datahub_dataset_version WHERE dataset_id = :id ORDER BY number"),
+                text(
+                    "SELECT * FROM datahub_dataset_sample WHERE dataset_id = :id "
+                    + ("" if owner_view else "AND copy_status = 'copied' ")
+                    + "ORDER BY filename"
+                ),
                 {"id": dataset_id},
             )
         )
         .mappings()
         .all()
     )
-    d["versions"] = [_version(v) for v in versions]
-    current = versions[-1] if versions else None
-    if current is not None:
-        items = (
-            (
-                await session.execute(
-                    text(
-                        "SELECT * FROM datahub_dataset_item WHERE version_id = :v "
-                        "ORDER BY is_sample DESC, filename"
-                    ),
-                    {"v": current["id"]},
-                )
-            )
-            .mappings()
-            .all()
-        )
-        d["items"] = [_item(i, owner_view=owner_view) for i in items]
-        d["evidence"] = await _evidence(session, current["id"], m["source"])
-    else:
-        d["items"], d["evidence"] = [], None
+    d["samples"] = [_sample(s, owner_view=owner_view) for s in samples]
     if not owner_view:
         mine = await _one(
             session,
@@ -367,6 +293,26 @@ async def dataset_by_slug(session: AsyncSession, claims: AccessClaims, slug: str
     return await dataset_detail(session, claims, dataset_id)
 
 
+async def sample_url(
+    session: AsyncSession, claims: AccessClaims, sample_id: uuid.UUID
+) -> dict[str, Any]:
+    """A short-lived link to one sample. RLS is the whole access check: a row
+    the caller cannot see is a 404."""
+    m = await _one(
+        session,
+        "SELECT storage_key, filename, copy_status FROM datahub_dataset_sample WHERE id = :id",
+        {"id": sample_id},
+    )
+    if m is None:
+        raise LookupError("sample not found")
+    if m["copy_status"] != "copied":
+        raise CatalogueError("This sample is still being copied in.")
+    url = await storage.presign_get(
+        storage.platform_target(), m["storage_key"], m["filename"], inline=True
+    )
+    return {"url": url}
+
+
 # ---------------------------------------------------------------------------
 # Listing — the owner
 # ---------------------------------------------------------------------------
@@ -382,7 +328,10 @@ _EDITABLE = (
     "permitted_uses",
     "licence_terms",
     "indicative_price_text",
+    "file_count",
+    "total_bytes",
 )
+_ARRAYS = ("use_cases", "regions", "languages", "permitted_uses")
 
 
 async def my_datasets(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
@@ -391,8 +340,8 @@ async def my_datasets(session: AsyncSession, claims: AccessClaims) -> list[dict[
             await session.execute(
                 text(
                     f"SELECT {_DATASET_COLUMNS}, "
-                    "  (SELECT count(*) FROM datahub_dataset_item i WHERE i.dataset_id = d.id "
-                    "     AND i.copy_status = 'pending') AS pending_copies, "
+                    "  (SELECT count(*) FROM datahub_dataset_sample s WHERE s.dataset_id = d.id "
+                    "     AND s.copy_status = 'pending') AS pending_copies, "
                     "  (SELECT count(*) FROM datahub_dataset_deal k WHERE k.dataset_id = d.id "
                     "     AND k.status = 'requested') AS open_requests "
                     "FROM datahub_dataset d "
@@ -423,51 +372,43 @@ async def create_dataset(
         raise CatalogueError("Give the dataset a title.")
     values = {k: fields.get(k) for k in _EDITABLE}
     values["title"] = title
-    for k in ("use_cases", "regions", "languages", "permitted_uses"):
+    values["file_count"] = int(values["file_count"] or 0)
+    for k in _ARRAYS:
         values[k] = list(values[k] or [])
     try:
-        m = (
-            (
-                await session.execute(
-                    text(
-                        "INSERT INTO datahub_dataset (owner_org_id, source, slug, title, summary, description, "
-                        "  category, use_cases, regions, languages, permitted_uses, licence_terms, "
-                        "  indicative_price_text, created_by) "
-                        "VALUES (:org, 'upload', :slug, :title, :summary, :description, "
-                        "  CAST(:category AS request_category), :use_cases, :regions, :languages, "
-                        "  :permitted_uses, :licence_terms, :indicative_price_text, :who) "
-                        "RETURNING id"
-                    ),
-                    {**values, "org": claims.org_id, "slug": slugify(title), "who": claims.user_id},
-                )
+        new_id = (
+            await session.execute(
+                text(
+                    "INSERT INTO datahub_dataset (owner_org_id, source, slug, title, summary, description, "
+                    "  category, use_cases, regions, languages, permitted_uses, licence_terms, "
+                    "  indicative_price_text, file_count, total_bytes, created_by) "
+                    "VALUES (:org, 'upload', :slug, :title, :summary, :description, "
+                    "  CAST(:category AS request_category), :use_cases, :regions, :languages, "
+                    "  :permitted_uses, :licence_terms, :indicative_price_text, :file_count, "
+                    "  :total_bytes, :who) "
+                    "RETURNING id"
+                ),
+                {**values, "org": claims.org_id, "slug": slugify(title), "who": claims.user_id},
             )
-            .mappings()
-            .one()
-        )
-        await session.execute(
-            text(
-                "INSERT INTO datahub_dataset_version (dataset_id, owner_org_id, number) "
-                "VALUES (:d, :org, 1)"
-            ),
-            {"d": m["id"], "org": claims.org_id},
-        )
+        ).scalar_one()
     except DBAPIError as e:
         raise CatalogueError(_reason(e)) from None
     await audit.log(
         session,
         "catalogue.dataset.created",
         f"Started a dataset listing: {title}",
-        [m["id"], claims.org_id],
+        [new_id, claims.org_id],
     )
-    return await dataset_detail(session, claims, m["id"])
+    return await dataset_detail(session, claims, new_id)
 
 
 async def update_dataset(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, fields: dict[str, Any]
 ) -> dict[str, Any]:
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner edits it.")
+    m = await _owned(session, claims, dataset_id, "edits it")
+    if m["source"] == "contract" and ({"file_count", "total_bytes"} & fields.keys()):
+        # A contract listing holds what the contract delivered: counted, not typed.
+        fields = {k: v for k, v in fields.items() if k not in ("file_count", "total_bytes")}
     sets, params = [], {"id": dataset_id}
     for k in _EDITABLE:
         if k not in fields:
@@ -477,8 +418,10 @@ async def update_dataset(
             v = (v or "").strip()
             if not v:
                 raise CatalogueError("A dataset needs a title.")
-        if k in ("use_cases", "regions", "languages", "permitted_uses"):
+        if k in _ARRAYS:
             v = list(v or [])
+        if k == "file_count":
+            v = int(v or 0)
         sets.append(f"{k} = CAST(:{k} AS request_category)" if k == "category" else f"{k} = :{k}")
         params[k] = v
     if not sets:
@@ -490,27 +433,35 @@ async def update_dataset(
     return await dataset_detail(session, claims, dataset_id)
 
 
+async def _sample_room(session: AsyncSession, dataset_id: uuid.UUID, adding: int) -> None:
+    have = (
+        await session.execute(
+            text("SELECT count(*) FROM datahub_dataset_sample WHERE dataset_id = :d"), {"d": dataset_id}
+        )
+    ).scalar_one()
+    if have + adding > MAX_SAMPLES:
+        raise CatalogueError(f"A listing shows at most {MAX_SAMPLES} samples.")
+
+
 async def upload_urls(
     session: AsyncSession,
     claims: AccessClaims,
     dataset_id: uuid.UUID,
     files: list[dict[str, Any]],
 ) -> list[dict[str, Any]]:
-    """Signed PUTs into platform storage, one per file. Nothing is recorded
+    """Signed PUTs into platform storage, one per sample. Nothing is recorded
     until confirm_uploads: a URL handed out and never used leaves no row."""
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner adds files.")
+    await _owned(session, claims, dataset_id, "adds samples")
     if not files:
         return []
     if len(files) > MAX_UPLOADS_PER_CALL:
         raise CatalogueError(f"Send at most {MAX_UPLOADS_PER_CALL} files at a time.")
-    v = await _open_version(session, dataset_id)
+    await _sample_room(session, dataset_id, len(files))
     target = storage.platform_target()
     out = []
     for f in files:
         name = _safe_filename(str(f.get("filename") or ""))
-        key = f"catalogue/{dataset_id}/v{v['number']}/{uuid.uuid4().hex[:12]}-{name}"
+        key = f"catalogue/{dataset_id}/samples/{uuid.uuid4().hex[:12]}-{name}"
         url, headers = await storage.presign_put(target, key)
         out.append({"filename": name, "key": key, "url": url, "headers": headers})
     return out
@@ -522,13 +473,11 @@ async def confirm_uploads(
     dataset_id: uuid.UUID,
     uploads: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """Record files the browser has put. The size comes from storage, never
-    the caller; a key outside this dataset's open version is refused."""
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner adds files.")
-    v = await _open_version(session, dataset_id)
-    prefix = f"catalogue/{dataset_id}/v{v['number']}/"
+    """Record samples the browser has put. The size comes from storage, never
+    the caller; a key outside this dataset's samples is refused."""
+    await _owned(session, claims, dataset_id, "adds samples")
+    await _sample_room(session, dataset_id, len(uploads))
+    prefix = f"catalogue/{dataset_id}/samples/"
     target = storage.platform_target()
     for u in uploads:
         key = str(u.get("key") or "")
@@ -538,26 +487,21 @@ async def confirm_uploads(
             size, content_type = await storage.stat(target, key)
         except LookupError:
             raise CatalogueError(f"{u.get('filename') or key} was not uploaded.") from None
-        sha = str(u.get("sha256") or "").lower() or None
-        if sha is not None and not re.fullmatch(r"[0-9a-f]{64}", sha):
-            sha = None
         try:
             await session.execute(
                 text(
-                    "INSERT INTO datahub_dataset_item (version_id, dataset_id, owner_org_id, storage_key, "
-                    "  filename, mime_type, size_bytes, sha256) "
-                    "VALUES (:v, :d, :org, :key, :name, :mime, :size, :sha) "
-                    "ON CONFLICT (version_id, storage_key) DO NOTHING"
+                    "INSERT INTO datahub_dataset_sample (dataset_id, owner_org_id, storage_key, "
+                    "  filename, mime_type, size_bytes) "
+                    "VALUES (:d, :org, :key, :name, :mime, :size) "
+                    "ON CONFLICT (dataset_id, storage_key) DO NOTHING"
                 ),
                 {
-                    "v": v["id"],
                     "d": dataset_id,
                     "org": claims.org_id,
                     "key": key,
                     "name": _safe_filename(str(u.get("filename") or key.rsplit("/", 1)[-1])),
                     "mime": u.get("content_type") or content_type,
                     "size": size,
-                    "sha": sha,
                 },
             )
         except DBAPIError as e:
@@ -565,71 +509,175 @@ async def confirm_uploads(
     return await dataset_detail(session, claims, dataset_id)
 
 
-async def remove_item(
-    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, item_id: uuid.UUID
+async def remove_sample(
+    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, sample_id: uuid.UUID
 ) -> dict[str, Any]:
-    """Take a file out of an open version. Its blob is left for the
-    lifecycle rule, as attachments are: a delete cannot be undone."""
+    """Take a sample off a draft. Its blob is left for the lifecycle rule, as
+    attachments are: a delete cannot be undone."""
     try:
         gone = (
             await session.execute(
                 text(
-                    "DELETE FROM datahub_dataset_item WHERE id = :id AND dataset_id = :d "
+                    "DELETE FROM datahub_dataset_sample WHERE id = :id AND dataset_id = :d "
                     "AND owner_org_id = :org RETURNING id"
                 ),
-                {"id": item_id, "d": dataset_id, "org": claims.org_id},
+                {"id": sample_id, "d": dataset_id, "org": claims.org_id},
             )
         ).scalar_one_or_none()
     except DBAPIError as e:
         raise CatalogueError(_reason(e)) from None
     if gone is None:
-        raise LookupError("file not found")
+        raise LookupError("sample not found")
     return await dataset_detail(session, claims, dataset_id)
 
 
 async def retry_copies(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
 ) -> dict[str, Any]:
-    """Put every failed copy back in the sweep's queue."""
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner does that.")
-    v = await _open_version(session, dataset_id)
+    """Put every sample that failed to copy back in the sweep's queue."""
+    await _owned(session, claims, dataset_id, "does that")
     await session.execute(
         text(
-            "UPDATE datahub_dataset_item SET copy_status = 'pending', copy_error = NULL "
-            "WHERE version_id = :v AND copy_status = 'failed'"
+            "UPDATE datahub_dataset_sample SET copy_status = 'pending', copy_error = NULL "
+            "WHERE dataset_id = :d AND copy_status = 'failed'"
         ),
-        {"v": v["id"]},
+        {"d": dataset_id},
     )
     return await dataset_detail(session, claims, dataset_id)
 
 
-async def set_samples(
-    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, item_ids: list[uuid.UUID]
+async def _contract_listing(session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID) -> Any:
+    m = await _owned(session, claims, dataset_id, "picks its samples")
+    if m["source"] != "contract" or m["contract_id"] is None:
+        raise CatalogueError("Samples are picked from captures only for a listing made from a contract.")
+    return m
+
+
+async def contract_captures(
+    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
+) -> list[dict[str, Any]]:
+    """The accepted captures of a contract listing, for its owner to pick
+    samples from, each with a short-lived preview link into the client's
+    bucket. The partner delivered these; it reads them as it did then."""
+    m = await _contract_listing(session, claims, dataset_id)
+    rows = (
+        (
+            await session.execute(
+                text(
+                    "SELECT * FROM datahub_relist_candidates(:c) ORDER BY captured_at NULLS LAST "
+                    f"LIMIT {MAX_CAPTURES_SHOWN}"
+                ),
+                {"c": m["contract_id"]},
+            )
+        )
+        .mappings()
+        .all()
+    )
+    picked = set(
+        (
+            await session.execute(
+                text(
+                    "SELECT source_asset_id FROM datahub_dataset_sample "
+                    "WHERE dataset_id = :d AND source_asset_id IS NOT NULL"
+                ),
+                {"d": dataset_id},
+            )
+        )
+        .scalars()
+        .all()
+    )
+    targets: dict[Any, Any] = {}
+    out = []
+    for r in rows:
+        url = None
+        if r["storage_key"] and r["storage_target_id"]:
+            try:
+                if r["storage_target_id"] not in targets:
+                    targets[r["storage_target_id"]] = await storage_svc.resolve_by_id(
+                        session, r["storage_target_id"]
+                    )
+                url = await storage.presign_get(
+                    targets[r["storage_target_id"]],
+                    r["storage_key"],
+                    _safe_filename(r["filename"] or str(r["asset_id"])),
+                    inline=True,
+                )
+            except Exception:  # an unreachable bucket leaves the capture unpreviewed, not the list
+                url = None
+        out.append(
+            {
+                "asset_id": r["asset_id"],
+                "filename": r["filename"],
+                "mime_type": r["mime_type"],
+                "size_bytes": r["size_bytes"],
+                "captured_at": r["captured_at"],
+                "url": url,
+                "picked": r["asset_id"] in picked,
+            }
+        )
+    return out
+
+
+async def pick_samples(
+    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, asset_ids: list[uuid.UUID]
 ) -> dict[str, Any]:
-    """Exactly these files are the public samples. Only while the version is
-    open: samples are part of what operations review."""
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner picks samples.")
-    if len(item_ids) > MAX_SAMPLES:
+    """Exactly these captures are the contract listing's samples. New ones are
+    queued for the sweep to copy; ones no longer picked are removed."""
+    m = await _contract_listing(session, claims, dataset_id)
+    wanted = list(dict.fromkeys(asset_ids))
+    if len(wanted) > MAX_SAMPLES:
         raise CatalogueError(f"Pick at most {MAX_SAMPLES} samples.")
-    v = await _open_version(session, dataset_id)
+    candidates = {
+        r["asset_id"]: r
+        for r in (
+            await session.execute(
+                text("SELECT * FROM datahub_relist_candidates(:c)"), {"c": m["contract_id"]}
+            )
+        )
+        .mappings()
+        .all()
+    }
+    unknown = [a for a in wanted if a not in candidates]
+    if unknown:
+        raise CatalogueError("Pick samples from this contract's accepted captures.")
     try:
         await session.execute(
             text(
-                "UPDATE datahub_dataset_item SET is_sample = (id = ANY(:ids)) "
-                "WHERE version_id = :v AND is_sample IS DISTINCT FROM (id = ANY(:ids))"
+                "DELETE FROM datahub_dataset_sample WHERE dataset_id = :d "
+                "AND source_asset_id IS NOT NULL AND NOT (source_asset_id = ANY(:keep))"
             ),
-            {"ids": list(item_ids), "v": v["id"]},
+            {"d": dataset_id, "keep": wanted},
         )
+        for a in wanted:
+            c = candidates[a]
+            name = _safe_filename(c["filename"] or str(a))
+            await session.execute(
+                text(
+                    "INSERT INTO datahub_dataset_sample (dataset_id, owner_org_id, storage_key, filename, "
+                    "  mime_type, size_bytes, source_asset_id, source_storage_key, "
+                    "  source_storage_target_id, copy_status) "
+                    "VALUES (:d, :org, :key, :name, :mime, :size, :asset, :skey, :starget, 'pending') "
+                    "ON CONFLICT (dataset_id, source_asset_id) WHERE source_asset_id IS NOT NULL "
+                    "DO NOTHING"
+                ),
+                {
+                    "d": dataset_id,
+                    "org": claims.org_id,
+                    "key": f"catalogue/{dataset_id}/samples/{a}-{name}",
+                    "name": name,
+                    "mime": c["mime_type"],
+                    "size": c["size_bytes"],
+                    "asset": a,
+                    "skey": c["storage_key"],
+                    "starget": c["storage_target_id"],
+                },
+            )
     except DBAPIError as e:
         raise CatalogueError(_reason(e)) from None
     return await dataset_detail(session, claims, dataset_id)
 
 
-async def _readiness(session: AsyncSession, m: Any, v: Any) -> list[str]:
+async def _readiness(session: AsyncSession, m: Any) -> list[str]:
     """What stops a listing going to review, as sentences."""
     problems = []
     if not (m["summary"] or "").strip():
@@ -638,36 +686,32 @@ async def _readiness(session: AsyncSession, m: Any, v: Any) -> list[str]:
         problems.append("Say what buyers may use it for.")
     if not (m["licence_terms"] or "").strip():
         problems.append("Add your licence terms.")
+    if not m["file_count"]:
+        problems.append("Say how many files the dataset holds.")
     c = await _one(
         session,
         "SELECT count(*) FILTER (WHERE copy_status = 'copied') AS ready, "
         "       count(*) FILTER (WHERE copy_status = 'pending') AS pending, "
-        "       count(*) FILTER (WHERE copy_status = 'failed') AS failed, "
-        "       count(*) FILTER (WHERE is_sample AND copy_status = 'copied') AS samples "
-        "FROM datahub_dataset_item WHERE version_id = :v",
-        {"v": v["id"]},
+        "       count(*) FILTER (WHERE copy_status = 'failed') AS failed "
+        "FROM datahub_dataset_sample WHERE dataset_id = :d",
+        {"d": m["id"]},
     )
     if c["pending"]:
-        problems.append(f"{c['pending']} files are still being copied in.")
+        problems.append(f"{c['pending']} samples are still being copied in.")
     if c["failed"]:
-        problems.append(f"{c['failed']} files could not be copied; remove them first.")
+        problems.append(f"{c['failed']} samples could not be copied; retry or remove them.")
     if not c["ready"]:
-        problems.append("Add at least one file.")
-    elif not c["samples"]:
-        problems.append("Pick at least one sample file for the public page.")
+        problems.append("Add at least one sample for the listing page.")
     return problems
 
 
 async def submit(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
 ) -> dict[str, Any]:
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner submits it.")
+    m = await _owned(session, claims, dataset_id, "submits it")
     if m["status"] not in ("draft", "rejected"):
         raise CatalogueError(f"A {m['status'].replace('_', ' ')} listing cannot be submitted.")
-    v = await _open_version(session, dataset_id)
-    problems = await _readiness(session, m, v)
+    problems = await _readiness(session, m)
     if problems:
         raise CatalogueError(" ".join(problems))
     await _move(session, dataset_id, m["status"], "in_review")
@@ -693,9 +737,7 @@ async def pull_back(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
 ) -> dict[str, Any]:
     """The owner takes a listing out of review to change it."""
-    m = await _dataset_row(session, dataset_id)
-    if m["owner_org_id"] != claims.org_id:
-        raise CatalogueError("Only the dataset's owner does that.")
+    await _owned(session, claims, dataset_id, "does that")
     await _move(session, dataset_id, "in_review", "draft")
     return await dataset_detail(session, claims, dataset_id)
 
@@ -722,27 +764,11 @@ async def _move(
         raise CatalogueError(f"This listing is no longer {frm.replace('_', ' ')}.")
 
 
-async def _licence_holders(session: AsyncSession, version_ids: list[uuid.UUID]) -> list[uuid.UUID]:
-    return list(
-        (
-            await session.execute(
-                text(
-                    "SELECT DISTINCT buyer_org_id FROM datahub_dataset_licence "
-                    "WHERE version_id = ANY(:v) AND status = 'active'"
-                ),
-                {"v": version_ids},
-            )
-        )
-        .scalars()
-        .all()
-    )
-
-
 async def withdraw_dataset(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, reason: str
 ) -> dict[str, Any]:
-    """Take a listing off sale. Buyers keep what they licensed: their
-    licences and downloads are untouched, and they are told."""
+    """Take a listing off sale. Deals already agreed stand; buyers still
+    negotiating are told."""
     m = await _dataset_row(session, dataset_id)
     if m["owner_org_id"] != claims.org_id and claims.role != "platform_admin":
         raise CatalogueError("Only the dataset's owner or operations withdraws it.")
@@ -750,22 +776,24 @@ async def withdraw_dataset(
     if not reason:
         raise CatalogueError("Say why it is being withdrawn.")
     await _move(session, dataset_id, "published", "withdrawn", {"withdrawn_reason": reason})
-    versions = list(
-        (
-            await session.execute(
-                text("SELECT id FROM datahub_dataset_version WHERE dataset_id = :d"), {"d": dataset_id}
-            )
+    buyers = (
+        await session.execute(
+            text(
+                "SELECT id, buyer_org_id, status FROM datahub_dataset_deal "
+                "WHERE dataset_id = :d AND status <> ALL(ARRAY['declined', 'withdrawn'])"
+            ),
+            {"d": dataset_id},
         )
-        .scalars()
-        .all()
-    )
-    for org in await _licence_holders(session, versions):
+    ).mappings().all()
+    for k in buyers:
+        settled = k["status"] in AGREED_DEAL
         await notifier.notify(
             session,
-            org,
-            f"{m['title']} is no longer on sale ({reason}). Your licence is unaffected.",
-            "catalogue_licences",
-            {"dataset": str(dataset_id)},
+            k["buyer_org_id"],
+            f"{m['title']} is no longer on sale ({reason})."
+            + (" Your agreed deal stands." if settled else ""),
+            "catalogue_deal",
+            {"id": str(k["id"])},
         )
     await audit.log(
         session,
@@ -774,58 +802,6 @@ async def withdraw_dataset(
         [dataset_id, m["owner_org_id"]],
     )
     return await dataset_detail(session, claims, dataset_id)
-
-
-async def withdraw_item(
-    session: AsyncSession, claims: AccessClaims, item_id: uuid.UUID, reason: str
-) -> dict[str, Any]:
-    """A file must come out of a version already sold — a person asked, or a
-    problem was found. The row stays with its reason; every organisation
-    holding an active licence on that version is told which file. What a
-    buyer must then do with its copy is for the licence terms to say."""
-    reason = (reason or "").strip()
-    if not reason:
-        raise CatalogueError("Say why the file is being withdrawn.")
-    it = await _one(
-        session,
-        "SELECT i.*, d.title, d.owner_org_id AS d_owner FROM datahub_dataset_item i "
-        "JOIN datahub_dataset d ON d.id = i.dataset_id WHERE i.id = :id",
-        {"id": item_id},
-    )
-    if it is None:
-        raise LookupError("file not found")
-    if it["d_owner"] != claims.org_id and claims.role != "platform_admin":
-        raise CatalogueError("Only the dataset's owner or operations withdraws a file.")
-    try:
-        got = (
-            await session.execute(
-                text(
-                    "UPDATE datahub_dataset_item SET withdrawn_at = now(), withdrawn_reason = :why, "
-                    "  withdrawn_by = :who WHERE id = :id AND withdrawn_at IS NULL RETURNING id"
-                ),
-                {"why": reason, "who": claims.user_id, "id": item_id},
-            )
-        ).scalar_one_or_none()
-    except DBAPIError as e:
-        raise CatalogueError(_reason(e)) from None
-    if got is None:
-        raise CatalogueError("That file is already withdrawn.")
-    for org in await _licence_holders(session, [it["version_id"]]):
-        await notifier.notify(
-            session,
-            org,
-            f"{it['filename']} has been withdrawn from {it['title']}: {reason}. "
-            "See your licence terms for what to do with your copy.",
-            "catalogue_licences",
-            {"dataset": str(it["dataset_id"])},
-        )
-    await audit.log(
-        session,
-        "catalogue.item.withdrawn",
-        f"Withdrew {it['filename']} from {it['title']}: {reason}",
-        [it["dataset_id"], it["d_owner"]],
-    )
-    return await dataset_detail(session, claims, it["dataset_id"])
 
 
 # ---------------------------------------------------------------------------
@@ -838,9 +814,7 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
         (
             await session.execute(
                 text(
-                    f"SELECT {_DATASET_COLUMNS}, "
-                    "  (SELECT count(*) FROM datahub_dataset_item i WHERE i.dataset_id = d.id) AS item_count "
-                    "FROM datahub_dataset d "
+                    f"SELECT {_DATASET_COLUMNS} FROM datahub_dataset d "
                     "WHERE d.status IN ('in_review', 'published', 'rejected') "
                     "ORDER BY (d.status = 'in_review') DESC, d.submitted_at DESC NULLS LAST"
                 )
@@ -849,38 +823,19 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
         .mappings()
         .all()
     )
-    out = []
-    for m in rows:
-        d = _dataset(m, claims)
-        d["item_count"] = m["item_count"]
-        out.append(d)
-    return out
+    return [_dataset(m, claims) for m in rows]
 
 
 async def approve(
     session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
 ) -> dict[str, Any]:
-    """Publish, and freeze the version: from here its files are what buyers
-    are licensed to."""
+    """Publish: from here what the listing says, its count included, is what
+    buyers read and is fixed."""
     m = await _dataset_row(session, dataset_id)
-    v = await _open_version(session, dataset_id)
-    problems = await _readiness(session, m, v)
+    problems = await _readiness(session, m)
     if problems:
         raise CatalogueError(" ".join(problems))
     await _move(session, dataset_id, "in_review", "published", {"review_note": None})
-    try:
-        await session.execute(
-            text(
-                "UPDATE datahub_dataset_version SET status = 'final', finalized_at = now(), "
-                "  item_count = (SELECT count(*) FROM datahub_dataset_item WHERE version_id = :v), "
-                "  total_bytes = (SELECT coalesce(sum(size_bytes), 0) FROM datahub_dataset_item "
-                "                 WHERE version_id = :v) "
-                "WHERE id = :v AND status = 'open'"
-            ),
-            {"v": v["id"]},
-        )
-    except DBAPIError as e:
-        raise CatalogueError(_reason(e)) from None
     await notifier.notify(
         session,
         m["owner_org_id"],
@@ -926,7 +881,12 @@ async def list_leads(session: AsyncSession) -> list[dict[str, Any]]:
         (
             await session.execute(
                 text(
-                    "SELECT l.*, d.title AS dataset_title, d.slug AS dataset_slug "
+                    "SELECT l.*, d.title AS dataset_title, d.slug AS dataset_slug, "
+                    "       datahub_org_name(d.owner_org_id) AS seller_name, "
+                    "       (SELECT count(*) FROM datahub_lead_reply r WHERE r.lead_id = l.id) "
+                    "         AS reply_count, "
+                    "       (SELECT max(r.created_at) FROM datahub_lead_reply r "
+                    "         WHERE r.lead_id = l.id) AS last_reply_at "
                     "FROM datahub_lead l JOIN datahub_dataset d ON d.id = l.dataset_id "
                     "ORDER BY (l.status = 'new') DESC, l.created_at DESC LIMIT 500"
                 )
@@ -951,19 +911,118 @@ async def set_lead_status(
     return dict(m)
 
 
+async def list_lead_replies(session: AsyncSession, lead_id: uuid.UUID) -> list[dict[str, Any]]:
+    """What the seller has written back on a request, oldest first. RLS: the
+    seller's own and, for Ops, every one."""
+    if await _one(session, "SELECT 1 FROM datahub_lead WHERE id = :id", {"id": lead_id}) is None:
+        raise LookupError("lead not found")
+    rows = (
+        (
+            await session.execute(
+                text(
+                    "SELECT id, lead_id, sender_name, reply_to, body, created_at "
+                    "FROM datahub_lead_reply WHERE lead_id = :id ORDER BY created_at"
+                ),
+                {"id": lead_id},
+            )
+        )
+        .mappings()
+        .all()
+    )
+    return [dict(r) for r in rows]
+
+
+async def reply_to_lead(
+    session: AsyncSession, claims: AccessClaims, lead_id: uuid.UUID, body: str
+) -> dict[str, Any]:
+    """The seller answers a public quote request from the console. The
+    platform emails it with Reply-To the seller's own address, so whatever
+    the person writes back reaches the seller directly. A new request becomes
+    contacted. If the mail server refuses, nothing is recorded."""
+    from sourcehub.config import PRODUCT, settings
+    from sourcehub.platform.mail.smtp import send_mail
+
+    body = body.strip()
+    if not body:
+        raise CatalogueError("Write a reply first.")
+    lead = await _one(
+        session,
+        "SELECT l.id, l.name, l.email, l.status, d.title, d.slug, d.owner_org_id "
+        "FROM datahub_lead l JOIN datahub_dataset d ON d.id = l.dataset_id "
+        "WHERE l.id = :id FOR UPDATE OF l",
+        {"id": lead_id},
+    )
+    if lead is None or lead["owner_org_id"] != claims.org_id:
+        raise LookupError("lead not found")
+    if lead["status"] == "closed":
+        raise CatalogueError("This request is closed.")
+    await session.execute(
+        text(
+            "INSERT INTO datahub_lead_reply "
+            "(lead_id, org_id, sent_by, sender_name, reply_to, body) "
+            "VALUES (:lead, :org, :who, :name, :reply_to, :body)"
+        ),
+        {
+            "lead": lead_id,
+            "org": claims.org_id,
+            "who": claims.user_id,
+            "name": claims.full_name,
+            "reply_to": claims.email,
+            "body": body,
+        },
+    )
+    if lead["status"] == "new":
+        await session.execute(
+            text("UPDATE datahub_lead SET status = 'contacted', handled_by = :who WHERE id = :id"),
+            {"who": claims.user_id, "id": lead_id},
+        )
+    text_body = (
+        f"{body}\n\n"
+        f"-- \n{claims.full_name}, {claims.org_name}\n"
+        f"Reply to this email to reach {claims.org_name} directly.\n\n"
+        f"You asked about \"{lead['title']}\" on {PRODUCT}:\n"
+        f"{settings.app_base_url.rstrip('/')}/datasets/{lead['slug']}\n"
+    )
+    try:
+        await send_mail(
+            lead["email"],
+            f"Re: your quote request for {lead['title']}",
+            text_body,
+            reply_to=formataddr((f"{claims.full_name}, {claims.org_name}", claims.email)),
+        )
+    except OSError:
+        raise CatalogueError(
+            "The email could not be sent. Nothing was recorded; try again in a moment."
+        ) from None
+    await audit.log(
+        session,
+        "catalogue.lead.replied",
+        f"Replied by email to a quote request on {lead['title']}",
+        [lead_id, claims.org_id],
+    )
+    replies = await list_lead_replies(session, lead_id)
+    return replies[-1]
+
+
 # ---------------------------------------------------------------------------
 # Deals — buyer and seller
 # ---------------------------------------------------------------------------
 
 _DEAL_SELECT = (
-    "SELECT k.*, d.title AS dataset_title, d.slug AS dataset_slug, v.number AS version_number, "
+    "SELECT k.*, d.title AS dataset_title, d.slug AS dataset_slug, d.file_count, "
     "       datahub_org_name(k.buyer_org_id) AS buyer_name, "
-    "       datahub_org_name(k.seller_org_id) AS seller_name, l.id AS licence_id, "
-    "       l.status AS licence_status "
+    "       datahub_org_name(k.seller_org_id) AS seller_name, "
+    "       (SELECT count(*) FROM datahub_deal_message g WHERE g.deal_id = k.id) AS message_count "
     "FROM datahub_dataset_deal k JOIN datahub_dataset d ON d.id = k.dataset_id "
-    "JOIN datahub_dataset_version v ON v.id = k.version_id "
-    "LEFT JOIN datahub_dataset_licence l ON l.deal_id = k.id "
 )
+
+
+def _side(m: Any, claims: AccessClaims) -> str:
+    if m["buyer_org_id"] == claims.org_id:
+        return "buyer"
+    if m["seller_org_id"] == claims.org_id:
+        return "seller"
+    return "operations"
 
 
 def _deal(m: Any, claims: AccessClaims) -> dict[str, Any]:
@@ -972,34 +1031,38 @@ def _deal(m: Any, claims: AccessClaims) -> dict[str, Any]:
         "dataset_id": m["dataset_id"],
         "dataset_title": m["dataset_title"],
         "dataset_slug": m["dataset_slug"],
-        "version_id": m["version_id"],
-        "version_number": m["version_number"],
+        "file_count": m["file_count"],
         "buyer_org_id": m["buyer_org_id"],
         "buyer_name": m["buyer_name"],
         "seller_org_id": m["seller_org_id"],
         "seller_name": m["seller_name"],
         "intended_use": m["intended_use"],
         "requested_uses": list(m["requested_uses"] or []),
+        "requested_quantity": m["requested_quantity"],
         "message": m["message"],
         "status": m["status"],
         "quote_amount": _money(m["quote_amount"]),
         "currency": m["currency"],
         "quote_terms": m["quote_terms"],
         "quote_uses": list(m["quote_uses"] or []),
+        "quote_quantity": m["quote_quantity"],
         "quoted_at": m["quoted_at"],
         "decided_at": m["decided_at"],
         "decision_note": m["decision_note"],
+        "invoice_number": m["invoice_number"],
+        "paid_at": m["paid_at"],
+        "delivered_at": m["delivered_at"],
         "created_at": m["created_at"],
-        "licence_id": m["licence_id"],
-        "licence_status": m["licence_status"],
-        "my_side": (
-            "buyer"
-            if m["buyer_org_id"] == claims.org_id
-            else "seller"
-            if m["seller_org_id"] == claims.org_id
-            else "operations"
-        ),
+        "updated_at": m["updated_at"],
+        "message_count": m["message_count"],
+        "my_side": _side(m, claims),
     }
+
+
+def _quantity(n: int | None, file_count: int | None) -> str:
+    if n is None:
+        return "the whole dataset" + (f" ({file_count:,} files)" if file_count else "")
+    return f"{n:,} files"
 
 
 async def _deal_row(session: AsyncSession, deal_id: uuid.UUID) -> Any:
@@ -1031,6 +1094,7 @@ async def request_quote(
     *,
     intended_use: str,
     requested_uses: list[str],
+    requested_quantity: int | None,
     message: str | None,
 ) -> dict[str, Any]:
     m = await _dataset_row(session, dataset_id)
@@ -1041,48 +1105,48 @@ async def request_quote(
     intended_use = (intended_use or "").strip()
     if not intended_use:
         raise CatalogueError("Say what you intend to use it for.")
-    v = await _latest_final(session, dataset_id)
-    if v is None:
-        raise CatalogueError("This dataset is not on sale.")
+    if requested_quantity is not None and m["file_count"] and requested_quantity > m["file_count"]:
+        raise CatalogueError(f"This dataset holds {m['file_count']:,} files.")
+    message = (message or "").strip() or None
     try:
-        k = (
-            (
-                await session.execute(
-                    text(
-                        "INSERT INTO datahub_dataset_deal (dataset_id, version_id, buyer_org_id, seller_org_id, "
-                        "  requested_by, intended_use, requested_uses, message) "
-                        "VALUES (:d, :v, :org, :org, :who, :use, :uses, :msg) RETURNING id"
-                    ),
-                    {
-                        "d": dataset_id,
-                        "v": v["id"],
-                        "org": claims.org_id,
-                        "who": claims.user_id,
-                        "use": intended_use,
-                        "uses": list(requested_uses),
-                        "msg": (message or "").strip() or None,
-                    },
-                )
+        new_id = (
+            await session.execute(
+                text(
+                    "INSERT INTO datahub_dataset_deal (dataset_id, buyer_org_id, seller_org_id, "
+                    "  requested_by, intended_use, requested_uses, requested_quantity, message) "
+                    "VALUES (:d, :org, :org, :who, :use, :uses, :qty, :msg) RETURNING id"
+                ),
+                {
+                    "d": dataset_id,
+                    "org": claims.org_id,
+                    "who": claims.user_id,
+                    "use": intended_use,
+                    "uses": list(requested_uses),
+                    "qty": requested_quantity,
+                    "msg": message,
+                },
             )
-            .mappings()
-            .one()
-        )
+        ).scalar_one()
     except DBAPIError as e:
         raise CatalogueError(_reason(e)) from None
+    # The buyer's note opens the chat, so the conversation reads from the start.
+    if message:
+        await _append_message(session, claims, new_id, message)
     await notifier.notify(
         session,
         m["owner_org_id"],
-        f"{claims.org_name} asked for a quote for {m['title']}.",
+        f"{claims.org_name} asked for a quote for {m['title']} "
+        f"({_quantity(requested_quantity, m['file_count'])}).",
         "catalogue_deal",
-        {"id": str(k["id"])},
+        {"id": str(new_id)},
     )
     await audit.log(
         session,
         "catalogue.deal.requested",
         f"Asked for a quote for {m['title']}",
-        [k["id"], dataset_id, claims.org_id, m["owner_org_id"]],
+        [new_id, dataset_id, claims.org_id, m["owner_org_id"]],
     )
-    return await get_deal(session, claims, k["id"])
+    return await get_deal(session, claims, new_id)
 
 
 async def _deal_move(
@@ -1107,7 +1171,7 @@ async def _deal_move(
     except DBAPIError as e:
         raise CatalogueError(_reason(e)) from None
     if got is None:
-        raise CatalogueError("This quote has moved on; reload it.")
+        raise CatalogueError("This deal has moved on; reload it.")
 
 
 async def quote(
@@ -1117,6 +1181,7 @@ async def quote(
     *,
     amount: Decimal,
     currency: str,
+    quantity: int | None,
     terms: str | None,
     uses: list[str],
 ) -> dict[str, Any]:
@@ -1125,29 +1190,33 @@ async def quote(
         raise CatalogueError("Only the seller quotes.")
     if not uses:
         raise CatalogueError("Say which uses the quote covers.")
+    if quantity is not None and k["file_count"] and quantity > k["file_count"]:
+        raise CatalogueError(f"The dataset holds {k['file_count']:,} files.")
     await _deal_move(
         session,
         deal_id,
-        ("requested", "quoted"),
+        OPEN_DEAL,
         "quoted",
         {
             "quote_amount": amount,
             "currency": currency.upper(),
+            "quote_quantity": quantity,
             "quote_terms": (terms or "").strip() or None,
             "quote_uses": list(uses),
         },
     )
+    what = _quantity(quantity, k["file_count"])
     await notifier.notify(
         session,
         k["buyer_org_id"],
-        f"{k['seller_name']} quoted {currency.upper()} {amount:,.2f} for {k['dataset_title']}.",
+        f"{k['seller_name']} quoted {currency.upper()} {amount:,.2f} for {what} of {k['dataset_title']}.",
         "catalogue_deal",
         {"id": str(deal_id)},
     )
     await audit.log(
         session,
         "catalogue.deal.quoted",
-        f"Quoted {currency.upper()} {amount:,.2f} for {k['dataset_title']}",
+        f"Quoted {currency.upper()} {amount:,.2f} for {what} of {k['dataset_title']}",
         [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
     )
     return await get_deal(session, claims, deal_id)
@@ -1162,7 +1231,7 @@ async def decline(
     await _deal_move(
         session,
         deal_id,
-        ("requested", "quoted"),
+        OPEN_DEAL,
         "declined",
         {"decision_note": (note or "").strip() or None},
     )
@@ -1189,7 +1258,7 @@ async def withdraw_request(
     k = await _deal_row(session, deal_id)
     if k["buyer_org_id"] != claims.org_id:
         raise CatalogueError("Only the buyer withdraws a quote request.")
-    await _deal_move(session, deal_id, ("requested", "quoted"), "withdrawn")
+    await _deal_move(session, deal_id, OPEN_DEAL, "withdrawn")
     await notifier.notify(
         session,
         k["seller_org_id"],
@@ -1201,291 +1270,198 @@ async def withdraw_request(
 
 
 async def accept(session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID) -> dict[str, Any]:
-    """The buyer accepts the quote as given; the licence is issued in the
-    same transaction, its terms copied off the deal by the database."""
+    """The buyer accepts the quote as given. From here its terms are fixed:
+    the accepted deal is the agreement."""
     k = await _deal_row(session, deal_id)
     if k["buyer_org_id"] != claims.org_id:
         raise CatalogueError("Only the buyer accepts a quote.")
     await _deal_move(session, deal_id, ("quoted",), "accepted")
-    try:
-        # Every column but deal_id is the trigger's to fill. The values here
-        # only satisfy NOT NULL before it runs.
-        await session.execute(
-            text(
-                "INSERT INTO datahub_dataset_licence (deal_id, dataset_id, version_id, buyer_org_id, "
-                "  seller_org_id, amount, currency) "
-                "VALUES (:k, :d, :v, :b, :s, 0, 'USD')"
-            ),
-            {
-                "k": deal_id,
-                "d": k["dataset_id"],
-                "v": k["version_id"],
-                "b": k["buyer_org_id"],
-                "s": k["seller_org_id"],
-            },
-        )
-    except DBAPIError as e:
-        raise CatalogueError(_reason(e)) from None
     await notifier.notify(
         session,
         k["seller_org_id"],
-        f"{k['buyer_name']} accepted your quote for {k['dataset_title']}. Invoice them, and "
-        "mark the licence paid when the money arrives.",
+        f"{k['buyer_name']} accepted your quote for {k['dataset_title']}. Invoice them, mark the "
+        "deal paid when the money arrives, then mark it delivered once you have handed over the files.",
         "catalogue_deal",
         {"id": str(deal_id)},
     )
     await audit.log(
         session,
         "catalogue.deal.accepted",
-        f"Accepted the quote for {k['dataset_title']} ({k['currency']} {_money(k['quote_amount'])})",
+        f"Accepted the quote for {k['dataset_title']} ({k['currency']} {_money(k['quote_amount'])}, "
+        f"{_quantity(k['quote_quantity'], k['file_count'])})",
+        [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
+    )
+    return await get_deal(session, claims, deal_id)
+
+
+async def mark_paid(
+    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, invoice_number: str | None
+) -> dict[str, Any]:
+    """The seller says the buyer has paid. The platform takes no part in the
+    money; this records what the seller says."""
+    k = await _deal_row(session, deal_id)
+    if k["seller_org_id"] != claims.org_id:
+        raise CatalogueError("Only the seller marks a deal paid.")
+    invoice = (invoice_number or "").strip() or None
+    await _deal_move(session, deal_id, ("accepted",), "paid", {"invoice_number": invoice})
+    await notifier.notify(
+        session,
+        k["buyer_org_id"],
+        f"{k['seller_name']} marked your deal for {k['dataset_title']} paid.",
+        "catalogue_deal",
+        {"id": str(deal_id)},
+    )
+    await audit.log(
+        session,
+        "catalogue.deal.paid",
+        f"Marked the deal for {k['dataset_title']} paid" + (f" (invoice {invoice})" if invoice else ""),
+        [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
+    )
+    return await get_deal(session, claims, deal_id)
+
+
+async def mark_delivered(
+    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID
+) -> dict[str, Any]:
+    """The seller says it has handed the files over, outside the platform."""
+    k = await _deal_row(session, deal_id)
+    if k["seller_org_id"] != claims.org_id:
+        raise CatalogueError("Only the seller marks a deal delivered.")
+    await _deal_move(session, deal_id, ("paid",), "delivered")
+    await notifier.notify(
+        session,
+        k["buyer_org_id"],
+        f"{k['seller_name']} says the files for {k['dataset_title']} have been delivered to you.",
+        "catalogue_deal",
+        {"id": str(deal_id)},
+    )
+    await audit.log(
+        session,
+        "catalogue.deal.delivered",
+        f"Marked the deal for {k['dataset_title']} delivered",
         [deal_id, k["dataset_id"], k["buyer_org_id"], k["seller_org_id"]],
     )
     return await get_deal(session, claims, deal_id)
 
 
 # ---------------------------------------------------------------------------
-# Licences
+# The deal's chat
 # ---------------------------------------------------------------------------
 
-_LICENCE_SELECT = (
-    "SELECT l.*, d.title AS dataset_title, d.slug AS dataset_slug, d.status AS dataset_status, "
-    "       v.number AS version_number, v.item_count, v.total_bytes, "
-    "       datahub_org_name(l.buyer_org_id) AS buyer_name, "
-    "       datahub_org_name(l.seller_org_id) AS seller_name, "
-    "       (SELECT count(*) FROM datahub_dataset_item i WHERE i.version_id = l.version_id "
-    "          AND i.withdrawn_at IS NOT NULL) AS withdrawn_count "
-    "FROM datahub_dataset_licence l JOIN datahub_dataset d ON d.id = l.dataset_id "
-    "JOIN datahub_dataset_version v ON v.id = l.version_id "
-)
+
+def _clean_message(body: str | None) -> str:
+    s = (body or "").strip()
+    if not s:
+        raise CatalogueError("Write a message first.")
+    if len(s) > MAX_MESSAGE:
+        raise CatalogueError(f"A message is at most {MAX_MESSAGE} characters.")
+    return s
 
 
-def _licence(m: Any, claims: AccessClaims) -> dict[str, Any]:
+async def _append_message(
+    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, body: str
+) -> dict[str, Any]:
+    # Serialise on a name rather than a row: under RLS a FOR UPDATE needs the
+    # deal's UPDATE policy, which the chat should not depend on.
+    await session.execute(
+        text("SELECT pg_advisory_xact_lock(hashtextextended(:k, 0))"), {"k": f"datahub-deal:{deal_id}"}
+    )
+    seq = (
+        await session.execute(
+            text("SELECT coalesce(max(seq), 0) + 1 FROM datahub_deal_message WHERE deal_id = :d"),
+            {"d": deal_id},
+        )
+    ).scalar_one()
+    if seq > MAX_MESSAGES_PER_DEAL:
+        raise CatalogueError(f"This conversation has reached its limit of {MAX_MESSAGES_PER_DEAL} messages.")
+    try:
+        row = (
+            (
+                await session.execute(
+                    text(
+                        "INSERT INTO datahub_deal_message "
+                        "  (deal_id, seq, sender_org_id, sender_user_id, sender_name, body) "
+                        "VALUES (:d, :seq, :org, :user, "
+                        "        coalesce(nullif(:name, ''), "
+                        "                 (SELECT full_name FROM app_user WHERE id = :user), 'Someone'), "
+                        "        :body) "
+                        "RETURNING id, seq, sender_org_id, sender_name, body, created_at"
+                    ),
+                    {
+                        "d": deal_id,
+                        "seq": seq,
+                        "org": claims.org_id,
+                        "user": claims.user_id,
+                        "name": claims.full_name or "",
+                        "body": body,
+                    },
+                )
+            )
+            .mappings()
+            .one()
+        )
+    except DBAPIError:
+        raise CatalogueError("Only the buyer and the seller write here, while the deal is open.") from None
+    return _message(row, claims)
+
+
+def _message(m: Any, claims: AccessClaims) -> dict[str, Any]:
     return {
         "id": m["id"],
-        "deal_id": m["deal_id"],
-        "dataset_id": m["dataset_id"],
-        "dataset_title": m["dataset_title"],
-        "dataset_slug": m["dataset_slug"],
-        "dataset_status": m["dataset_status"],
-        "version_id": m["version_id"],
-        "version_number": m["version_number"],
-        "item_count": m["item_count"],
-        "total_bytes": m["total_bytes"],
-        "withdrawn_count": m["withdrawn_count"],
-        "buyer_org_id": m["buyer_org_id"],
-        "buyer_name": m["buyer_name"],
-        "seller_org_id": m["seller_org_id"],
-        "seller_name": m["seller_name"],
-        "permitted_uses": list(m["permitted_uses"] or []),
-        "terms_snapshot": m["terms_snapshot"],
-        "amount": _money(m["amount"]),
-        "currency": m["currency"],
-        "status": m["status"],
-        "invoice_number": m["invoice_number"],
-        "paid_at": m["paid_at"],
-        "revoked_at": m["revoked_at"],
-        "revoked_reason": m["revoked_reason"],
-        "issued_at": m["issued_at"],
-        "my_side": (
-            "buyer"
-            if m["buyer_org_id"] == claims.org_id
-            else "seller"
-            if m["seller_org_id"] == claims.org_id
-            else "operations"
-        ),
+        "seq": m["seq"],
+        "sender_org_id": m["sender_org_id"],
+        "sender_name": m["sender_name"],
+        "body": m["body"],
+        "created_at": m["created_at"],
+        "mine": m["sender_org_id"] == claims.org_id,
     }
 
 
-async def _licence_row(session: AsyncSession, licence_id: uuid.UUID) -> Any:
-    m = await _one(session, _LICENCE_SELECT + "WHERE l.id = :id", {"id": licence_id})
-    if m is None:
-        raise LookupError("licence not found")
-    return m
-
-
-async def list_licences(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
-    rows = (
-        (await session.execute(text(_LICENCE_SELECT + "ORDER BY l.issued_at DESC LIMIT 500")))
-        .mappings()
-        .all()
-    )
-    return [_licence(m, claims) for m in rows]
-
-
-async def get_licence(
-    session: AsyncSession, claims: AccessClaims, licence_id: uuid.UUID
-) -> dict[str, Any]:
-    out = _licence(await _licence_row(session, licence_id), claims)
-    items = (
-        (
-            await session.execute(
-                text(
-                    "SELECT filename, withdrawn_at, withdrawn_reason FROM datahub_dataset_item "
-                    "WHERE version_id = :v AND withdrawn_at IS NOT NULL ORDER BY withdrawn_at DESC"
-                ),
-                {"v": out["version_id"]},
-            )
-        )
-        .mappings()
-        .all()
-    )
-    out["withdrawn_items"] = [dict(i) for i in items]
-    return out
-
-
-async def mark_paid(
-    session: AsyncSession, claims: AccessClaims, licence_id: uuid.UUID, invoice_number: str | None
-) -> dict[str, Any]:
-    """The seller says the buyer has paid. Downloads open from here."""
-    m = await _licence_row(session, licence_id)
-    if m["seller_org_id"] != claims.org_id:
-        raise CatalogueError("Only the seller marks a licence paid.")
-    try:
-        got = (
-            await session.execute(
-                text(
-                    "UPDATE datahub_dataset_licence SET status = 'active', invoice_number = :inv "
-                    "WHERE id = :id AND status = 'awaiting_payment' RETURNING id"
-                ),
-                {"inv": (invoice_number or "").strip() or None, "id": licence_id},
-            )
-        ).scalar_one_or_none()
-    except DBAPIError as e:
-        raise CatalogueError(_reason(e)) from None
-    if got is None:
-        raise CatalogueError("This licence is not awaiting payment.")
-    await notifier.notify(
-        session,
-        m["buyer_org_id"],
-        f"Your licence for {m['dataset_title']} is active. The files are ready to download.",
-        "catalogue_licences",
-        {"id": str(licence_id)},
-    )
-    await audit.log(
-        session,
-        "catalogue.licence.paid",
-        f"Marked the licence for {m['dataset_title']} paid"
-        + (
-            f" (invoice {invoice_number.strip()})"
-            if invoice_number and invoice_number.strip()
-            else ""
-        ),
-        [licence_id, m["dataset_id"], m["buyer_org_id"], m["seller_org_id"]],
-    )
-    return await get_licence(session, claims, licence_id)
-
-
-async def revoke(
-    session: AsyncSession, claims: AccessClaims, licence_id: uuid.UUID, reason: str
-) -> dict[str, Any]:
-    reason = (reason or "").strip()
-    if not reason:
-        raise CatalogueError("Say why the licence is revoked.")
-    m = await _licence_row(session, licence_id)
-    if m["seller_org_id"] != claims.org_id and claims.role != "platform_admin":
-        raise CatalogueError("Only the seller or operations revokes a licence.")
-    try:
-        got = (
-            await session.execute(
-                text(
-                    "UPDATE datahub_dataset_licence SET status = 'revoked', revoked_reason = :why "
-                    "WHERE id = :id AND status IN ('awaiting_payment', 'active') RETURNING id"
-                ),
-                {"why": reason, "id": licence_id},
-            )
-        ).scalar_one_or_none()
-    except DBAPIError as e:
-        raise CatalogueError(_reason(e)) from None
-    if got is None:
-        raise CatalogueError("This licence is already revoked.")
-    await notifier.notify(
-        session,
-        m["buyer_org_id"],
-        f"Your licence for {m['dataset_title']} was revoked: {reason}",
-        "catalogue_licences",
-        {"id": str(licence_id)},
-    )
-    await audit.log(
-        session,
-        "catalogue.licence.revoked",
-        f"Revoked the licence for {m['dataset_title']}: {reason}",
-        [licence_id, m["dataset_id"], m["buyer_org_id"], m["seller_org_id"]],
-    )
-    return await get_licence(session, claims, licence_id)
-
-
-async def manifest_csv(session: AsyncSession, claims: AccessClaims, licence_id: uuid.UUID) -> str:
-    """Every file of the licensed version: what it is, how to check it, and
-    whether it has been withdrawn since. Readable only while the licence is
-    active (or by the seller and operations) — RLS hides the files otherwise."""
-    m = await _licence_row(session, licence_id)
-    if m["buyer_org_id"] == claims.org_id and m["status"] != "active":
-        raise CatalogueError("The files open once the seller has marked the licence paid.")
+async def list_messages(
+    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID
+) -> list[dict[str, Any]]:
+    """The whole conversation, oldest first. RLS answers for the deal: a
+    deal the caller cannot see has no messages for it either."""
+    await _deal_row(session, deal_id)
     rows = (
         (
             await session.execute(
                 text(
-                    "SELECT id, filename, mime_type, size_bytes, sha256, captured_at, withdrawn_at, "
-                    "       withdrawn_reason FROM datahub_dataset_item WHERE version_id = :v ORDER BY filename"
+                    "SELECT id, seq, sender_org_id, sender_name, body, created_at "
+                    "FROM datahub_deal_message WHERE deal_id = :d ORDER BY seq"
                 ),
-                {"v": m["version_id"]},
+                {"d": deal_id},
             )
         )
         .mappings()
         .all()
     )
-    buf = io.StringIO()
-    w = csv.writer(buf)
-    w.writerow(
-        [
-            "item_id",
-            "filename",
-            "mime_type",
-            "size_bytes",
-            "sha256",
-            "captured_at",
-            "withdrawn_at",
-            "withdrawn_reason",
-        ]
-    )
-    for r in rows:
-        w.writerow(
-            [
-                r["id"],
-                r["filename"],
-                r["mime_type"] or "",
-                r["size_bytes"] or "",
-                r["sha256"] or "",
-                r["captured_at"] or "",
-                r["withdrawn_at"] or "",
-                r["withdrawn_reason"] or "",
-            ]
-        )
-    return buf.getvalue()
+    return [_message(r, claims) for r in rows]
 
 
-async def item_url(
-    session: AsyncSession, claims: AccessClaims, item_id: uuid.UUID
+async def post_message(
+    session: AsyncSession, claims: AccessClaims, deal_id: uuid.UUID, body: str
 ) -> dict[str, Any]:
-    """A short-lived link to one file. RLS is the whole access check: a row
-    the caller cannot see is a 404. A withdrawn file is not handed out."""
-    m = await _one(
+    """Append one message and tell the other side. No audit line of its own:
+    the row is the record."""
+    body = _clean_message(body)
+    k = await _deal_row(session, deal_id)
+    side = _side(k, claims)
+    if side == "operations":
+        raise CatalogueError("Operations read the conversation and do not post in it.")
+    if k["status"] in ("declined", "withdrawn"):
+        raise CatalogueError("This deal is closed; the conversation is read-only.")
+    msg = await _append_message(session, claims, deal_id, body)
+    other = k["seller_org_id"] if side == "buyer" else k["buyer_org_id"]
+    excerpt = body if len(body) <= 80 else body[:79] + "…"
+    await notifier.notify(
         session,
-        "SELECT storage_key, filename, withdrawn_at, copy_status, owner_org_id "
-        "FROM datahub_dataset_item WHERE id = :id",
-        {"id": item_id},
+        other,
+        f"{claims.org_name} on {k['dataset_title']}: {excerpt}",
+        "catalogue_deal",
+        {"id": str(deal_id)},
     )
-    if m is None:
-        raise LookupError("file not found")
-    is_owner = m["owner_org_id"] == claims.org_id or claims.role == "platform_admin"
-    if m["withdrawn_at"] is not None and not is_owner:
-        raise CatalogueError("This file has been withdrawn.")
-    if m["copy_status"] != "copied":
-        raise CatalogueError("This file is still being copied in.")
-    url = await storage.presign_get(
-        storage.platform_target(), m["storage_key"], m["filename"], inline=True
-    )
-    return {"url": url}
+    return msg
 
 
 # ---------------------------------------------------------------------------
@@ -1508,8 +1484,7 @@ async def public_list() -> list[dict[str, Any]]:
             "permitted_uses": list(r["permitted_uses"] or []),
             "indicative_price_text": r["indicative_price_text"],
             "seller_name": r["seller_name"],
-            "version_number": r["version_number"],
-            "item_count": r["item_count"],
+            "file_count": r["file_count"],
             "total_bytes": r["total_bytes"],
             "sample_count": r["sample_count"],
             "published_at": r["published_at"],
@@ -1562,8 +1537,7 @@ async def public_dataset(slug: str) -> dict[str, Any]:
         "indicative_price_text": d["indicative_price_text"],
         "seller_name": d["seller_name"],
         "source": d["source"],
-        "version_number": d["version_number"],
-        "item_count": d["item_count"],
+        "file_count": d["file_count"],
         "total_bytes": d["total_bytes"],
         "published_at": d["published_at"],
         "samples": out_samples,
@@ -1605,10 +1579,11 @@ async def relist_contract(
     session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID
 ) -> uuid.UUID:
     """The partner's choice, once the client has approved a delivery whose
-    request was not exclusive. Opens (or tops up) the partner's draft listing
-    with one pending copy per accepted capture; the sweep then copies them out
-    of the client's bucket. The workers are not asked: their part ended when
-    the captures were handed on (db/400). Asking again returns the same listing.
+    request was not exclusive. Opens the partner's draft listing, counting
+    the contract's accepted captures (a retake replaces what it retook). No
+    file is copied: the partner picks some captures as samples next, and
+    hands over what it sells itself. The workers are not asked (db/400).
+    Asking again refreshes a draft's count and returns the same listing.
 
     Returns the dataset id.
     """
@@ -1628,111 +1603,57 @@ async def relist_contract(
     if req["status"] != "completed":
         raise CatalogueError("A contract's captures can be listed once the client has approved the delivery.")
 
+    counted = await _one(
+        session,
+        "SELECT count(*)::integer AS n, sum(size_bytes) AS bytes FROM datahub_relist_candidates(:c)",
+        {"c": contract_id},
+    )
     existing = await _one(
         session, "SELECT id, status FROM datahub_dataset WHERE contract_id = :c", {"c": contract_id}
     )
-    if existing is None:
-        title = f"{req['title']} ({req['reference_code']})"
-        ds = (
+    if existing is not None:
+        if existing["status"] == "draft":
             await session.execute(
-                text(
-                    "INSERT INTO datahub_dataset (owner_org_id, source, contract_id, slug, title, category, "
-                    "  regions, created_by) "
-                    "VALUES (:org, 'contract', :c, :slug, :title, :cat, :regions, :who) "
-                    "RETURNING id"
-                ),
-                {
-                    "org": claims.org_id,
-                    "c": contract_id,
-                    "slug": slugify(req["title"]),
-                    "title": title,
-                    "cat": req["category"],
-                    "regions": list(req["countries"] or []),
-                    "who": claims.user_id,
-                },
+                text("UPDATE datahub_dataset SET file_count = :n, total_bytes = :b WHERE id = :d"),
+                {"n": counted["n"], "b": counted["bytes"], "d": existing["id"]},
             )
-        ).scalar_one()
-        await session.execute(
-            text(
-                "INSERT INTO datahub_dataset_version (dataset_id, owner_org_id, number) VALUES (:d, :o, 1)"
-            ),
-            {"d": ds, "o": claims.org_id},
-        )
-    elif existing["status"] != "draft":
         # In review, on sale or withdrawn: listing again changes nothing.
         return existing["id"]
-    else:
-        ds = existing["id"]
-    v = await _one(
-        session,
-        "SELECT id, number FROM datahub_dataset_version WHERE dataset_id = :d AND status = 'open' "
-        "ORDER BY number DESC LIMIT 1",
-        {"d": ds},
-    )
-    if v is None:
-        # Already submitted and published: listing again does not reopen it.
-        return ds
 
-    candidates = (
-        (
-            await session.execute(
-                text("SELECT * FROM datahub_relist_candidates(:c)"), {"c": contract_id}
-            )
+    ds = (
+        await session.execute(
+            text(
+                "INSERT INTO datahub_dataset (owner_org_id, source, contract_id, slug, title, category, "
+                "  regions, file_count, total_bytes, created_by) "
+                "VALUES (:org, 'contract', :c, :slug, :title, :cat, :regions, :n, :b, :who) "
+                "RETURNING id"
+            ),
+            {
+                "org": claims.org_id,
+                "c": contract_id,
+                "slug": slugify(req["title"]),
+                "title": f"{req['title']} ({req['reference_code']})",
+                "cat": req["category"],
+                "regions": list(req["countries"] or []),
+                "n": counted["n"],
+                "b": counted["bytes"],
+                "who": claims.user_id,
+            },
         )
-        .mappings()
-        .all()
-    )
-    added = 0
-    for a in candidates:
-        name =_safe_filename(a["filename"] or f"{a['asset_id']}")
-        got = (
-            await session.execute(
-                text(
-                    "INSERT INTO datahub_dataset_item (version_id, dataset_id, owner_org_id, storage_key, "
-                    "  filename, mime_type, size_bytes, sha256, source_asset_id, source_storage_key, "
-                    "  source_storage_target_id, captured_at, captured_by_user_id, check_summary, "
-                    "  copy_status) "
-                    "VALUES (:v, :d, :org, :key, :name, :mime, :size, :sha, :asset, :skey, :starget, "
-                    "  :cap, :by, CAST(:checks AS jsonb), 'pending') "
-                    "ON CONFLICT (version_id, source_asset_id) WHERE source_asset_id IS NOT NULL "
-                    "DO NOTHING RETURNING id"
-                ),
-                {
-                    "v": v["id"],
-                    "d": ds,
-                    "org": claims.org_id,
-                    "key": f"catalogue/{ds}/v{v['number']}/{a['asset_id']}-{name}",
-                    "name": name,
-                    "mime": a["mime_type"],
-                    "size": a["size_bytes"],
-                    "sha": a["sha256"],
-                    "asset": a["asset_id"],
-                    "skey": a["storage_key"],
-                    "starget": a["storage_target_id"],
-                    "cap": a["captured_at"],
-                    "by": a["captured_by_user_id"],
-                    "checks": _json(a["check_results"]),
-                },
-            )
-        ).scalar_one_or_none()
-        added += got is not None
+    ).scalar_one()
     await notifier.notify(
         session,
         claims.org_id,
-        f"The captures of {req['reference_code']} are being copied into a draft dataset "
-        f"({added} added).",
+        f"{req['reference_code']} is a draft listing of {counted['n']:,} files. Pick a few captures "
+        "as samples, describe it and submit it for review.",
         "catalogue_listing",
         {"id": str(ds)},
     )
     await audit.log(
         session,
         "catalogue.relisted",
-        f"Opened {req['reference_code']} for resale: {added} captures to copy",
+        f"Listed {req['reference_code']} as a draft: {counted['n']} files",
         [ds, contract_id, claims.org_id],
-        {"added": added},
+        {"file_count": counted["n"]},
     )
     return ds
-
-
-def _json(value: Any) -> str:
-    return json.dumps(value if value is not None else {}, default=str)

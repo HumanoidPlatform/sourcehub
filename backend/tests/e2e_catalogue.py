@@ -1,19 +1,22 @@
 """The dataset catalogue, driven through the real API.
 
-list -> upload -> samples -> submit -> (refused: seller publishes) -> Ops
-publishes -> public page (samples only, no storage keys) -> public quote
-request -> client browses (samples only) -> asks for a quote -> seller quotes
--> client accepts -> licence awaiting payment (files still closed) -> seller
-marks paid -> manifest and every file open -> another delivery partner buys
-it too -> seller withdraws a file -> the client is told.
+list (with a file count) -> upload a sample -> submit -> (refused: seller
+publishes) -> Ops publishes -> public page (samples only, no storage keys) ->
+public quote request -> a client asks for 500 of the files -> the two chat ->
+seller quotes for 500 -> client accepts -> seller marks it paid, then delivered
+-> another delivery partner buys the whole dataset the same way -> seller
+withdraws the listing; agreed deals stand.
 
-Needs the compose stack and the API (E2E_API, default :8000). Uploads go to
-the platform's own storage under catalogue/<dataset id>/, and are deleted at
-the end. Every step asserts, and every negative check must be REFUSED.
+The files themselves change hands outside the platform: nothing here downloads
+a dataset, only its sample.
+
+Needs the compose stack and the API (E2E_API, default :8000), and platform
+storage reachable from this process with the same settings the API uses. The
+sample goes to catalogue/<dataset id>/samples/ and is deleted at the end.
+Every step asserts, and every negative check must be REFUSED.
 """
 
 import asyncio
-import hashlib
 import os
 import uuid
 
@@ -51,46 +54,37 @@ partner_buyer = login("partner@northstar.example")
 admin = login("admin@sourcehub.local")
 public = httpx.Client(base_url=B, timeout=T)
 
-# 1 — the seller starts a listing
+# 1 — the seller starts a listing and says how many files it holds
 r = seller.post("/catalogue/datasets", json={"title": f"E2E street scenes {uuid.uuid4().hex[:4]}",
-                                             "category": "image"})
+                                             "category": "image", "file_count": 3000})
 r.raise_for_status()
 ds = r.json()
 DID, SLUG = ds["id"], ds["slug"]
-ok("seller started a draft", SLUG)
+assert ds["file_count"] == 3000
+ok("seller started a draft of 3,000 files", SLUG)
 
-# 2 — two files, straight to storage
-files = {"sample.jpg": b"\xff\xd8\xff sample bytes " + os.urandom(16),
-         "full.jpg": b"\xff\xd8\xff full bytes " + os.urandom(16)}
-r = seller.post(f"/catalogue/datasets/{DID}/upload-urls",
-                json={"files": [{"filename": n} for n in files]})
+# 2 — one sample, straight to storage
+SAMPLE = b"\xff\xd8\xff sample bytes " + os.urandom(16)
+r = seller.post(f"/catalogue/datasets/{DID}/upload-urls", json={"files": [{"filename": "sample.jpg"}]})
 r.raise_for_status()
-uploads = []
-for u in r.json():
-    body = files[u["filename"]]
-    put = httpx.put(u["url"], content=body, headers={**u["headers"], "Content-Type": "image/jpeg"},
-                    timeout=T)
-    assert put.status_code in (200, 201), put.text
-    uploads.append({"key": u["key"], "filename": u["filename"], "content_type": "image/jpeg",
-                    "sha256": hashlib.sha256(body).hexdigest()})
-r = seller.post(f"/catalogue/datasets/{DID}/items", json={"uploads": uploads})
+slot = r.json()[0]
+put = httpx.put(slot["url"], content=SAMPLE, headers={**slot["headers"], "Content-Type": "image/jpeg"}, timeout=T)
+assert put.status_code in (200, 201), put.text
+r = seller.post(f"/catalogue/datasets/{DID}/samples",
+                json={"uploads": [{"key": slot["key"], "filename": "sample.jpg", "content_type": "image/jpeg"}]})
 r.raise_for_status()
-items = {i["filename"]: i for i in r.json()["items"]}
-assert set(items) == set(files) and all(i["size_bytes"] for i in items.values())
-ok("two files uploaded and recorded", ", ".join(f"{k} {v['size_bytes']} B" for k, v in items.items()))
+samples = r.json()["samples"]
+assert [s["filename"] for s in samples] == ["sample.jpg"] and samples[0]["size_bytes"] == len(SAMPLE)
+ok("one sample uploaded and recorded", f"{samples[0]['size_bytes']} B")
 
-# a key outside the dataset is refused
-r = seller.post(f"/catalogue/datasets/{DID}/items",
-                json={"uploads": [{"key": "catalogue/someone-else/v1/x.jpg"}]})
+r = seller.post(f"/catalogue/datasets/{DID}/samples",
+                json={"uploads": [{"key": "catalogue/someone-else/samples/x.jpg"}]})
 refused(r, 409)
 ok("a key outside the dataset is REFUSED")
 
-# 3 — not ready: no summary, no terms, no sample
+# 3 — not ready: no summary, no terms
 refused(seller.post(f"/catalogue/datasets/{DID}/submit"), 409)
 ok("submitting an incomplete listing is REFUSED")
-
-seller.put(f"/catalogue/datasets/{DID}/samples",
-           json={"item_ids": [items["sample.jpg"]["id"]]}).raise_for_status()
 seller.patch(f"/catalogue/datasets/{DID}", json={
     "summary": "Street-level photos, test listing",
     "permitted_uses": ["model_training", "research"],
@@ -100,134 +94,132 @@ seller.patch(f"/catalogue/datasets/{DID}", json={
 r = seller.post(f"/catalogue/datasets/{DID}/submit")
 r.raise_for_status()
 assert r.json()["status"] == "in_review"
-ok("seller picked a sample and submitted", r.json()["status"])
+ok("seller described it and submitted", r.json()["status"])
 
-# 4 — only Ops publishes
+# 4 — only Ops publishes, and what buyers read is fixed in review
 refused(seller.post(f"/catalogue/datasets/{DID}/approve"), 403)
 ok("seller publishing its own listing is REFUSED")
 refused(seller.patch(f"/catalogue/datasets/{DID}", json={"title": "Sneaky edit"}), 409)
-ok("editing a listing in review is REFUSED")
-q = admin.get("/catalogue/review").json()
-assert any(d["id"] == DID and d["status"] == "in_review" for d in q)
+refused(seller.patch(f"/catalogue/datasets/{DID}", json={"file_count": 9999}), 409)
+ok("editing the text or the count in review is REFUSED")
 r = admin.post(f"/catalogue/datasets/{DID}/approve")
 r.raise_for_status()
-assert r.json()["status"] == "published" and r.json()["versions"][0]["status"] == "final"
-ok("Ops published it; version 1 is final", f"{r.json()['versions'][0]['item_count']} files")
+assert r.json()["status"] == "published"
+ok("Ops published it")
 
 # 5 — the public page
 lst = public.get("/public/catalogue").json()
-assert any(d["slug"] == SLUG for d in lst)
+assert any(d["slug"] == SLUG and d["file_count"] == 3000 for d in lst)
 pd = public.get(f"/public/catalogue/{SLUG}").json()
 assert [s["filename"] for s in pd["samples"]] == ["sample.jpg"]
-assert "storage_key" not in repr(pd) and "catalogue/" + DID not in repr(pd).replace(pd["samples"][0]["url"], "")
+assert "storage_key" not in repr(pd)
 got = httpx.get(pd["samples"][0]["url"], timeout=T)
-assert got.status_code == 200 and got.content == files["sample.jpg"]
-ok("public page shows the sample only, and it downloads", f"{len(lst)} on sale")
+assert got.status_code == 200 and got.content == SAMPLE
+ok("public page shows the count and the sample, and it downloads", f"{len(lst)} on sale")
 
 refused(public.post(f"/public/catalogue/{SLUG}/leads", json={
-    "name": "A", "email": "someone@gmail.com", "company": "Lab", "intended_use": "eval"}), 422)
-ok("a public quote request from a free-mail address is REFUSED")
+    "name": "A", "email": "someone@gmail.com", "company": "Lab", "intended_use": "ab"}), 422)
 r = public.post(f"/public/catalogue/{SLUG}/leads", json={
     "name": "A Buyer", "email": "buyer@lab.example", "company": "Lab Co", "intended_use": "evaluation"})
 assert r.status_code == 201, r.text
-assert any(l["dataset_slug"] == SLUG for l in admin.get("/catalogue/leads").json())
-ok("a public quote request reached Ops")
+ok("an incomplete lead is REFUSED; a complete one was received")
 
-# 6 — a client browses: samples only
-d = buyer.get(f"/catalogue/datasets/by-slug/{SLUG}").json()
-assert [i["filename"] for i in d["items"]] == ["sample.jpg"], d["items"]
-refused(buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url"), 404)
-ok("client sees the sample; the full file is NOT FOUND to it")
+# the request is the seller's: it reads and marks it; Ops only read; nobody else sees it
+lead = next(x for x in seller.get("/catalogue/leads").json() if x["dataset_slug"] == SLUG)
+assert lead["email"] == "buyer@lab.example" and lead["status"] == "new"
+assert any(x["id"] == lead["id"] for x in admin.get("/catalogue/leads").json())
+assert not any(x["id"] == lead["id"] for x in partner_buyer.get("/catalogue/leads").json())
+refused(admin.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}), 403, 404)
+refused(partner_buyer.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}), 404)
+refused(admin.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "hi"}), 403)
+r = seller.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "Yes: USD [x] for 500."})
+assert r.status_code == 201, r.text
+assert r.json()["reply_to"] == "partner@helix.example"
+lead = next(x for x in seller.get("/catalogue/leads").json() if x["id"] == lead["id"])
+assert lead["status"] == "contacted" and lead["reply_count"] == 1
+seller.patch(f"/catalogue/leads/{lead['id']}", json={"status": "closed"}).raise_for_status()
+refused(seller.post(f"/catalogue/leads/{lead['id']}/replies", json={"body": "again"}), 409)
+ok("the seller sees the request and replies by email from the platform; Ops only read it;"
+   " another seller sees nothing; a closed request takes no reply")
 
-# 7 — quote, accept, pay
-r = buyer.post(f"/catalogue/datasets/{DID}/deals",
-               json={"intended_use": "train a detector", "requested_uses": ["model_training"]})
+# 6 — a client asks for 500 of the 3,000, and the two agree in the chat
+refused(buyer.post(f"/catalogue/datasets/{DID}/deals",
+                   json={"intended_use": "train", "requested_quantity": 5000}), 409)
+r = buyer.post(f"/catalogue/datasets/{DID}/deals", json={
+    "intended_use": "train a detector", "requested_uses": ["model_training"],
+    "requested_quantity": 500, "message": "Could we take 500, daytime only?"})
 r.raise_for_status()
 DEAL = r.json()["id"]
-refused(buyer.post(f"/catalogue/datasets/{DID}/deals",
-                   json={"intended_use": "again", "requested_uses": []}), 409)
-ok("client asked for a quote; a second open request is REFUSED")
-# A delivery partner holds catalogue.buy too, so its own listing is refused by
-# the service, not the capability.
-refused(seller.post(f"/catalogue/datasets/{DID}/deals",
-                    json={"intended_use": "my own", "requested_uses": []}), 409)
+assert r.json()["requested_quantity"] == 500
+refused(buyer.post(f"/catalogue/datasets/{DID}/deals", json={"intended_use": "again"}), 409)
+ok("client asked for 500 files; more than the listing holds, or a second open request, is REFUSED")
+refused(seller.post(f"/catalogue/datasets/{DID}/deals", json={"intended_use": "my own"}), 409)
 refused(other.get(f"/catalogue/deals/{DEAL}"), 404)
-ok("the seller cannot buy; another client cannot see the deal")
-# A client holds catalogue.quote too (it may sell its own exclusive data), so
-# this is refused by the service and the trigger, not the capability.
+refused(other.get(f"/catalogue/deals/{DEAL}/messages"), 404)
+ok("the seller cannot buy its own; another client cannot see the deal or its chat")
+seller.post(f"/catalogue/deals/{DEAL}/messages", json={"body": "Yes: 500 daytime shots. USD 5,000."}).raise_for_status()
+buyer.post(f"/catalogue/deals/{DEAL}/messages", json={"body": "Agreed."}).raise_for_status()
+msgs = buyer.get(f"/catalogue/deals/{DEAL}/messages").json()
+assert [m["seq"] for m in msgs] == [1, 2, 3]
+refused(admin.post(f"/catalogue/deals/{DEAL}/messages", json={"body": "hi"}), 403, 409)
+ok("buyer and seller chatted; Ops cannot post", f"{len(msgs)} messages")
+
+# 7 — quote, accept, paid, delivered
 refused(buyer.post(f"/catalogue/deals/{DEAL}/quote",
                    json={"amount": "1", "currency": "USD", "uses": ["model_training"]}), 403, 409)
 r = seller.post(f"/catalogue/deals/{DEAL}/quote", json={
-    "amount": "5000.00", "currency": "usd", "terms": "[Training only]", "uses": ["model_training"]})
+    "amount": "5000.00", "currency": "usd", "quantity": 500, "terms": "[Training only]", "uses": ["model_training"]})
 r.raise_for_status()
-assert r.json()["status"] == "quoted" and r.json()["currency"] == "USD"
-ok("only the seller quotes", f"{r.json()['currency']} {r.json()['quote_amount']}")
+assert r.json()["status"] == "quoted" and r.json()["quote_quantity"] == 500 and r.json()["currency"] == "USD"
+ok("only the seller quotes", f"USD {r.json()['quote_amount']} for 500 files")
+refused(seller.post(f"/catalogue/deals/{DEAL}/paid", json={}), 409)
 r = buyer.post(f"/catalogue/deals/{DEAL}/accept")
 r.raise_for_status()
-LIC = r.json()["licence_id"]
-lic = buyer.get(f"/catalogue/licences/{LIC}").json()
-assert lic["status"] == "awaiting_payment" and lic["amount"] == "5000.00"
-refused(buyer.get(f"/catalogue/licences/{LIC}/manifest"), 409)
-refused(buyer.post(f"/catalogue/licences/{LIC}/paid", json={}), 403, 409)
-ok("client accepted; licence awaits payment and the files stay closed")
-r = seller.post(f"/catalogue/licences/{LIC}/paid", json={"invoice_number": "INV-E2E-1"})
+assert r.json()["status"] == "accepted"
+ok("marking paid before acceptance is REFUSED; the client accepted")
+refused(seller.post(f"/catalogue/deals/{DEAL}/delivered"), 409)
+refused(buyer.post(f"/catalogue/deals/{DEAL}/paid", json={}), 403, 409)
+r = seller.post(f"/catalogue/deals/{DEAL}/paid", json={"invoice_number": "INV-E2E-1"})
 r.raise_for_status()
-assert r.json()["status"] == "active"
-man = buyer.get(f"/catalogue/licences/{LIC}/manifest")
-man.raise_for_status()
-rows = man.text.strip().splitlines()
-assert len(rows) == 3 and hashlib.sha256(files["full.jpg"]).hexdigest() in man.text
-full = buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url")
-full.raise_for_status()
-assert httpx.get(full.json()["url"], timeout=T).content == files["full.jpg"]
-ok("seller marked it paid; manifest and every file open to the client", f"{len(rows) - 1} files")
+assert r.json()["status"] == "paid" and r.json()["invoice_number"] == "INV-E2E-1"
+r = seller.post(f"/catalogue/deals/{DEAL}/delivered")
+r.raise_for_status()
+assert r.json()["status"] == "delivered" and r.json()["delivered_at"]
+ok("delivered before paid, or paid by the buyer, is REFUSED; the seller marked it paid, then delivered")
 
-# 7b — another delivery partner buys it the same way
+# 8 — another delivery partner buys the whole dataset the same way
 r = partner_buyer.post(f"/catalogue/datasets/{DID}/deals",
                        json={"intended_use": "benchmark our QA", "requested_uses": ["research"]})
 r.raise_for_status()
 PDEAL = r.json()["id"]
+assert r.json()["requested_quantity"] is None
 seller.post(f"/catalogue/deals/{PDEAL}/quote", json={
-    "amount": "1200.00", "currency": "USD", "uses": ["research"]}).raise_for_status()
-r = partner_buyer.post(f"/catalogue/deals/{PDEAL}/accept")
+    "amount": "12000.00", "currency": "USD", "uses": ["research"]}).raise_for_status()
+partner_buyer.post(f"/catalogue/deals/{PDEAL}/accept").raise_for_status()
+seller.post(f"/catalogue/deals/{PDEAL}/paid", json={}).raise_for_status()
+r = seller.post(f"/catalogue/deals/{PDEAL}/delivered")
 r.raise_for_status()
-PLIC = r.json()["licence_id"]
-seller.post(f"/catalogue/licences/{PLIC}/paid", json={}).raise_for_status()
-full = partner_buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url")
-full.raise_for_status()
-assert httpx.get(full.json()["url"], timeout=T).content == files["full.jpg"]
-ok("a delivery partner asked, was quoted, accepted, and downloads once paid")
+assert r.json()["status"] == "delivered" and r.json()["quote_quantity"] is None
+ok("a delivery partner bought the whole dataset: asked, quoted, accepted, paid, delivered")
 
-# 7c — listing a contract's captures is the partner's own call, on its own contract
+# 9 — listing a contract's captures is the partner's own call, on its own contract
 refused(seller.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
 refused(buyer.post(f"/catalogue/contracts/{uuid.uuid4()}/list"), 404)
 ok("listing an unknown or someone else's contract is NOT FOUND")
 
-# 8 — a file comes out of a sold version
-r = seller.post(f"/catalogue/items/{items['full.jpg']['id']}/withdraw",
-                json={"reason": "the person shown asked"})
-r.raise_for_status()
-refused(buyer.get(f"/catalogue/items/{items['full.jpg']['id']}/url"), 409)
-lic = buyer.get(f"/catalogue/licences/{LIC}").json()
-assert lic["withdrawn_count"] == 1 and lic["withdrawn_items"][0]["filename"] == "full.jpg"
-bell = buyer.get("/notifications").json()
-assert any("withdrawn" in (n.get("body") or "") for n in (bell if isinstance(bell, list) else bell.get("items", [])))
-ok("seller withdrew a sold file; the client is told and the link closes")
-
-# 9 — take the listing off sale and clean up the blobs this run wrote
+# 10 — off sale; agreed deals stand
 r = seller.post(f"/catalogue/datasets/{DID}/withdraw", json={"reason": "end of the e2e run"})
 r.raise_for_status()
 assert not any(d["slug"] == SLUG for d in public.get("/public/catalogue").json())
-assert buyer.get(f"/catalogue/licences/{LIC}").json()["status"] == "active"
-ok("seller withdrew the listing; it left the public page and the licence stands")
+assert buyer.get(f"/catalogue/deals/{DEAL}").json()["status"] == "delivered"
+ok("seller withdrew the listing; it left the public page and the deals stand")
 
 from sourcehub.platform import storage  # noqa: E402
 
+
 async def _cleanup() -> None:
-    t = storage.platform_target()
-    for u in uploads:
-        await storage.delete(t, u["key"])
+    await storage.delete(storage.platform_target(), slot["key"])
 
 asyncio.run(_cleanup())
-ok("deleted the uploaded test files from platform storage")
+ok("deleted the uploaded sample from platform storage")
 print("\nCATALOGUE LOOP OK")

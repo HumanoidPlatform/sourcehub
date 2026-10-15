@@ -141,19 +141,16 @@ export const datasetStatus: StatusMap = {
   withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
 };
 
-// A buyer asks, the seller quotes, the buyer accepts.
+// A buyer asks, the seller quotes, the buyer accepts; the seller marks it
+// paid and then delivered (the files change hands outside the platform).
 export const dealStatus: StatusMap = {
   requested: { label: "Quote requested", tone: "attention", owner: "partner" },
   quoted: { label: "Quoted", tone: "attention", owner: "client" },
-  accepted: { label: "Accepted", tone: "success", owner: null },
+  accepted: { label: "Awaiting payment", tone: "active", owner: "partner" },
+  paid: { label: "Paid · to deliver", tone: "active", owner: "partner" },
+  delivered: { label: "Delivered", tone: "success", owner: null },
   declined: { label: "Declined", tone: "neutral", owner: null },
   withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
-};
-
-export const licenceStatus: StatusMap = {
-  awaiting_payment: { label: "Awaiting payment", tone: "attention", owner: "client" },
-  active: { label: "Active", tone: "success", owner: null },
-  revoked: { label: "Revoked", tone: "critical", owner: null },
 };
 
 export function statusMeta(map: StatusMap, value: string | null | undefined): StatusMeta {

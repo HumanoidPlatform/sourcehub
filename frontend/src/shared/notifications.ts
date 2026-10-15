@@ -63,13 +63,16 @@ export function notificationHref(n: NotificationRow): string | null {
       if (!request) return null;
       return id ? `/requests/${request}?thread=${id}` : `/requests/${request}`;
     }
-    // The dataset catalogue (db/390). A listing goes to its owner's editor; a
-    // quote to the deal room both sides share; a licence to the buyer's list;
-    // a submission or a public quote request to Ops' review page.
+    // The dataset catalogue (db/390, db/420). A listing goes to its owner's
+    // editor; a quote, a chat message, paid and delivered to the deal room
+    // both sides share; a submission to Ops' review page; a public quote
+    // request to the seller's requests (db/430; older ones went to Ops).
+    // Licences went with db/420: an old licence alert opens the deals.
     case "catalogue_listing": return id ? `/catalogue/mine/${id}` : "/catalogue/mine";
     case "catalogue_deal": return id ? `/catalogue/deals/${id}` : "/catalogue/deals";
-    case "catalogue_licences": return "/catalogue/licences";
+    case "catalogue_licences": return "/catalogue/deals";
     case "catalogue_review": return "/ops/catalogue";
+    case "catalogue_leads": return "/catalogue/requests";
     default: return null;
   }
 }
