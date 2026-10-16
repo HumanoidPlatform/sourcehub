@@ -546,7 +546,15 @@ function DealChat({ deal }: { deal: DatasetDeal }) {
             border: "1px solid var(--line)", borderRadius: "var(--r-control)", padding: "8px 10px",
           }}>
             <div className="small muted">
-              {m.sender_name} · {fmtDateTime(m.created_at)}{m.emailed_to && <> · emailed to {m.emailed_to}</>}
+              {m.sender_name} · {fmtDateTime(m.created_at)}
+              {m.emailed_to && (
+                <>
+                  {" · "}
+                  {m.email_status === "queued" ? "emailing" : m.email_status === "failed" ? "email failed to" : "emailed to"}
+                  {" "}{m.emailed_to}
+                  {m.email_status === "failed" && m.email_reason ? ` (${m.email_reason})` : ""}
+                </>
+              )}
             </div>
             <div style={{ whiteSpace: "pre-wrap" }}>{m.body}</div>
           </div>

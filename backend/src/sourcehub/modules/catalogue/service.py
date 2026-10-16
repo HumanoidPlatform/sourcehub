@@ -1281,6 +1281,7 @@ async def _append_message(
 
 
 def _message(m: Any, claims: AccessClaims) -> dict[str, Any]:
+    keys = set(m.keys())
     return {
         "id": m["id"],
         "seq": m["seq"],
@@ -1288,6 +1289,11 @@ def _message(m: Any, claims: AccessClaims) -> dict[str, Any]:
         "sender_name": m["sender_name"],
         "body": m["body"],
         "emailed_to": m["emailed_to"],
+        # db/480: what became of the e-mail a public reply is — queued, sent or
+        # failed with the reason — read from the outbox; None for a message
+        # that was never mailed, or whose record has been purged.
+        "email_status": m["email_status"] if "email_status" in keys else None,
+        "email_reason": m["email_reason"] if "email_reason" in keys else None,
         "created_at": m["created_at"],
         "mine": m["sender_org_id"] == claims.org_id,
     }
@@ -1303,8 +1309,11 @@ async def list_messages(
         (
             await session.execute(
                 text(
-                    "SELECT id, seq, sender_org_id, sender_name, body, emailed_to, created_at "
-                    "FROM datahub_deal_message WHERE deal_id = :d ORDER BY seq"
+                    "SELECT m.id, m.seq, m.sender_org_id, m.sender_name, m.body, m.emailed_to, "
+                    "       m.created_at, ms.state AS email_status, ms.reason AS email_reason "
+                    "FROM datahub_deal_message m "
+                    "LEFT JOIN LATERAL mail_status('datahub_deal_message', m.id) ms ON true "
+                    "WHERE m.deal_id = :d ORDER BY m.seq"
                 ),
                 {"d": deal_id},
             )
@@ -1348,30 +1357,28 @@ async def _email_public_reply(
 ) -> dict[str, Any]:
     """The seller answers a request from the public page. The platform emails
     it with Reply-To the seller's own address, so whatever the person writes
-    back reaches the seller directly. If the mail server refuses, nothing is
-    recorded."""
-    from sourcehub.config import PRODUCT, settings
-    from sourcehub.platform.mail.smtp import send_mail
+    back reaches the seller directly. The mail is queued in this transaction
+    (db/480 mail_outbox) and leaves within seconds; the thread shows whether it
+    did (email_status), and Ops can re-send a failed one."""
+    from sourcehub.config import settings
+    from sourcehub.modules.outbox import service as outbox
 
     msg = await _append_message(session, claims, k["id"], body, emailed_to=k["contact_email"])
-    text_body = (
-        f"{body}\n\n"
-        f"-- \n{claims.full_name}, {claims.org_name}\n"
-        f"Reply to this email to reach {claims.org_name} directly.\n\n"
-        f"You asked about \"{k['dataset_title']}\" on {PRODUCT}:\n"
-        f"{settings.app_base_url.rstrip('/')}/datahub/public/{k['dataset_slug']}\n"
+    base = settings.app_base_url.rstrip("/")
+    await outbox.enqueue_to(
+        session, "public_reply",
+        {
+            "body": body, "sender_name": claims.full_name, "org_name": claims.org_name,
+            "dataset_title": k["dataset_title"],
+            "dataset_url": f"{base}/datahub/public/{k['dataset_slug']}",
+        },
+        to_email=k["contact_email"], to_name=k["contact_name"] or "",
+        entity=("datahub_deal_message", msg["id"]),
+        label=f"DataHub reply · {k['dataset_title']}",
+        reply_to=formataddr((f"{claims.full_name}, {claims.org_name}", claims.email)),
     )
-    try:
-        await send_mail(
-            k["contact_email"],
-            f"Re: your quote request for {k['dataset_title']}",
-            text_body,
-            reply_to=formataddr((f"{claims.full_name}, {claims.org_name}", claims.email)),
-        )
-    except OSError:
-        raise CatalogueError(
-            "The email could not be sent. Nothing was recorded; try again in a moment."
-        ) from None
+    msg["email_status"] = "queued"
+    msg["email_reason"] = None
     await audit.log(
         session,
         "catalogue.deal.emailed",

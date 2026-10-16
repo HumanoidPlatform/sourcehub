@@ -31,6 +31,10 @@ COMPANY = "Cosarathi"
 # they actually have installed, so this is not derived from PRODUCT.
 CAPTURE_APP = "Cosarathi Capture"
 
+# The company's page, linked from the footer of every e-mail
+# (platform/mail/templates/base.html) under the LinkedIn mark.
+LINKEDIN_URL = "https://www.linkedin.com/company/cosarathi-ai/"
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -87,6 +91,25 @@ class Settings(BaseSettings):
     catalogue_copy_enabled: bool = True
     catalogue_copy_tick_seconds: int = 60
     catalogue_copy_batch: int = 20
+
+    # --- Mail outbox ---------------------------------------------------------
+    # The pass (modules/outbox) that sends every e-mail the platform writes:
+    # resets, invitations, task offers, reminders, DataHub replies, and the RFP
+    # mails to every active partner. Rows are written in the deciding
+    # transaction (db/470, db/480) and sent after it commits, as push does for
+    # phones. Its own switch: on a laptop whose DATABASE_URL is a shared
+    # database it would mail real people. Five seconds, because a person is
+    # waiting for a reset or an invitation. Addresses on reserved domains
+    # (.example, .test, .invalid, .localhost, .local) are marked failed rather
+    # than handed to a real provider; a local catcher wants them, so the laptop
+    # env turns that skip off. Retention: sent rows are purged after 30 days,
+    # failed ones after 90, once an hour.
+    mail_outbox_enabled: bool = True
+    mail_outbox_tick_seconds: int = 5
+    mail_outbox_batch: int = 50
+    mail_outbox_skip_reserved_domains: bool = True
+    mail_outbox_keep_sent_days: int = 30
+    mail_outbox_keep_failed_days: int = 90
 
     # --- Push dispatcher -----------------------------------------------------
     # The pass (modules/push) that sends a worker's bell rows to their phone

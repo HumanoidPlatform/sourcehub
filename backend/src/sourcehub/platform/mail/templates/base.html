@@ -1,0 +1,38 @@
+{#
+  The layout of every platform e-mail. Children fill {% block content %}.
+  Inline styles only: mail clients ignore <style> blocks and external CSS.
+  Colours are the console's tokens (frontend/src/design-system/tokens.css):
+  ink #0f1a1c, muted #5f7174, rule #dde3e0, ground #f4f6f5, accent #091cff.
+  The two images are served by nginx from frontend/public/brand/; the byline
+  and the LinkedIn address are also written as text, so a client that blocks
+  images still shows who sent this and where to find the company.
+#}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>{% block title %}{{ product }}{% endblock %}</title>
+</head>
+<body style="margin:0;padding:0;background:#f4f6f5;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f5;">
+<tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;background:#ffffff;border:1px solid #dde3e0;border-radius:8px;">
+<tr><td style="padding:20px 28px 16px;border-bottom:1px solid #dde3e0;">
+<a href="{{ app_base_url }}" style="text-decoration:none;"><img src="{{ logo_url }}" width="200" height="41" alt="{{ product }}" style="display:block;border:0;max-width:200px;height:auto;"></a>
+<div style="font-family:'IBM Plex Sans','Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;font-size:12px;letter-spacing:.04em;color:#5f7174;margin-top:6px;">by {{ company }}</div>
+</td></tr>
+<tr><td style="padding:24px 28px;font-family:'IBM Plex Sans','Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.5;color:#0f1a1c;">
+{% block content %}{% endblock %}
+</td></tr>
+<tr><td style="padding:16px 28px 20px;border-top:1px solid #dde3e0;font-family:'IBM Plex Sans','Segoe UI',system-ui,-apple-system,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.5;color:#5f7174;">
+<a href="{{ linkedin_url }}" style="text-decoration:none;"><img src="{{ linkedin_icon_url }}" width="24" height="24" alt="LinkedIn" style="display:block;border:0;"></a>
+<div style="margin-top:4px;"><a href="{{ linkedin_url }}" style="color:#5f7174;text-decoration:underline;word-break:break-all;">{{ linkedin_url }}</a></div>
+<div style="margin-top:10px;">{{ product }} &middot; A {{ company }} product</div>
+</td></tr>
+</table>
+</td></tr>
+</table>
+</body>
+</html>

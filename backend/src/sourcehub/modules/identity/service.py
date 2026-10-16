@@ -200,7 +200,7 @@ async def _open_session_record(
                 token_hash=digest,
                 user_agent=user_agent,
                 ip_address=ip,
-                expires_at=dt.datetime.now(dt.timezone.utc)
+                expires_at=dt.datetime.now(dt.UTC)
                 + dt.timedelta(days=settings.refresh_token_ttl_days),
             )
         )
@@ -232,7 +232,7 @@ async def login(
 
         uid: uuid.UUID = creds["user_id"]
 
-        if creds["locked_until"] and creds["locked_until"] > dt.datetime.now(dt.timezone.utc):
+        if creds["locked_until"] and creds["locked_until"] > dt.datetime.now(dt.UTC):
             await _record_failure(email, uid, "locked", ip, user_agent)
             raise AuthError("Account temporarily locked. Try again later.")
 
@@ -294,7 +294,7 @@ async def refresh(
             await s.execute(text("SELECT * FROM session_lookup(:h)"), {"h": digest})
         ).mappings().first()
 
-    now = dt.datetime.now(dt.timezone.utc)
+    now = dt.datetime.now(dt.UTC)
     if row is None or row["revoked_at"] is not None or row["expires_at"] < now:
         raise AuthError("Session expired. Sign in again.")
 
@@ -324,7 +324,7 @@ async def logout(claims: AccessClaims, refresh_token_raw: str | None, everywhere
         stmt = (
             update(UserSession)
             .where(UserSession.user_id == claims.user_id, UserSession.revoked_at.is_(None))
-            .values(revoked_at=dt.datetime.now(dt.timezone.utc), revoke_reason="logout")
+            .values(revoked_at=dt.datetime.now(dt.UTC), revoke_reason="logout")
         )
         if not everywhere and refresh_token_raw:
             stmt = stmt.where(UserSession.token_hash == hash_token(refresh_token_raw))
@@ -349,7 +349,7 @@ async def change_password(claims: AccessClaims, current: str, new: str) -> None:
             .values(
                 password_hash=new_hash,
                 password_algo=algo,
-                password_updated_at=dt.datetime.now(dt.timezone.utc),
+                password_updated_at=dt.datetime.now(dt.UTC),
                 must_change_password=False,
             )
         )
@@ -391,7 +391,7 @@ async def invitation_accept(token_raw: str, password: str) -> uuid.UUID:
 
 
 async def request_password_reset(email: str, ip: str | None) -> None:
-    from sourcehub.platform.mail.smtp import send_mail
+    from sourcehub.modules.outbox import service as outbox
 
     raw, digest = new_opaque_token()
     async with anonymous_session() as s:
@@ -400,20 +400,18 @@ async def request_password_reset(email: str, ip: str | None) -> None:
                 text("SELECT * FROM password_reset_create(:e, :h)"), {"e": email, "h": digest}
             )
         ).mappings().first()
-    if row is None:
-        return  # silent — no enumeration
-    link = f"{settings.app_base_url}/reset-password?token={raw}"
-    try:
-        await send_mail(
-            email,
-            f"Reset your {PRODUCT} password",
-            f"Hello {row['full_name']},\n\n"
-            f"Someone asked to reset the password for this account. If it was you,\n"
-            f"open the link below within one hour:\n\n  {link}\n\n"
-            f"If it was not you, ignore this email — nothing has changed.",
+        if row is None:
+            return  # silent — no enumeration
+        # Queued in the same transaction as the token (db/480 mail_outbox) and
+        # sent within seconds by modules/outbox, never from this request. There
+        # is no organisation here, so the row belongs to the platform.
+        link = f"{settings.app_base_url}/reset-password?token={raw}"
+        await outbox.enqueue_to(
+            s, "password_reset", {"full_name": row["full_name"], "link": link},
+            to_email=email, to_name=row["full_name"], entity=("app_user", row["user_id"]),
+            label="Password reset", scrub=True,
+            resend_until=dt.datetime.now(dt.UTC) + dt.timedelta(hours=1),
         )
-    except OSError:
-        pass  # best-effort; the token stands and support can resend
 
 
 async def confirm_password_reset(token_raw: str, password: str) -> None:
@@ -684,7 +682,7 @@ async def set_org_lifecycle(
     org.status = target
     org.updated_by = claims.user_id
     if action == "suspend":
-        org.suspended_at = dt.datetime.now(dt.timezone.utc)
+        org.suspended_at = dt.datetime.now(dt.UTC)
         org.suspension_reason = reason
     else:
         # leaving the old reason behind would read as though it still applied
@@ -831,7 +829,7 @@ def _apply_typed_fields(org: Organisation, values: dict[str, Any]) -> None:
         if field == "dpa_signed":
             value = bool(value)
             if value != bool(org.dpa_signed):
-                org.dpa_signed_at = dt.datetime.now(dt.timezone.utc) if value else None
+                org.dpa_signed_at = dt.datetime.now(dt.UTC) if value else None
         setattr(org, field, value)
 
 
@@ -1078,7 +1076,7 @@ _MEMBER_ROWS = text(
 def _member_invitation_status(r: Any) -> str:
     if r["user_status"] == "active" or r["accepted_at"] is not None:
         return "accepted"
-    if r["expires_at"] is not None and r["expires_at"] < dt.datetime.now(dt.timezone.utc):
+    if r["expires_at"] is not None and r["expires_at"] < dt.datetime.now(dt.UTC):
         return "expired"
     return "pending"
 
@@ -1208,27 +1206,31 @@ def _guard(claims: AccessClaims, target_scope: str, new_scope: str | None = None
         raise MemberError(members.describe_refusal(claims.scope, target_scope, new_scope))
 
 
-async def _send_member_invitation(
-    email: str, full_name: str, org_name: str, inviter: str, raw_token: str
+async def _queue_member_invitation(
+    session: AsyncSession,
+    *,
+    email: str,
+    full_name: str,
+    org_name: str,
+    inviter: str,
+    raw_token: str,
+    user_id: uuid.UUID,
 ) -> None:
-    """Best-effort, exactly as the worker and onboarding invitations are: the
-    grant exists either way and the invitation can be re-sent, so a dead SMTP
-    must not roll back the change."""
-    from sourcehub.platform.mail.smtp import send_mail
+    """Queued in the same transaction as the grant (db/480 mail_outbox) and
+    sent within seconds by modules/outbox. Nothing here can roll the change
+    back, and the Ops mail log shows whether the mail left."""
+    from sourcehub.modules.outbox import service as outbox
 
     link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
-    try:
-        await send_mail(
-            email,
-            f"You're invited to {PRODUCT} — {org_name}",
-            f"Hello {full_name},\n\n"
-            f"{inviter} has added you to {org_name} on {PRODUCT}. Set your password\n"
-            f"within {settings.invitation_ttl_days} days and sign in with this email\n"
-            f"address:\n\n  {link}\n\n"
-            f"No one at {PRODUCT} knows this link's token or your future password.",
-        )
-    except OSError:
-        pass
+    await outbox.enqueue_to(
+        session, "member_invitation",
+        {"full_name": full_name, "org_name": org_name, "inviter": inviter, "link": link,
+         "ttl_days": settings.invitation_ttl_days},
+        to_email=email, to_name=full_name, entity=("app_user", user_id),
+        label=f"Invitation · {org_name} · {full_name}", scrub=True,
+        resend_until=dt.datetime.now(dt.UTC)
+        + dt.timedelta(days=settings.invitation_ttl_days),
+    )
 
 
 async def invite_member(
@@ -1331,8 +1333,9 @@ async def invite_member(
         [row["user_id"], claims.org_id],
     )
     if row["invitation_sent"]:
-        await _send_member_invitation(
-            email, full_name, claims.org_name, claims.full_name, raw
+        await _queue_member_invitation(
+            session, email=email, full_name=full_name, org_name=claims.org_name,
+            inviter=claims.full_name, raw_token=raw, user_id=row["user_id"],
         )
     # Honest now that refusals are: false means a rejoining colleague who
     # already has a password and needs no link, so the console can say which
@@ -1379,8 +1382,9 @@ async def resend_member_invitation(
         f"{claims.full_name} re-sent the invitation to {row['full_name']}",
         [user_id, claims.org_id],
     )
-    await _send_member_invitation(
-        updated["email"], row["full_name"], claims.org_name, claims.full_name, raw
+    await _queue_member_invitation(
+        session, email=updated["email"], full_name=row["full_name"], org_name=claims.org_name,
+        inviter=claims.full_name, raw_token=raw, user_id=user_id,
     )
 
 

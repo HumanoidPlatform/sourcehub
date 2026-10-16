@@ -1,3 +1,5 @@
+> **Retired 14 Oct 2026.** The Azure staging stack (Container Apps, the Postgres flexible server, cosarathistorage) and the Azure dev VM were deleted; Azure now hosts only the OpenAI and Speech services. Dev and prod run on Google Cloud (see gcp/). This page is kept as a record of how staging was built.
+
 # Staging on Azure Container Apps
 
 **Dev** is the VM (`https://datamind360.centralindia.cloudapp.azure.com`, [README.md](README.md)).

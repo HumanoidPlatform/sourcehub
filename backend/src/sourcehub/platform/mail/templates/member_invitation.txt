@@ -1,0 +1,10 @@
+Hello {{ full_name }},
+
+{{ inviter }} has added you to {{ org_name }} on {{ product }}. Set your password
+within {{ ttl_days }} days and sign in with this email
+address:
+
+  {{ link }}
+
+No one at {{ product }} knows this link's token or your future password.
+{% include "_footer.txt" %}

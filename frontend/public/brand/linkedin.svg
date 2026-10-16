@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- The LinkedIn mark, drawn as paths so no font is needed to rasterise it
+       (docs/brand/make-email-assets.mjs). LinkedIn blue #0A66C2. -->
+  <rect width="64" height="64" rx="10" fill="#0A66C2"/>
+  <g fill="#FFFFFF">
+    <rect x="14" y="26" width="8" height="24"/>
+    <circle cx="18" cy="17" r="4.6"/>
+    <path d="M28 26h7.7v3.3h.1c1.1-2 3.7-4.1 7.6-4.1 8.1 0 9.6 5.3 9.6 12.3V50h-8V39c0-2.6 0-6-3.7-6s-4.3 2.9-4.3 5.8V50h-8z"/>
+  </g>
+</svg>

@@ -87,14 +87,14 @@ describe("the template and the report", () => {
     expect(rows.some((r) => r.join(" ").includes("Drone operation"))).toBe(true);
   });
 
-  it("reports what was not imported, and invitations that did not go out", () => {
+  it("reports what was not imported; invited rows are not errors (their mail is queued, db/480)", () => {
     const verdicts = [
       { row: 2, status: "ready" as const, reasons: [], normalized: { row: 2, display_name: "A", email: "a@x.example", phone: null, skills: [], trained: false } },
       { row: 3, status: "error" as const, reasons: ["Not an email address: nope."], normalized: { row: 3, display_name: "B", email: null, phone: null, skills: [], trained: false } },
       { row: 4, status: "skipped" as const, reasons: ["Already on your roster."], normalized: { row: 4, display_name: "C", email: "c@x.example", phone: null, skills: [], trained: false } },
     ];
     const results = [
-      { row: 2, outcome: "invited" as const, worker_id: "w", invitation_error: "Mailbox full" },
+      { row: 2, outcome: "invited" as const, worker_id: "w" },
       { row: 3, outcome: "skipped" as const, reason: "Not an email address: nope." },
       { row: 4, outcome: "skipped" as const, reason: "Already on your roster." },
     ];
@@ -102,7 +102,6 @@ describe("the template and the report", () => {
       ["row", "name", "email", "outcome", "reason"],
       [3, "B", "", "error", "Not an email address: nope."],
       [4, "C", "c@x.example", "skipped", "Already on your roster."],
-      [2, "A", "a@x.example", "invitation not sent", "Mailbox full"],
     ]);
   });
 });

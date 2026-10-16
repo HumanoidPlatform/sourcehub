@@ -64,6 +64,8 @@ INSERT INTO permission (code, module, description, requires_mfa) VALUES
   ('account.read',        'identity',    'Read any organisation account',            false),
   ('billing.read',        'invoices',    'Read any organisation billing',            false),
   ('activity.read',       'audit',       'Read the platform activity trail',         false),
+  ('mail.read',           'audit',       'Read the platform mail log',               false),
+  ('mail.resend',         'audit',       'Re-send a failed platform e-mail',         false),
   ('dispute.arbitrate',   'delivery',    'Arbitrate a dispute',                      true),
 
   -- onboarding — new
@@ -164,7 +166,7 @@ WHERE r.code = 'platform_admin' AND p.code IN (
   'account.read','billing.read','invoice.read','activity.read','dispute.arbitrate',
   'onboarding.request','onboarding.read','onboarding.approve','org.create','org.suspend',
   'org.update','user.invite','user.manage','role.manage','contract.read','delivery.track',
-  'vendor.read','catalogue.review');
+  'vendor.read','catalogue.review','mail.read','mail.resend');
 
 
 -- ---------------------------------------------------------------------------

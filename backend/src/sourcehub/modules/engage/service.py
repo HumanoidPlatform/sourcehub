@@ -34,7 +34,6 @@ from __future__ import annotations
 
 import asyncio
 import datetime as dt
-import html
 import logging
 import math
 import uuid
@@ -46,7 +45,7 @@ from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
-from sourcehub.config import CAPTURE_APP, PRODUCT, settings
+from sourcehub.config import settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery import service as delivery
@@ -216,7 +215,7 @@ def offer_lead(
     return f"A reminder — you have not answered this offer yet, and {places} still open."
 
 
-def assignment_reminder_email(
+def assignment_reminder_context(
     *,
     kind: str,
     worker_name: str,
@@ -228,9 +227,11 @@ def assignment_reminder_email(
     due_on: dt.date | None,
     days: int,
     today: dt.date,
-) -> tuple[str, str, str, str]:
-    """(subject, text, html, line). `line` is the one sentence that also goes
-    on the phone's bell. No link: the work is in the app, not on a page."""
+) -> tuple[dict[str, Any], str]:
+    """(context, line): the subject and every rendered field of a reminder, as
+    the outbox stores them (db/480; messages.assignment_reminder_mail renders
+    them), and the one sentence that also goes on the phone's bell. No link:
+    the work is in the app, not on a page."""
     title = f"{task_ref} {task_title}"
     due = due_on.isoformat() if due_on else "not set"
     if kind == "assignment_overdue":
@@ -258,32 +259,38 @@ def assignment_reminder_email(
                 "and have not started it yet.")
         action = "start it"
 
-    text_body = (
-        f"Hello {worker_name},\n\n"
-        f"{line}\n\n"
-        f"  Task:          {title}\n"
-        f"  Your share:    {quantity} {unit}\n"
-        f"  Due:           {due}\n\n"
-        f"Open the {CAPTURE_APP} app to {action}.\n\n"
-        f"{org_name} on {PRODUCT}"
+    # The wording lives in platform/mail/templates/assignment_reminder.{txt,html};
+    # the HTML part escapes every field there, inside the branded layout.
+    ctx = {
+        "subject": subject, "worker_name": worker_name, "org_name": org_name, "title": title,
+        "unit": unit, "quantity": quantity, "due": due, "line": line, "action": action,
+    }
+    return ctx, line
+
+
+def assignment_reminder_email(
+    *,
+    kind: str,
+    worker_name: str,
+    org_name: str,
+    task_ref: str,
+    task_title: str,
+    unit: str,
+    quantity: int,
+    due_on: dt.date | None,
+    days: int,
+    today: dt.date,
+) -> tuple[str, str, str, str]:
+    """(subject, text, html, line), rendered now. The live path stores the
+    context on the outbox row and lets the clock render it."""
+    from sourcehub.platform.mail import messages
+
+    ctx, line = assignment_reminder_context(
+        kind=kind, worker_name=worker_name, org_name=org_name, task_ref=task_ref,
+        task_title=task_title, unit=unit, quantity=quantity, due_on=due_on, days=days,
+        today=today,
     )
-    e = html.escape
-    rows = [("Task", e(title)), ("Your share", f"{quantity} {e(unit)}"), ("Due", e(due))]
-    trs = "".join(
-        f'<tr><td style="padding:4px 12px 4px 0;color:#666;white-space:nowrap">{k}</td>'
-        f'<td style="padding:4px 0">{v}</td></tr>'
-        for k, v in rows
-    )
-    html_body = (
-        '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
-        'font-size:15px;line-height:1.45;color:#1c1c1c;max-width:560px">'
-        f"<p>Hello {e(worker_name)},</p>"
-        f"<p><strong>{e(line)}</strong></p>"
-        f'<table style="border-collapse:collapse;font-size:15px">{trs}</table>'
-        f"<p>Open the {e(CAPTURE_APP)} app to {e(action)}.</p>"
-        f'<p style="color:#666;font-size:13px">{e(org_name)} on {e(PRODUCT)}</p>'
-        "</div>"
-    )
+    subject, text_body, html_body = messages.assignment_reminder_mail(**ctx)
     return subject, text_body, html_body, line
 
 
@@ -396,18 +403,18 @@ async def _send(
     dues: list[Due],
     manual_by: uuid.UUID | None,
 ) -> int:
-    """Mail every due reminder over one connection, ring the bell, record
-    the rows. Best-effort like the offer itself: a refused address is written
-    against its row and the console shows it."""
+    """Queue every due reminder (db/480 mail_outbox), ring the bell, record
+    the rows. The reminder row is written first with no outcome; mail_mark()
+    fills its sent_at or send_error when the clock sends, and the console
+    shows it. Nothing leaves from here."""
     if not dues:
         return 0
-    from sourcehub.platform.mail.smtp import send_many
+    from sourcehub.modules.outbox import service as outbox
 
     org_name = (
         await session.execute(text("SELECT name FROM organisation WHERE id = :o"), {"o": org_id})
     ).scalar_one()
     today = now.date()
-    messages: list[tuple[str, str, str, str | None]] = []
     for d in dues:
         if d.kind.startswith("offer_"):
             r = offers[d.subject_id]
@@ -421,7 +428,7 @@ async def _send(
             base = f"{settings.app_base_url}/offer?token={raw}"
             places_left = r["worker_limit"] - r["accepted_count"]
             lead = offer_lead(d.kind, now, r["respond_by"], places_left, r["worker_limit"])
-            subject, body, html_body = delivery.offer_email(
+            ctx = delivery.offer_context(
                 worker_name=r["worker_name"], org_name=org_name,
                 task_ref=r["task_ref"], task_title=r["task_title"],
                 unit=r["target_unit"] or "units", quantity=r["quantity"],
@@ -430,7 +437,9 @@ async def _send(
                 accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
                 lead=lead,
             )
-            messages.append((r["email"], subject, body, html_body))
+            template, to, to_name = "task_offer", r["email"], r["worker_name"]
+            scrub, until = True, r["respond_by"]
+            task_ref, task_title = r["task_ref"], r["task_title"]
             await notifier.notify(
                 session, org_id,
                 f"{lead} {org_name} is offering {r['task_ref']} {r['task_title']} — "
@@ -440,13 +449,15 @@ async def _send(
         else:
             a = assignments[d.subject_id]
             since = a["decided_at"] if d.kind == "assignment_rework" else a["assigned_at"]
-            subject, body, html_body, line = assignment_reminder_email(
+            ctx, line = assignment_reminder_context(
                 kind=d.kind, worker_name=a["worker_name"], org_name=org_name,
                 task_ref=a["task_ref"], task_title=a["task_title"],
                 unit=a["target_unit"] or "units", quantity=a["quantity"],
                 due_on=a["due_on"], days=(now - (since or now)).days, today=today,
             )
-            messages.append((a["email"], subject, body, html_body))
+            template, to, to_name = "assignment_reminder", a["email"], a["worker_name"]
+            scrub, until = False, None
+            task_ref, task_title = a["task_ref"], a["task_title"]
             await notifier.notify(
                 session, org_id, f"{line} ({a['task_ref']})",
                 "assignment", {"id": str(a["assignment_id"])}, user_id=d.worker_user_id,
@@ -459,34 +470,34 @@ async def _send(
                     "tasks", {"id": str(a["task_id"])},
                 )
 
-    try:
-        errors = await send_many(messages)
-    except OSError as e:
-        errors = [str(e)[:300]] * len(messages)
-    sent_at = dt.datetime.now(dt.timezone.utc)
-    for d, (to, *_), err in zip(dues, messages, errors, strict=True):
-        await session.execute(
-            text(
-                "INSERT INTO engagement_reminder "
-                "  (supplier_org_id, worker_user_id, kind, step, offer_recipient_id, "
-                "   assignment_id, manual_by, email, sent_at, send_error) "
-                "VALUES (:org, :w, CAST(:kind AS reminder_kind), :step, :r, :a, :m, :email, "
-                "        :sent_at, :err)"
-            ),
-            {
-                "org": org_id, "w": d.worker_user_id, "kind": d.kind, "step": d.step,
-                "r": d.subject_id if d.kind.startswith("offer_") else None,
-                "a": None if d.kind.startswith("offer_") else d.subject_id,
-                "m": manual_by, "email": to,
-                "sent_at": None if err else sent_at, "err": err,
-            },
+        # The row first, with no outcome yet, then the mail keyed to it.
+        reminder_id = (
+            await session.execute(
+                text(
+                    "INSERT INTO engagement_reminder "
+                    "  (supplier_org_id, worker_user_id, kind, step, offer_recipient_id, "
+                    "   assignment_id, manual_by, email) "
+                    "VALUES (:org, :w, CAST(:kind AS reminder_kind), :step, :r, :a, :m, :email) "
+                    "RETURNING id"
+                ),
+                {
+                    "org": org_id, "w": d.worker_user_id, "kind": d.kind, "step": d.step,
+                    "r": d.subject_id if d.kind.startswith("offer_") else None,
+                    "a": None if d.kind.startswith("offer_") else d.subject_id,
+                    "m": manual_by, "email": to,
+                },
+            )
+        ).scalar_one()
+        await outbox.enqueue_to(
+            session, template, ctx, to_email=to, to_name=to_name,
+            entity=("engagement_reminder", reminder_id),
+            label=f"Reminder · {task_ref} {task_title}", scrub=scrub, resend_until=until,
         )
+
     kinds = sorted({d.kind for d in dues})
-    failed = sum(1 for e in errors if e)
     await audit.log(
         session, "engagement.reminded",
         f"Sent {len(dues)} reminder{'s' if len(dues) != 1 else ''} ({', '.join(kinds)})"
-        + (f", {failed} not delivered" if failed else "")
         + (" by hand" if manual_by else ""),
         [org_id],
     )

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Reminder: your {{ product }} invitation — {{ org_name }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, plain_link %}
+<p style="margin:0 0 16px;">Your invitation link for <strong>{{ org_name }}</strong> was refreshed. Set your password here:</p>
+<p style="margin:0;">{{ button(link, "Set my password") }}</p>
+{{ plain_link(link) }}
+{% endblock %}

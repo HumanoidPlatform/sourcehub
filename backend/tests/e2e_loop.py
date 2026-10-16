@@ -11,6 +11,7 @@ Every step asserts, and every negative check must be REFUSED.
 
 import datetime as dt
 import os
+import time
 from decimal import ROUND_HALF_UP, Decimal
 
 import httpx
@@ -38,6 +39,36 @@ def ok(label: str, detail: str = ""):
     global step
     step += 1
     print(f"  {step:2d}. {label}" + (f"  ->  {detail}" if detail else ""))
+
+
+MP_URL = "http://localhost:8025/api/v1"  # the local mail catcher; see mail_token() below
+
+
+def wait_mail(
+    email: str, subject_contains: str, text_contains: str = "", timeout_s: float = 60.0
+) -> dict:
+    """The newest message to `email` whose subject contains the words and
+    whose text part contains `text_contains`, read from the LOCAL MAIL
+    CATCHER. The outbox clock (modules/outbox) sends a few seconds after the
+    transaction that wrote the row commits, so this waits for it. The text
+    check matters: a rebuilt database mints the same reference codes again,
+    and the catcher still holds the previous run's mail with the same
+    subject. Same caveat as mail_token(): with a real SMTP_HOST the mail
+    leaves the machine and cannot be read back."""
+    deadline = time.monotonic() + timeout_s
+    while time.monotonic() < deadline:
+        msgs = httpx.get(f"{MP_URL}/search", params={"query": f"to:{email}"}, timeout=T).json()
+        hits = [m for m in msgs["messages"] if subject_contains.lower() in m["Subject"].lower()]
+        for hit in hits[:5]:  # newest first
+            full = httpx.get(f"{MP_URL}/message/{hit['ID']}", timeout=T).json()
+            if text_contains in full["Text"]:
+                return full
+        time.sleep(0.5)
+    raise AssertionError(
+        f"No mail matching {subject_contains!r} for {email} at the local catcher ({MP_URL}) "
+        f"within {timeout_s:.0f}s. The API needs MAIL_OUTBOX_ENABLED=true and, for the demo "
+        "addresses, MAIL_OUTBOX_SKIP_RESERVED_DOMAINS=false."
+    )
 
 
 client = login("client@acme.example")
@@ -121,6 +152,15 @@ req = r.json()
 assert req["pricing"]["estimated_total"] == "75000.00", req["pricing"]
 ok("client publishes", f"{req['reference_code']} {req['status']} at {req['pricing']['text']}")
 
+# every active user of every active partner hears by e-mail: written in the
+# publish transaction (db/470 mail_enqueue), sent by the outbox clock, branded
+m = wait_mail(
+    "partner@northstar.example", f"New RFP: {req['reference_code']}", f"/requests/{req['id']}"
+)
+assert client.org_name in m["Text"] and req["reference_code"] in m["Text"], m["Text"]
+assert "linkedin.com/company/cosarathi-ai" in m["Text"] and "email-logo.png" in m["HTML"]
+ok("partners mailed about the new RFP", m["Subject"])
+
 # 2 — both tenants see it and bid
 opps = northstar.get("/opportunities").json()
 assert any(o["id"] == req["id"] for o in opps), "tenant cannot see the opportunity"
@@ -161,6 +201,14 @@ assert contract["status"] == "active"
 assert contract["pricing"]["basis"] == "per_unit", contract["pricing"]
 assert contract["pricing"]["estimated_total"] == "72500.00", contract["pricing"]
 ok("awarded", f"{contract['reference_code']} at {contract['pricing']['text']}")
+
+# the winner's users hear by e-mail; the loser's do not (bell only)
+m = wait_mail(
+    "partner@northstar.example", f"You won {req['reference_code']}", f"/contracts/{contract['id']}"
+)
+assert contract["reference_code"] in m["Text"], m["Text"]
+assert contract["pricing"]["text"] in m["Text"], m["Text"]
+ok("winner mailed", m["Subject"])
 
 # sibling auto-rejected
 mine = meridian.get("/proposals/mine").json()
@@ -325,7 +373,6 @@ ok("supplier's average is computed from it", f"avg {supplier_after['rating']} ({
 import datetime as dt
 import hashlib
 import re
-import time
 import uuid
 
 MP = "http://localhost:8025/api/v1"
@@ -335,7 +382,16 @@ def invitation_token(email: str) -> str:
     return mail_token(email, "invited")
 
 
-def mail_token(email: str, subject_contains: str) -> str:
+def mail_ids(email: str) -> set[str]:
+    """Every message the catcher already holds for `email`: the baseline to take
+    BEFORE an action that mails, so mail_token() waits for the new one. Mails
+    leave a few seconds after the action now (db/480), and a worker who had
+    an earlier offer still has that mail — its token already answered."""
+    msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
+    return {m["ID"] for m in msgs}
+
+
+def mail_token(email: str, subject_contains: str, before: set[str] = frozenset()) -> str:
     """A link token, read from a LOCAL MAIL CATCHER.
 
     The token exists in exactly two places: the hash in `invitation`, and the
@@ -348,9 +404,13 @@ def mail_token(email: str, subject_contains: str) -> str:
     cannot see it — run the script against a catcher, or drive the invitation
     by hand from the address it was sent to.
     """
-    for _ in range(60):
+    # a minute: the outbox clock (db/480) sends a few seconds after the commit
+    for _ in range(240):
         msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
-        msgs = [m for m in msgs if subject_contains.lower() in m["Subject"].lower()]
+        msgs = [
+            m for m in msgs
+            if subject_contains.lower() in m["Subject"].lower() and m["ID"] not in before
+        ]
         if msgs:
             body = httpx.get(f"{MP}/message/{msgs[0]['ID']}").json()["Text"]
             m = re.search(r"token=([A-Za-z0-9_\-]+)", body)
@@ -687,8 +747,13 @@ def new_task(title: str, target: int) -> dict:
     return r.json()
 
 
-def offer_token(email: str) -> str:
-    return mail_token(email, "offering you a task")
+def offer_token(email: str, before: set[str] = frozenset()) -> str:
+    return mail_token(email, "offering you a task", before)
+
+
+def before_offer(*emails: str) -> dict[str, set[str]]:
+    """The catcher's state per worker, taken before an offer is made."""
+    return {e: mail_ids(e) for e in emails}
 
 
 def preview(tok: str) -> httpx.Response:
@@ -716,21 +781,39 @@ r = delhi.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantit
 assert r.status_code == 404, f"RIVAL AGGREGATOR COULD OFFER: {r.status_code} {r.text}"
 ok("rival aggregator cannot offer the task", f"HTTP {r.status_code}")
 
+seen = before_offer(w1_email, w2_email, w3_email)
 r = agg.post(f"/tasks/{task3['id']}/offers", json={
     "worker_limit": 2, "quantity": 2, "recipient_user_ids": crowd,
     "instructions": "Aisles 3-4, landscape."})
 assert r.status_code == 201, r.text
 offer = r.json()
 assert offer["status"] == "open" and offer["worker_limit"] == 2 and offer["accepted_count"] == 0, offer
-assert len(offer["recipients"]) == 3 and all(x["sent_at"] and not x["send_error"] for x in offer["recipients"]), offer
+# db/480: the mails are queued in the offer's transaction and sent by the clock,
+# so right now every recipient is "queued" — no outcome yet, and no error
+assert len(offer["recipients"]) == 3, offer
+assert all(not x["send_error"] for x in offer["recipients"]), offer
 assert "token" not in r.text, "TOKEN LEAKED IN THE RESPONSE"
-ok("task offered to 3 workers for 2 places", f"{offer['worker_limit']} x {offer['quantity']} photos, all emailed")
+ok("task offered to 3 workers for 2 places",
+   f"{offer['worker_limit']} x {offer['quantity']} photos, queued")
 
 r = agg.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantity": 1})
 assert r.status_code == 409, f"SECOND OPEN OFFER ALLOWED: {r.status_code} {r.text}"
 ok("a second open offer on the same task refused")
 
-t1, t2, t3 = (offer_token(e) for e in (w1_email, w2_email, w3_email))
+t1, t2, t3 = (offer_token(e, seen[e]) for e in (w1_email, w2_email, w3_email))
+
+# ... and once the clock has sent them, mail_mark wrote sent_at onto each
+# recipient row (db/480), which is what the console's offer panel shows
+for _ in range(120):
+    sent = [x for o in agg.get(f"/tasks/{task3['id']}/offers").json() if o["id"] == offer["id"]
+            for x in o["recipients"]]
+    if sent and all(x["sent_at"] and not x["send_error"] for x in sent):
+        break
+    time.sleep(0.5)
+else:
+    raise AssertionError("the offer recipients were never marked sent")
+ok("every offer e-mail recorded as sent on its recipient")
+
 pv = preview(t2)
 assert pv.status_code == 200 and pv.json()["state"] == "open", pv.text
 assert pv.json()["task"]["reference_code"] == task3["reference_code"] and pv.json()["quantity"] == 2, pv.text
@@ -776,10 +859,11 @@ ok("unknown tokens 404, an unknown action 422")
 
 # the race: three accepts for one place, at once
 task4 = new_task("Metro shelf capture, wave 4", 2)
+seen = before_offer(w1_email, w2_email, w3_email)
 r = agg.post(f"/tasks/{task4['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": crowd})
 assert r.status_code == 201, r.text
-toks = [offer_token(e) for e in (w1_email, w2_email, w3_email)]
+toks = [offer_token(e, seen[e]) for e in (w1_email, w2_email, w3_email)]
 with ThreadPoolExecutor(max_workers=3) as ex:
     results = list(ex.map(lambda t: respond(t, "accept"), toks))
 codes = sorted(x.status_code for x in results)
@@ -792,11 +876,12 @@ ok("three simultaneous accepts for one place: exactly one wins", f"{codes}")
 
 # closing by hand
 task5 = new_task("Metro shelf capture, wave 5", 2)
+seen = before_offer(w2_email, w3_email)
 r = agg.post(f"/tasks/{task5['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w2["user_id"], w3["user_id"]]})
 assert r.status_code == 201, r.text
 o5 = r.json()
-t2b, t3b = (offer_token(e) for e in (w2_email, w3_email))
+t2b, t3b = (offer_token(e, seen[e]) for e in (w2_email, w3_email))
 r = agg.post(f"/offers/{o5['id']}/close")
 assert r.status_code == 200 and r.json()["status"] == "closed", r.text
 r = agg.post(f"/offers/{o5['id']}/close")
@@ -807,10 +892,11 @@ assert preview(t2b).json()["state"] == "closed"
 ok("aggregator closes the offer; a late accept is told the task is closed")
 
 # a worker offboarded after the mail went out cannot take the place
+seen = before_offer(w3_email)
 r = agg.post(f"/tasks/{task5['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w3["user_id"]]})
 assert r.status_code == 201, r.text
-t3c = offer_token(w3_email)
+t3c = offer_token(w3_email, seen[w3_email])
 r = agg.post(f"/network/workers/{w3['id']}/status", json={"status": "offboarded"})
 assert r.status_code == 204, r.text
 assert preview(t3c).json()["state"] == "not_a_worker"

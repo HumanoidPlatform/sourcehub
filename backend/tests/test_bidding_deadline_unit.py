@@ -342,6 +342,23 @@ def test_announcements_reach_every_partner_not_only_the_known_ones():
     assert "notify_active_tenants" in _calls(_function(SERVICE_TREE, "_announce_publish"))
 
 
+def test_publishing_and_awarding_also_mail_through_the_outbox():
+    # The same partners the bell reached, by e-mail, written in the deciding
+    # transaction (modules/outbox) — never sent from inside the request.
+    publish = _function(SERVICE_TREE, "_announce_publish")
+    assert "enqueue" in _calls(publish)
+    assert any("active_tenant_ids()" in q for q in _sql_texts(publish))
+    award = _function(SERVICE_TREE, "award")
+    assert "enqueue" in _calls(award)
+    templates = {
+        n.value for n in ast.walk(SERVICE_TREE)
+        if isinstance(n, ast.Constant) and isinstance(n.value, str) and n.value.startswith("rfp_")
+    }
+    assert {"rfp_published", "rfp_awarded"} <= templates
+    for fn_name in ("send_mail", "send_many"):
+        assert fn_name not in _calls(publish) and fn_name not in _calls(award)
+
+
 def test_the_sweep_stamps_conditionally_so_nothing_is_said_twice():
     close_sql = "\n".join(_sql_texts(_function(SWEEP_TREE, "_close")))
     assert "closed_at IS NULL" in close_sql and "RETURNING" in close_sql

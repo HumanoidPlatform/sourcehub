@@ -1,0 +1,12 @@
+Hello {{ worker_name }},
+
+{{ line }}
+
+  Task:          {{ title }}
+  Your share:    {{ quantity }} {{ unit }}
+  Due:           {{ due }}
+
+Open the {{ capture_app }} app to {{ action }}.
+
+{{ org_name }} on {{ product }}
+{% include "_footer.txt" %}

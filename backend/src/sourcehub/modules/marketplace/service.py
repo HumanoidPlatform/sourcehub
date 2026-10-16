@@ -26,6 +26,7 @@ from sourcehub.modules.audit import service as audit
 from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.marketplace.models import Proposal, Request
 from sourcehub.modules.notify import service as notifier
+from sourcehub.modules.outbox import service as outbox
 
 
 class MarketplaceError(Exception):
@@ -490,6 +491,28 @@ def _assert_deadline(r: Request) -> None:
         raise MarketplaceError(problem)
 
 
+def _published_mail_context(r: Request, client_name: str) -> dict[str, Any]:
+    """What the e-mail to every partner shows: the fields of the Opportunities
+    board, and nothing a partner could not see there. The client's name is
+    visible to every partner while bidding is open (db/180)."""
+    if r.target_quantity is not None and r.target_unit:
+        quantity = f"{r.target_quantity:,} {r.target_unit}"
+    else:
+        quantity = "see the brief"
+    return {
+        "client_name": client_name,
+        "ref": r.reference_code,
+        "title": r.title,
+        "category": str(r.category).replace("_", " ").capitalize(),
+        "quantity_text": quantity,
+        "countries_text": ", ".join(r.countries) if r.countries else "Any",
+        "bids_close": fmt_utc(r.proposals_close_at) if r.proposals_close_at
+        else "Open until awarded",
+        "delivery_due": r.delivery_due_on.isoformat() if r.delivery_due_on else "Not set",
+        "request_id": str(r.id),
+    }
+
+
 async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Request) -> None:
     await audit.log(
         session, "request.published",
@@ -498,6 +521,14 @@ async def _announce_publish(session: AsyncSession, claims: AccessClaims, r: Requ
     # Reads in a partner's bell, so it uses the partner's word. The sibling
     # lines in submit_proposal go to the client and still say proposal.
     await notify_active_tenants(session, f"{r.title} is open for responses.", r.id)
+    # And every active user of those partners by e-mail, once this transaction
+    # commits (modules/outbox): the same partners the bell reached, expanded to
+    # people in the database, where a client's session may not look.
+    org_ids = (await session.execute(text("SELECT active_tenant_ids()"))).scalars().all()
+    await outbox.enqueue(
+        session, "rfp_published", _published_mail_context(r, claims.org_name), list(org_ids),
+        entity=("request", r.id), label=f"{r.reference_code} {r.title}",
+    )
 
 
 async def publish_request(
@@ -1150,6 +1181,20 @@ async def award(
         session, p.partner_org_id,
         f"You won {r.title}. Break the contract into tasks to begin.",
         "contracts", {"id": str(contract["id"])},
+    )
+    # And every active user of the winner by e-mail, once this commits.
+    await outbox.enqueue(
+        session, "rfp_awarded",
+        {
+            "client_name": claims.org_name,
+            "request_ref": r.reference_code,
+            "title": r.title,
+            "contract_ref": contract["reference_code"],
+            "price_text": _price_text(r, p.price),
+            "contract_id": str(contract["id"]),
+        },
+        [p.partner_org_id],
+        entity=("contract", contract["id"]), label=f"{r.reference_code} {r.title}",
     )
     await audit.log(
         session, "contract.awarded",

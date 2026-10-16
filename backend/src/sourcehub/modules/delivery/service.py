@@ -15,7 +15,6 @@ costs one EXISTS.
 from __future__ import annotations
 
 import datetime as dt
-import html
 import uuid
 from decimal import Decimal
 from typing import Any
@@ -25,7 +24,7 @@ from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, hash_token, new_opaque_token
-from sourcehub.config import CAPTURE_APP, PRODUCT, settings
+from sourcehub.config import settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.delivery.models import (
@@ -1579,6 +1578,47 @@ _STATE_MESSAGES = {
 }
 
 
+def offer_context(
+    *,
+    worker_name: str,
+    org_name: str,
+    task_ref: str,
+    task_title: str,
+    unit: str,
+    quantity: int,
+    worker_limit: int,
+    due_on: dt.date | None,
+    respond_by: dt.datetime,
+    instructions: str | None,
+    accept_url: str,
+    decline_url: str,
+    lead: str | None = None,
+) -> dict[str, Any]:
+    """The subject and every rendered field of a task offer, as the outbox
+    stores them (db/480): messages.task_offer_mail(**offer_context(...)) is the
+    mail. Both links sit on their own lines in the text part; the HTML part
+    shows them as buttons, and escapes every field (a task title is somebody
+    else's input). The wording lives in platform/mail/templates/task_offer.*.
+
+    `lead` turns the mail into a reminder (engage module): one sentence after
+    the greeting saying why the worker is hearing about this again, and
+    "Reminder:" on the subject so it threads under the original."""
+    due = due_on.isoformat() if due_on else "not set"
+    by = respond_by.astimezone(dt.timezone.utc).strftime("%d %b %Y, %H:%M UTC")
+    places = f"{worker_limit} place" + ("s" if worker_limit != 1 else "")
+    subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
+    if lead:
+        subject = "Reminder: " + subject
+    return {
+        "subject": subject,
+        "worker_name": worker_name, "org_name": org_name,
+        "task_ref": task_ref, "task_title": task_title,
+        "unit": unit, "quantity": quantity, "places": places, "due": due, "by": by,
+        "instructions": instructions, "accept_url": accept_url, "decline_url": decline_url,
+        "lead": lead,
+    }
+
+
 def offer_email(
     *,
     worker_name: str,
@@ -1595,75 +1635,16 @@ def offer_email(
     decline_url: str,
     lead: str | None = None,
 ) -> tuple[str, str, str]:
-    """(subject, text, html). Both links sit on their own lines in the text
-    part; the HTML part shows them as buttons. Every interpolated field is
-    escaped in the HTML: a task title is somebody else's input.
+    """(subject, text, html), rendered now. The live path stores
+    offer_context() on the outbox row and lets the clock render it."""
+    from sourcehub.platform.mail import messages
 
-    `lead` turns the mail into a reminder (engage module): one sentence after
-    the greeting saying why the worker is hearing about this again, and
-    "Reminder:" on the subject so it threads under the original."""
-    due = due_on.isoformat() if due_on else "not set"
-    by = respond_by.astimezone(dt.timezone.utc).strftime("%d %b %Y, %H:%M UTC")
-    places = f"{worker_limit} place" + ("s" if worker_limit != 1 else "")
-    subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
-    if lead:
-        subject = "Reminder: " + subject
-    text_body = (
-        f"Hello {worker_name},\n\n"
-        + (f"{lead}\n\n" if lead else "")
-        + f"{org_name} is offering you work on {PRODUCT}.\n\n"
-        f"  Task:          {task_ref} — {task_title}\n"
-        f"  Your share:    {quantity} {unit}\n"
-        f"  Due:           {due}\n"
-        f"  Places:        {places}, first come first served\n"
-        f"  Respond by:    {by}\n\n"
-        + (f"Instructions:\n{instructions}\n\n" if instructions else "")
-        + f"Accept:\n  {accept_url}\n\n"
-        f"Decline:\n  {decline_url}\n\n"
-        f"Once you accept, the task appears in your {CAPTURE_APP} app and on the console.\n"
-        f"If all places are taken before you answer, the link will say so."
-    )
-    e = html.escape
-    rows = [
-        ("Task", f"{e(task_ref)} — {e(task_title)}"),
-        ("Your share", f"{quantity} {e(unit)}"),
-        ("Due", e(due)),
-        ("Places", f"{places}, first come first served"),
-        ("Respond by", e(by)),
-    ]
-    trs = "".join(
-        f'<tr><td style="padding:4px 12px 4px 0;color:#666;white-space:nowrap">{k}</td>'
-        f'<td style="padding:4px 0">{v}</td></tr>'
-        for k, v in rows
-    )
-    instr = (
-        f'<p style="margin:16px 0 0"><strong>Instructions</strong></p>'
-        f'<p style="margin:4px 0 0;white-space:pre-wrap">{e(instructions)}</p>'
-        if instructions else ""
-    )
-    btn = (
-        'display:inline-block;padding:10px 18px;border-radius:6px;'
-        'text-decoration:none;font-weight:600'
-    )
-    html_body = (
-        '<div style="font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;'
-        'font-size:15px;line-height:1.45;color:#1c1c1c;max-width:560px">'
-        f"<p>Hello {e(worker_name)},</p>"
-        + (f"<p><strong>{e(lead)}</strong></p>" if lead else "")
-        + f"<p>{e(org_name)} is offering you work on {e(PRODUCT)}.</p>"
-        f'<table style="border-collapse:collapse;font-size:15px">{trs}</table>'
-        f"{instr}"
-        '<p style="margin:24px 0 8px">'
-        f'<a href="{e(accept_url)}" style="{btn};background:#1f6f43;color:#fff">Accept</a>'
-        '&nbsp;&nbsp;'
-        f'<a href="{e(decline_url)}" style="{btn};background:#eee;color:#1c1c1c">Decline</a>'
-        "</p>"
-        f'<p style="color:#666;font-size:13px">Once you accept, the task appears in your '
-        f'{e(CAPTURE_APP)} app and on the console. If all places are taken before you '
-        "answer, the link will say so.</p>"
-        "</div>"
-    )
-    return subject, text_body, html_body
+    return messages.task_offer_mail(**offer_context(
+        worker_name=worker_name, org_name=org_name, task_ref=task_ref, task_title=task_title,
+        unit=unit, quantity=quantity, worker_limit=worker_limit, due_on=due_on,
+        respond_by=respond_by, instructions=instructions, accept_url=accept_url,
+        decline_url=decline_url, lead=lead,
+    ))
 
 
 _OFFER_ROWS = (
@@ -1879,7 +1860,7 @@ async def create_offer(
     ).scalar_one()
     unit = t.target_unit or "units"
     recipients: list[TaskOfferRecipient] = []
-    messages: list[tuple[str, str, str, str | None]] = []
+    contexts: list[dict[str, Any]] = []
     for w in eligible:
         raw, digest = new_opaque_token()
         r = TaskOfferRecipient(
@@ -1892,14 +1873,13 @@ async def create_offer(
         session.add(r)
         recipients.append(r)
         base = f"{settings.app_base_url}/offer?token={raw}"
-        subject, body, html_body = offer_email(
+        contexts.append(offer_context(
             worker_name=w["name"], org_name=org_name,
             task_ref=t.reference_code, task_title=t.title, unit=unit,
             quantity=quantity, worker_limit=worker_limit, due_on=due_on,
             respond_by=respond_by, instructions=instructions,
             accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
-        )
-        messages.append((w["email"], subject, body, html_body))
+        ))
         # The bell row, and through modules/push the phone: an offer used to
         # reach the worker by email only, until the first reminder.
         await notifier.notify(
@@ -1910,35 +1890,27 @@ async def create_offer(
         )
     await session.flush()
 
+    # The mails, queued in this transaction (db/480 mail_outbox), one row per
+    # recipient and keyed to it: when the clock sends, mail_mark() fills the
+    # recipient's sent_at or send_error, which the console shows. Nothing
+    # leaves from here, and an offer that rolls back mails nobody. After the
+    # flush, so the recipient rows have their ids.
+    from sourcehub.modules.outbox import service as outbox
+
+    for r, ctx in zip(recipients, contexts, strict=True):
+        await outbox.enqueue_to(
+            session, "task_offer", ctx, to_email=r.email, to_name=ctx["worker_name"],
+            entity=("task_offer_recipient", r.id),
+            label=f"Offer · {t.reference_code} {t.title}", scrub=True, resend_until=respond_by,
+        )
+
     await audit.log(
         session, "offer.created",
         f"Offered {t.reference_code} to {len(recipients)} crowd resources "
         f"({worker_limit} x {quantity} {unit})",
         [o.id, t.id, t.contract_id, claims.org_id],
     )
-
-    errors = await _send_offer_emails(messages)
-    sent_at = dt.datetime.now(dt.timezone.utc)
-    for r, err in zip(recipients, errors, strict=True):
-        if err is None:
-            r.sent_at = sent_at
-        else:
-            r.send_error = err
-    await session.flush()
     return await offer_by_id(session, o.id)
-
-
-async def _send_offer_emails(
-    messages: list[tuple[str, str, str, str | None]],
-) -> list[str | None]:
-    """Best-effort, like the invitations: the offer exists either way and the
-    console shows who did not get the mail. One connection for the batch."""
-    from sourcehub.platform.mail.smtp import send_many
-
-    try:
-        return await send_many(messages)
-    except OSError as e:
-        return [str(e)[:300]] * len(messages)
 
 
 async def close_offer(

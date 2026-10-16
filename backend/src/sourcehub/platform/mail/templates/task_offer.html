@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ org_name }} is offering you a task — {{ task_ref }} {{ task_title }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, kv %}
+<p style="margin:0 0 12px;">Hello {{ worker_name }},</p>
+{% if lead %}
+<p style="margin:0 0 12px;"><strong>{{ lead }}</strong></p>
+{% endif %}
+<p style="margin:0 0 16px;">{{ org_name }} is offering you work on {{ product }}.</p>
+{{ kv([("Task", task_ref ~ " — " ~ task_title), ("Your share", quantity ~ " " ~ unit), ("Due", due), ("Places", places ~ ", first come first served"), ("Respond by", by)]) }}
+{% if instructions %}
+<p style="margin:16px 0 0;"><strong>Instructions</strong></p>
+<p style="margin:4px 0 0;white-space:pre-wrap;">{{ instructions }}</p>
+{% endif %}
+<p style="margin:24px 0 8px;">{{ button(accept_url, "Accept") }}&nbsp;&nbsp;{{ button(decline_url, "Decline", primary=false) }}</p>
+<p style="margin:16px 0 0;font-size:13px;color:#5f7174;">Once you accept, the task appears in your {{ capture_app }} app and on the console. If all places are taken before you answer, the link will say so.</p>
+{% endblock %}

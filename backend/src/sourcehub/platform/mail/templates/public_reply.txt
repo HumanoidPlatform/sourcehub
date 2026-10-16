@@ -1,0 +1,11 @@
+{{ body }}
+
+-- 
+{{ sender_name }}, {{ org_name }}
+Reply to this email to reach {{ org_name }} directly.
+
+You asked about "{{ dataset_title }}" on {{ product }}:
+{{ dataset_url }}
+
+Sent through {{ product }} · A {{ company }} product
+LinkedIn: {{ linkedin_url }}

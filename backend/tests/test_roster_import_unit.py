@@ -237,16 +237,15 @@ def test_each_row_is_written_in_its_own_savepoint():
     assert "begin_nested" in _calls(_function("import_rows"))
 
 
-def test_a_batch_audits_once_and_mails_once():
+def test_a_batch_audits_once_and_queues_each_invitation():
     fn = _function("import_rows")
     assert _audit_events(fn) == ["roster.imported"]
     calls = _calls(fn)
-    assert (
-        "_send_invitations" in calls
-        and "send_mail" not in calls
-        and "_send_worker_invitation" not in calls
-    )
-    assert "send_many" in _calls(_function("_send_invitations"))
+    assert "_queue_worker_invitation" in calls
+    # db/480: an invitation is an outbox row written in the import transaction,
+    # never a send from the request; the Ops mail log shows what left
+    assert "send_mail" not in calls and "send_many" not in calls
+    assert "enqueue_to" in _calls(_function("_queue_worker_invitation"))
 
 
 def test_the_check_writes_nothing():
@@ -258,14 +257,16 @@ def test_the_check_writes_nothing():
         "log",
         "notify",
         "send_many",
+        "enqueue_to",
+        "_queue_worker_invitation",
     ):
         assert forbidden not in calls, forbidden
 
 
-def test_the_single_invitation_still_audits_and_mails():
+def test_the_single_invitation_still_audits_and_queues_its_mail():
     fn = _function("invite_worker")
     assert _audit_events(fn) == ["worker.invited"]
-    assert "_send_worker_invitation" in _calls(fn) and "_create_invited" in _calls(fn)
+    assert "_queue_worker_invitation" in _calls(fn) and "_create_invited" in _calls(fn)
 
 
 def test_the_check_asks_the_platform_and_the_roster():

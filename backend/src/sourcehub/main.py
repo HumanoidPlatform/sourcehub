@@ -67,6 +67,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     from sourcehub.modules.catalogue import sweep as catalogue_copy
     from sourcehub.modules.engage import service as engage
     from sourcehub.modules.marketplace import sweep
+    from sourcehub.modules.outbox import service as outbox
     from sourcehub.modules.push import service as push
 
     await _refuse_an_unbound_login()
@@ -77,6 +78,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
         asyncio.create_task(push.run_forever()) if settings.push_enabled else None,
         asyncio.create_task(catalogue_copy.run_forever())
         if settings.catalogue_copy_enabled else None,
+        asyncio.create_task(outbox.run_forever()) if settings.mail_outbox_enabled else None,
     ]
     try:
         yield
@@ -124,8 +126,8 @@ def create_app() -> FastAPI:
 
     from sourcehub.api.v1 import (
         attachments, audit, auth, catalogue, catalogue_public, delivery, identity, invoices,
-        marketplace, media, members, network, notify, offers, onboarding, overview, push, qa,
-        storage, threads, vendors,
+        mail, marketplace, media, members, network, notify, offers, onboarding, overview, push,
+        qa, storage, threads, vendors,
     )
 
     app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
@@ -134,6 +136,7 @@ def create_app() -> FastAPI:
     app.include_router(onboarding.router, prefix="/api/v1/onboarding", tags=["onboarding"])
     app.include_router(notify.router, prefix="/api/v1/notifications", tags=["notify"])
     app.include_router(audit.router, prefix="/api/v1/activity", tags=["audit"])
+    app.include_router(mail.router, prefix="/api/v1/mail", tags=["mail"])
     app.include_router(overview.router, prefix="/api/v1", tags=["overview"])
     app.include_router(marketplace.router, prefix="/api/v1", tags=["marketplace"])
     app.include_router(delivery.router, prefix="/api/v1", tags=["delivery"])

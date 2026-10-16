@@ -27,7 +27,7 @@ from sqlalchemy.exc import DBAPIError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
-from sourcehub.config import CAPTURE_APP, PRODUCT, settings
+from sourcehub.config import settings
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.network.models import CrowdWorker, Equipment, Loan
 from sourcehub.modules.notify import service as notifier
@@ -285,7 +285,7 @@ async def decide_loan(
     if loan.sponsor_org_id != claims.org_id:
         raise NetworkError("Only the sponsor decides its own equipment.")
 
-    now = dt.datetime.now(dt.timezone.utc)
+    now = dt.datetime.now(dt.UTC)
 
     if decision == "approved":
         if loan.status != "pending":
@@ -378,7 +378,7 @@ def _invitation_status(r: Any) -> str:
         return "none"
     if r["user_status"] == "active" or r["accepted_at"] is not None:
         return "accepted"
-    if r["expires_at"] is not None and r["expires_at"] < dt.datetime.now(dt.timezone.utc):
+    if r["expires_at"] is not None and r["expires_at"] < dt.datetime.now(dt.UTC):
         return "expired"
     return "pending"
 
@@ -425,49 +425,32 @@ async def add_worker(
     return await _worker_by_id(session, w.id)
 
 
-Message = tuple[str, str, str, str | None]  # (to, subject, text, html) — platform.mail's shape
-
-
-def _invitation_message(email: str, full_name: str, org_name: str, raw_token: str) -> Message:
-    link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
-    return (
-        email,
-        f"You're invited to {PRODUCT} — {org_name}",
-        f"Hello {full_name},\n\n"
-        f"{org_name} has added you as a crowd resource on {PRODUCT}. Set your password\n"
-        f"within {settings.invitation_ttl_days} days, then sign in to the {CAPTURE_APP} app\n"
-        f"with this email address:\n\n  {link}\n\n"
-        f"No one at {PRODUCT} knows this link's token or your future password.",
-        None,
-    )
-
-
-async def _send_worker_invitation(
-    email: str, full_name: str, org_name: str, raw_token: str
+async def _queue_worker_invitation(
+    session: AsyncSession,
+    *,
+    email: str,
+    full_name: str,
+    org_name: str,
+    raw_token: str,
+    worker_id: uuid.UUID,
+    reference_code: str,
 ) -> None:
-    """Best-effort, like the onboarding invitation: the worker exists either
-    way, and the invitation can be re-sent. A dead SMTP must not roll back
-    the invite."""
-    from sourcehub.platform.mail.smtp import send_mail
+    """Queued in the same transaction as the roster row (db/480 mail_outbox)
+    and sent within seconds by modules/outbox. Nothing here can roll the invite
+    back; the Ops mail log shows whether the mail left, and an import of fifty
+    queues fifty rows the same way."""
+    from sourcehub.modules.outbox import service as outbox
 
-    to, subject, body, _html = _invitation_message(email, full_name, org_name, raw_token)
-    try:
-        await send_mail(to, subject, body)
-    except OSError:
-        pass
-
-
-async def _send_invitations(messages: list[Message]) -> list[str | None]:
-    """A batch over one connection, one error slot per message — the shape
-    task offers use (delivery._send_offer_emails). Best-effort as above."""
-    from sourcehub.platform.mail.smtp import send_many
-
-    if not messages:
-        return []
-    try:
-        return await send_many(messages)
-    except OSError as e:
-        return [str(e)[:300]] * len(messages)
+    link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
+    await outbox.enqueue_to(
+        session, "worker_invitation",
+        {"full_name": full_name, "org_name": org_name, "link": link,
+         "ttl_days": settings.invitation_ttl_days},
+        to_email=email, to_name=full_name, entity=("crowd_worker", worker_id),
+        label=f"Crowd invitation · {reference_code} {full_name}", scrub=True,
+        resend_until=dt.datetime.now(dt.UTC)
+        + dt.timedelta(days=settings.invitation_ttl_days),
+    )
 
 
 async def _create_invited(
@@ -530,7 +513,10 @@ async def invite_worker(
         f"Invited {full_name} ({row['reference_code']}) as a crowd resource",
         [row["worker_id"], row["user_id"], claims.org_id],
     )
-    await _send_worker_invitation(email, full_name, claims.org_name, raw)
+    await _queue_worker_invitation(
+        session, email=email, full_name=full_name, org_name=claims.org_name, raw_token=raw,
+        worker_id=row["worker_id"], reference_code=row["reference_code"],
+    )
     return await _worker_by_id(session, row["worker_id"])
 
 
@@ -725,8 +711,6 @@ async def import_rows(
     fails leaves the rest of the batch standing."""
     verdicts = await _judge(session, claims, rows, known_skills)
     results: list[dict[str, Any]] = []
-    messages: list[Message] = []
-    invited_at: list[int] = []  # index into results of each row with a message
     added = invited = skipped = 0
 
     for v in verdicts:
@@ -742,10 +726,11 @@ async def import_rows(
                         session, claims, email=n.email, full_name=n.display_name,
                         phone=n.phone, skills=list(n.skills), trained=n.trained,
                     )
-                    messages.append(
-                        _invitation_message(n.email, n.display_name, claims.org_name, raw)
+                    await _queue_worker_invitation(
+                        session, email=n.email, full_name=n.display_name,
+                        org_name=claims.org_name, raw_token=raw, worker_id=row["worker_id"],
+                        reference_code=row["reference_code"],
                     )
-                    invited_at.append(len(results))
                     results.append(
                         {"row": v.row, "outcome": "invited", "worker_id": row["worker_id"]}
                     )
@@ -767,25 +752,17 @@ async def import_rows(
                 {"row": v.row, "outcome": "skipped", "reason": f"Could not be saved: {what[:160]}"}
             )
 
-    errors = await _send_invitations(messages)
-    failed = 0
-    for i, err in zip(invited_at, errors, strict=True):
-        if err:
-            failed += 1
-            results[i]["invitation_error"] = err
-
+    # The invitation mails are queued rows now (db/480), sent within seconds and
+    # visible on the Ops mail log; nothing about delivery is known here.
     noun = "crowd resource" if added + invited == 1 else "crowd resources"
     await audit.log(
         session, "roster.imported",
         f"Imported {added + invited} {noun} "
         f"({invited} invited, {added} roster-only); {skipped} skipped",
         [claims.org_id],
-        {"added": added, "invited": invited, "skipped": skipped, "invitation_failures": failed},
+        {"added": added, "invited": invited, "skipped": skipped},
     )
-    return {
-        "added": added, "invited": invited, "skipped": skipped, "invitation_failures": failed,
-        "rows": results,
-    }
+    return {"added": added, "invited": invited, "skipped": skipped, "rows": results}
 
 
 async def resend_worker_invitation(
@@ -827,7 +804,10 @@ async def resend_worker_invitation(
     await audit.log(session, "worker.invitation_resent",
                     f"Re-sent the invitation to {w.display_name} ({w.reference_code})",
                     [w.id, w.user_id, claims.org_id])
-    await _send_worker_invitation(w.email, w.display_name, claims.org_name, raw)
+    await _queue_worker_invitation(
+        session, email=w.email, full_name=w.display_name, org_name=claims.org_name,
+        raw_token=raw, worker_id=w.id, reference_code=w.reference_code,
+    )
 
 
 async def update_worker(

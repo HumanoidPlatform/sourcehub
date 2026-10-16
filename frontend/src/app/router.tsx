@@ -8,6 +8,7 @@
 import { Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import { DesignSystemRoute } from "@ds/DesignSystemRoute";
 import { AccountDetailPage } from "@features/admin/account-detail";
+import { MailPage } from "@features/admin/mail";
 import { AccountsPage, ActivityPage } from "@features/admin/pages";
 import {
   CataloguePage, DatasetPage, DealPage, DealsPage,
@@ -183,6 +184,7 @@ export function AppRouter() {
         <Route path="/accounts" element={<AccountsPage />} />
         <Route path="/accounts/:id" element={<AccountDetailPage />} />
         <Route path="/activity" element={<ActivityPage />} />
+        <Route path="/mail" element={<MailPage />} />
 
         {/* shared */}
         {/* Reached from the account menu, not the rail: managing colleagues is

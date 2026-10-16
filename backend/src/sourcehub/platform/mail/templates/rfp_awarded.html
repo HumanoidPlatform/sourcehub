@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}You won {{ request_ref }} {{ title }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, kv %}
+<p style="margin:0 0 12px;">Hello {{ recipient_name }},</p>
+<p style="margin:0 0 16px;">Congratulations — <strong>{{ client_name }}</strong> awarded {{ request_ref }} {{ title }} to {{ recipient_org }}.</p>
+{{ kv([("Contract", contract_ref), ("Price", price_text)]) }}
+<p style="margin:16px 0 0;">Break the contract into tasks to begin.</p>
+<p style="margin:24px 0 8px;">{{ button(app_base_url ~ "/contracts/" ~ contract_id, "Open the contract") }}</p>
+{% endblock %}

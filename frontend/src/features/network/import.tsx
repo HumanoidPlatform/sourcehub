@@ -32,7 +32,7 @@ const VERDICT: Record<Verdict["status"], { label: string; tone: Tone }> = {
   skipped: { label: "Already on roster", tone: "neutral" },
 };
 
-const EMPTY_TOTALS = { added: 0, invited: 0, skipped: 0, invitation_failures: 0 };
+const EMPTY_TOTALS = { added: 0, invited: 0, skipped: 0 };
 
 export function ImportCrowdDialog({ onClose }: { onClose: () => void }) {
   const qc = useQueryClient();
@@ -87,14 +87,13 @@ export function ImportCrowdDialog({ onClose }: { onClose: () => void }) {
         sum.added += r.added;
         sum.invited += r.invited;
         sum.skipped += r.skipped;
-        sum.invitation_failures += r.invitation_failures;
         setResults([...all]);
         setTotals({ ...sum });
         setProgress({ done: Math.min(i + IMPORT_BATCH, toSend.length), total: toSend.length });
       }
       toast(
         "Import finished",
-        `${sum.added + sum.invited} added to the roster, ${sum.invited} invited.`,
+        `${sum.added + sum.invited} added to the roster; ${sum.invited} invitation e-mail${sum.invited === 1 ? " is" : "s are"} on the way.`,
         "success",
       );
     } catch (e) {
@@ -135,7 +134,7 @@ export function ImportCrowdDialog({ onClose }: { onClose: () => void }) {
     ? check.rows.filter((v) => v.status === "error" || v.status === "skipped").length
       + results.filter((r) => r.outcome === "skipped").length
     : 0;
-  const reportable = notImported > 0 || totals.invitation_failures > 0;
+  const reportable = notImported > 0;
 
   const foot = stage === 0 ? (
     <Button onClick={onClose} disabled={busy}>Cancel</Button>
@@ -243,17 +242,11 @@ export function ImportCrowdDialog({ onClose }: { onClose: () => void }) {
             </>
           )}
           {finished && (
-            <div className="g4" style={{ marginTop: 12 }}>
+            <div className="g3" style={{ marginTop: 12 }}>
               <Stat label="Invited" value={totals.invited} />
               <Stat label="Roster only" value={totals.added} />
               <Stat label="Not imported" value={notImported} />
-              <Stat label="Invitations not sent" value={totals.invitation_failures} />
             </div>
-          )}
-          {finished && totals.invitation_failures > 0 && (
-            <Callout tone="attention" title="Some invitations did not go out">
-              Those people are on the roster; use Resend invite on their row when the mail server is back.
-            </Callout>
           )}
           {finished && reportable && (
             <p className="small muted">The error report lists every row that was not imported, with the reason.</p>

@@ -1,0 +1,28 @@
+Hello {{ worker_name }},
+
+{% if lead %}
+{{ lead }}
+
+{% endif %}
+{{ org_name }} is offering you work on {{ product }}.
+
+  Task:          {{ task_ref }} — {{ task_title }}
+  Your share:    {{ quantity }} {{ unit }}
+  Due:           {{ due }}
+  Places:        {{ places }}, first come first served
+  Respond by:    {{ by }}
+
+{% if instructions %}
+Instructions:
+{{ instructions }}
+
+{% endif %}
+Accept:
+  {{ accept_url }}
+
+Decline:
+  {{ decline_url }}
+
+Once you accept, the task appears in your {{ capture_app }} app and on the console.
+If all places are taken before you answer, the link will say so.
+{% include "_footer.txt" %}

@@ -139,6 +139,18 @@ refused(seller.post(f"/catalogue/deals/{pub['id']}/quote",
 r = seller.post(f"/catalogue/deals/{pub['id']}/messages", json={"body": "Yes: USD [x] for 500."})
 assert r.status_code in (200, 201), r.text
 assert r.json()["emailed_to"] == "buyer@lab.example"
+# db/480: the reply is recorded, the mail is queued in the same transaction and
+# sent by the clock; the thread shows the status flip within seconds
+assert r.json()["email_status"] == "queued", r.json()
+import time as _time  # noqa: E402
+
+for _ in range(120):
+    reply = next(m for m in seller.get(f"/catalogue/deals/{pub['id']}/messages").json()
+                 if m["emailed_to"] == "buyer@lab.example")
+    if reply["email_status"] == "sent":
+        break
+    _time.sleep(0.5)
+assert reply["email_status"] == "sent", reply
 r = seller.post(f"/catalogue/deals/{pub['id']}/decline", json={})
 r.raise_for_status()
 assert r.json()["status"] == "declined"

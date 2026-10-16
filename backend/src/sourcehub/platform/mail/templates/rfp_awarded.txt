@@ -1,0 +1,10 @@
+Hello {{ recipient_name }},
+
+Congratulations — {{ client_name }} awarded {{ request_ref }} {{ title }} to {{ recipient_org }}.
+
+  Contract:      {{ contract_ref }}
+  Price:         {{ price_text }}
+
+Break the contract into tasks to begin:
+  {{ app_base_url }}/contracts/{{ contract_id }}
+{% include "_footer.txt" %}

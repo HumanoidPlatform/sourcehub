@@ -139,6 +139,9 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "audit_event",
             "notification",
+            # db/470: platform e-mail waiting for the outbox clock, written in
+            # the transaction that decided to send it
+            "mail_outbox",
         ],
     ),
     (

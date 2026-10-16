@@ -140,6 +140,15 @@ services:
       # placeholder: anything non-empty is sent as a Bearer and refused (401).
       EXPO_ACCESS_TOKEN: ""
 
+      # --- The mail outbox ---------------------------------------------------
+      # modules/outbox sends every e-mail the platform writes: resets,
+      # invitations, task offers, reminders, DataHub replies, and the RFP mails
+      # to every active partner. Same shape as the clocks above. Addresses on
+      # reserved domains (.example and friends) are marked failed, never handed
+      # to Gmail. The Ops console's Mail page reads the same table.
+      MAIL_OUTBOX_ENABLED: "true"
+      MAIL_OUTBOX_TICK_SECONDS: "5"
+
       # Everything else uses the defaults in backend/src/sourcehub/config.py,
       # which are already right: argon2id hashing, 15-minute access tokens,
       # 5 failed sign-ins then a 15-minute lock, 14-day invitations, the

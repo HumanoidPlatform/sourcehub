@@ -48,14 +48,15 @@ export interface ImportResultRow {
   outcome: "added" | "invited" | "skipped";
   reason?: string;
   worker_id?: string;
-  invitation_error?: string;
 }
 
+/** What one batch wrote. The invitation e-mails are queued (db/480) and sent a
+ *  few seconds later, so delivery is not known here: Ops see it on the Mail
+ *  page, and the roster shows each person's invitation status. */
 export interface ImportResult {
   added: number;
   invited: number;
   skipped: number;
-  invitation_failures: number;
   rows: ImportResultRow[];
 }
 
@@ -253,8 +254,6 @@ export function reportRows(
     const v = byRow.get(r.row);
     if (r.outcome === "skipped" && v && v.status !== "error" && v.status !== "skipped") {
       out.push([r.row, v.normalized.display_name, v.normalized.email ?? "", "skipped", r.reason ?? ""]);
-    } else if (r.invitation_error && v) {
-      out.push([r.row, v.normalized.display_name, v.normalized.email ?? "", "invitation not sent", r.invitation_error]);
     }
   }
   return out;

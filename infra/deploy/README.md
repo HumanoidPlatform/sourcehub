@@ -125,6 +125,8 @@ minutes before a demo.
 
 ## A managed database: Azure, AWS, Google
 
+> The Azure instance described below was deleted on 14 Oct 2026; the steps stay valid for any managed PostgreSQL and are what prod-deploy/PROD-RUNBOOK.md follows on Cloud SQL.
+
 The VM's database runs everything as a superuser. A managed server (Azure
 Database for PostgreSQL Flexible Server, AWS RDS, Google Cloud SQL) gives you an
 admin login that is **not** a superuser, and the schema is built to work there

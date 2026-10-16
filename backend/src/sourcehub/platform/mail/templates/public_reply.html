@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Re: your quote request for {{ dataset_title }}{% endblock %}
+{% block content %}
+<p style="margin:0 0 16px;white-space:pre-wrap;">{{ body }}</p>
+<p style="margin:0;color:#5f7174;">— {{ sender_name }}, {{ org_name }}<br>Reply to this email to reach {{ org_name }} directly.</p>
+<p style="margin:16px 0 0;font-size:13px;">You asked about “{{ dataset_title }}” on {{ product }}:<br><a href="{{ dataset_url }}" style="color:#091cff;word-break:break-all;">{{ dataset_url }}</a></p>
+{% endblock %}

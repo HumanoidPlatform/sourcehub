@@ -1,0 +1,9 @@
+Hello {{ full_name }},
+
+{{ org_name }} has been approved on {{ product }} and you are its first
+user. Set your password within {{ ttl_days }} days:
+
+  {{ link }}
+
+No one at {{ product }} knows this link's token or your future password.
+{% include "_footer.txt" %}

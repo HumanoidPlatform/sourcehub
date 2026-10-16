@@ -1,0 +1,10 @@
+Hello {{ full_name }},
+
+{{ org_name }} has added you as a crowd resource on {{ product }}. Set your password
+within {{ ttl_days }} days, then sign in to the {{ capture_app }} app
+with this email address:
+
+  {{ link }}
+
+No one at {{ product }} knows this link's token or your future password.
+{% include "_footer.txt" %}

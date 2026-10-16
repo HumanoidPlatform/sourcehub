@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}New RFP: {{ ref }} {{ title }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, kv %}
+<p style="margin:0 0 12px;">Hello {{ recipient_name }},</p>
+<p style="margin:0 0 16px;"><strong>{{ client_name }}</strong> has published a new RFP on {{ product }}.</p>
+{{ kv([("RFP", ref ~ " — " ~ title), ("Category", category), ("Volume", quantity_text), ("Countries", countries_text), ("Bids close", bids_close), ("Delivery due", delivery_due)]) }}
+<p style="margin:24px 0 8px;">{{ button(app_base_url ~ "/requests/" ~ request_id, "Open the RFP") }}</p>
+<p style="margin:16px 0 0;font-size:13px;color:#5f7174;">You receive this as a user of {{ recipient_org }}, a delivery partner on {{ product }}.</p>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}You're invited to {{ product }} — {{ org_name }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, plain_link %}
+<p style="margin:0 0 12px;">Hello {{ full_name }},</p>
+<p style="margin:0 0 16px;"><strong>{{ org_name }}</strong> has been approved on {{ product }} and you are its first user. Set your password within {{ ttl_days }} days.</p>
+<p style="margin:0;">{{ button(link, "Set my password") }}</p>
+{{ plain_link(link) }}
+<p style="margin:16px 0 0;font-size:13px;color:#5f7174;">No one at {{ product }} knows this link's token or your future password.</p>
+{% endblock %}

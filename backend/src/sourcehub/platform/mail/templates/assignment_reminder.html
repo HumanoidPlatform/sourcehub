@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+{% from "_macros.html" import kv %}
+<p style="margin:0 0 12px;">Hello {{ worker_name }},</p>
+<p style="margin:0 0 16px;"><strong>{{ line }}</strong></p>
+{{ kv([("Task", title), ("Your share", quantity ~ " " ~ unit), ("Due", due)]) }}
+<p style="margin:16px 0 0;">Open the {{ capture_app }} app to {{ action }}.</p>
+<p style="margin:16px 0 0;font-size:13px;color:#5f7174;">{{ org_name }} on {{ product }}</p>
+{% endblock %}

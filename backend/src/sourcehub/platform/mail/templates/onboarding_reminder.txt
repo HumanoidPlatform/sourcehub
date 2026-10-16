@@ -1,0 +1,4 @@
+Your invitation link for {{ org_name }} was refreshed. Set your password here:
+
+  {{ link }}
+{% include "_footer.txt" %}

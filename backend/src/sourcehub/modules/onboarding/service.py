@@ -32,7 +32,7 @@ from sqlalchemy.exc import DBAPIError, IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims, new_opaque_token
-from sourcehub.config import PRODUCT, settings
+from sourcehub.config import settings
 from sourcehub.modules.attachments import service as attachments
 from sourcehub.modules.audit import service as audit
 from sourcehub.modules.identity import service as identity
@@ -129,7 +129,7 @@ async def create_request(
         payload={k: v for k, v in payload.items() if k != "parent_org_id"},
         contact=contact,
         status="submitted" if submit else "draft",
-        submitted_at=dt.datetime.now(dt.timezone.utc) if submit else None,
+        submitted_at=dt.datetime.now(dt.UTC) if submit else None,
         created_by=claims.user_id,
     )
     session.add(req)
@@ -293,7 +293,7 @@ async def submit_request(
     if r.target_org_kind in TOP_KINDS:
         r.payload = _checked_profile(claims, r.target_org_kind, r.payload or {}, submitting=True)
     r.status = "submitted"
-    r.submitted_at = dt.datetime.now(dt.timezone.utc)
+    r.submitted_at = dt.datetime.now(dt.UTC)
     r.updated_by = claims.user_id
     await _flush_or_refuse(session)
     await _announce_submission(session, claims, r)
@@ -390,7 +390,7 @@ async def decide(
     # transition trigger (db/330) checks that the caller is Ops, that the
     # request was submitted, that decided_by is the session, and that a
     # non-approval has a reason; its refusal is a 409, not a 500.
-    r.decided_at = dt.datetime.now(dt.timezone.utc)
+    r.decided_at = dt.datetime.now(dt.UTC)
     r.decided_by = claims.user_id
     r.decision_reason = reason
     r.updated_by = claims.user_id
@@ -502,25 +502,24 @@ async def _approve(
         [r.id, new_org_id, r.requester_org_id, claims.org_id],
     )
 
-    # Email is best-effort: the org exists either way, and the invitation can
-    # be re-sent. A dead SMTP must not roll back an approval.
+    # The invitation mail is queued in this transaction (db/480 mail_outbox)
+    # and leaves within seconds through modules/outbox; the Ops mail log shows
+    # whether it did, and Ops can re-send it from there or from this request.
     email = (r.contact or {}).get("email")
     if email:
-        from sourcehub.platform.mail.smtp import send_mail
+        from sourcehub.modules.outbox import service as outbox
 
+        full_name = (r.contact or {}).get("full_name", "")
         link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
-        try:
-            await send_mail(
-                email,
-                f"You're invited to {PRODUCT} — {r.proposed_name}",
-                f"Hello {(r.contact or {}).get('full_name', '')},\n\n"
-                f"{r.proposed_name} has been approved on {PRODUCT} and you are its first\n"
-                f"user. Set your password within {settings.invitation_ttl_days} days:\n\n"
-                f"  {link}\n\n"
-                f"No one at {PRODUCT} knows this link's token or your future password.",
-            )
-        except OSError:
-            pass
+        await outbox.enqueue_to(
+            session, "onboarding_approved",
+            {"full_name": full_name, "org_name": r.proposed_name, "link": link,
+             "ttl_days": settings.invitation_ttl_days},
+            to_email=email, to_name=full_name, entity=("onboarding_request", r.id),
+            label=f"Onboarding · {r.reference_code} {r.proposed_name}", scrub=True,
+            resend_until=dt.datetime.now(dt.UTC)
+            + dt.timedelta(days=settings.invitation_ttl_days),
+        )
 
     return {**_row(r), "warnings": warnings}
 
@@ -547,23 +546,23 @@ async def resend_invitation(
 
     raw_token, token_hash = new_opaque_token()
     inv.token_hash = token_hash
-    inv.expires_at = dt.datetime.now(dt.timezone.utc) + dt.timedelta(
+    inv.expires_at = dt.datetime.now(dt.UTC) + dt.timedelta(
         days=settings.invitation_ttl_days
     )
     inv.reminder_count = inv.reminder_count + 1
-    inv.last_reminder_at = dt.datetime.now(dt.timezone.utc)
+    inv.last_reminder_at = dt.datetime.now(dt.UTC)
 
-    from sourcehub.platform.mail.smtp import send_mail
+    from sourcehub.modules.outbox import service as outbox
 
     link = f"{settings.app_base_url}/accept-invitation?token={raw_token}"
-    try:
-        await send_mail(
-            inv.email,
-            f"Reminder: your {PRODUCT} invitation — {r.proposed_name}",
-            f"Your invitation link was refreshed. Set your password here:\n\n  {link}\n",
-        )
-    except OSError:
-        pass
+    await outbox.enqueue_to(
+        session, "onboarding_reminder",
+        {"org_name": r.proposed_name, "link": link},
+        to_email=inv.email, to_name=(r.contact or {}).get("full_name", ""),
+        entity=("onboarding_request", r.id),
+        label=f"Onboarding · {r.reference_code} {r.proposed_name}", scrub=True,
+        resend_until=inv.expires_at,
+    )
 
 
 # ---------------------------------------------------------------------------

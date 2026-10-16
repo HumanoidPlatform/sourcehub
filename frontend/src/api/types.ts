@@ -833,6 +833,54 @@ export interface ActivityRow {
   occurred_at: string;
 }
 
+/** One UTC day of the mail log (db/480 mail_stats). */
+export interface MailDay {
+  day: string;
+  sent: number;
+  failed: number;
+}
+
+/** The Ops Mail page's tiles and chart. `since` is 00:00 UTC of today. */
+export interface MailStats {
+  since: string;
+  sent_today: number;
+  failed_today: number;
+  waiting: number;
+  /** of the waiting, how many a temporary refusal has deferred (db/490) */
+  retrying: number;
+  /** failed in the last 30 days and not re-sent */
+  failed_open: number;
+  days: MailDay[];
+}
+
+/** One platform e-mail as the Ops mail log lists it (db/480 mail_log). Never
+ *  carries the mail's content: an unsent invitation's token is in there. */
+export interface MailRow {
+  id: string;
+  created_at: string;
+  to_email: string;
+  to_name: string;
+  template: string;
+  label: string;
+  entity_type: string | null;
+  entity_id: string | null;
+  org_name: string | null;
+  /** "retrying": still waiting, after a temporary refusal (db/490) */
+  state: "queued" | "retrying" | "sent" | "failed";
+  sent_at: string | null;
+  failed_at: string | null;
+  failure_reason: string | null;
+  resent_from: string | null;
+  resent_to: string | null;
+  /** failed, content still held, link still alive, not yet re-sent */
+  can_resend: boolean;
+  /** how many times a temporary refusal deferred it, when it is tried next,
+   *  and the latest refusal */
+  attempts: number;
+  next_attempt_at: string | null;
+  last_error: string | null;
+}
+
 /** The four directions a rating goes (db/380_ratings.sql). */
 export type RatingKind = "client_partner" | "partner_client" | "partner_supplier" | "supplier_worker";
 
@@ -1155,6 +1203,11 @@ export interface DealMessage {
   body: string;
   /** set when the message was emailed to a public request's visitor */
   emailed_to: string | null;
+  /** db/480: what became of that e-mail — queued in the deal's transaction,
+   *  sent by the clock, or failed with the server's reason; null when the
+   *  message was never mailed or its record has been purged */
+  email_status: "queued" | "sent" | "failed" | null;
+  email_reason: string | null;
   created_at: string;
   mine: boolean;
 }

@@ -1,0 +1,16 @@
+Hello {{ recipient_name }},
+
+{{ client_name }} has published a new RFP on {{ product }}.
+
+  RFP:           {{ ref }} — {{ title }}
+  Category:      {{ category }}
+  Volume:        {{ quantity_text }}
+  Countries:     {{ countries_text }}
+  Bids close:    {{ bids_close }}
+  Delivery due:  {{ delivery_due }}
+
+Open it to read the brief and respond with a proposal:
+  {{ app_base_url }}/requests/{{ request_id }}
+
+You receive this as a user of {{ recipient_org }}, a delivery partner on {{ product }}.
+{% include "_footer.txt" %}
