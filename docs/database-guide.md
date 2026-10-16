@@ -88,19 +88,21 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `rfp_message` | One message in a thread, numbered `seq` 1, 2, 3… under the thread's advisory lock. Append-only at every layer: no UPDATE or DELETE policy, no grant, and rewrite rules that turn either into nothing. `sender_name` is a snapshot because the other organisation cannot read `app_user`. |
 | `rfp_thread_read` | One last-read `seq` per organisation per thread. "Seen" and unread counts are computed from it; it is a separate table so both parties can stamp without holding the thread's client-only UPDATE policy. |
 
-### D. Delivery and capture · [`050_delivery.sql`](../db/050_delivery.sql), [`120_workers_media.sql`](../db/120_workers_media.sql), [`130_task_offers.sql`](../db/130_task_offers.sql), [`170_engagement.sql`](../db/170_engagement.sql), [`095_attachments.sql`](../db/095_attachments.sql)
+### D. Delivery and capture · [`050_delivery.sql`](../db/050_delivery.sql), [`120_workers_media.sql`](../db/120_workers_media.sql), [`130_task_offers.sql`](../db/130_task_offers.sql), [`170_engagement.sql`](../db/170_engagement.sql), [`095_attachments.sql`](../db/095_attachments.sql), [`510_measured_units.sql`](../db/510_measured_units.sql)
 
 | Table | One row is |
 |---|---|
 | `contract` | The award. Carries both parties, the value, a **snapshot of the rubric**, and the **storage destination copied from the request** — so the client editing the request later cannot move work already under way. |
-| `task` | A slice of a contract given to **one supplier organisation**. Never spans suppliers. |
+| `task` | A slice of a contract given to **one supplier organisation**. Never spans suppliers. `target_unit` is one of the request's eight units and cannot change once work on the task is handed out; `target_quantity` may be a fraction only for `hours` (see *Units* below). |
 | `task_offer` | "N places are open on this task" — sent to several workers at once. |
 | `task_offer_recipient` | One emailed offer link (hash), and that worker's answer. |
-| `task_assignment` | One **worker's** share of a task: how many items, and how far along. |
+| `task_assignment` | One **worker's** share of a task: how much, in the task's unit (3 photos, or 1.5 hours of footage), and how far along. |
 | `engagement_reminder` | One reminder sent to a worker about an offer they have not answered or an assignment they have not moved — by the clock (`modules/engage`, every five minutes) or by the aggregator from the console. The clock's rows are unique per (subject, kind, step), which is what makes a repeated pass harmless. |
-| `asset` | **One captured photo or video**: storage key, sha256, size, status, who captured it. The bytes are never in the database. Partitioned by `created_at` because it is expected to be the largest table by far. |
-| `submission` | One **attempt** at handing a finished task to the partner. A reworked task has several; every one is kept. |
+| `asset` | **One captured photo or video**: storage key, sha256, size, status, who captured it, and for a video its running time (`duration_s`, as the capturing device measured it). The bytes are never in the database. Partitioned by `created_at` because it is expected to be the largest table by far. |
+| `submission` | One **attempt** at handing a finished task to the partner. A reworked task has several; every one is kept. `asset_count` is how many files; `unit_quantity` what they come to in the task's unit (NULL where never measured — hours delivered before clip lengths were recorded). |
 | `attachment` | Every document file in the product — on a request, a proposal, a task or a review. One table for all four parents; `entity_type` + `entity_id` + `slot` say where it belongs, and `doc_no` + `version` keep every revision. |
+
+**Units.** Crowd work is counted in its task's unit ([`510_measured_units.sql`](../db/510_measured_units.sql)). `capture_units(unit, duration_s)` says what one capture is worth: 1 for photos, videos and records, its running time in hours for `hours`. Progress, the upload cap, gate-1 settling, reassigning, reminders and the invoice cap all add that up rather than count rows, so a share of 2 hours is met by 2 hours of clips, not 2 clips. A share may be a fraction only in hours (a trigger refuses 2.5 photos). Audio, sites and responses cannot be captured by the app and are not given to the crowd.
 
 ### E. Quality checks · [`060_qa.sql`](../db/060_qa.sql)
 
@@ -189,7 +191,7 @@ Which table gets a row at each step.
 5. **The partner splits the work** into `task` rows, each for one aggregator or business in its own network.
 6. **The aggregator staffs each task.** Either assigns workers directly (`task_assignment`), or sends a
    `task_offer` with one `task_offer_recipient` per worker; each accepted link becomes a `task_assignment`.
-7. **Workers capture.** Each photo is one `asset` row — `pending` when the upload link is issued, `ready` once the
+7. **Workers capture.** Each photo or clip is one `asset` row — `pending` when the upload link is issued, `ready` once the
    server has confirmed the object exists with the right size (see [section 6](#6-the-storage-layer)).
 8. **Gate 1.** The worker submits the assignment; the aggregator accepts or rejects it — a `qa_review` row with
    `gate1_supplier`. A rejection needs a note and sends the assignment back.

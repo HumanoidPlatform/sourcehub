@@ -37,7 +37,7 @@ function serverRow(status: string, id = `a-${status}`): AssetRow {
 function item(over: Partial<QueueItem>): QueueItem {
   return {
     id: "i", assignment_id: "as", file: null, filename: "q.jpg", mime: "image/jpeg", size: 1, captured_at: "", lat: null, lon: null,
-    checks: [], sha256: null, asset_id: null, put_url: null, put_headers: null, url_expires_at: null, status: "captured",
+    duration_s: null, checks: [], sha256: null, asset_id: null, put_url: null, put_headers: null, url_expires_at: null, status: "captured",
     attempts: 0, next_attempt_at: 0, last_error: null, note: null, saw_offline: false, created_at: 0, ...over,
   };
 }

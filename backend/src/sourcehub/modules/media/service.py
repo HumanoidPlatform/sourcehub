@@ -36,6 +36,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
+from sourcehub.modules.marketplace import pricing
 
 
 class MediaError(Exception):
@@ -59,7 +60,7 @@ _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _ASSET_COLUMNS = (
     "a.id, a.task_id, a.assignment_id, a.submission_id, a.captured_by_user_id, "
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
-    "a.filename, a.mime_type, a.size_bytes, a.sha256, a.etag, a.status, a.quarantine_reason, "
+    "a.filename, a.mime_type, a.size_bytes, a.duration_s, a.sha256, a.etag, a.status, a.quarantine_reason, "
     "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
     "a.check_results, a.review_reason, a.review_note, a.reviewed_at, "
     "d.label AS review_label, a.batch_id, cb.batch_no, cb.status AS batch_status, "
@@ -166,6 +167,8 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         "filename": r["filename"],
         "mime_type": r["mime_type"],
         "size_bytes": r["size_bytes"],
+        # a clip's running time as the capturing device measured it (db/510)
+        "duration_s": None if r["duration_s"] is None else float(r["duration_s"]),
         "sha256": r["sha256"],
         "etag": r["etag"],
         "status": r["status"],
@@ -235,11 +238,62 @@ def _allowed_kinds(capture_spec: dict[str, Any] | None, target_unit: str | None)
         return kinds
 
     unit = (target_unit or "").lower()
+    # hours of footage are measured by clip length; a photo has none
+    if pricing.measured_by_duration(unit):
+        return {"video"}
     if unit.startswith(("photo", "image")):
         return {"image"}
     if unit.startswith(("video", "clip")):
         return {"video"}
     return {"image", "video"}
+
+
+# The longest clip a capture spec may ask for (api/v1/marketplace CaptureSpec),
+# and the asset.duration_s CHECK (db/510).
+MAX_CLIP_SECONDS = 600
+# The phone times a recording on its own clock; the file it writes can run a
+# fraction longer or shorter than the spec's bound it stopped at.
+_DURATION_SLACK_S = 1.0
+
+
+def checked_duration(
+    kind: str, duration_s: float | None, capture_spec: dict[str, Any] | None, target_unit: str | None
+) -> Decimal | None:
+    """A clip's running time, checked against the task, as it is stored. Pure.
+
+    A photo has none, whatever was sent. A clip on an hours task must say how
+    long it runs: it is what the share is counted in, and an app from before
+    this sends nothing. The spec's min/max are enforced here as well as on the
+    device, with a second's slack for the device's own timing.
+    """
+    if kind != "video":
+        return None
+    if duration_s is None:
+        if pricing.measured_by_duration(target_unit):
+            raise MediaInvalid(
+                "This task is counted in hours of footage, and the clip's length was not sent. "
+                "Update the app and capture it again."
+            )
+        return None
+    spec = capture_spec or {}
+    lo = float(spec.get("min_duration_s") or 0)
+    hi = min(float(spec.get("max_duration_s") or MAX_CLIP_SECONDS), MAX_CLIP_SECONDS)
+    if duration_s <= 0 or duration_s > MAX_CLIP_SECONDS + _DURATION_SLACK_S:
+        raise MediaInvalid(f"A clip runs between 0 and {MAX_CLIP_SECONDS} seconds.")
+    if duration_s < lo - _DURATION_SLACK_S:
+        raise MediaInvalid(f"This task takes clips of at least {lo:g} seconds.")
+    if duration_s > hi + _DURATION_SLACK_S:
+        raise MediaInvalid(f"This task takes clips of at most {hi:g} seconds.")
+    return Decimal(str(round(min(max(duration_s, 0.01), MAX_CLIP_SECONDS), 2)))
+
+
+def hours_text(hours: Any) -> str:
+    """'45 min', '1 h 30 min', '2 h'. Pure."""
+    minutes = int((Decimal(str(hours)) * 60).to_integral_value())
+    h, m = divmod(minutes, 60)
+    if h and m:
+        return f"{h} h {m} min"
+    return f"{h} h" if h else f"{m} min"
 
 
 async def _assignment_for_upload(
@@ -337,8 +391,13 @@ async def presign_capture(
     lon: float | None,
     checks: list[dict[str, Any]] | None = None,
     replaces_asset_id: uuid.UUID | None = None,
+    duration_s: float | None = None,
 ) -> dict[str, Any]:
     """Record the manifest and mint a one-object upload URL.
+
+    duration_s is a clip's running time as the device measured it. A task in
+    hours counts its clips by it, so there it is required; anywhere else a
+    clip carries it when the device sent one. A photo has none.
 
     replaces_asset_id makes this capture a retake of one the aggregator sent
     back: it must be a rework capture of this same assignment that nothing has
@@ -367,6 +426,7 @@ async def presign_capture(
         raise MediaInvalid(f"A {kind} capture is capped at {cap // (1024 * 1024)} MB.")
     if captured_at.tzinfo is None:
         captured_at = captured_at.replace(tzinfo=dt.timezone.utc)
+    duration = checked_duration(kind, duration_s, a.get("capture_spec"), a.get("target_unit"))
 
     # Where this contract's client asked for delivery. Resolved through a
     # SECURITY DEFINER function: this runs in the worker's session, which
@@ -418,24 +478,33 @@ async def presign_capture(
         if old["replaced"]:
             raise MediaError("That capture has already been retaken.")
 
-    n = (
+    held = (
         await session.execute(
             text(
-                "SELECT count(*) FROM asset WHERE assignment_id = :a "
+                "SELECT count(*) AS n, round(coalesce(sum(capture_units(:unit, duration_s)), 0), 4) AS units "
+                "FROM asset WHERE assignment_id = :a "
                 "AND deleted_at IS NULL AND status NOT IN ('rejected','erased')"
             ),
-            {"a": assignment_id},
+            {"a": assignment_id, "unit": a.get("target_unit")},
         )
-    ).scalar_one()
+    ).mappings().one()
+    n = int(held["n"])
     if n >= MAX_ASSETS_PER_ASSIGNMENT:
         raise MediaError(f"An assignment holds at most {MAX_ASSETS_PER_ASSIGNMENT} captures.")
     # The aggregator asked for a number of units and reviews every one of them.
     # Refusing here rather than at submit costs the worker a message instead of
-    # an upload over a field connection.
-    if a.get("quantity") and n >= a["quantity"]:
+    # an upload over a field connection. In hours the clip that crosses the
+    # line is still taken: the share is met, and a clip cannot be cut to fit.
+    if a.get("quantity") and Decimal(held["units"]) >= Decimal(a["quantity"]):
+        unit = a.get("target_unit")
+        if pricing.measured_by_duration(unit):
+            raise MediaError(
+                f"This assignment is for {pricing.quantity_text(a['quantity'], unit)} and already has "
+                f"{hours_text(held['units'])} of footage. Remove a clip before adding another."
+            )
         raise MediaError(
-            f"This assignment is for {a['quantity']} captures and already has {n}. "
-            "Remove one before adding another."
+            f"This assignment is for {pricing.quantity_text(a['quantity'], unit or 'captures')} "
+            f"and already has {n}. Remove one before adding another."
         )
 
     # The client's prefix, then one flat name that says what the file is (see
@@ -469,10 +538,10 @@ async def presign_capture(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
             "                   status, captured_at, captured_lat, captured_lon, metadata, "
-            "                   check_results, storage_target_id, replaces_asset_id) "
+            "                   check_results, storage_target_id, replaces_asset_id, duration_s) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
             "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
-            "        CAST(:checks AS jsonb), :target, :replaces)"
+            "        CAST(:checks AS jsonb), :target, :replaces, :dur)"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
@@ -486,6 +555,7 @@ async def presign_capture(
             "checks": json.dumps({"device": checks or []}),
             "target": target_id,
             "replaces": replaces_asset_id,
+            "dur": duration,
         },
     )
     url, extra = await storage.presign_put(target, key)
@@ -652,9 +722,10 @@ async def asset_view_url(
 
 async def attach_to_submission(
     session: AsyncSession, task_id: uuid.UUID, submission_id: uuid.UUID
-) -> int:
+) -> tuple[int, Decimal]:
     """Bundle every ready capture of an ACCEPTED assignment into the submission
-    the aggregator hands to its delivery partner. Returns how many."""
+    the aggregator hands to its delivery partner. Returns how many, and what
+    they come to in the task's unit."""
     result = await session.execute(
         text(
             "UPDATE asset a SET submission_id = :s, updated_at = now() "
@@ -665,7 +736,17 @@ async def attach_to_submission(
         ),
         {"s": submission_id, "t": task_id},
     )
-    return int(result.rowcount or 0)
+    units = (
+        await session.execute(
+            text(
+                "SELECT round(coalesce(sum(capture_units(t.target_unit, a.duration_s)), 0), 4) "
+                "FROM asset a JOIN task t ON t.id = a.task_id "
+                "WHERE a.submission_id = :s AND a.deleted_at IS NULL"
+            ),
+            {"s": submission_id},
+        )
+    ).scalar_one()
+    return int(result.rowcount or 0), Decimal(units)
 
 
 async def discard_asset(
@@ -712,22 +793,42 @@ async def discard_asset(
 # How many of an assignment's captures stand where (stage, above), in SQL. One
 # fragment so the assignment payload, submit and the gate-1 settle all count
 # alike. :a is the assignment.
+_REWORK = (
+    "s.status = 'rejected' AND NOT EXISTS ("
+    "SELECT 1 FROM asset r WHERE r.replaces_asset_id = s.id "
+    "AND r.deleted_at IS NULL AND r.status <> 'erased')"
+)
+# the same four, in the task's unit (db/510 capture_units): equal to the
+# counts for a counted unit, hours of footage for hours
+_UNITS = "round(coalesce(sum(capture_units(tu.target_unit, s.duration_s)) FILTER (WHERE {}), 0), 4)"
 STAGE_COUNTS = (
     "SELECT count(*) FILTER (WHERE s.status = 'ready' AND s.batch_id IS NULL) AS draft, "
     "       count(*) FILTER (WHERE s.status = 'ready' AND b.status = 'in_review') AS in_review, "
     "       count(*) FILTER (WHERE s.status = 'ready' AND b.status = 'reviewed') AS accepted, "
-    "       count(*) FILTER (WHERE s.status = 'rejected' AND NOT EXISTS ("
-    "           SELECT 1 FROM asset r WHERE r.replaces_asset_id = s.id "
-    "             AND r.deleted_at IS NULL AND r.status <> 'erased')) AS rework "
+    "       count(*) FILTER (WHERE " + _REWORK + ") AS rework, "
+    "       " + _UNITS.format("s.status = 'ready' AND s.batch_id IS NULL") + " AS draft_units, "
+    "       " + _UNITS.format("s.status = 'ready' AND b.status = 'in_review'") + " AS in_review_units, "
+    "       " + _UNITS.format("s.status = 'ready' AND b.status = 'reviewed'") + " AS accepted_units, "
+    "       " + _UNITS.format(_REWORK) + " AS rework_units "
     "FROM asset s LEFT JOIN capture_batch b ON b.id = s.batch_id "
+    "LEFT JOIN task tu ON tu.id = s.task_id "
     "WHERE s.assignment_id = :a AND s.deleted_at IS NULL"
 )
+STAGES = ("draft", "in_review", "accepted", "rework")
 
 
 async def stage_counts(session: AsyncSession, assignment_id: uuid.UUID) -> dict[str, int]:
-    """{draft, in_review, accepted, rework} for one assignment."""
+    """{draft, in_review, accepted, rework} as capture counts, and the same
+    with _units as Decimals in the task's unit."""
     r = (await session.execute(text(STAGE_COUNTS), {"a": assignment_id})).mappings().one()
-    return {k: int(r[k] or 0) for k in ("draft", "in_review", "accepted", "rework")}
+    return stage_values(r)
+
+
+def stage_values(r: Any) -> dict[str, Any]:
+    """The counts and unit sums from a row carrying STAGE_COUNTS' columns."""
+    out: dict[str, Any] = {k: int(r[k] or 0) for k in STAGES}
+    out.update({f"{k}_units": Decimal(r[f"{k}_units"] or 0) for k in STAGES})
+    return out
 
 
 async def ready_count(session: AsyncSession, assignment_id: uuid.UUID) -> int:

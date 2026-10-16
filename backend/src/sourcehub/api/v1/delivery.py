@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from decimal import Decimal
 from typing import Any, Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -12,7 +13,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.api.v1.attachments import AttachmentIn
-from sourcehub.api.v1.marketplace import CaptureSpec
+from sourcehub.api.v1.marketplace import CaptureSpec, TargetUnit
 from sourcehub.modules.delivery import service as delivery
 from sourcehub.modules.engage import service as engage
 from sourcehub.modules.network import service as network
@@ -49,8 +50,9 @@ class TaskIn(BaseModel):
     target: str | None = None
     due_on: dt.date | None = None
     # countable work, so the supplier can split it among workers
-    target_quantity: int | None = Field(default=None, gt=0)
-    target_unit: str | None = Field(default=None, max_length=40)
+    # a fraction only for hours (db/510); the service says so in words
+    target_quantity: Decimal | None = Field(default=None, gt=0, max_digits=12, decimal_places=2)
+    target_unit: TargetUnit | None = None
     instructions: str | None = None
     # The same model the request is checked with, so a partner calling the API
     # directly cannot set what the console would refuse (a 90° tilt, an
@@ -72,14 +74,14 @@ class SubmitIn(BaseModel):
 
 class AssignmentIn(BaseModel):
     worker_user_id: uuid.UUID
-    quantity: int = Field(gt=0)
+    quantity: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
     instructions: str | None = None
     due_on: dt.date | None = None
 
 
 class OfferIn(BaseModel):
     worker_limit: int = Field(gt=0, le=200)      # places
-    quantity: int = Field(gt=0)                  # units per accepting worker
+    quantity: Decimal = Field(gt=0, max_digits=12, decimal_places=2)  # units per accepting worker
     instructions: str | None = None
     due_on: dt.date | None = None
     respond_by: dt.datetime | None = None

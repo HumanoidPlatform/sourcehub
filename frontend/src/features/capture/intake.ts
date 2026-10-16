@@ -34,16 +34,29 @@ export interface Admission {
   refused: Refusal[];
 }
 
-/** How many more captures the server would take. It counts every asset that
- *  is not rejected or erased — pending and quarantined included — so a
- *  presign that was never followed by a PUT holds a slot until it is removed.
- *  Queue items that already have an asset_id are (or are about to be) in the
- *  server's count, so only the asset-less ones are added here. */
-export function room(ctx: Pick<AdmitContext, "quantity" | "serverRows" | "queued">): number {
+/** Whether the share is hours of footage, counted by clip length (db/510). */
+export const byDuration = (unit: string | null | undefined): boolean => unit === "hours" || unit === "audio_hours";
+
+/** What one capture is worth in the share's unit: 1, or its running time in hours. */
+const worth = (unit: string | null | undefined, durationS: number | null | undefined): number =>
+  byDuration(unit) ? (durationS ?? 0) / 3600 : 1;
+
+/** How much more the server would take, in the share's unit. It counts every
+ *  asset that is not rejected or erased — pending and quarantined included —
+ *  so a presign that was never followed by a PUT holds a slot until it is
+ *  removed. Queue items that already have an asset_id are (or are about to
+ *  be) in the server's count, so only the asset-less ones are added here. */
+export function room(
+  ctx: Pick<AdmitContext, "quantity" | "serverRows" | "queued"> & { targetUnit?: string | null },
+): number {
   if (!ctx.quantity || ctx.quantity <= 0) return Number.POSITIVE_INFINITY;
-  const onServer = ctx.serverRows.filter((r) => r.status !== "rejected" && r.status !== "erased").length;
-  const inQueue = ctx.queued.filter((i) => i.asset_id === null && i.status !== "failed").length;
-  return ctx.quantity - onServer - inQueue;
+  const onServer = ctx.serverRows
+    .filter((r) => r.status !== "rejected" && r.status !== "erased")
+    .reduce((n, r) => n + worth(ctx.targetUnit, r.duration_s), 0);
+  const inQueue = ctx.queued
+    .filter((i) => i.asset_id === null && i.status !== "failed")
+    .reduce((n, i) => n + worth(ctx.targetUnit, i.duration_s), 0);
+  return Math.round((ctx.quantity - onServer - inQueue) * 10000) / 10000;
 }
 
 function sameFile(a: File, b: File): boolean {
@@ -84,23 +97,33 @@ export async function admit(
 
     if (left <= 0) {
       const q = ctx.quantity ?? 0;
-      const taken = q - room(ctx);
+      const taken = Math.round((q - room(ctx)) * 100) / 100;
       refused.push(refusal(assignmentId, file, [{
         code: "quantity",
         severity: "block",
-        message: `This assignment is for ${q} captures and already has ${taken}. Remove one before adding another.`,
+        message: byDuration(ctx.targetUnit)
+          ? `This assignment is for ${q} hours of footage and already has ${taken}. Remove a clip before adding another.`
+          : `This assignment is for ${q} captures and already has ${taken}. Remove one before adding another.`,
       }], now()));
       continue;
     }
 
     const derived = await derive(file, kind);
     const findings = webChecks(derived, ctx.spec, ctx.targetUnit);
+    // a share in hours is counted by clip length, and the server refuses a clip without one
+    if (kind === "video" && byDuration(ctx.targetUnit) && derived.duration == null) {
+      findings.push({
+        code: "duration_unknown",
+        severity: "block",
+        message: "This task is counted in hours of footage, and this browser could not read how long the clip runs.",
+      });
+    }
     const blocks = blocking(findings);
     if (blocks.length > 0) {
       refused.push(refusal(assignmentId, file, blocks, now()));
       continue;
     }
-    left -= 1;
+    left -= worth(ctx.targetUnit, derived.duration);
     accepted.push({ file, derived, checks: findings.filter((f) => f.severity === "warn") });
   }
 

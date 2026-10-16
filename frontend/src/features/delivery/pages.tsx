@@ -18,7 +18,7 @@ import {
 import { useSession } from "@shared/auth";
 import { CAPTURE_APP, COMPANY } from "@shared/brand";
 import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
-import { describePricing, quantityWords } from "@shared/pricing";
+import { describePricing, quantityWords, unitWords } from "@shared/pricing";
 import { RATING_COMMENT_MIN, RATING_LABEL, RateDialog, ScoreField, type RateTarget } from "@shared/rating";
 import { can } from "@shared/rbac";
 import { captureRequirementText, subjectRows } from "./components/brief";
@@ -407,6 +407,10 @@ function AssignTaskDialog({
   });
   const wantedMedia = mediaList(brief.data?.spec.capture);
   const wantedUnit = brief.data?.spec.target_unit ?? null;
+  // start the target in the unit the client bought, where the crowd can deliver it
+  useEffect(() => {
+    if (wantedUnit && ["photos", "videos", "records", "hours"].includes(wantedUnit)) setUnit(wantedUnit);
+  }, [wantedUnit]);
   useEffect(() => {
     if (!brief.data || domain) return;
     const d = draftSubject(brief.data);
@@ -493,7 +497,7 @@ function AssignTaskDialog({
               {wantedMedia.length > 0
                 ? `Crowd resources on this task may upload ${wantedMedia.join(" and ")} only`
                 : "Crowd resources on this task may upload anything visual"}
-              {wantedUnit ? `, counted in ${wantedUnit.replace(/_/g, " ")}` : ""}.
+              {wantedUnit ? `, counted in ${unitWords(wantedUnit, 2).replace(/^2 /, "")}` : ""}.
               {" "}Setting a target below overrides the unit.
             </Callout>
           </div>
@@ -540,12 +544,25 @@ function AssignTaskDialog({
         <Field label="Target" hint="How much this task is for — a number of photos or videos, or hours of footage.">
           {(id) => (
             <div style={{ display: "flex", gap: 8 }}>
-              <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} placeholder="100" style={{ flex: 1 }} />
-              <select className={inputCls} value={unit} onChange={(e) => setUnit(e.target.value)} aria-label="Unit" style={{ width: 130 }}>
+              {/* hours may be split (1.5 hours); everything else is counted whole (db/510) */}
+              <input
+                id={id}
+                className={inputCls}
+                type="number"
+                min={unit === "hours" ? 0.01 : 1}
+                step={unit === "hours" ? 0.01 : 1}
+                value={qty}
+                onChange={(e) => setQty(e.target.value)}
+                placeholder="100"
+                style={{ flex: 1 }}
+              />
+              {/* Only what the capture app can deliver: audio, sites and
+                  responses are refused for crowd work by the API. */}
+              <select className={inputCls} value={unit} onChange={(e) => setUnit(e.target.value)} aria-label="Unit" style={{ width: 170 }}>
                 <option value="photos">photos</option>
                 <option value="videos">videos</option>
-                <option value="records">records</option>
-                <option value="hours">hours</option>
+                <option value="records">units</option>
+                <option value="hours">hours of footage</option>
               </select>
             </div>
           )}
@@ -865,7 +882,6 @@ function TaskDetailDialog({
   const sub = t.last_submission;
   const summary = t.assignment_summary;
   const assetSummary = t.asset_summary;
-  const unit = t.target_unit ?? "units";
   const captureSpec = t.capture_spec as CaptureSpec;
   const deliveredAssets = sub?.asset_count ?? assetSummary?.bundled ?? 0;
   const readyAssets = assetSummary?.ready ?? (assets.data ?? []).filter((a) => a.status === "ready").length;
@@ -889,7 +905,7 @@ function TaskDetailDialog({
           <Dl rows={[
             ["Contract", t.contract_ref ?? "—"],
             ["Target", t.target_quantity != null
-              ? `${t.target_quantity} ${unit}${t.target ? ` · ${t.target}` : ""}`
+              ? `${quantityWords(t.target_quantity, t.target_unit)}${t.target ? ` · ${t.target}` : ""}`
               : t.target ?? "—"],
             ["Capture requirements", captureRequirementText(captureSpec)],
             ...subjectRows(captureSpec.subject),
@@ -1053,7 +1069,12 @@ export function TasksPage() {
                               <>
                                 {workers} crowd resource{workers === 1 ? "" : "s"}
                                 <div className="cell-meta">
-                                  {a?.ready ?? 0}{t.target_quantity ? ` / ${t.target_quantity}` : ""} ready
+                                  {/* in hours, the clips' running time rather than their number (db/510) */}
+                                  {t.measure === "duration"
+                                    ? Math.round((a?.ready_units ?? 0) * 100) / 100
+                                    : a?.ready ?? 0}
+                                  {t.target_quantity ? ` / ${t.target_quantity}` : ""}
+                                  {t.measure === "duration" ? " h" : ""} ready
                                   {s?.submitted ? ` · ${s.submitted} to review` : ""}
                                 </div>
                               </>
@@ -1220,7 +1241,11 @@ export function WorkerAssignmentsPage() {
                     return (
                       <tr key={a.id}>
                         <td className="cell-primary">{a.task.title}<div className="cell-meta id">{a.task.reference_code}</div></td>
-                        <td className="num">{a.assets.ready} / {a.quantity}</td>
+                        <td className="num">
+                          {a.progress?.measure === "duration"
+                            ? `${Math.round(((a.progress.draft_units ?? 0) + (a.progress.in_review_units ?? 0) + (a.progress.accepted_units ?? 0)) * 100) / 100} / ${a.quantity} h`
+                            : `${a.assets.ready} / ${a.quantity}`}
+                        </td>
                         <td>
                           <Pill tone={m.tone}>{m.label}</Pill>
                           {act && act.active > 0 && <span className="chip" style={{ marginLeft: 6 }}>{act.active} uploading</span>}

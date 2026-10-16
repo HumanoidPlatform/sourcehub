@@ -49,10 +49,14 @@ export function RaiseInvoiceDialog({ contract, onClose }: { contract: Contract; 
   const toast = useToast();
   const qc = useQueryClient();
 
-  const accepted = contract.progress?.assets_accepted ?? 0;
+  const fractional = FRACTIONAL_UNITS.has(p?.unit ?? "");
+  // hours of footage are measured from the clips' running time (db/510);
+  // everything else is counted in captures
+  const accepted = fractional
+    ? Math.round((contract.progress?.units_accepted ?? 0) * 100) / 100
+    : contract.progress?.assets_accepted ?? 0;
   const invoicedQty = Number(contract.invoicing?.invoiced_quantity ?? 0);
   const invoicedAmt = Number(contract.invoicing?.invoiced_total ?? 0);
-  const fractional = FRACTIONAL_UNITS.has(p?.unit ?? "");
   const computed = perUnit && quantity
     ? estimatedTotal("per_unit", contract.value, p?.block, Number(quantity))
     : null;
@@ -93,7 +97,7 @@ export function RaiseInvoiceDialog({ contract, onClose }: { contract: Contract; 
         ? `Priced at ${money(contract.value, contract.currency)} per ${unitWords(p?.unit, p?.block)}`
         : `Fixed price ${money(contract.value, contract.currency)}`}>
         {perUnit
-          ? `Gate 2 has accepted ${accepted.toLocaleString("en-US")} captures on this contract and ${invoicedQty.toLocaleString("en-US")} are already invoiced. The client sees both figures beside your claim.`
+          ? `Gate 2 has accepted ${fractional ? quantityWords(accepted, p?.unit) : `${accepted.toLocaleString("en-US")} captures`} on this contract and ${invoicedQty.toLocaleString("en-US")} are already invoiced. The client sees both figures beside your claim.`
           : `${money(invoicedAmt, contract.currency)} is already invoiced, so up to ${money(Math.max(left, 0), contract.currency)} can be claimed now.`}
       </Callout>
       <div className="formgrid" style={{ marginTop: 12 }}>
@@ -101,7 +105,9 @@ export function RaiseInvoiceDialog({ contract, onClose }: { contract: Contract; 
           <Field
             label={`Quantity (${unitWords(p?.unit, 2).split(" ").slice(1).join(" ") || "units"})`}
             required
-            hint={fractional ? "Hours are never measured by the platform; the client checks them against the delivery." : "Whole units only."}
+            hint={fractional
+              ? "Measured from the running time of the accepted clips. Hours delivered before clip lengths were recorded are not measured; the client checks those against the delivery."
+              : "Whole units only."}
           >
             {(id) => (
               <input id={id} className={inputCls} type="number" min={fractional ? 0.01 : 1}

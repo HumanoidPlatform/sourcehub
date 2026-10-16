@@ -15,6 +15,7 @@ import { useSession } from "@shared/auth";
 import { fmtDate } from "@shared/format";
 import { can } from "@shared/rbac";
 import { assignmentStatus, statusMeta } from "@shared/status";
+import { byDuration, round2, unitsOf } from "@shared/units";
 import { AssetGallery, fmtBytes, useAssignmentAssets } from "@features/delivery/components/AssetGallery";
 import { ACCEPT } from "./config";
 import { useUploadQueue } from "./hooks";
@@ -192,7 +193,9 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
   // sent; an API from before batches sends no stage, and then every ready
   // file is.
   const drafts = rows.filter((r) => r.status === "ready" && (r.stage ? r.stage === "draft" : true)).length;
-  const accepted = a.progress?.accepted ?? 0;
+  // in the share's unit: hours of footage for hours (db/510)
+  const accepted = round2(unitsOf(a).accepted);
+  const unit = byDuration(a.task.target_unit) ? " hours" : "";
   const canSubmit = uploadable && drafts >= 1 && queue.active === 0 && queue.failed === 0;
   const busy = queue.active > 0 || start.isPending || submit.isPending;
   const grouped = groupRefusals(queue.refusals);
@@ -210,7 +213,7 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
     <Dialog
       size="wide"
       title={a.task.title}
-      sub={<>{a.task.reference_code} · {a.progress ? `${accepted} of ${a.quantity} accepted` : `${ready} of ${a.quantity} ready`} · due {fmtDate(a.due_on ?? a.task.due_on)} · <Pill tone={m.tone}>{m.label}</Pill></>}
+      sub={<>{a.task.reference_code} · {a.progress ? `${accepted} of ${a.quantity}${unit} accepted` : `${ready} of ${a.quantity} ready`} · due {fmtDate(a.due_on ?? a.task.due_on)} · <Pill tone={m.tone}>{m.label}</Pill></>}
       onClose={onClose}
       busy={busy}
       foot={

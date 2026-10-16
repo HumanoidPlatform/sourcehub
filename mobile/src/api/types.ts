@@ -47,6 +47,14 @@ export interface AssignmentProgress {
   in_review: number;
   accepted: number;
   rework: number;
+  /** The same four in the task's unit (db/510): equal to the counts for a
+   *  counted unit, hours of footage for hours. Absent on an older API. */
+  draft_units?: number;
+  in_review_units?: number;
+  accepted_units?: number;
+  rework_units?: number;
+  /** count: one capture is one unit; duration: clips add up their running time */
+  measure?: "count" | "duration";
 }
 
 /** One send of captures for review. Each is answered on its own: everything
@@ -156,6 +164,8 @@ export interface AssetRow {
   filename: string | null;
   mime_type: string | null;
   size_bytes: number | null;
+  /** a clip's running time as the phone measured it; null for a photo */
+  duration_s?: number | null;
   sha256: string;
   status: AssetStatus;
   quarantine_reason: string | null;

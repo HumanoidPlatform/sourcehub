@@ -202,7 +202,10 @@ export function Gate1Page() {
                     </td>
                     <td className="num">{r.batch_no}</td>
                     <td className="num">{r.ready_assets}</td>
-                    <td className="num">{r.accepted_before} / {r.quantity}</td>
+                    {/* in the task's unit: hours of footage for hours (db/510) */}
+                    <td className="num">
+                      {r.accepted_before} / {r.quantity}{r.target_unit === "hours" ? " h" : ""}
+                    </td>
                     <td>
                       {r.off_subject > 0
                         ? <Pill tone="attention">{r.off_subject} may be off-subject</Pill>

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from decimal import Decimal
 from typing import Any, NamedTuple
 
 from sqlalchemy import select, text
@@ -196,8 +197,10 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "       a.revoked_at, "
                 "       coalesce(x.ready, 0) AS ready_assets, coalesce(x.off_subject, 0) AS off_subject, "
                 "       coalesce(x.unscored, 0) AS unscored, "
-                # what earlier batches of the same assignment already settled
-                "       (SELECT count(*) FROM asset k JOIN capture_batch kb ON kb.id = k.batch_id "
+                # what earlier batches of the same assignment already settled,
+                # in the task's unit: captures, or hours of footage (db/510)
+                "       (SELECT round(coalesce(sum(capture_units(t.target_unit, k.duration_s)), 0), 4) "
+                "         FROM asset k JOIN capture_batch kb ON kb.id = k.batch_id "
                 "         WHERE k.assignment_id = a.id AND kb.status = 'reviewed' "
                 "           AND k.status = 'ready' AND k.deleted_at IS NULL) AS accepted_before "
                 "FROM capture_batch b "
@@ -225,13 +228,20 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
             "ready_assets": int(r["ready_assets"]),
             "off_subject": int(r["off_subject"]),
             "unscored": int(r["unscored"]),
-            "accepted_before": int(r["accepted_before"]),
+            "accepted_before": _num(r["accepted_before"]),
+            "quantity": _num(r["quantity"]),
             # An older task may carry no spec at all; the console then shows
             # nothing rather than an empty panel.
             "capture_spec": r["capture_spec"] or {},
         }
         for r in rows
     ]
+
+
+def _num(v: Any) -> int | float:
+    """A whole quantity as an integer, a share of hours with its fraction."""
+    d = Decimal(v)
+    return int(d) if d == d.to_integral_value() else float(d)
 
 
 class MarkPlan(NamedTuple):

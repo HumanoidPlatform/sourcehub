@@ -62,6 +62,8 @@ class PresignIn(BaseModel):
     checks: list[DeviceCheck] = Field(default_factory=list, max_length=20)
     # a retake: the capture sent back for rework that this one replaces
     replaces_asset_id: uuid.UUID | None = None
+    # a clip's running time as the device measured it; an hours task counts by it
+    duration_s: float | None = Field(default=None, gt=0, le=media.MAX_CLIP_SECONDS + 5)
 
 
 def _map(e: Exception) -> HTTPException:
@@ -85,7 +87,7 @@ async def presign(
             filename=body.filename, content_type=body.content_type, size_bytes=body.size_bytes,
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
             checks=[c.model_dump(exclude_none=True) for c in body.checks],
-            replaces_asset_id=body.replaces_asset_id,
+            replaces_asset_id=body.replaces_asset_id, duration_s=body.duration_s,
         )
     except StorageError as e:
         # The capture presign runs against the CLIENT's bucket, so this is the

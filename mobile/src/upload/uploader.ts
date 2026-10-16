@@ -137,6 +137,8 @@ class Uploader {
             checks: parseChecks(row.checks),
             // a retake names the capture it replaces (db/350)
             ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
+            // a clip's running time: a share in hours is counted in it (db/510)
+            ...(row.duration_s ? { duration_s: Math.round(row.duration_s * 100) / 100 } : {}),
           });
           outcome = {
             type: "presigned",

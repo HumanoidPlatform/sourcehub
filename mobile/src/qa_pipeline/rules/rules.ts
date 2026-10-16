@@ -95,6 +95,8 @@ export function mediaKinds(spec: CaptureSpec | null | undefined, targetUnit?: st
   }
   if (kinds.size > 0) return [...kinds];
   const unit = (targetUnit ?? "").toLowerCase();
+  // hours of footage are counted by clip length; a photo has none (db/510)
+  if (unit === "hours" || unit === "audio_hours") return ["video"];
   if (unit.startsWith("photo") || unit.startsWith("image")) return ["photo"];
   if (unit.startsWith("video") || unit.startsWith("clip")) return ["video"];
   return ["photo", "video"];

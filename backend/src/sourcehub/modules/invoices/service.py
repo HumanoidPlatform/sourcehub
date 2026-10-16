@@ -28,7 +28,7 @@ the pre-checks did not catch) arrives as a DBAPIError and leaves as a 409.
 from __future__ import annotations
 
 import uuid
-from decimal import Decimal
+from decimal import ROUND_DOWN, Decimal
 from typing import Any
 
 from sqlalchemy import text
@@ -164,6 +164,37 @@ async def accepted_assets(session: AsyncSession, contract_id: uuid.UUID) -> tupl
     return int(m["assets"]), int(m["passed"])
 
 
+async def accepted_units(
+    session: AsyncSession, contract_id: uuid.UUID, pricing_unit: str | None
+) -> Decimal | None:
+    """What gate 2 has accepted on a contract, in its pricing unit, or None
+    when that cannot be known.
+
+    Each accepted submission says what it delivered in its task's unit
+    (submission.unit_quantity, db/510). They add up only where every task's
+    unit compares with the contract's (pricing.units_comparable: both counted
+    per capture, or the same measured unit) and every submission was measured.
+    Hours delivered before db/510 were not, and then the partner's figure
+    stands unchecked, as it always did.
+    """
+    rows = (
+        await session.execute(
+            text(
+                "SELECT t.target_unit, s.unit_quantity "
+                "FROM submission s JOIN task t ON t.id = s.task_id "
+                "WHERE t.contract_id = :cid AND t.deleted_at IS NULL AND s.status = 'accepted'"
+            ),
+            {"cid": contract_id},
+        )
+    ).all()
+    total = Decimal(0)
+    for unit, units in rows:
+        if units is None or not pricing.units_comparable(pricing_unit, unit):
+            return None
+        total += Decimal(units)
+    return total
+
+
 async def contract_totals(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
     """What has been claimed, paid and is still open on a contract, for its
     detail page. Withdrawn invoices count for nothing."""
@@ -205,9 +236,9 @@ async def raise_invoice(
 ) -> dict[str, Any]:
     """The partner claims payment for work that has passed its own gate.
 
-    Per-unit contract: a quantity, priced at the frozen rate; for a counted unit
-    it is capped at the captures gate 2 has accepted less what is already
-    invoiced. Total contract: an amount, capped so the invoices never exceed the
+    Per-unit contract: a quantity, priced at the frozen rate; for a unit the
+    platform measures (captures, or hours of footage) it is capped at what gate
+    2 has accepted less what is already invoiced. Total contract: an amount, capped so the invoices never exceed the
     agreed value. Either way nothing can be raised until at least one submission
     on the contract has been accepted — an invoice follows the work.
     """
@@ -250,10 +281,20 @@ async def raise_invoice(
                 f"{c['reference_code']} is counted in whole "
                 f"{pricing.unit_words(c['pricing_unit'], 2).split(' ', 1)[1]}."
             )
-        if c["pricing_unit"] in pricing.COUNTED_UNITS and quantity + invoiced_quantity > assets:
+        delivered = await accepted_units(session, contract_id, c["pricing_unit"])
+        if delivered is not None and quantity + invoiced_quantity > delivered:
+            left = max(delivered - invoiced_quantity, Decimal(0))
+            if c["pricing_unit"] in pricing.FRACTIONAL_UNITS:
+                # hours of footage: what was measured, to the invoice's two places
+                left = left.quantize(Decimal("0.01"), rounding=ROUND_DOWN)
+                raise InvoiceError(
+                    f"Gate 2 has accepted {pricing.quantity_text(delivered.quantize(Decimal('0.01')), c['pricing_unit'])} "
+                    f"and {invoiced_quantity.normalize():f} are already invoiced, "
+                    f"so at most {left.normalize():f} can be invoiced now."
+                )
             raise InvoiceError(
-                f"Gate 2 has accepted {assets} and {invoiced_quantity:.0f} are already invoiced, "
-                f"so at most {max(assets - int(invoiced_quantity), 0)} can be invoiced now."
+                f"Gate 2 has accepted {delivered:.0f} and {invoiced_quantity:.0f} are already invoiced, "
+                f"so at most {left:.0f} can be invoiced now."
             )
         amount = pricing.line_amount(quantity, c["value"], c["pricing_block"])
         if amount <= 0:

@@ -39,6 +39,33 @@ FRACTIONAL_UNITS = frozenset({"hours", "audio_hours"})
 # never measured server-side, so the client checks those against the delivery.
 COUNTED_UNITS = frozenset({"photos", "videos", "audio_clips", "records", "responses"})
 
+# Units measured by running time rather than counted (db/510 capture_units):
+# a clip is worth its length in hours. A share of one may be a fraction.
+DURATION_UNITS = FRACTIONAL_UNITS
+
+# What a crowd worker's phone can deliver: one capture each for a counted
+# unit, a clip's running time for hours. Audio is never captured, and a site
+# or a response is not something a capture can be counted as, so a task in
+# any other unit is not given to the crowd.
+CROWD_UNITS = frozenset({"photos", "videos", "records", "hours"})
+
+
+def measured_by_duration(unit: str | None) -> bool:
+    return (unit or "") in DURATION_UNITS
+
+
+def crowd_capturable(unit: str | None) -> bool:
+    """A task with no unit is counted per capture, as it always was."""
+    return unit is None or unit in CROWD_UNITS
+
+
+def units_comparable(pricing_unit: str | None, task_unit: str | None) -> bool:
+    """Whether a task's delivered units can be checked against a contract's
+    priced ones: both counted per capture, or the same measured unit."""
+    if pricing_unit in COUNTED_UNITS:
+        return task_unit is None or task_unit in COUNTED_UNITS
+    return pricing_unit is not None and pricing_unit == task_unit
+
 
 def _dec(value: Any) -> Decimal:
     return value if isinstance(value, Decimal) else Decimal(str(value))

@@ -23,7 +23,11 @@ export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: 
   const [viewingId, setViewingId] = useState<string | null>(null);
   const isPartner = session.org_id === c.partner_org_id;
   const isClient = session.org_id === c.client_org_id;
-  const accepted = c.progress?.assets_accepted ?? 0;
+  // hours of footage are measured from the clips' running time (db/510)
+  const hours = c.pricing?.unit === "hours" || c.pricing?.unit === "audio_hours";
+  const accepted = hours
+    ? Math.round((c.progress?.units_accepted ?? 0) * 100) / 100
+    : c.progress?.assets_accepted ?? 0;
   const mayRaise = isPartner && can(session, "invoice.raise") && INVOICEABLE.has(c.status);
   const rows = invoices.data ?? [];
   const viewing = viewingId ? rows.find((i) => i.id === viewingId) ?? null : null;
@@ -55,7 +59,7 @@ export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: 
         <p className="muted small" style={{ marginTop: 0 }}>
           {money(inv.invoiced_total, c.currency)} invoiced · {money(inv.paid_total, c.currency)} paid or settled ·{" "}
           {money(inv.outstanding_total, c.currency)} awaiting payment
-          {c.pricing?.basis === "per_unit" && ` · ${Number(inv.invoiced_quantity).toLocaleString("en-US")} of ${accepted.toLocaleString("en-US")} accepted captures invoiced`}
+          {c.pricing?.basis === "per_unit" && ` · ${Number(inv.invoiced_quantity).toLocaleString("en-US")} of ${accepted.toLocaleString("en-US")} accepted ${hours ? "hours" : "captures"} invoiced`}
         </p>
       )}
       {invoices.isLoading ? (

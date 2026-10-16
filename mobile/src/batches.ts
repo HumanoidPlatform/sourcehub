@@ -20,13 +20,74 @@ export function progressOf(a: Assignment) {
   return { ...NONE, draft: a.assets.ready };
 }
 
+/** Whether the share is counted in captures or in hours of footage, where
+ *  each clip is worth its running time (db/510). */
+export function byDuration(a: Assignment): boolean {
+  return (a.progress?.measure ?? (isHoursUnit(a.task.target_unit) ? "duration" : "count")) === "duration";
+}
+
+const isHoursUnit = (unit: string | null | undefined): boolean => unit === "hours" || unit === "audio_hours";
+
+/** The four stages in the share's own unit: the counts, or hours of footage. */
+export function unitsOf(a: Assignment) {
+  const p = progressOf(a);
+  if (!byDuration(a)) return p;
+  return {
+    draft: a.progress?.draft_units ?? 0,
+    in_review: a.progress?.in_review_units ?? 0,
+    accepted: a.progress?.accepted_units ?? 0,
+    rework: a.progress?.rework_units ?? 0,
+  };
+}
+
+/** What captures still on the phone come to in the share's unit: one each, or
+ *  their running time in hours. */
+export function localUnits(a: Assignment, rows: { duration_s?: number | null }[]): number {
+  if (!byDuration(a)) return rows.length;
+  return rows.reduce((h, r) => h + (r.duration_s ?? 0) / 3600, 0);
+}
+
 /** Units still to capture: the quantity less everything uploaded and not sent
  *  back, less what is still on the phone on its way up. A capture sent back
- *  frees its slot, so retaking it is capturing one of these. */
+ *  frees its slot, so retaking it is capturing one of these. onPhone is in the
+ *  share's unit (localUnits). */
 export function remaining(a: Assignment, onPhone: number): number {
-  const p = progressOf(a);
-  return Math.max(0, a.quantity - p.draft - p.in_review - p.accepted - onPhone);
+  const u = unitsOf(a);
+  const left = a.quantity - u.draft - u.in_review - u.accepted - onPhone;
+  // hours are sums of seconds: four places, so 0.00001 h is not "left"
+  return Math.max(0, Math.round(left * 10000) / 10000);
 }
+
+const UNIT_WORDS: Record<string, [string, string]> = {
+  photos: ["photo", "photos"],
+  videos: ["video", "videos"],
+  records: ["unit", "units"],
+  hours: ["hour of footage", "hours of footage"],
+  audio_clips: ["audio clip", "audio clips"],
+  audio_hours: ["hour of audio", "hours of audio"],
+  responses: ["response", "responses"],
+  sites: ["site", "sites"],
+};
+
+/** The unit as a person reads it: "3 photos", "1 unit". Without n, the plural. */
+export function unitText(unit: string | null | undefined, n?: number): string {
+  const [one, many] = UNIT_WORDS[unit ?? ""] ?? [unit ?? "unit", unit ?? "units"];
+  if (n == null) return many;
+  return `${n} ${n === 1 ? one : many}`;
+}
+
+/** Hours of footage as a person reads them: "40 s", "12 min", "1 h 30 min". */
+export function hoursText(h: number): string {
+  const seconds = Math.round(h * 3600);
+  if (seconds < 60) return `${seconds} s`;
+  const minutes = Math.round(seconds / 60);
+  const hh = Math.floor(minutes / 60);
+  const mm = minutes % 60;
+  if (hh && mm) return `${hh} h ${mm} min`;
+  return hh ? `${hh} h` : `${mm} min`;
+}
+
+const clips = (n: number) => `${n} clip${n === 1 ? "" : "s"}`;
 
 export const isRevoked = (a: Assignment): boolean => a.revoked_at != null;
 
@@ -57,21 +118,33 @@ export function boardStatus(a: Assignment): BoardStatus {
   if (isRevoked(a)) return "reassigned";
   if (a.status === "assigned" || a.status === "accepted") return a.status;
   const p = progressOf(a);
+  const u = unitsOf(a);
   if (p.rework > 0) return "rejected";
   // everything there is to send has gone, and some of it is with the aggregator
-  if (p.draft === 0 && p.in_review > 0 && p.in_review + p.accepted >= a.quantity) return "submitted";
+  if (p.draft === 0 && p.in_review > 0 && u.in_review + u.accepted >= a.quantity) return "submitted";
   return "in_progress";
 }
 
-/** One line under the progress bar: the parts that are not zero. */
+/** One line under the progress bar: the parts that are not zero. In hours,
+ *  the share is time and the parts are clips. */
 export function summary(a: Assignment): string {
   const p = progressOf(a);
-  const unit = a.task.target_unit ?? "units";
-  if (isRevoked(a)) return `Handed over · ${p.in_review + p.accepted} ${unit}`;
-  const parts = [`${p.accepted} of ${a.quantity} ${unit} accepted`];
-  if (p.in_review) parts.push(`${p.in_review} in review`);
-  if (p.draft) parts.push(`${p.draft} not sent`);
-  if (p.rework) parts.push(`${p.rework} to retake`);
+  const u = unitsOf(a);
+  const hours = byDuration(a);
+  if (isRevoked(a)) {
+    return hours
+      ? `Handed over · ${hoursText(u.in_review + u.accepted)}`
+      : `Handed over · ${unitText(a.task.target_unit, p.in_review + p.accepted)}`;
+  }
+  const parts = [
+    hours
+      ? `${hoursText(u.accepted)} of ${hoursText(a.quantity)} accepted`
+      : `${p.accepted} of ${a.quantity} ${unitText(a.task.target_unit)} accepted`,
+  ];
+  const n = (k: number) => (hours ? clips(k) : String(k));
+  if (p.in_review) parts.push(`${n(p.in_review)} in review`);
+  if (p.draft) parts.push(`${n(p.draft)} not sent`);
+  if (p.rework) parts.push(`${n(p.rework)} to retake`);
   return parts.join(" · ");
 }
 
@@ -123,12 +196,14 @@ export function sections(assets: AssetRow[], batches: Batch[] = []): Sections {
 /** What a reassigned worker is told about the captures they handed over. */
 export function handedOver(a: Assignment): string {
   const p = progressOf(a);
-  const unit = a.task.target_unit ?? "units";
   const n = p.in_review + p.accepted;
   if (n === 0) return "Nothing you captured was sent. Nothing more is needed from you on it.";
   const parts = [`${p.accepted} accepted`];
   if (p.in_review) parts.push(`${p.in_review} in review`);
-  return `Your ${n} ${unit} were handed over for review: ${parts.join(", ")}.`;
+  const what = byDuration(a)
+    ? `${clips(n)} (${hoursText(unitsOf(a).in_review + unitsOf(a).accepted)})`
+    : unitText(a.task.target_unit, n);
+  return `Your ${what} ${n === 1 ? "was" : "were"} handed over for review: ${parts.join(", ")}.`;
 }
 
 /** The one thing to do next on an assignment, and the quieter second one.
@@ -142,7 +217,14 @@ export interface NextAction {
   waiting: string | null;
 }
 
-export function nextAction(a: Assignment, pendingLocal: number, failedLocal: number): NextAction {
+/** onPhoneUnits: what the captures still on the phone come to in the share's
+ *  unit (localUnits); for a counted share, simply how many there are. */
+export function nextAction(
+  a: Assignment,
+  pendingLocal: number,
+  failedLocal: number,
+  onPhoneUnits: number = pendingLocal + failedLocal,
+): NextAction {
   const none = { primary: null, secondary: null, waiting: null };
   if (isRevoked(a) || a.status === "accepted" || a.status === "cancelled") return none;
   if (a.status === "assigned") return { primary: "start", secondary: null, waiting: null };
@@ -150,7 +232,7 @@ export function nextAction(a: Assignment, pendingLocal: number, failedLocal: num
   const can: Action[] = [];
   if (p.rework > 0) can.push("retake");
   if (cannotSend(a, pendingLocal, failedLocal) == null) can.push("send");
-  if (canCapture(a, pendingLocal + failedLocal)) can.push("capture");
+  if (canCapture(a, onPhoneUnits)) can.push("capture");
   const waiting =
     can.length === 0
       ? pendingLocal > 0

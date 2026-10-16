@@ -314,6 +314,8 @@ export interface Progress {
   done: number;
   pct: number;
   assets_accepted: number;
+  /** the same, in each task's own unit (db/510); hours delivered before it count 0 */
+  units_accepted?: number;
   deliverable: boolean;
 }
 
@@ -361,6 +363,8 @@ export interface Task {
   target: string | null;
   target_quantity: number | null;
   target_unit: string | null;
+  /** count: one capture is one unit; duration: clips add up their running time (db/510) */
+  measure?: "count" | "duration";
   instructions: string | null;
   capture_spec: Record<string, unknown>;
   status: string;
@@ -462,6 +466,8 @@ export interface AssetSummary {
   ready: number;
   quarantined: number;
   bundled: number;
+  /** ready captures in the task's unit: hours of footage for hours */
+  ready_units?: number;
 }
 
 export interface AssignmentAssets {
@@ -526,6 +532,13 @@ export interface AssignmentProgress {
   in_review: number;
   accepted: number;
   rework: number;
+  /** The same four in the task's unit (db/510): equal to the counts for a
+   *  counted unit, hours of footage for hours. */
+  draft_units?: number;
+  in_review_units?: number;
+  accepted_units?: number;
+  rework_units?: number;
+  measure?: "count" | "duration";
 }
 
 /** One send of a worker's captures. Answered on its own: everything in it is
@@ -586,6 +599,8 @@ export interface AssetRow {
   filename: string | null;
   mime_type: string | null;
   size_bytes: number | null;
+  /** a clip's running time as the capturing device measured it; null for a photo */
+  duration_s?: number | null;
   sha256: string;
   etag: string | null;
   status: string;

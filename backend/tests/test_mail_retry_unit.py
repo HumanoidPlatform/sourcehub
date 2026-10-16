@@ -84,11 +84,10 @@ def test_the_migration_follows_0053():
     assert re.search(r'^down_revision = "0053"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_file_is_last_in_the_bundle_after_490():
+def test_the_file_follows_490_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     files = m.group(1).split()
-    assert files[-1] == "500_mail_retry"
     assert files.index("500_mail_retry") == files.index("490_mail_log") + 1
 
 

@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Assignment } from "@/api/types";
-import { boardStatus, progressOf, summary } from "@/batches";
+import { boardStatus, summary, unitsOf } from "@/batches";
 import { useSession } from "@/auth/AuthProvider";
 import { useAssignments, useNotifications, useOutboxSummary } from "@/query/hooks";
 import { SECTION_ORDER, assignmentStatus, meta } from "@/status";
@@ -94,7 +94,7 @@ function Card({ a, queued, failed, onPress }: { a: Assignment; queued: number; f
         <Pill tone={m.tone}>{m.label}</Pill>
       </View>
       <Text style={[s.mono, { marginBottom: 8 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
-      <Meter value={progressOf(a).accepted} max={a.quantity} />
+      <Meter value={unitsOf(a).accepted} max={a.quantity} />
       <Text style={[s.muted, { marginTop: 6 }]}>
         {summary(a)}
         {queued ? ` · ${queued} uploading` : ""}

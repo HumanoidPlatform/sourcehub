@@ -12,7 +12,8 @@ import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
 import {
-  type Action, boardStatus, handedOver, isRevoked, nextAction, ownNote, progressOf, remaining, requirementLabels, sections,
+  type Action, boardStatus, byDuration, handedOver, hoursText, isRevoked, localUnits, nextAction, ownNote, progressOf,
+  remaining, requirementLabels, sections, unitsOf, unitText,
 } from "@/batches";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
 import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
@@ -93,7 +94,10 @@ export default function AssignmentDetail() {
   }
 
   const m = meta(assignmentStatus, boardStatus(a));
-  const unit = a.task.target_unit ?? "units";
+  const unit = a.task.target_unit;
+  // a share in hours of footage: its clips add up their running time (db/510)
+  const hours = byDuration(a);
+  const captures = (n: number) => (hours ? `${n} clip${n === 1 ? "" : "s"}` : unitText(unit, n));
   const spec = a.task.capture_spec ?? {};
   // The subject gets its own card, above the technical requirements: it is
   // the one line a worker should read before the first shot, and the phone
@@ -130,10 +134,12 @@ export default function AssignmentDetail() {
   const revoked = isRevoked(a);
   const progress = progressOf(a);
   const parts = sections((assets.data ?? []) as AssetRow[], a.batches ?? []);
-  // Still on the phone and on its way up: these take a slot like any capture.
-  const left = remaining(a, pendingLocal + failedLocal);
+  // Still on the phone and on its way up: these take a slot like any capture,
+  // or in hours, their running time.
+  const onPhone = localUnits(a, outbox.filter((r) => r.status !== "confirmed"));
+  const left = remaining(a, onPhone);
   const changeable = !revoked && (a.status === "in_progress" || a.status === "rejected");
-  const next = nextAction(a, pendingLocal, failedLocal);
+  const next = nextAction(a, pendingLocal, failedLocal, onPhone);
   // the newest note a reviewer wrote in their own words, not the one the
   // console builds from the marks — those reasons are on each row already
   const reviewerNote = ownNote((a.batches ?? []).find((b) => b.status === "reviewed" && b.rework_count > 0)?.decision_note);
@@ -155,9 +161,10 @@ export default function AssignmentDetail() {
 
   const confirmSubmit = () => {
     const n = progress.draft;
+    const what = hours ? `${captures(n)} (${hoursText(unitsOf(a).draft)})` : captures(n);
     Alert.alert(
       "Send for review?",
-      `${n} ${unit} go to your aggregator as one batch. You can keep capturing while they look at it.`,
+      `${what} ${n === 1 ? "goes" : "go"} to your aggregator as one batch. You can keep capturing while they look at it.`,
       [{ text: "Not yet", style: "cancel" }, { text: "Send", onPress: () => submit.mutate() }],
     );
   };
@@ -232,7 +239,9 @@ export default function AssignmentDetail() {
       {error && <Callout tone="critical" title={error} />}
 
       <AssignmentStatus
-        counts={{ ...progress, quantity: a.quantity }}
+        counts={{ ...unitsOf(a), quantity: a.quantity }}
+        clips={{ draft: progress.draft, rework: progress.rework }}
+        hours={hours}
         unit={unit}
         left={left}
         next={next}
@@ -296,7 +305,7 @@ export default function AssignmentDetail() {
           {parts.inReview.map((grp) => (
             <View key={`r${grp.batch_no}`} style={{ marginBottom: 10 }}>
               <Text style={[s.muted, { marginBottom: 6 }]}>
-                Batch {grp.batch_no} · {grp.assets.length} {unit}
+                Batch {grp.batch_no} · {captures(grp.assets.length)}
                 {grp.batch?.submitted_at ? ` · sent ${when(grp.batch.submitted_at)}` : ""}
               </Text>
               <Gallery local={[]} remote={grp.assets} empty={null} bare />

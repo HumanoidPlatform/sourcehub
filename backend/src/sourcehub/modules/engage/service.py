@@ -223,7 +223,7 @@ def assignment_reminder_context(
     task_ref: str,
     task_title: str,
     unit: str,
-    quantity: int,
+    quantity: Any,
     due_on: dt.date | None,
     days: int,
     today: dt.date,
@@ -261,9 +261,12 @@ def assignment_reminder_context(
 
     # The wording lives in platform/mail/templates/assignment_reminder.{txt,html};
     # the HTML part escapes every field there, inside the branded layout.
+    # The share in words ("1.5 hours of footage", db/510), split where the
+    # template joins quantity and unit; strings, so the outbox row stores it.
+    shown_quantity, _, shown_unit = delivery.units_text(quantity, unit).partition(" ")
     ctx = {
         "subject": subject, "worker_name": worker_name, "org_name": org_name, "title": title,
-        "unit": unit, "quantity": quantity, "due": due, "line": line, "action": action,
+        "unit": shown_unit, "quantity": shown_quantity, "due": due, "line": line, "action": action,
     }
     return ctx, line
 
@@ -276,7 +279,7 @@ def assignment_reminder_email(
     task_ref: str,
     task_title: str,
     unit: str,
-    quantity: int,
+    quantity: Any,
     due_on: dt.date | None,
     days: int,
     today: dt.date,
@@ -345,7 +348,7 @@ _ASSIGNMENT_ROWS = (
     "WHERE a.status IN ('assigned', 'in_progress', 'rejected') AND u.status = 'active' "
     "  AND a.revoked_at IS NULL "
     "  AND (a.status <> 'in_progress' OR g.rework > 0 OR g.draft > 0 "
-    "       OR g.in_review + g.accepted < a.quantity) "
+    "       OR g.in_review_units + g.accepted_units < a.quantity) "
 )
 
 

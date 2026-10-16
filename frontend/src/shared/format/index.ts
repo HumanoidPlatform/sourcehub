@@ -112,7 +112,10 @@ export function titleCase(s: string): string {
  * column is no longer written by the console; it is read here only so tasks
  * created before that still show what was typed. */
 export function taskTarget(t: { target: string | null; target_quantity: number | null; target_unit: string | null }): string {
-  if (t.target_quantity != null) return `${t.target_quantity} ${t.target_unit ?? ""}`.trim();
+  if (t.target_quantity != null) {
+    const unit = t.target_unit === "hours" ? "hours of footage" : (t.target_unit ?? "").replace(/_/g, " ");
+    return `${t.target_quantity} ${unit}`.trim();
+  }
   return t.target ?? "—";
 }
 

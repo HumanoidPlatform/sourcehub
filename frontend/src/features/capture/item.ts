@@ -21,6 +21,9 @@ export interface QueueItem {
   captured_at: string;
   lat: number | null;
   lon: number | null;
+  /** a clip's running time in seconds as the browser read it; null for a
+   *  photo. A share in hours of footage is counted in it (db/510). */
+  duration_s: number | null;
   /** warn-severity findings only; a blocked file never becomes an item */
   checks: Finding[];
   sha256: string | null;

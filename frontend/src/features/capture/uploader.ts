@@ -136,6 +136,7 @@ export class UploadQueue {
         captured_at: a.derived.captured_at,
         lat: a.derived.lat,
         lon: a.derived.lon,
+        duration_s: a.derived.duration,
         checks: a.checks,
         sha256: null,
         asset_id: null,
@@ -182,6 +183,7 @@ export class UploadQueue {
         captured_at: r.captured_at ?? new Date(this.deps.now()).toISOString(),
         lat: r.captured_lat == null ? null : Number(r.captured_lat),
         lon: r.captured_lon == null ? null : Number(r.captured_lon),
+        duration_s: r.duration_s ?? null,
         checks: [],
         sha256: r.sha256,
         asset_id: r.id,
@@ -410,6 +412,8 @@ export class UploadQueue {
           lon: item.lon,
           // what the browser found before queueing; lands in asset.check_results
           checks: toCheckPayload(item.checks),
+          // a clip's running time: a share in hours is counted in it (db/510)
+          ...(item.duration_s ? { duration_s: Math.round(item.duration_s * 100) / 100 } : {}),
         });
         return { type: "presigned", asset_id: p.asset_id, url: p.url, headers: p.headers ?? {}, expires_in: p.expires_in, status: p.status };
       }

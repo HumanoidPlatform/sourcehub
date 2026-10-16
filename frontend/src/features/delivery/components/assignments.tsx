@@ -22,6 +22,7 @@ import { fmtDate, fmtDateTime } from "@shared/format";
 import { RateDialog } from "@shared/rating";
 import { can } from "@shared/rbac";
 import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
+import { amountWords, byDuration, round2, unitPlural, unitsOf } from "@shared/units";
 import {
   AssetGallery, RETAKE_REASONS, useAssignmentAssets, useTaskAssets, type Mark,
 } from "./AssetGallery";
@@ -61,8 +62,11 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
   );
   const remaining =
     task.target_quantity != null
-      ? Math.max(0, task.target_quantity - (task.assignment_summary?.quantity_assigned ?? 0))
+      ? Math.max(0, round2(task.target_quantity - (task.assignment_summary?.quantity_assigned ?? 0)))
       : null;
+  // a share of hours may be a fraction (1.5 hours); every other unit is whole
+  const hours = byDuration(task.target_unit);
+  const least = hours ? 0.01 : 1;
 
   const [worker, setWorker] = useState("");
   const [qty, setQty] = useState(remaining != null && remaining > 0 ? String(remaining) : "");
@@ -85,7 +89,7 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
     onError: (e) => setError(e instanceof Error ? e.message : "Could not assign"),
   });
 
-  const unit = task.target_unit ?? "units";
+  const unit = unitPlural(task.target_unit);
   return (
     <Dialog
       title="Assign to a crowd resource"
@@ -94,7 +98,7 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!worker || !qty || Number(qty) < 1 || create.isPending} onClick={() => create.mutate()}>
+          <Button variant="primary" disabled={!worker || !qty || Number(qty) < least || create.isPending} onClick={() => create.mutate()}>
             Assign
           </Button>
         </>
@@ -123,7 +127,7 @@ export function AssignWorkersDialog({ task, onClose, onDone }: { task: Task; onC
           required
           hint={remaining != null ? `${remaining} of ${task.target_quantity} ${unit} still unassigned.` : "The task has no countable target; give them a number anyway."}
         >
-          {(id) => <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} />}
+          {(id) => <input id={id} className={inputCls} type="number" min={least} step={least} value={qty} onChange={(e) => setQty(e.target.value)} />}
         </Field>
         <Field label="Due">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
@@ -155,8 +159,10 @@ export interface DecideTarget {
    *  review is answered (POST /assignments/{id}/decide). */
   batch_id?: string | null;
   batch_no?: number | null;
-  /** accepted in earlier batches, for the header */
+  /** accepted in earlier batches, in the task's unit, for the header */
   accepted_before?: number;
+  /** task.target_unit, so the header reads "12 min of footage" rather than a bare number */
+  unit?: string | null;
 }
 
 /** Where an assignment stands, read off its batches: it stays in_progress on
@@ -167,7 +173,8 @@ export function assignmentState(a: Assignment): string {
   if (a.revoked_at) return "reassigned";
   if (!a.progress || a.status === "assigned" || a.status === "accepted" || a.status === "cancelled") return a.status;
   if (a.progress.rework > 0) return "rejected";
-  if (a.progress.in_review > 0 && a.progress.draft === 0 && a.progress.in_review + a.progress.accepted >= a.quantity) {
+  const u = unitsOf(a);
+  if (a.progress.in_review > 0 && a.progress.draft === 0 && u.in_review + u.accepted >= a.quantity) {
     return "submitted";
   }
   return a.status;
@@ -263,7 +270,9 @@ export function DecideAssignmentDialog({
       size="wide"
       title={`Review ${target.worker_name ?? "the worker"}'s batch${target.batch_no ? ` ${target.batch_no}` : ""}`}
       sub={`${target.task_ref} · ${target.task_title} · ${ready.length} in this batch${
-        target.accepted_before != null ? ` · ${target.accepted_before} of ${target.quantity} accepted before` : ""
+        target.accepted_before != null
+          ? ` · ${round2(target.accepted_before)} of ${amountWords(target.quantity, target.unit)} accepted before`
+          : ""
       }`}
       onClose={onClose}
       foot={
@@ -364,8 +373,11 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
   );
   const remaining =
     task.target_quantity != null
-      ? Math.max(0, task.target_quantity - (task.assignment_summary?.quantity_assigned ?? 0))
+      ? Math.max(0, round2(task.target_quantity - (task.assignment_summary?.quantity_assigned ?? 0)))
       : null;
+  // a share of hours may be a fraction (1.5 hours); every other unit is whole
+  const hours = byDuration(task.target_unit);
+  const least = hours ? 0.01 : 1;
 
   const [places, setPlaces] = useState("1");
   const [qty, setQty] = useState(remaining != null && remaining > 0 ? String(remaining) : "");
@@ -379,14 +391,16 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
   const recipients = picked ?? everyone;
   const n = Number(places) || 0;
   const q = Number(qty) || 0;
-  const total = n * q;
+  const total = round2(n * q);
   const overBudget = remaining != null && total > remaining;
 
   // when the places change, split what is left evenly — a hint, not a rule
   const onPlaces = (v: string) => {
     setPlaces(v);
     const k = Number(v);
-    if (remaining != null && remaining > 0 && k > 0) setQty(String(Math.max(1, Math.floor(remaining / k))));
+    if (remaining != null && remaining > 0 && k > 0) {
+      setQty(String(hours ? Math.max(least, Math.floor((remaining / k) * 100) / 100) : Math.max(1, Math.floor(remaining / k))));
+    }
   };
 
   const create = useMutation({
@@ -413,8 +427,8 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
     onError: (e) => setError(e instanceof Error ? e.message : "Could not send the offer"),
   });
 
-  const unit = task.target_unit ?? "units";
-  const canSend = n >= 1 && q >= 1 && recipients.length >= 1 && !overBudget && !create.isPending;
+  const unit = unitPlural(task.target_unit);
+  const canSend = n >= 1 && q >= least && recipients.length >= 1 && !overBudget && !create.isPending;
   return (
     <Dialog
       size="wide"
@@ -450,7 +464,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
           error={overBudget ? `${n} × ${q} = ${total}, but only ${remaining} of ${task.target_quantity} ${unit} are unassigned.` : undefined}
           hint={remaining != null ? `${n} × ${q} = ${total} of the ${remaining} ${unit} still unassigned.` : "The task has no countable target; give each of them a number anyway."}
         >
-          {(id) => <input id={id} className={inputCls} type="number" min={1} value={qty} onChange={(e) => setQty(e.target.value)} />}
+          {(id) => <input id={id} className={inputCls} type="number" min={least} step={least} value={qty} onChange={(e) => setQty(e.target.value)} />}
         </Field>
         <Field label="Due">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
@@ -634,7 +648,8 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
           // also assumes where it renders the same brief.
           capture_spec: task.capture_spec as CaptureSpec, task_instructions: task.instructions,
           batch_id: batch?.id ?? null, batch_no: batch?.batch_no ?? null,
-          accepted_before: d.progress?.accepted,
+          accepted_before: d.progress ? unitsOf(d).accepted : undefined,
+          unit: task.target_unit,
         }}
         onClose={() => setDeciding(null)}
         onDone={() => setDeciding(null)}
@@ -648,10 +663,11 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
     (n, a) => n + ((a.batches ?? []).filter((b) => b.status === "in_review").length || (a.status === "submitted" ? 1 : 0)),
     0,
   );
-  const unitsAssigned = live.reduce((s, a) => s + a.quantity, 0);
+  const unitsAssigned = round2(live.reduce((s, a) => s + a.quantity, 0));
   const ready = list.reduce((s, a) => s + a.assets.ready, 0);
   const canAssign = ["assigned", "in_progress", "qa_failed"].includes(task.status);
-  const unit = task.target_unit ?? "units";
+  const unit = unitPlural(task.target_unit);
+  const hours = byDuration(task.target_unit);
   const latest = offers.data?.[0] ?? null;
   const offerOpen = latest?.effective_status === "open";
 
@@ -714,7 +730,8 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                 const state = assignmentState(a);
                 const m = statusMeta(assignmentStatus, state);
                 const p = a.progress;
-                const done = p ? p.accepted : a.assets.ready;
+                // in the task's unit: hours of footage for hours (db/510)
+                const done = p ? unitsOf(a).accepted : a.assets.ready;
                 const pct = a.quantity ? Math.min(100, Math.round((100 * done) / a.quantity)) : 0;
                 const batch = openBatch(a);
                 const reviewable = batch != null || a.status === "submitted";
@@ -730,7 +747,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                       <div className="cell-meta">
                         {p
                           ? [
-                              `${p.accepted} accepted`,
+                              hours ? `${round2(done)} h accepted (${p.accepted} clips)` : `${p.accepted} accepted`,
                               p.in_review ? `${p.in_review} in review` : "",
                               p.draft ? `${p.draft} not sent` : "",
                               p.rework ? `${p.rework} to retake` : "",
@@ -801,10 +818,14 @@ export function ReassignDialog({ task, assignment, onClose }: { task: Task; assi
 
   const p = assignment.progress ?? { draft: 0, in_review: 0, accepted: 0, rework: 0 };
   // What the first worker keeps: everything uploaded that was not sent back.
-  // The drafts go for review now, on their behalf.
+  // The drafts go for review now, on their behalf. kept counts captures;
+  // moving is in the task's unit, hours of footage for hours (db/510).
   const kept = p.draft + p.in_review + p.accepted;
-  const moving = Math.max(0, assignment.quantity - kept);
-  const unit = task.target_unit ?? "units";
+  const u = unitsOf(assignment);
+  // the server keeps a share rounded up to two places, as here
+  const moving = Math.max(0, round2(assignment.quantity - Math.ceil((u.draft + u.in_review + u.accepted) * 100) / 100));
+  const unit = unitPlural(task.target_unit);
+  const least = byDuration(task.target_unit) ? 0.01 : 1;
 
   const go = useMutation({
     mutationFn: () =>
@@ -830,7 +851,7 @@ export function ReassignDialog({ task, assignment, onClose }: { task: Task; assi
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!worker || moving < 1 || go.isPending} onClick={() => go.mutate()}>
+          <Button variant="primary" disabled={!worker || moving < least || go.isPending} onClick={() => go.mutate()}>
             Reassign {moving} {unit}
           </Button>
         </>
@@ -844,7 +865,7 @@ export function ReassignDialog({ task, assignment, onClose }: { task: Task; assi
           : "Nothing has been uploaded on this assignment. "}
         {`The remaining ${moving} ${unit} go to the person you choose. Anything you later send back from the first worker's batches goes to them too. Captures still on the first worker's phone that never uploaded are lost.`}
       </Callout>
-      {moving < 1 && (
+      {moving < least && (
         <Callout tone="neutral" title="Nothing left to give">Everything on this assignment has been uploaded and sent.</Callout>
       )}
       <div className="formgrid" style={{ marginTop: 12 }}>

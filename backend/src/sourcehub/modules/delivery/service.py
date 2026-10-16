@@ -16,7 +16,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
-from decimal import Decimal
+from decimal import ROUND_CEILING, Decimal
 from typing import Any
 
 from sqlalchemy import func, select, text
@@ -120,6 +120,44 @@ async def _derived_status(session: AsyncSession, c: Contract) -> str:
     return "in_qa" if in_review else "active"
 
 
+def qty(value: Any) -> int | float | None:
+    """A quantity as JSON carries it: whole numbers stay integers, a share of
+    hours keeps its fraction (db/510 made the columns numeric)."""
+    if value is None:
+        return None
+    d = Decimal(value)
+    return int(d) if d == d.to_integral_value() else float(d)
+
+
+def units_text(quantity: Any, unit: str | None) -> str:
+    """'3 photos', '1.5 hours of footage', '4 units' for a task with no unit."""
+    return pricing.quantity_text(quantity, unit or "units")
+
+
+def _share(units: Decimal) -> Decimal:
+    """Units captured, as a share a task_assignment can hold: two places,
+    rounded up, so a share kept is never less than what was sent."""
+    return Decimal(units).quantize(Decimal("0.01"), rounding=ROUND_CEILING)
+
+
+def _check_crowd_quantity(t: Task, quantity: Any) -> Decimal:
+    """What a crowd share in this task's unit may be (db/510 enforces the same)."""
+    if not pricing.crowd_capturable(t.target_unit):
+        raise DeliveryError(
+            f"{t.reference_code} is counted in "
+            f"{pricing.UNIT_WORDS.get(t.target_unit or '', ('', t.target_unit))[1]}, "
+            "which the capture app cannot deliver. Give it to a business partner instead."
+        )
+    q = Decimal(str(quantity))
+    if q <= 0:
+        raise DeliveryError("A share must be more than zero.")
+    if q != q.quantize(Decimal("0.01")):
+        raise DeliveryError("A share has at most two decimal places.")
+    if not pricing.measured_by_duration(t.target_unit) and q != q.to_integral_value():
+        raise DeliveryError(f"{t.reference_code} is counted in whole {t.target_unit or 'units'}.")
+    return q
+
+
 async def progress_of(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
     row = (
         await session.execute(
@@ -127,7 +165,9 @@ async def progress_of(session: AsyncSession, contract_id: uuid.UUID) -> dict[str
                 "SELECT count(*) AS total, "
                 "count(*) FILTER (WHERE status = 'qa_passed') AS done, "
                 "coalesce(sum((SELECT coalesce(sum(s.asset_count),0) FROM submission s "
-                "  WHERE s.task_id = task.id AND s.status = 'accepted')),0) AS assets "
+                "  WHERE s.task_id = task.id AND s.status = 'accepted')),0) AS assets, "
+                "coalesce(sum((SELECT coalesce(sum(s.unit_quantity),0) FROM submission s "
+                "  WHERE s.task_id = task.id AND s.status = 'accepted')),0) AS units "
                 "FROM task WHERE contract_id = :cid AND deleted_at IS NULL"
             ),
             {"cid": contract_id},
@@ -139,6 +179,8 @@ async def progress_of(session: AsyncSession, contract_id: uuid.UUID) -> dict[str
         "done": done,
         "pct": round(100 * done / total) if total else 0,
         "assets_accepted": int(row["assets"]),
+        # the same, in each task's own unit (db/510); unmeasured hours count 0
+        "units_accepted": float(row["units"]),
         "deliverable": total > 0 and done == total,
     }
 
@@ -296,7 +338,7 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "  c.reference_code AS contract_ref, "
                 "  (SELECT row_to_json(x) FROM ("
                 "     SELECT s.id, s.attempt_no, s.status, s.supplier_note, s.asset_count, "
-                "            s.submitted_at "
+                "            s.unit_quantity, s.submitted_at "
                 "     FROM submission s WHERE s.task_id = :tid "
                 "     ORDER BY s.attempt_no DESC LIMIT 1) x) AS last_submission, "
                 "  (SELECT row_to_json(y) FROM ("
@@ -315,7 +357,9 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "            count(*) FILTER (WHERE s.status = 'ready')       AS ready, "
                 "            count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
                 "            count(*) FILTER (WHERE s.status = 'ready' AND s.submission_id IS NOT NULL) "
-                "              AS bundled "
+                "              AS bundled, "
+                "            round(coalesce(sum(capture_units(tk.target_unit, s.duration_s)) "
+                "              FILTER (WHERE s.status = 'ready'), 0), 4) AS ready_units "
                 "     FROM asset s WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary, "
                 # the partner's rating of this task's supplier, once given; RLS
                 # hands it to the partner, the supplier and Ops, nobody else
@@ -341,8 +385,10 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "assignee_kind": extra.get("assignee_kind"),
         "title": t.title,
         "target": t.target,
-        "target_quantity": t.target_quantity,
+        "target_quantity": qty(t.target_quantity),
         "target_unit": t.target_unit,
+        # count: one capture is one unit; duration: clips add up their running time
+        "measure": "duration" if pricing.measured_by_duration(t.target_unit) else "count",
         "instructions": t.instructions,
         "capture_spec": t.capture_spec or {},
         "status": t.status,
@@ -412,7 +458,7 @@ async def create_task(
     target: str | None,
     due_on: dt.date | None,
     *,
-    target_quantity: int | None = None,
+    target_quantity: Decimal | int | None = None,
     target_unit: str | None = None,
     instructions: str | None = None,
     capture_spec: dict[str, Any] | None = None,
@@ -497,6 +543,12 @@ async def create_task(
     # client's media or tilt answers.
     if subject is not None:
         capture_spec = {**(capture_spec or {}), "subject": subject}
+
+    # Only hours may be split into fractions; the database refuses the rest
+    # too (db/510), this says it in words.
+    if target_quantity is not None and not pricing.measured_by_duration(target_unit):
+        if Decimal(str(target_quantity)) != Decimal(str(target_quantity)).to_integral_value():
+            raise DeliveryError(f"A task in {target_unit or 'units'} is counted in whole numbers.")
 
     ref = (
         await session.execute(text("SELECT next_reference_code('TSK','seq_ref_task')"))
@@ -629,8 +681,11 @@ async def submit_task(
     await session.flush()
 
     if n_assign:
-        s.asset_count = await media.attach_to_submission(session, task_id, s.id)
+        s.asset_count, s.unit_quantity = await media.attach_to_submission(session, task_id, s.id)
         await session.flush()
+    elif not pricing.measured_by_duration(t.target_unit):
+        # a business partner's stated count is its units; hours it states are not
+        s.unit_quantity = Decimal(s.asset_count)
     asset_count = s.asset_count
 
     partner = (
@@ -689,6 +744,7 @@ _ASSIGNMENT_ROWS = (
     "       a.revoked_at, a.reassigned_to, "
     "       coalesce(g.draft, 0) AS draft, coalesce(g.in_review, 0) AS in_review, "
     "       coalesce(g.accepted, 0) AS accepted, coalesce(g.rework, 0) AS rework, "
+    "       g.draft_units, g.in_review_units, g.accepted_units, g.rework_units, "
     "       coalesce(w.display_name, u.full_name) AS worker_name, w.reference_code AS worker_ref, "
     "       t.reference_code AS task_ref, t.title AS task_title, "
     "       t.instructions AS task_instructions, t.capture_spec, t.target_unit, "
@@ -729,7 +785,7 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
         "worker_user_id": r["worker_user_id"],
         "worker_name": r["worker_name"],
         "worker_ref": r["worker_ref"],
-        "quantity": r["quantity"],
+        "quantity": qty(r["quantity"]),
         "status": r["status"],
         "instructions": r["instructions"],
         "due_on": r["due_on"],
@@ -752,9 +808,13 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
         },
         # The batch round trip: not sent yet, with the aggregator, kept, and to
         # be shot again. accepted against quantity is the assignment's progress.
+        # In the task's unit too (db/510): for a counted unit the same
+        # numbers, for hours the clips' running time. measure says which.
         "progress": {
             "draft": int(r["draft"]), "in_review": int(r["in_review"]),
             "accepted": int(r["accepted"]), "rework": int(r["rework"]),
+            **{f"{k}_units": round(float(r[f"{k}_units"] or 0), 4) for k in media.STAGES},
+            "measure": "duration" if pricing.measured_by_duration(r["target_unit"]) else "count",
         },
         # Taken off this worker; the rest went to reassigned_to.
         "revoked_at": r["revoked_at"],
@@ -847,7 +907,7 @@ async def create_assignment(
     claims: AccessClaims,
     task_id: uuid.UUID,
     worker_user_id: uuid.UUID,
-    quantity: int,
+    quantity: Decimal | int,
     instructions: str | None,
     due_on: dt.date | None,
 ) -> dict[str, Any]:
@@ -873,7 +933,7 @@ async def _assign_worker(
     assigned_by: uuid.UUID,
     task: Task,
     worker_user_id: uuid.UUID,
-    quantity: int,
+    quantity: Decimal | int,
     instructions: str | None,
     due_on: dt.date | None,
     via_offer_id: uuid.UUID | None = None,
@@ -886,6 +946,7 @@ async def _assign_worker(
     await session.execute(text("SELECT id FROM task WHERE id = :t FOR UPDATE"), {"t": t.id})
     if t.status not in ("assigned", "in_progress", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot take new assignments.")
+    quantity = _check_crowd_quantity(t, quantity)
 
     # A live worker grant in THIS organisation — invited from the roster.
     ok = (
@@ -906,10 +967,10 @@ async def _assign_worker(
     if t.target_quantity:
         assigned = await _assigned_quantity(session, t.id)
         if assigned + quantity > t.target_quantity:
-            unit = t.target_unit or "units"
             raise DeliveryError(
-                f"Assigning {quantity} exceeds the task target of {t.target_quantity} {unit} "
-                f"by {assigned + quantity - t.target_quantity}."
+                f"Assigning {units_text(quantity, t.target_unit)} exceeds the task target of "
+                f"{units_text(t.target_quantity, t.target_unit)} "
+                f"by {units_text(assigned + quantity - t.target_quantity, t.target_unit)}."
             )
 
     a = TaskAssignment(
@@ -931,25 +992,25 @@ async def _assign_worker(
             raise DeliveryError("This crowd resource already has an open assignment on this task.") from None
         raise
 
-    unit = t.target_unit or "units"
+    share = units_text(quantity, t.target_unit)
     await notifier.notify(
         session, org_id,
-        f"New assignment: {t.title} — {quantity} {unit}."
+        f"New assignment: {t.title} — {share}."
         + (f" Due {due_on.isoformat()}." if due_on else ""),
         "assignment", {"id": str(a.id)},
         user_id=worker_user_id,
     )
     await audit.log(
         session, "assignment.created",
-        f"Assigned {quantity} {unit} of {t.reference_code} to a crowd resource",
+        f"Assigned {share} of {t.reference_code} to a crowd resource",
         [a.id, t.id, t.contract_id, org_id, worker_user_id],
         {"via_offer_id": str(via_offer_id)} if via_offer_id else None,
     )
     return await assignment_by_id(session, a.id)
 
 
-async def _assigned_quantity(session: AsyncSession, task_id: uuid.UUID) -> int:
-    return int(
+async def _assigned_quantity(session: AsyncSession, task_id: uuid.UUID) -> Decimal:
+    return Decimal(
         (
             await session.execute(
                 text(
@@ -1120,16 +1181,19 @@ async def settle_assignment(
       * An assignment whose accepted captures reach its quantity, with nothing
         left in review, is accepted.
 
+    Both count in the task's unit (db/510): captures, or hours of footage.
+
     Returns {"moved": units handed on, "status": the assignment's status}.
     """
     a = await _get_assignment(session, assignment_id)
     counts = await media.stage_counts(session, a.id)
-    moved = 0
+    moved: Decimal = Decimal(0)
     if a.revoked_at is not None and a.status == "in_progress":
-        kept = counts["in_review"] + counts["accepted"]
-        moved = a.quantity - kept
+        kept_n = counts["in_review"] + counts["accepted"]
+        kept = _share(counts["in_review_units"] + counts["accepted_units"])
+        moved = Decimal(a.quantity) - kept
         if moved > 0:
-            if kept == 0:
+            if kept_n == 0 or kept <= 0:
                 a.status = "cancelled"
                 a.decided_at = dt.datetime.now(dt.timezone.utc)
             else:
@@ -1138,15 +1202,16 @@ async def settle_assignment(
     if (
         a.status == "in_progress"
         and counts["in_review"] == 0
-        and counts["accepted"] >= a.quantity
+        and counts["accepted"] > 0
+        and counts["accepted_units"] >= Decimal(a.quantity)
     ):
         a.status = "accepted"
         a.decided_at = dt.datetime.now(dt.timezone.utc)
     await session.flush()
-    return {"moved": max(moved, 0), "status": a.status}
+    return {"moved": qty(max(moved, Decimal(0))), "status": a.status}
 
 
-async def _hand_on(session: AsyncSession, revoked: TaskAssignment, units: int) -> None:
+async def _hand_on(session: AsyncSession, revoked: TaskAssignment, units: Decimal) -> None:
     """Give units a revoked assignment can no longer deliver to the assignment
     that took over from it, while that one is still open."""
     if revoked.reassigned_to is None:
@@ -1158,21 +1223,23 @@ async def _hand_on(session: AsyncSession, revoked: TaskAssignment, units: int) -
     ).scalar_one_or_none()
     if nxt is None or nxt.status not in ("assigned", "in_progress"):
         return
-    nxt.quantity += units
-    title = (
-        await session.execute(text("SELECT title FROM task WHERE id = :t"), {"t": nxt.task_id})
-    ).scalar_one()
+    nxt.quantity = Decimal(nxt.quantity) + units
+    title, unit = (
+        await session.execute(
+            text("SELECT title, target_unit FROM task WHERE id = :t"), {"t": nxt.task_id}
+        )
+    ).one()
     await notifier.notify(
         session, nxt.supplier_org_id,
-        f"{units} more to capture on {title}.",
+        f"{units_text(units, unit)} more to capture on {title}.",
         "assignment", {"id": str(nxt.id)},
         user_id=nxt.worker_user_id,
     )
     await audit.log(
         session, "assignment.extended",
-        f"Moved {units} unit(s) from a reassigned assignment",
+        f"Moved {units_text(units, unit)} from a reassigned assignment",
         [nxt.id, revoked.id, nxt.task_id, nxt.contract_id, nxt.supplier_org_id],
-        {"units": units},
+        {"units": qty(units)},
     )
 
 
@@ -1217,15 +1284,19 @@ async def reassign_assignment(
     )
     counts = await media.stage_counts(session, a.id)
     sent = 0
+    sent_units = Decimal(0)
     if counts["draft"]:
         _, _, sent = await _open_batch(
             session, a, claims.user_id,
             "Sent when the task was reassigned" + (f": {note}" if note else "."),
         )
+        sent_units = counts["draft_units"]
         a.submitted_at = dt.datetime.now(dt.timezone.utc)
-    kept = counts["in_review"] + counts["accepted"] + sent
-    remaining = a.quantity - kept
-    if remaining < 1:
+    # in the task's unit: captures, or hours of footage (db/510)
+    kept_n = counts["in_review"] + counts["accepted"] + sent
+    kept = _share(counts["in_review_units"] + counts["accepted_units"] + sent_units)
+    remaining = Decimal(a.quantity) - kept
+    if remaining <= 0:
         raise DeliveryError(
             "Everything on this assignment has been sent for review; nothing is left to give "
             "to someone else."
@@ -1234,7 +1305,7 @@ async def reassign_assignment(
     now = dt.datetime.now(dt.timezone.utc)
     a.revoked_at = now
     a.revoked_by = claims.user_id
-    if kept == 0:
+    if kept_n == 0 or kept <= 0:
         a.status = "cancelled"
         a.decided_at = now
         a.decided_by = claims.user_id
@@ -1263,14 +1334,14 @@ async def reassign_assignment(
     await notifier.notify(
         session, claims.org_id,
         f"{t.title} was given to someone else."
-        + (f" Your {kept} capture(s) were sent for review." if kept else "")
+        + (f" Your {kept_n} capture(s) were sent for review." if kept_n else "")
         + (f" {note}" if note else ""),
         "assignment", {"id": str(a.id)},
         user_id=a.worker_user_id,
     )
     await audit.log(
         session, "assignment.revoked",
-        f"Reassigned {remaining} unit(s) of {t.reference_code} to another crowd resource",
+        f"Reassigned {units_text(remaining, t.target_unit)} of {t.reference_code} to another crowd resource",
         [a.id, new["id"], t.id, t.contract_id, claims.org_id, a.worker_user_id, worker_user_id],
         {"kept": kept, "sent_now": sent, "moved": remaining},
     )
@@ -1585,7 +1656,7 @@ def offer_context(
     task_ref: str,
     task_title: str,
     unit: str,
-    quantity: int,
+    quantity: Any,
     worker_limit: int,
     due_on: dt.date | None,
     respond_by: dt.datetime,
@@ -1609,11 +1680,14 @@ def offer_context(
     subject = f"{org_name} is offering you a task — {task_ref} {task_title}"
     if lead:
         subject = "Reminder: " + subject
+    # The share in words ("1.5 hours of footage", db/510), split where the
+    # template joins quantity and unit; strings, so the outbox row stores it.
+    shown_quantity, _, shown_unit = units_text(quantity, unit).partition(" ")
     return {
         "subject": subject,
         "worker_name": worker_name, "org_name": org_name,
         "task_ref": task_ref, "task_title": task_title,
-        "unit": unit, "quantity": quantity, "places": places, "due": due, "by": by,
+        "unit": shown_unit, "quantity": shown_quantity, "places": places, "due": due, "by": by,
         "instructions": instructions, "accept_url": accept_url, "decline_url": decline_url,
         "lead": lead,
     }
@@ -1626,7 +1700,7 @@ def offer_email(
     task_ref: str,
     task_title: str,
     unit: str,
-    quantity: int,
+    quantity: Any,
     worker_limit: int,
     due_on: dt.date | None,
     respond_by: dt.datetime,
@@ -1685,7 +1759,7 @@ async def _offers(
                 "status": r["status"],
                 "effective_status": _effective_status(r["status"], r["respond_by"]),
                 "worker_limit": r["worker_limit"],
-                "quantity": r["quantity"],
+                "quantity": qty(r["quantity"]),
                 "accepted_count": r["accepted_count"],
                 "declined_count": 0,
                 "pending_count": 0,
@@ -1788,7 +1862,7 @@ async def create_offer(
     task_id: uuid.UUID,
     *,
     worker_limit: int,
-    quantity: int,
+    quantity: Decimal | int,
     instructions: str | None,
     due_on: dt.date | None,
     respond_by: dt.datetime | None,
@@ -1799,6 +1873,7 @@ async def create_offer(
         raise DeliveryError("Only the assigned supplier offers its tasks.")
     if t.status not in _ASSIGNABLE:
         raise DeliveryError(f"A {t.status} task cannot be offered.")
+    quantity = _check_crowd_quantity(t, quantity)
 
     now = dt.datetime.now(dt.timezone.utc)
     if respond_by is None:
@@ -1811,10 +1886,10 @@ async def create_offer(
     if t.target_quantity:
         assigned = await _assigned_quantity(session, t.id)
         if assigned + worker_limit * quantity > t.target_quantity:
-            unit = t.target_unit or "units"
             raise DeliveryError(
-                f"{worker_limit} x {quantity} {unit} exceeds what is left of the task target "
-                f"({t.target_quantity - assigned} of {t.target_quantity} {unit})."
+                f"{worker_limit} x {units_text(quantity, t.target_unit)} exceeds what is left of "
+                f"the task target ({qty(t.target_quantity - assigned)} of "
+                f"{units_text(t.target_quantity, t.target_unit)})."
             )
 
     eligible = (
@@ -1907,7 +1982,7 @@ async def create_offer(
     await audit.log(
         session, "offer.created",
         f"Offered {t.reference_code} to {len(recipients)} crowd resources "
-        f"({worker_limit} x {quantity} {unit})",
+        f"({worker_limit} x {units_text(quantity, t.target_unit)})",
         [o.id, t.id, t.contract_id, claims.org_id],
     )
     return await offer_by_id(session, o.id)
@@ -1962,7 +2037,7 @@ def _preview_dict(row: dict[str, Any]) -> dict[str, Any]:
             "due_on": row["task_due_on"],
             "target_unit": row["target_unit"],
         },
-        "quantity": row["quantity"],
+        "quantity": qty(row["quantity"]),
         "instructions": row["instructions"],
         "due_on": row["due_on"],
         "respond_by": row["respond_by"],

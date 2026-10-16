@@ -100,3 +100,10 @@ CREATE INDEX IF NOT EXISTS example_labels_task_idx ON example_labels (task_id);
 export const SCHEMA_V6 = `
 ALTER TABLE captures ADD COLUMN replaces_asset_id TEXT;
 `;
+
+// A clip's running time in seconds, as the capture screen measured it. A task
+// in hours of footage counts its clips by it (db/510), so it is sent with the
+// presign; a photo has none.
+export const SCHEMA_V7 = `
+ALTER TABLE captures ADD COLUMN duration_s REAL;
+`;

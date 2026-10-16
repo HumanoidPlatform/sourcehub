@@ -200,6 +200,8 @@ export function useCapture(
           lon: fix?.lon ?? null,
           checks: checks.length > 0 ? JSON.stringify(checks) : null,
           replaces_asset_id: replacesAssetId ?? null,
+          // what a share in hours is counted in (db/510)
+          duration_s: kind === "video" && result.duration && result.duration > 0 ? result.duration : null,
         });
         uploader.kick();
         return checks;

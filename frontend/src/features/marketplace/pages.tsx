@@ -52,13 +52,21 @@ const CATEGORIES = [
   ["people_deliverable", "People-based deliverable"],
 ] as const;
 
+// What each category is counted in by default. A crowd capture of an image
+// is a photo; video defaults to running time and the client may choose to
+// count clips instead (VIDEO_UNITS).
 const CATEGORY_UNITS: Record<string, TargetUnit> = {
-  image: "records",
+  image: "photos",
   video: "hours",
   structured_data: "records",
   unstructured_data: "records",
   people_deliverable: "records",
 };
+
+const VIDEO_UNITS: [TargetUnit, string][] = [
+  ["hours", "Hours of footage"],
+  ["videos", "Videos"],
+];
 
 const unitForCategory = (category: string): TargetUnit => CATEGORY_UNITS[category] ?? "records";
 const unitLabel = (unit: string | null | undefined): string =>
@@ -424,7 +432,7 @@ interface Draft {
 const BLANK: Draft = {
   title: "", category: "image", compliance_notes: "",
   objective: "", use_case: "",
-  target_quantity: "", target_unit: "records", location_type: "",
+  target_quantity: "", target_unit: "photos", location_type: "",
   countries: [],
   capture_media: [], capture_notes: "",
   capture_require_gps: false, capture_orientation: "", capture_min_megapixels: "",
@@ -974,7 +982,21 @@ export function RequestNewPage() {
                     placeholder="25000"
                     style={{ minWidth: 0 }}
                   />
-                  <span className="small muted" style={{ flex: "none" }}>{unitLabel(d.target_unit)}</span>
+                  {d.category === "video" ? (
+                    // Video is bought by running time or by the clip: hours
+                    // count every clip's length, videos count clips (db/510)
+                    <select
+                      className="select"
+                      aria-label="Counted in"
+                      style={{ flex: "none", width: "auto" }}
+                      value={d.target_unit}
+                      onChange={set("target_unit")}
+                    >
+                      {VIDEO_UNITS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+                    </select>
+                  ) : (
+                    <span className="small muted" style={{ flex: "none" }}>{unitLabel(d.target_unit)}</span>
+                  )}
                 </div>
               )}
             </Field>
