@@ -50,6 +50,9 @@ function PublicFrame({ children, title }: { children: React.ReactNode; title: st
       <main id="main" style={{ maxWidth: 1180, margin: "0 auto", padding: "24px 16px 48px" }}>
         {children}
       </main>
+      <footer className="small muted" style={{ textAlign: "center", padding: "0 16px 24px" }}>
+        <Link to="/terms">Terms &amp; Conditions</Link> · <Link to="/privacy">Privacy notice</Link>
+      </footer>
     </div>
   );
 }

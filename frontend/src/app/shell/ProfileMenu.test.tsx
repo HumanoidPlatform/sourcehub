@@ -52,7 +52,9 @@ describe("account menu", () => {
     expect(screen.getAllByRole("menuitem").map((e) => e.textContent)).toEqual([
       "Change password",
       "Manage users",
+      "Terms & Conditions",
       "Privacy notice",
+      "Report a concern",
       "Sign out",
     ]);
     // present on screen, but not something you can activate
@@ -67,7 +69,11 @@ describe("account menu", () => {
     key("ArrowDown");
     expect(focused()).toBe("Manage users");
     key("ArrowDown");
+    expect(focused()).toBe("Terms & Conditions");
+    key("ArrowDown");
     expect(focused()).toBe("Privacy notice");
+    key("ArrowDown");
+    expect(focused()).toBe("Report a concern");
     key("ArrowDown");
     expect(focused()).toBe("System");
     key("End");

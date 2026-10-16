@@ -68,6 +68,8 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `user_password_history` | Old password hashes, so a password cannot be reused. |
 | `user_token` | Password-reset links (hash, single use, expiring). Written only through database functions, never directly. |
 | `invitation` | The emailed "set your password" link for a new user. Hash only; the invitee sets their own password, so no administrator ever knows it. |
+| `platform_terms` | Each version of the Onboarding Terms & Conditions, with a sha256 of exactly what is shown. The newest one in effect is the one people accept; a version cannot change once accepted. [`470_platform_terms.sql`](../db/470_platform_terms.sql) |
+| `terms_acceptance` | Who accepted which version, when, in which organisation, and from which IP and browser: at the invitation or at the sign-in gate. Never changed or removed. Crowd workers are not asked. |
 
 ### B. Joining the platform · [`030_onboarding.sql`](../db/030_onboarding.sql), [`330_onboarding_decisions.sql`](../db/330_onboarding_decisions.sql)
 

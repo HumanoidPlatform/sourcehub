@@ -1,12 +1,14 @@
 // identity — login, org choice, invitation acceptance, password reset,
-// forced password change, and a crowd resource answering a task offer from a link.
+// forced password change, the Terms gate, and a crowd resource answering a
+// task offer from a link.
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import { ApiError, get, post, saveSession, type Session } from "@api/client";
+import { ApiError, get, post, refreshSession, saveSession, type Session } from "@api/client";
 import type { OfferPreview } from "@api/types";
 import { Button, Callout, Dl, Field, inputCls, useToast } from "@ds/primitives";
+import { TermsAcceptance, useCurrentTerms } from "@features/legal/terms";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { returnPath, useAuth, type OrgChoice } from "@shared/auth";
 import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";
@@ -15,10 +17,13 @@ import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";
 // place the company is named alongside the product: whoever is at this door may
 // never have heard of either, and the privacy notice belongs within reach of
 // the form rather than behind a sign-in.
-function AuthFrame({ title, sub, children }: { title: string; sub?: string; children: React.ReactNode }) {
+function AuthFrame({
+  title, sub, wide, children,
+}: { title: string; sub?: string; wide?: boolean; children: React.ReactNode }) {
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--ground)", padding: 24 }}>
-      <div style={{ width: 420, maxWidth: "100%" }}>
+      {/* wide: the screens that carry the Terms */}
+      <div style={{ width: wide ? 640 : 420, maxWidth: "100%" }}>
         <div className="panel">
           <div className="panel-body" style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <BrandMark byline />
@@ -30,7 +35,7 @@ function AuthFrame({ title, sub, children }: { title: string; sub?: string; chil
           </div>
         </div>
         <p className="small muted" style={{ textAlign: "center", margin: "12px 0 0" }}>
-          <Link to="/privacy">Privacy notice</Link>
+          <Link to="/terms">Terms &amp; Conditions</Link> · <Link to="/privacy">Privacy notice</Link>
         </p>
       </div>
     </div>
@@ -140,30 +145,46 @@ export function AcceptInvitationPage() {
   const toast = useToast();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const preview = useMutation({
     mutationFn: () =>
-      get<{ email: string; org_name: string; role_code: string; valid: boolean }>(
-        `/auth/invitation/${token}`,
-      ),
+      get<{
+        email: string; org_name: string; role_code: string; valid: boolean;
+        // the Terms to accept with the password; null for a crowd worker's invitation
+        terms: { version: string; title: string } | null;
+      }>(`/auth/invitation/${token}`),
   });
   if (token && preview.isIdle) preview.mutate();
+  const p = preview.data;
+  const terms = useCurrentTerms();
+  const asksTerms = Boolean(p?.valid && p.terms);
 
   const accept = useMutation({
-    mutationFn: () => post("/auth/invitation/accept", { token, password }),
+    mutationFn: () =>
+      post("/auth/invitation/accept", {
+        token, password, terms_version: asksTerms ? terms.data?.version : undefined,
+      }),
     onSuccess: () => {
       toast(`Welcome to ${PRODUCT}`, "Your password is set — sign in to begin.", "success");
       navigate("/login");
     },
-    onError: (e) => setError(e instanceof Error ? e.message : "Could not accept"),
+    onError: (e) => {
+      setError(e instanceof Error ? e.message : "Could not accept");
+      // replaced while the page was open: show the new text, ask again
+      if (e instanceof ApiError && e.status === 422 && asksTerms) {
+        setAgreed(false);
+        void terms.refetch();
+      }
+    },
   });
 
-  const p = preview.data;
   return (
     <AuthFrame
       title="Accept your invitation"
       sub={p ? `${p.org_name} · signing in as ${p.email}` : "Checking the invitation…"}
+      wide={asksTerms}
     >
       {p && !p.valid && (
         <Callout tone="critical" title="This invitation is no longer valid">
@@ -176,11 +197,20 @@ export function AcceptInvitationPage() {
             e.preventDefault();
             if (password.length < 10) return setError("Use at least 10 characters.");
             if (password !== confirm) return setError("Passwords do not match.");
+            if (asksTerms && !agreed) return setError("Accept the Terms & Conditions to finish.");
             setError(null);
             accept.mutate();
           }}
           style={{ display: "flex", flexDirection: "column", gap: 12 }}
         >
+          {asksTerms && terms.data && (
+            <TermsAcceptance terms={terms.data} checked={agreed} onChange={setAgreed} />
+          )}
+          {asksTerms && terms.isError && (
+            <Callout tone="critical" title="The Terms & Conditions could not be loaded">
+              Reload the page to try again.
+            </Callout>
+          )}
           <Field label="Choose a password" required hint={`At least 10 characters. Nobody at ${PRODUCT} ever sees it.`}>
             {(id) => (
               <input id={id} className={inputCls} type="password" autoComplete="new-password"
@@ -194,7 +224,11 @@ export function AcceptInvitationPage() {
             )}
           </Field>
           {error && <Callout tone="critical" title={error} />}
-          <Button variant="primary" type="submit" disabled={accept.isPending}>
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={accept.isPending || (asksTerms && (!agreed || !terms.data))}
+          >
             {accept.isPending ? "Setting up…" : "Set password and finish"}
           </Button>
         </form>
@@ -444,6 +478,62 @@ export function ForcedPasswordChange({ session }: { session: Session }) {
           Change password
         </Button>
       </form>
+    </AuthFrame>
+  );
+}
+
+/**
+ * Shown as a blocking screen while the Terms are due (db/470): to everyone
+ * signed in before they existed, and to everyone again when a new version
+ * takes effect. Accept, or sign out; the API answers nothing else meanwhile.
+ */
+export function ForcedTermsAcceptance() {
+  const { logout } = useAuth();
+  const terms = useCurrentTerms();
+  const [agreed, setAgreed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const accept = useMutation({
+    mutationFn: async (version: string) => {
+      await post("/terms/accept", { version });
+      // the stored token still says the Terms are due; the new one does not,
+      // and the auth provider follows the refresh into the console
+      if (!(await refreshSession())) throw new Error("Accepted — sign in again to continue.");
+    },
+    onError: (e) => {
+      setError(e instanceof Error ? e.message : "Could not record your acceptance");
+      // replaced while the page was open: show the new text, ask again
+      if (e instanceof ApiError && e.status === 409) {
+        setAgreed(false);
+        void terms.refetch();
+      }
+    },
+  });
+
+  return (
+    <AuthFrame
+      title="Terms & Conditions"
+      sub={`Read and accept the ${PRODUCT} Terms & Conditions to continue.`}
+      wide
+    >
+      {terms.data && <TermsAcceptance terms={terms.data} checked={agreed} onChange={setAgreed} />}
+      {terms.isPending && <p className="small muted" style={{ margin: 0 }}>Loading the Terms…</p>}
+      {terms.isError && (
+        <Callout tone="critical" title="The Terms & Conditions could not be loaded">
+          Reload the page to try again.
+        </Callout>
+      )}
+      {error && <Callout tone="critical" title={error} />}
+      <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+        <Button variant="quiet" onClick={() => void logout()}>Sign out</Button>
+        <Button
+          variant="primary"
+          disabled={!agreed || !terms.data || accept.isPending}
+          onClick={() => terms.data && accept.mutate(terms.data.version)}
+        >
+          {accept.isPending ? "Recording…" : "I Accept"}
+        </Button>
+      </div>
     </AuthFrame>
   );
 }

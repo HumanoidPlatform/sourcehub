@@ -1091,6 +1091,9 @@ export interface Dataset {
   reviewed_at?: string | null;
   created_at?: string;
   updated_at?: string;
+  // the seller's declaration on its last submission (db/470)
+  rights_attested_at?: string | null;
+  rights_attested_by_name?: string | null;
   // my listings
   pending_copies?: number;
   open_requests?: number;

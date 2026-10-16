@@ -142,8 +142,16 @@ export function ProfileMenu({ theme, onTheme }: { theme: Theme; onTheme: (t: The
                 Organisation profile
               </Link>
             )}
+            <Link to="/terms" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
+              Terms &amp; Conditions
+            </Link>
             <Link to="/privacy" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
               Privacy notice
+            </Link>
+            {/* Misuse of data, a consent failure or a breach (Terms §5, §6.4)
+                goes to the Grievance Officer, whose contact is §14.9 */}
+            <Link to="/terms#s14" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
+              Report a concern
             </Link>
 
             <div className="acct-sep" role="separator" />

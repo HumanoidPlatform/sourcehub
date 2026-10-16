@@ -34,7 +34,7 @@ vi.mock("@shared/auth", () => ({
 }));
 
 import { CataloguePage, DatasetPage, DealPage } from "./buyer";
-import { MyDatasetsPage } from "./seller";
+import { DatasetEditorPage, MyDatasetsPage } from "./seller";
 import { CatalogueReviewPage } from "./ops";
 import { PublicDatasetPage } from "./public";
 
@@ -356,5 +356,32 @@ describe("an aggregator", () => {
     show("/datahub/mine", "/datahub/mine", <MyDatasetsPage />);
     expect(await screen.findByText("DataHub is not part of your workspace")).toBeTruthy();
     expect(api.get).not.toHaveBeenCalled();
+  });
+});
+
+describe("submitting a listing for review", () => {
+  const DRAFT = {
+    id: "d1", slug: "street-abc123", title: "Street scenes, Pune", summary: "Shopfronts", description: null,
+    category: "image", use_cases: [], regions: ["IN"], languages: [], permitted_uses: ["model_training"],
+    licence_terms: "[terms]", indicative_price_text: null, file_count: 2400, total_bytes: 1_000, sample_count: 1,
+    source: "upload", status: "draft", owner_org_id: "o-helix", owner_name: "Helix Data Collective",
+    published_at: null, withdrawn_at: null, withdrawn_reason: null, is_owner: true, samples: [],
+  };
+
+  it("asks for the seller's declaration first, and sends it with the submission", async () => {
+    auth.session = SELLER;
+    api.get.mockImplementation(() => Promise.resolve(DRAFT));
+    api.post.mockImplementation(() => Promise.resolve({ ...DRAFT, status: "in_review" }));
+    show("/datahub/mine/d1", "/datahub/mine/:id", <DatasetEditorPage />);
+    fireEvent.click(await screen.findByRole("button", { name: "Submit for review" }));
+    const dialog = await screen.findByRole("dialog");
+    expect(within(dialog).getByText(/hold every right, licence and consent/)).toBeTruthy();
+    const confirm = within(dialog).getByRole("button", { name: "Submit for review" }) as HTMLButtonElement;
+    expect(confirm.disabled).toBe(true);
+    expect(api.post).not.toHaveBeenCalled();
+    fireEvent.click(within(dialog).getByRole("checkbox"));
+    expect(confirm.disabled).toBe(false);
+    fireEvent.click(confirm);
+    await waitFor(() => expect(api.post).toHaveBeenCalledWith("/catalogue/datasets/d1/submit", { attest: true }));
   });
 });

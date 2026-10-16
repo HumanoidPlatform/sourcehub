@@ -64,6 +64,8 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "user_password_history",
             "user_token",
             "invitation",
+            "platform_terms",
+            "terms_acceptance",
         ],
     ),
     (
