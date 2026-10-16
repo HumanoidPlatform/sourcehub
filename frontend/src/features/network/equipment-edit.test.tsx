@@ -51,12 +51,13 @@ const row = (over: Record<string, unknown> = {}) => ({
   calibrated_on: "2026-07-14", calibration_expires_on: "2027-07-14",
   sponsor_org_id: "o-sponsor", sponsor_name: "OptiGear Devices",
   units_on_loan: 10, units_available: 110,
+  make: null, model: null, location: null, specifications: {}, attachments: [],
   ...over,
 });
 
-function show(rows: unknown[] = [row()]) {
+function show(rows: unknown[] = [row()], other: Record<string, unknown> = {}) {
   api.get.mockReset().mockImplementation((path: string) =>
-    Promise.resolve(path === "/network/equipment" ? rows : []),
+    Promise.resolve(path === "/network/equipment" ? rows : (other[path] ?? [])),
   );
   const router = createMemoryRouter([{ path: "/inventory", element: <EquipmentPage /> }], {
     initialEntries: ["/inventory"],
@@ -149,5 +150,200 @@ describe("the Edit dialog", () => {
   it("tells the sponsor how many units are out before they type", async () => {
     const dlg = await openEdit();
     expect(within(dlg).getByText(/10 out on loan/)).toBeTruthy();
+  });
+});
+
+// db/520: what a device is, and its photos and documentation. Pinned here: the
+// add is ONE save carrying details and files together; calibration is left
+// blank rather than invented; a field narrowed to pictures refuses a PDF in the
+// browser; the details map goes whole, so a label removed is removed; and a
+// borrower sees what the sponsor said.
+const file = (over: Record<string, unknown>) => ({
+  id: "p1", entity_type: "equipment", entity_id: "e1", slot: "photos",
+  owner_org_id: "o-sponsor", filename: "front.jpg", content_type: "image/jpeg",
+  size_bytes: 2048, uploaded_at: "2026-10-16T10:00:00Z", doc_no: 1, version: 1, is_current: true,
+  ...over,
+});
+
+const openAdd = async () => {
+  show();
+  fireEvent.click(await screen.findByRole("button", { name: "Add equipment" }));
+  return await screen.findByRole("dialog");
+};
+
+describe("what a device is", () => {
+  beforeEach(() => {
+    api.putFile.mockReset().mockResolvedValue(undefined);
+    api.post.mockReset().mockImplementation((path: string, body?: unknown) =>
+      Promise.resolve(
+        path === "/attachments/presign"
+          ? {
+              storage_key: `_staging/o-sponsor/u/${(body as { filename: string }).filename}`,
+              url: "https://store.example/put", headers: {},
+            }
+          : {},
+      ),
+    );
+  });
+
+  it("adds a device with its details and a photo in one save, calibration left blank", async () => {
+    const dlg = await openAdd();
+    // nothing pre-filled: an invented expiry would decide whether it may be lent
+    expect((within(dlg).getByLabelText(/^Calibrated on/) as HTMLInputElement).value).toBe("");
+    expect((within(dlg).getByLabelText(/^Calibration expires/) as HTMLInputElement).value).toBe("");
+    fireEvent.change(within(dlg).getByLabelText(/^Equipment type/), { target: { value: "Helmet camera" } });
+    fireEvent.change(within(dlg).getByLabelText(/^Units/), { target: { value: "4" } });
+    fireEvent.change(within(dlg).getByLabelText(/^Make/), { target: { value: " GoPro " } });
+    fireEvent.change(within(dlg).getByLabelText(/^Model/), { target: { value: "HERO12 Black" } });
+    fireEvent.click(within(dlg).getByRole("button", { name: "Add a detail" }));
+    fireEvent.change(within(dlg).getByLabelText("Detail 1, label"), { target: { value: "Resolution" } });
+    fireEvent.change(within(dlg).getByLabelText("Detail 1, value"), { target: { value: "5.3K" } });
+    const [photos] = Array.from(dlg.querySelectorAll<HTMLInputElement>('input[type="file"]'));
+    expect(photos!.accept).toBe(".png,.jpg,.jpeg,.webp");
+    fireEvent.change(photos!, { target: { files: [new File(["x"], "front.jpg", { type: "image/jpeg" })] } });
+    await waitFor(() => expect(api.putFile).toHaveBeenCalledTimes(1));
+    const add = within(dlg).getByRole("button", { name: "Add to inventory" }) as HTMLButtonElement;
+    await waitFor(() => expect(add.disabled).toBe(false));
+    fireEvent.click(add);
+    await waitFor(() => expect(api.post).toHaveBeenCalledWith("/network/equipment", expect.anything()));
+    const saves = api.post.mock.calls.filter(([path]) => path === "/network/equipment");
+    expect(saves).toHaveLength(1);
+    expect(saves[0]![1]).toEqual({
+      equipment_type: "Helmet camera", total_units: 4,
+      calibrated_on: null, calibration_expires_on: null,
+      make: "GoPro", model: "HERO12 Black", location: null,
+      specifications: { Resolution: "5.3K" },
+      attachments: [{
+        storage_key: "_staging/o-sponsor/u/front.jpg", filename: "front.jpg",
+        content_type: "image/jpeg", slot: "photos",
+      }],
+    });
+  });
+
+  it("refuses a document in the photos field before uploading it", async () => {
+    const dlg = await openAdd();
+    const [photos] = Array.from(dlg.querySelectorAll<HTMLInputElement>('input[type="file"]'));
+    fireEvent.change(photos!, { target: { files: [new File(["x"], "manual.pdf", { type: "application/pdf" })] } });
+    expect(await within(dlg).findByText(/manual\.pdf is not an accepted file type/)).toBeTruthy();
+    expect(api.post).not.toHaveBeenCalledWith("/attachments/presign", expect.anything());
+  });
+
+  it("names the two pickers apart", async () => {
+    const dlg = await openAdd();
+    expect(within(dlg).getByRole("button", { name: "Add photos" })).toBeTruthy();
+    expect(within(dlg).getByRole("button", { name: "Add documents" })).toBeTruthy();
+  });
+
+  it("will not save a detail that has a value but no label", async () => {
+    const dlg = await openAdd();
+    fireEvent.change(within(dlg).getByLabelText(/^Equipment type/), { target: { value: "Helmet camera" } });
+    fireEvent.change(within(dlg).getByLabelText(/^Units/), { target: { value: "4" } });
+    fireEvent.click(within(dlg).getByRole("button", { name: "Add a detail" }));
+    fireEvent.change(within(dlg).getByLabelText("Detail 1, value"), { target: { value: "5.3K" } });
+    expect(within(dlg).getByRole("alert").textContent).toBe("Every detail needs a label.");
+    expect((within(dlg).getByRole("button", { name: "Add to inventory" }) as HTMLButtonElement).disabled).toBe(true);
+  });
+});
+
+describe("editing what a device is", () => {
+  const described = () =>
+    row({ make: "GoPro", model: "HERO12 Black", specifications: { Resolution: "4K", Storage: "256 GB" } });
+
+  const openEditOf = async (r: ReturnType<typeof row>) => {
+    show([r]);
+    fireEvent.click(await screen.findByRole("button", { name: "Edit" }));
+    return await screen.findByRole("dialog");
+  };
+
+  it("opens with the details it has, and sends the whole map when one changes", async () => {
+    const dlg = await openEditOf(described());
+    expect((within(dlg).getByLabelText(/^Make/) as HTMLInputElement).value).toBe("GoPro");
+    fireEvent.change(within(dlg).getByLabelText("Detail 2, value"), { target: { value: "512 GB" } });
+    fireEvent.click(within(dlg).getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(api.patch).toHaveBeenCalledTimes(1));
+    expect(api.patch).toHaveBeenCalledWith("/network/equipment/e1", {
+      specifications: { Resolution: "4K", Storage: "512 GB" },
+    });
+  });
+
+  it("removes a detail by sending the map without it", async () => {
+    const dlg = await openEditOf(described());
+    fireEvent.click(within(dlg).getByRole("button", { name: "Remove Storage" }));
+    fireEvent.click(within(dlg).getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(api.patch).toHaveBeenCalledTimes(1));
+    expect(api.patch).toHaveBeenCalledWith("/network/equipment/e1", { specifications: { Resolution: "4K" } });
+  });
+
+  it("clears a make by sending null", async () => {
+    const dlg = await openEditOf(described());
+    fireEvent.change(within(dlg).getByLabelText(/^Make/), { target: { value: "  " } });
+    fireEvent.click(within(dlg).getByRole("button", { name: "Save changes" }));
+    await waitFor(() => expect(api.patch).toHaveBeenCalledTimes(1));
+    expect(api.patch).toHaveBeenCalledWith("/network/equipment/e1", { make: null });
+  });
+
+  it("lists the files already on the device, newest version only", async () => {
+    const dlg = await openEditOf(row({
+      attachments: [
+        file({}),
+        file({ id: "d1", slot: "documentation", filename: "Manual.pdf", version: 2 }),
+        file({ id: "d0", slot: "documentation", filename: "Manual.pdf", version: 1, is_current: false }),
+      ],
+    }));
+    expect(within(dlg).getByText("front.jpg")).toBeTruthy();
+    expect(within(dlg).getAllByText("Manual.pdf")).toHaveLength(1);
+  });
+});
+
+describe("what a borrower sees", () => {
+  it("shows the make, the details, the photos and the documentation", async () => {
+    asAggregator();
+    show(
+      [row({
+        make: "GoPro", model: "HERO12 Black", location: "Indiranagar depot",
+        specifications: { Resolution: "4K" },
+        attachments: [file({}), file({ id: "d1", slot: "documentation", filename: "Manual.pdf" })],
+      })],
+      { "/attachments/p1/url": { url: "https://store.example/front.jpg" } },
+    );
+    fireEvent.click(await screen.findByRole("button", { name: "Details" }));
+    const dlg = await screen.findByRole("dialog");
+    expect(within(dlg).getByText("GoPro HERO12 Black")).toBeTruthy();
+    expect(within(dlg).getByText("Indiranagar depot")).toBeTruthy();
+    expect(within(dlg).getByText("Resolution")).toBeTruthy();
+    expect(within(dlg).getByText("Manual.pdf")).toBeTruthy();
+    const img = (await within(dlg).findByRole("img", { name: "front.jpg" })) as HTMLImageElement;
+    expect(img.src).toBe("https://store.example/front.jpg");
+  });
+});
+
+describe("the picture beside each device", () => {
+  it("shows the sponsor its device photo, and a quiet placeholder where there is none", async () => {
+    show([
+      row({ photo_url: "https://store.example/dv01.jpg" }),
+      row({ id: "e2", reference_code: "DV-02", equipment_type: "GPS logger", photo_url: null }),
+    ]);
+    await screen.findByText("GPS logger");
+    const imgs = Array.from(document.querySelectorAll<HTMLImageElement>("img.devthumb"));
+    expect(imgs.map((i) => i.src)).toEqual(["https://store.example/dv01.jpg"]);
+    // decorative: the name beside it already says what it is
+    expect(imgs[0]!.alt).toBe("");
+    expect(document.querySelectorAll(".devthumb-empty")).toHaveLength(1);
+  });
+
+  it("shows a borrower the same picture in its listing", async () => {
+    asAggregator();
+    show([row({ photo_url: "https://store.example/dv01.jpg", make: "GoPro", model: "HERO12" })]);
+    await screen.findByText("Helmet camera, 4K");
+    expect(document.querySelector<HTMLImageElement>("img.devthumb")!.src).toBe("https://store.example/dv01.jpg");
+    expect(screen.getByText("GoPro HERO12")).toBeTruthy();
+  });
+
+  it("falls back to the placeholder when a signed link has lapsed", async () => {
+    show([row({ photo_url: "https://store.example/expired.jpg" })]);
+    await screen.findByText("Helmet camera, 4K");
+    fireEvent.error(document.querySelector("img.devthumb")!);
+    expect(document.querySelector("img.devthumb")).toBeNull();
+    expect(document.querySelectorAll(".devthumb-empty")).toHaveLength(1);
   });
 });

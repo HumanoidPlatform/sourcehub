@@ -22,6 +22,14 @@ see next_numbers() for what makes an upload one or the other. The name carries
 the scope as well as the folder does, so a file still explains itself once it
 has been downloaded out of its folder.
 
+A device sponsor's photos and documentation have no client or RFP behind them.
+They get a tree of their own, by sponsor and by the device's DV- code, and the
+code leads the file name the way an RFP's does:
+
+    platform/equipment/Lumen Device Sponsors/DV-07/
+        photos/DV-07_photos_01_v1_front.jpg
+        documentation/DV-07_documentation_01_v1_Manual.pdf
+
 The layout exists so a person can open the container and recognise what they
 are looking at. It is a filing scheme and nothing more — who may read a file is
 decided by RLS on the row that points at it, never by which folder it sits in.
@@ -39,8 +47,8 @@ The move is a server-side copy followed by a delete — the bytes never pass
 through the API.
 
 Two consequences of sharing one container with the client folders: `_staging`
-is a reserved folder name, rejected below if a client's own name would collide
-with it; and any storage lifecycle rule written for the leftovers of abandoned
+and `equipment` are reserved folder names, rejected below if a client's own name
+would collide with one; and any storage lifecycle rule written for the leftovers of abandoned
 forms must match the `_staging/` prefix, never the container, or it will delete
 real files.
 """
@@ -59,6 +67,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.platform.storage.types import StorageTarget
 
 STAGING = "_staging"
+# The top of the device sponsors' tree; a client may not take the name.
+EQUIPMENT = "equipment"
 
 # How many times a name collision is retried before giving up. Each attempt
 # draws fresh randomness, so reaching the end means something else is wrong.
@@ -82,8 +92,8 @@ class NoFreeNameError(RuntimeError):
 class Filing:
     """Everything needed to place and name a file hung off one parent."""
 
-    base: str  # "{client}/{RFP}"
-    rfp_ref: str  # "RFP-1001"
+    base: str  # "{client}/{RFP}", or "equipment/{sponsor}/{DV-ref}" for a device
+    rfp_ref: str  # "RFP-1001", or the device's "DV-07": what every file name leads with
     scope_ref: str | None  # "PRO-03" / "TSK-02"; None for the client's own request
     scope_label: str | None  # "TN-01 NorthStar Delivery Partners", proposals only
 
@@ -132,12 +142,21 @@ async def folder_for(
     ).mappings().one_or_none()
     if row is None or not row["request_ref"]:
         raise LookupError(f"no request behind {entity_type} {entity_id}")
+    if entity_type == "equipment":
+        # No client and no RFP: the sponsor and the DV- code stand in for them,
+        # under a tree of their own so no client folder can ever hold them.
+        sponsor = _segment(row["client_name"] or "", fallback="Unnamed sponsor")
+        device = _segment(row["request_ref"], fallback="Unreferenced")
+        return Filing(
+            base=f"{EQUIPMENT}/{sponsor}/{device}", rfp_ref=device,
+            scope_ref=None, scope_label=None,
+        )
     if entity_type != "request" and not row["scope_ref"]:
         raise LookupError(f"no reference behind {entity_type} {entity_id}")
 
     client = _segment(row["client_name"] or "", fallback="Unnamed client")
-    if client.casefold() == STAGING:
-        raise ValueError(f"{STAGING!r} is reserved and cannot be used as a client folder.")
+    if client.casefold() in (STAGING, EQUIPMENT):
+        raise ValueError(f"{client!r} is reserved and cannot be used as a client folder.")
     rfp = _segment(row["request_ref"], fallback="Unreferenced")
     return Filing(
         base=f"{client}/{rfp}", rfp_ref=rfp,
@@ -152,9 +171,12 @@ def subfolder(entity_type: str, filing: Filing, slot: str) -> str:
         proposal   proposals/{PRO-ref TN-ref Partner}/{slot}
         task       tasks/{TSK-ref}/{slot}
         qa_review  qa/{TSK-ref}/{slot}
+        equipment  {slot}            (under equipment/{sponsor}/{DV-ref})
     """
-    branch = _BRANCH[entity_type]
     leaf = _segment(slot, "files")
+    if entity_type == "equipment":
+        return leaf
+    branch = _BRANCH[entity_type]
     if entity_type == "request":
         return f"{branch}/{leaf}"
     who = " ".join(p for p in (filing.scope_ref, filing.scope_label) if p)

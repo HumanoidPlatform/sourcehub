@@ -25,6 +25,10 @@ export const MAX_ATTACHMENT_BYTES = 25 * 1024 * 1024;
 const ACCEPT =
   ".csv,.tsv,.json,.jsonl,.xml,.txt,.md,.pdf,.png,.jpg,.jpeg,.webp,.gif,.mp4,.mov,.mp3,.wav,.zip,.xlsx,.docx,.pptx,.ppt,.parquet";
 
+/** A device's two fields (db/520). The server holds the same lists, per slot. */
+export const PHOTO_ACCEPT = ".png,.jpg,.jpeg,.webp";
+export const DOCUMENT_ACCEPT = ".pdf,.docx,.xlsx,.csv,.txt,.md,.zip";
+
 export interface AttachmentDraft {
   /** Set once the row exists server-side; absent while it is only an upload. */
   id?: string;
@@ -70,6 +74,8 @@ export function AttachmentsField({
   items,
   onChange,
   max = MAX_ATTACHMENTS,
+  accept = ACCEPT,
+  pickLabel = "Attach a file",
 }: {
   label: string;
   hint?: string;
@@ -85,6 +91,13 @@ export function AttachmentsField({
    *  handful, an RFP response wants a whole tender reply. The server's
    *  MAX_PER_SLOT is the ceiling above whatever is passed here. */
   max?: number;
+  /** Which extensions THIS field takes, comma-separated. Defaults to the
+   *  general list; a field the server narrows (a device's photos) passes its
+   *  own, so the picker and the check here match what will be accepted. */
+  accept?: string;
+  /** The picker button's name. Two fields in one form need two names, or a
+   *  screen reader hears "Attach a file" twice and cannot tell them apart. */
+  pickLabel?: string;
 }) {
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
@@ -110,7 +123,7 @@ export function AttachmentsField({
         continue;
       }
       const ext = "." + (file.name.split(".").pop() ?? "").toLowerCase();
-      if (!file.name.includes(".") || !ACCEPT.split(",").includes(ext)) {
+      if (!file.name.includes(".") || !accept.split(",").includes(ext)) {
         rejected.push(`${file.name} is not an accepted file type`);
         continue;
       }
@@ -176,8 +189,8 @@ export function AttachmentsField({
     <Field label={label} span={span} hint={hint} error={error ?? undefined}>
       {() => (
         <FileField
-          label="Attach a file"
-          accept={ACCEPT}
+          label={pickLabel}
+          accept={accept}
           disabled={items.length >= max}
           files={items.map((a) => ({
             name: a.filename, size: a.size_bytes, status: a.status,

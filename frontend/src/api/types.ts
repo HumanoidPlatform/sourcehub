@@ -690,6 +690,17 @@ export interface EquipmentRow {
   sponsor_name: string;
   units_on_loan: number;
   units_available: number;
+  /** db/520: which device it is and where it is kept; null when not given. */
+  make: string | null;
+  model: string | null;
+  location: string | null;
+  /** Labelled details a borrower asks about, label → text ({"Resolution": "4K"}). */
+  specifications: Record<string, string>;
+  /** Photos (slot "photos") and documentation (slot "documentation"). */
+  attachments: Attachment[];
+  /** The first photo, signed for the list to draw beside the row; short-lived.
+   *  Absent when the device has no photo. */
+  photo_url?: string | null;
 }
 
 export interface LoanRow {
@@ -950,7 +961,7 @@ export interface StorageTarget {
     methodology, a task's instructions, a QA verdict's evidence. */
 export interface Attachment {
   id: string;
-  entity_type: "request" | "proposal" | "task" | "qa_review";
+  entity_type: "request" | "proposal" | "task" | "qa_review" | "equipment";
   entity_id: string;
   /** Which field it belongs to: compliance, acceptance, methodology, … */
   slot: string;

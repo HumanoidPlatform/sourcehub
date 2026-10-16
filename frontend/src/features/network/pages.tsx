@@ -2,9 +2,13 @@
 // prototype's instant add), equipment and loans, the crowd roster, capacity.
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { get, patch, post } from "@api/client";
-import type { EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
+import type { Attachment, EquipmentRow, LoanRow, OnboardingRow, Org, Skill, WorkerRow } from "@api/types";
+import {
+  AttachmentList, AttachmentsField, attachmentPayload, DOCUMENT_ACCEPT, fromServer, PHOTO_ACCEPT,
+  type AttachmentDraft,
+} from "@shared/attachments";
 import { labelsOf } from "@features/marketplace/vocabularies";
 import { ImportCrowdDialog } from "./import";
 import { SKILLS } from "./vocabularies";
@@ -24,7 +28,69 @@ import {
 
 /* --- entity detail dialogs (row-fed; RLS already decided what the list holds) --- */
 
+/** "GoPro HERO12 Black", or null when the sponsor has given neither. */
+function makeModel(e: Pick<EquipmentRow, "make" | "model">): string | null {
+  return [e.make, e.model].filter(Boolean).join(" ") || null;
+}
+
+/** The device's first photo, small, beside its name in a list. The URL comes
+ *  signed with the list (photo_url), so a table draws every thumbnail without
+ *  asking for one per row. No photo, or a URL that has lapsed while the page
+ *  sat open, shows the same quiet camera outline instead of a broken image. */
+function DeviceThumb({ url }: { url?: string | null }) {
+  const [broken, setBroken] = useState(false);
+  // A refetch brings a freshly signed URL: try again rather than keep the placeholder.
+  useEffect(() => setBroken(false), [url]);
+  if (url && !broken) {
+    // Decorative: the device's name is beside it and says what it is.
+    return <img className="devthumb" src={url} alt="" loading="lazy" onError={() => setBroken(true)} />;
+  }
+  return (
+    <span className="devthumb devthumb-empty" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 8h3l2-2.5h6L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" />
+        <circle cx="12" cy="13" r="3.5" />
+      </svg>
+    </span>
+  );
+}
+
+/** The newest version of each file in one of a device's two fields. */
+function inSlot(rows: Attachment[] | undefined, slot: "photos" | "documentation"): Attachment[] {
+  return (rows ?? []).filter((a) => a.slot === slot && a.is_current !== false);
+}
+
+/** A device's photos, signed when the dialog opens rather than once per table
+ *  row: storage is private, an <img> cannot send the bearer token, and a
+ *  signed URL per row would be a request per device just to draw the list. */
+function PhotoStrip({ photos }: { photos: Attachment[] }) {
+  const signed = useQuery({
+    queryKey: ["equipment-photos", photos.map((p) => p.id)],
+    queryFn: () => Promise.all(photos.map((p) => get<{ url: string }>(`/attachments/${p.id}/url`))),
+    staleTime: 60_000,
+  });
+  return (
+    <div className="photostrip">
+      {photos.map((p, i) => {
+        const url = signed.data?.[i]?.url;
+        return url ? (
+          <a key={p.id} href={url} target="_blank" rel="noopener" className="photostrip-item">
+            <img src={url} alt={p.filename} loading="lazy" />
+          </a>
+        ) : (
+          <span key={p.id} className="photostrip-item" aria-busy={signed.isLoading}>
+            <span className="small muted">{signed.isError ? "Could not load" : p.filename}</span>
+          </span>
+        );
+      })}
+    </div>
+  );
+}
+
 function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () => void }) {
+  const photos = inSlot(e.attachments, "photos");
+  const documents = inSlot(e.attachments, "documentation");
+  const details = Object.entries(e.specifications ?? {});
   return (
     <Dialog
       title={e.equipment_type}
@@ -32,13 +98,22 @@ function EquipmentDetailDialog({ e, onClose }: { e: EquipmentRow; onClose: () =>
       onClose={onClose}
       foot={<Button onClick={onClose}>Close</Button>}
     >
+      {photos.length > 0 && <PhotoStrip photos={photos} />}
       <Dl rows={[
         ["Sponsor", e.sponsor_name],
+        ["Make and model", makeModel(e) ?? "—"],
+        ["Kept at", e.location ?? "—"],
         ["Total units", <span key="t" className="num">{e.total_units}</span>],
         ["On loan", <span key="l" className="num">{e.units_on_loan}</span>],
         ["Available", <span key="a" className="num">{e.units_available}</span>],
         ["Calibrated on", fmtDate(e.calibrated_on)],
         ["Calibration expires", fmtDate(e.calibration_expires_on)],
+        ...(details.length
+          ? [["Details", <Dl key="d" rows={details} />] as [string, React.ReactNode]]
+          : []),
+        ...(documents.length
+          ? [["Documentation", <AttachmentList key="doc" items={documents} />] as [string, React.ReactNode]]
+          : []),
       ]} />
     </Dialog>
   );
@@ -501,6 +576,9 @@ function equipmentSearchText(e: EquipmentRow): string {
     e.reference_code,
     e.equipment_type,
     e.sponsor_name,
+    e.make,
+    e.model,
+    e.location,
     e.total_units,
     e.units_available,
     e.units_on_loan,
@@ -623,9 +701,14 @@ export function EquipmentPage() {
                           <tr key={e.id} className="tap" title="Open equipment details" onClick={() => setViewingEq(e)}>
                             {isSponsor ? (
                               <>
-                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
-                                <td>—</td>
-                                <td>—</td>
+                                <td className="cell-primary" title="Open equipment details">
+                                  <div className="devcell">
+                                    <DeviceThumb url={e.photo_url} />
+                                    <span>{e.equipment_type}</span>
+                                  </div>
+                                </td>
+                                <td>{makeModel(e) ?? "—"}</td>
+                                <td>{e.location ?? "—"}</td>
                                 <td className="num">{e.total_units}</td>
                                 <td className="num">{e.units_available}</td>
                                 <td className="num">{e.units_on_loan}</td>
@@ -642,7 +725,15 @@ export function EquipmentPage() {
                             ) : (
                               <>
                                 <td className="id">{e.reference_code}</td>
-                                <td className="cell-primary" title="Open equipment details">{e.equipment_type}</td>
+                                <td className="cell-primary" title="Open equipment details">
+                                  <div className="devcell">
+                                    <DeviceThumb url={e.photo_url} />
+                                    <span>
+                                      {e.equipment_type}
+                                      {makeModel(e) && <div className="cell-meta">{makeModel(e)}</div>}
+                                    </span>
+                                  </div>
+                                </td>
                                 <td>{e.sponsor_name}</td>
                                 <td className="num">{e.total_units}</td>
                                 <td className="num">{e.units_on_loan}</td>
@@ -726,7 +817,11 @@ export function EquipmentPage() {
       )}
       {viewingEq && <EquipmentDetailDialog e={viewingEq} onClose={() => setViewingEq(null)} />}
       {editingEq && (
-        <EditEquipmentDialog e={editingEq} onClose={() => setEditingEq(null)} onDone={() => {
+        <EditEquipmentDialog e={editingEq} onClose={() => {
+          setEditingEq(null);
+          // A file removed in the dialog is gone at once, saved or not.
+          void qc.invalidateQueries({ queryKey: ["equipment"] });
+        }} onDone={() => {
           setEditingEq(null);
           void qc.invalidateQueries({ queryKey: ["equipment"] });
           toast("Equipment updated", undefined, "success");
@@ -783,22 +878,198 @@ function BorrowDialog({ equipment, onClose, onDone }: { equipment: EquipmentRow;
   );
 }
 
+/* What a sponsor may say about a device beyond its type and stock (db/520).
+   The server holds the same bounds; these keep most refusals in the browser. */
+const DETAIL_MAX = 200;
+const MAX_DETAILS = 20;
+const DETAIL_LABEL_MAX = 60;
+const MAX_FILES_PER_FIELD = 10;
+const DETAIL_SUGGESTIONS = [
+  "Year", "Resolution", "Frame rate", "Battery life", "Power", "Connectivity", "Storage", "Weight", "Mount",
+];
+
+interface DetailRow { label: string; value: string }
+
+function detailRows(specs: Record<string, string> | undefined): DetailRow[] {
+  return Object.entries(specs ?? {}).map(([label, value]) => ({ label, value }));
+}
+
+/** The map the server stores: labels and values trimmed, a row with no value
+ *  dropped. Every row is sent, so a label removed here is removed there. */
+function detailMap(rows: DetailRow[]): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const r of rows) {
+    const label = r.label.trim().replace(/\s+/g, " ");
+    const value = r.value.trim().replace(/\s+/g, " ");
+    if (value) out[label] = value;
+  }
+  return out;
+}
+
+/** Why the details cannot be saved as they stand, or null. */
+function detailProblem(rows: DetailRow[]): string | null {
+  const seen = new Set<string>();
+  for (const r of rows) {
+    const label = r.label.trim().replace(/\s+/g, " ");
+    if (!r.value.trim()) continue;
+    if (!label) return "Every detail needs a label.";
+    const key = label.toLocaleLowerCase();
+    if (seen.has(key)) return `${label} is listed twice.`;
+    seen.add(key);
+  }
+  return null;
+}
+
+const sameDetails = (a: Record<string, string>, b: Record<string, string>) =>
+  JSON.stringify(Object.entries(a)) === JSON.stringify(Object.entries(b));
+
+function DetailsEditor({ rows, onChange }: { rows: DetailRow[]; onChange: (rows: DetailRow[]) => void }) {
+  const problem = detailProblem(rows);
+  const set = (i: number, part: Partial<DetailRow>) =>
+    onChange(rows.map((r, j) => (j === i ? { ...r, ...part } : r)));
+  return (
+    // A group of label/value pairs has no single control to label: fieldset
+    // and legend, the way CheckGroup does it.
+    <fieldset className="field span" style={{ border: 0, padding: 0, margin: 0 }} data-invalid={problem ? "" : undefined}>
+      <legend>Details</legend>
+      <span className="hint" style={{ display: "block", marginBottom: 6 }}>
+        Anything a borrower asks about: resolution, battery life, how it connects.
+      </span>
+      <div className="detailrows">
+        {rows.map((r, i) => (
+          <div key={i} className="detailrow">
+            <input
+              className={inputCls}
+              aria-label={`Detail ${i + 1}, label`}
+              list="equipment-detail-labels"
+              maxLength={DETAIL_LABEL_MAX}
+              placeholder="Label"
+              value={r.label}
+              onChange={(ev) => set(i, { label: ev.target.value })}
+            />
+            <input
+              className={inputCls}
+              aria-label={`Detail ${i + 1}, value`}
+              maxLength={DETAIL_MAX}
+              placeholder="Value"
+              value={r.value}
+              onChange={(ev) => set(i, { value: ev.target.value })}
+            />
+            <Button
+              size="sm"
+              aria-label={`Remove ${r.label.trim() || `detail ${i + 1}`}`}
+              onClick={() => onChange(rows.filter((_, j) => j !== i))}
+            >
+              Remove
+            </Button>
+          </div>
+        ))}
+        <datalist id="equipment-detail-labels">
+          {DETAIL_SUGGESTIONS.map((s) => <option key={s} value={s} />)}
+        </datalist>
+        <div>
+          <Button
+            size="sm"
+            disabled={rows.length >= MAX_DETAILS}
+            onClick={() => onChange([...rows, { label: "", value: "" }])}
+          >
+            Add a detail
+          </Button>
+        </div>
+      </div>
+      {problem && <span className="err" role="alert">{problem}</span>}
+    </fieldset>
+  );
+}
+
+/** The fields both dialogs share after type and units: which device, where,
+ *  its details, and its files. */
+function DeviceFields({
+  make, setMake, model, setModel, location, setLocation, rows, setRows, photos, setPhotos, docs, setDocs,
+}: {
+  make: string; setMake: (v: string) => void;
+  model: string; setModel: (v: string) => void;
+  location: string; setLocation: (v: string) => void;
+  rows: DetailRow[]; setRows: (rows: DetailRow[]) => void;
+  photos: AttachmentDraft[]; setPhotos: React.Dispatch<React.SetStateAction<AttachmentDraft[]>>;
+  docs: AttachmentDraft[]; setDocs: React.Dispatch<React.SetStateAction<AttachmentDraft[]>>;
+}) {
+  return (
+    <>
+      <Field label="Make">
+        {(id) => <input id={id} className={inputCls} maxLength={DETAIL_MAX} value={make} onChange={(ev) => setMake(ev.target.value)} placeholder="GoPro" />}
+      </Field>
+      <Field label="Model">
+        {(id) => <input id={id} className={inputCls} maxLength={DETAIL_MAX} value={model} onChange={(ev) => setModel(ev.target.value)} placeholder="HERO12 Black" />}
+      </Field>
+      <Field label="Kept at" span hint="Where the units are stored or collected from.">
+        {(id) => <input id={id} className={inputCls} maxLength={DETAIL_MAX} value={location} onChange={(ev) => setLocation(ev.target.value)} placeholder="Indiranagar depot, Bengaluru" />}
+      </Field>
+      <DetailsEditor rows={rows} onChange={setRows} />
+      <AttachmentsField
+        label="Photos"
+        span
+        hint="PNG, JPEG or WebP. Borrowers see these when they open the device."
+        items={photos}
+        onChange={setPhotos}
+        max={MAX_FILES_PER_FIELD}
+        accept={PHOTO_ACCEPT}
+        pickLabel="Add photos"
+      />
+      <AttachmentsField
+        label="Documentation"
+        span
+        hint="Manuals, calibration certificates, spec sheets."
+        items={docs}
+        onChange={setDocs}
+        max={MAX_FILES_PER_FIELD}
+        accept={DOCUMENT_ACCEPT}
+        pickLabel="Add documents"
+      />
+    </>
+  );
+}
+
+const busy = (...lists: AttachmentDraft[][]) => lists.some((l) => l.some((a) => a.status === "uploading"));
+
+const newFiles = (photos: AttachmentDraft[], docs: AttachmentDraft[]) => [
+  ...attachmentPayload(photos, "photos"),
+  ...attachmentPayload(docs, "documentation"),
+];
+
 function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: () => void }) {
   const [type, setType] = useState("");
   const [units, setUnits] = useState("");
+  // Blank, never pre-filled: a device that has not been calibrated has no
+  // dates, and an invented expiry would decide whether it may be lent.
   const [calibrated, setCalibrated] = useState("");
   const [expires, setExpires] = useState("");
+  const [make, setMake] = useState("");
+  const [model, setModel] = useState("");
+  const [location, setLocation] = useState("");
+  const [rows, setRows] = useState<DetailRow[]>([]);
+  const [photos, setPhotos] = useState<AttachmentDraft[]>([]);
+  const [docs, setDocs] = useState<AttachmentDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const submit = useMutation({
+    // One save: the device, its details and its files together. A file the
+    // server will not take refuses the whole save, so a device never exists
+    // with half its photos.
     mutationFn: () =>
       post("/network/equipment", {
-        equipment_type: type, total_units: Number(units),
+        equipment_type: type.trim(), total_units: Number(units),
         calibrated_on: calibrated || null, calibration_expires_on: expires || null,
+        make: make.trim() || null, model: model.trim() || null, location: location.trim() || null,
+        specifications: detailMap(rows),
+        attachments: newFiles(photos, docs),
       }),
     onSuccess: onDone,
     onError: (e) => setError(e instanceof Error ? e.message : "Could not add"),
   });
+
+  const uploading = busy(photos, docs);
+  const ready = type.trim().length >= 2 && Number(units) >= 1 && !detailProblem(rows) && !uploading;
 
   return (
     <Dialog
@@ -807,8 +1078,8 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
       foot={
         <>
           <Button onClick={onClose}>Cancel</Button>
-          <Button variant="primary" disabled={!type.trim() || !units || submit.isPending} onClick={() => submit.mutate()}>
-            Add to inventory
+          <Button variant="primary" disabled={!ready || submit.isPending} onClick={() => submit.mutate()}>
+            {uploading ? "Uploading…" : "Add to inventory"}
           </Button>
         </>
       }
@@ -820,12 +1091,18 @@ function AddEquipmentDialog({ onClose, onDone }: { onClose: () => void; onDone: 
         <Field label="Units" required>
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={units} onChange={(e) => setUnits(e.target.value)} />}
         </Field>
-        <Field label="Calibrated on">
+        <span aria-hidden="true" />
+        <Field label="Calibrated on" hint="Leave blank if it is not calibrated.">
           {(id) => <input id={id} className={inputCls} type="date" value={calibrated} onChange={(e) => setCalibrated(e.target.value)} />}
         </Field>
         <Field label="Calibration expires" hint="Expired calibration blocks new loans automatically.">
           {(id) => <input id={id} className={inputCls} type="date" value={expires} onChange={(e) => setExpires(e.target.value)} />}
         </Field>
+        <DeviceFields
+          make={make} setMake={setMake} model={model} setModel={setModel}
+          location={location} setLocation={setLocation} rows={rows} setRows={setRows}
+          photos={photos} setPhotos={setPhotos} docs={docs} setDocs={setDocs}
+        />
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
@@ -837,18 +1114,34 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
   const [units, setUnits] = useState(String(e.total_units));
   const [calibrated, setCalibrated] = useState(e.calibrated_on ?? "");
   const [expires, setExpires] = useState(e.calibration_expires_on ?? "");
+  const [make, setMake] = useState(e.make ?? "");
+  const [model, setModel] = useState(e.model ?? "");
+  const [location, setLocation] = useState(e.location ?? "");
+  const [rows, setRows] = useState<DetailRow[]>(() => detailRows(e.specifications));
+  // The files already on the device, newest version of each; removing one
+  // deletes it at once (AttachmentsField), so the save only carries new ones.
+  const [photos, setPhotos] = useState<AttachmentDraft[]>(() => fromServer(inSlot(e.attachments, "photos")));
+  const [docs, setDocs] = useState<AttachmentDraft[]>(() => fromServer(inSlot(e.attachments, "documentation")));
   const [error, setError] = useState<string | null>(null);
 
   // Only what differs from the row is sent: an untouched field is left alone
-  // and a cleared date goes as null. The server applies exactly the fields
-  // present, so nothing to send means nothing to save.
+  // and a cleared date or detail goes as null. The server applies exactly the
+  // fields present, so nothing to send means nothing to save.
   const changes: Record<string, unknown> = {};
   if (type.trim() !== e.equipment_type) changes.equipment_type = type.trim();
   if (Number(units) !== e.total_units) changes.total_units = Number(units);
   if ((calibrated || null) !== e.calibrated_on) changes.calibrated_on = calibrated || null;
   if ((expires || null) !== e.calibration_expires_on) changes.calibration_expires_on = expires || null;
+  if ((make.trim() || null) !== (e.make ?? null)) changes.make = make.trim() || null;
+  if ((model.trim() || null) !== (e.model ?? null)) changes.model = model.trim() || null;
+  if ((location.trim() || null) !== (e.location ?? null)) changes.location = location.trim() || null;
+  const details = detailMap(rows);
+  if (!sameDetails(details, e.specifications ?? {})) changes.specifications = details;
+  const files = newFiles(photos, docs);
+  if (files.length) changes.attachments = files;
   const dirty = Object.keys(changes).length > 0;
-  const valid = type.trim().length >= 2 && Number(units) >= 1;
+  const uploading = busy(photos, docs);
+  const valid = type.trim().length >= 2 && Number(units) >= 1 && !detailProblem(rows) && !uploading;
 
   const submit = useMutation({
     mutationFn: () => patch(`/network/equipment/${e.id}`, changes),
@@ -865,9 +1158,9 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
       onClose={onClose}
       foot={
         <>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button onClick={onClose}>{dirty ? "Cancel" : "Close"}</Button>
           <Button variant="primary" disabled={!dirty || !valid || submit.isPending} onClick={() => submit.mutate()}>
-            Save changes
+            {uploading ? "Uploading…" : "Save changes"}
           </Button>
         </>
       }
@@ -883,12 +1176,18 @@ function EditEquipmentDialog({ e, onClose, onDone }: { e: EquipmentRow; onClose:
         >
           {(id) => <input id={id} className={inputCls} type="number" min={1} value={units} onChange={(ev) => setUnits(ev.target.value)} />}
         </Field>
+        <span aria-hidden="true" />
         <Field label="Calibrated on">
           {(id) => <input id={id} className={inputCls} type="date" value={calibrated} onChange={(ev) => setCalibrated(ev.target.value)} />}
         </Field>
         <Field label="Calibration expires" hint="Expired calibration blocks new loans automatically.">
           {(id) => <input id={id} className={inputCls} type="date" value={expires} onChange={(ev) => setExpires(ev.target.value)} />}
         </Field>
+        <DeviceFields
+          make={make} setMake={setMake} model={model} setModel={setModel}
+          location={location} setLocation={setLocation} rows={rows} setRows={setRows}
+          photos={photos} setPhotos={setPhotos} docs={docs} setDocs={setDocs}
+        />
       </div>
       {error && <Callout tone="critical" title={error} />}
     </Dialog>

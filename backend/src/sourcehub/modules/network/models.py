@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from typing import Any
 
 from sqlalchemy import (
     ARRAY,
@@ -23,7 +24,7 @@ from sqlalchemy import (
     Text,
     text,
 )
-from sqlalchemy.dialects.postgresql import CITEXT, UUID
+from sqlalchemy.dialects.postgresql import CITEXT, JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from sourcehub.db.base import Base
@@ -44,6 +45,13 @@ class Equipment(Base):
     status: Mapped[str] = mapped_column(EquipmentStatus, server_default=text("'available'"))
     calibrated_on: Mapped[dt.date | None] = mapped_column(Date)
     calibration_expires_on: Mapped[dt.date | None] = mapped_column(Date)
+    # db/520: which device it is, where it is kept, labelled details.
+    make: Mapped[str | None] = mapped_column(Text)
+    model: Mapped[str | None] = mapped_column(Text)
+    location: Mapped[str | None] = mapped_column(Text)
+    specifications: Mapped[dict[str, Any]] = mapped_column(
+        JSONB, server_default=text("'{}'::jsonb")
+    )
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))

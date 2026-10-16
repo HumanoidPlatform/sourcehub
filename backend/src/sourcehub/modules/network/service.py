@@ -37,6 +37,11 @@ class NetworkError(Exception):
     pass
 
 
+class NetworkInvalid(NetworkError):
+    """What was sent cannot be stored as given (a detail too long, a file of
+    the wrong kind), as opposed to a refusal of a valid request."""
+
+
 # ---------------------------------------------------------------------------
 # Equipment
 # ---------------------------------------------------------------------------
@@ -52,12 +57,19 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
     levels with nothing here to catch it
     (db/220_equipment_sibling_scope.sql). The sponsor predicate below is
     duplication on purpose: the one boundary a reader of this function can
-    actually see is the one worth not delegating."""
+    actually see is the one worth not delegating.
+
+    Each device's photos and documentation come with it, fetched for every row
+    in one more query. Whoever sees the device sees its files: the attachment
+    policy defers to equipment's own (db/520)."""
+    from sourcehub.modules.attachments import service as attachments
+
     rows = (
         await session.execute(
             text(
                 "SELECT e.id, e.reference_code, e.equipment_type, e.total_units, "
                 "       e.calibrated_on, e.calibration_expires_on, e.sponsor_org_id, "
+                "       e.make, e.model, e.location, e.specifications, "
                 "       o.name AS sponsor_name, "
                 "       equipment_units_on_loan(e.id) AS units_on_loan "
                 "FROM equipment e JOIN organisation o ON o.id = e.sponsor_org_id "
@@ -70,10 +82,94 @@ async def list_equipment(session: AsyncSession, claims: AccessClaims) -> list[di
             )
         )
     ).mappings().all()
+    ids = [r["id"] for r in rows]
+    files = await attachments.list_for(session, "equipment", ids)
+    # The first photo, signed for the list to draw beside each device.
+    photos = await attachments.preview_urls(session, "equipment", ids, "photos")
     return [
-        {**dict(r), "units_available": r["total_units"] - r["units_on_loan"]}
+        {
+            **dict(r),
+            "units_available": r["total_units"] - r["units_on_loan"],
+            "attachments": files.get(r["id"], []),
+            "photo_url": photos.get(r["id"]),
+        }
         for r in rows
     ]
+
+
+# What a sponsor may say about a device beyond its type and stock (db/520).
+# The database holds the outer bounds; these are the ones a person meets.
+DETAIL_MAX = 200
+SPEC_MAX_LABELS = 20
+SPEC_LABEL_MAX = 60
+SPEC_VALUE_MAX = 200
+_DETAILS = ("make", "model", "location")
+
+
+def clean_detail(field: str, value: Any) -> str | None:
+    """A make, model or location as stored: trimmed, and NULL when blank."""
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        raise NetworkInvalid(f"{field.capitalize()} must be text.")
+    value = " ".join(value.split())
+    if len(value) > DETAIL_MAX:
+        raise NetworkInvalid(f"{field.capitalize()} is at most {DETAIL_MAX} characters.")
+    return value or None
+
+
+def clean_specifications(value: Any) -> dict[str, str]:
+    """Labelled details as stored: a flat label → text map, labels and values
+    trimmed, a label with no value dropped, at most SPEC_MAX_LABELS of them.
+    Two labels that differ only in case are one label said twice."""
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise NetworkInvalid("Details must be labels with a value each.")
+    out: dict[str, str] = {}
+    seen: set[str] = set()
+    for raw_label, raw_value in value.items():
+        if not isinstance(raw_label, str) or not isinstance(raw_value, str):
+            raise NetworkInvalid("Each detail is a label and a short piece of text.")
+        label = " ".join(raw_label.split())
+        text_value = " ".join(raw_value.split())
+        if not text_value:
+            continue
+        if not label:
+            raise NetworkInvalid("Every detail needs a label.")
+        if len(label) > SPEC_LABEL_MAX:
+            raise NetworkInvalid(f"A detail's label is at most {SPEC_LABEL_MAX} characters.")
+        if len(text_value) > SPEC_VALUE_MAX:
+            raise NetworkInvalid(f"{label} is at most {SPEC_VALUE_MAX} characters.")
+        if label.casefold() in seen:
+            raise NetworkInvalid(f"{label} is listed twice.")
+        seen.add(label.casefold())
+        out[label] = text_value
+    if len(out) > SPEC_MAX_LABELS:
+        raise NetworkInvalid(f"At most {SPEC_MAX_LABELS} details per device.")
+    return out
+
+
+async def _attach_files(
+    session: AsyncSession, claims: AccessClaims, equipment_id: uuid.UUID,
+    items: list[dict[str, Any]] | None,
+) -> list[dict[str, Any]]:
+    """Photos and documentation, filed in the caller's transaction. Only ever
+    called once the device is known to be the caller's own."""
+    from sourcehub.modules.attachments import service as attachments
+
+    if not items:
+        return []
+    try:
+        return await attachments.attach(
+            session, claims, entity_type="equipment", entity_id=equipment_id, items=items
+        )
+    except attachments.AttachmentError as e:
+        raise NetworkInvalid(str(e)) from None
+
+
+def _files_note(files: list[dict[str, Any]]) -> str:
+    return f"{len(files)} file{'s' if len(files) != 1 else ''} attached" if files else ""
 
 
 async def add_equipment(
@@ -83,7 +179,25 @@ async def add_equipment(
     total_units: int,
     calibrated_on: dt.date | None,
     calibration_expires_on: dt.date | None,
+    *,
+    make: str | None = None,
+    model: str | None = None,
+    location: str | None = None,
+    specifications: dict[str, str] | None = None,
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    """A new device, with whatever the sponsor knows about it and its files, in
+    one transaction: a file that cannot be filed refuses the whole save, so a
+    device never exists with half its photos."""
+    equipment_type = equipment_type.strip()
+    if len(equipment_type) < 2:
+        raise NetworkError("Give the equipment a name.")
+    if calibrated_on and calibration_expires_on and calibration_expires_on < calibrated_on:
+        raise NetworkError("Calibration cannot expire before the date it was done.")
+    given = (make, model, location)
+    details = {f: clean_detail(f, v) for f, v in zip(_DETAILS, given, strict=True)}
+    specs = clean_specifications(specifications)
+
     ref = (
         await session.execute(text("SELECT next_reference_code('DV','seq_ref_equipment')"))
     ).scalar_one()
@@ -94,18 +208,27 @@ async def add_equipment(
         total_units=total_units,
         calibrated_on=calibrated_on,
         calibration_expires_on=calibration_expires_on,
+        **details,
+        specifications=specs,
         created_by=claims.user_id,
     )
     session.add(e)
     await session.flush()
+    files = await _attach_files(session, claims, e.id, attachments)
+    note = _files_note(files)
     await audit.log(session, "equipment.added",
-                    f"Added {equipment_type}, {total_units} units ({ref})",
+                    f"Added {equipment_type}, {total_units} units ({ref})"
+                    + (f"; {note}" if note else ""),
                     [e.id, claims.org_id])
     return {"id": e.id, "reference_code": ref, "equipment_type": equipment_type,
-            "total_units": total_units}
+            "total_units": total_units, **details, "specifications": specs,
+            "attachments": files}
 
 
-_EDITABLE = ("equipment_type", "total_units", "calibrated_on", "calibration_expires_on")
+_EDITABLE = (
+    "equipment_type", "total_units", "calibrated_on", "calibration_expires_on",
+    *_DETAILS, "specifications",
+)
 
 
 async def update_equipment(
@@ -113,14 +236,19 @@ async def update_equipment(
     claims: AccessClaims,
     equipment_id: uuid.UUID,
     changes: dict[str, Any],
+    attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
-    """Edit a device's details: type, unit count, calibration dates.
+    """Edit a device: type, unit count, calibration dates, make, model,
+    location and labelled details, and add photos or documentation.
 
     `changes` holds only the fields the caller SENT (the route reads pydantic's
     model_fields_set), so a date is cleared by sending null explicitly and an
     omitted field is left alone. Until this existed a sponsor could add a
     device and nothing else — a typo in the type or a fleet that grew were
-    permanent.
+    permanent. `specifications` is the whole map, not a patch of it: the
+    console always sends every label it shows, so a label it removed is gone.
+    A file is removed through DELETE /attachments/{id}, which only its owner
+    may do.
 
     Two things the schema does not enforce are refused here. total_units may
     not fall below what is out on loan: check_loan_availability only fires when
@@ -131,7 +259,7 @@ async def update_equipment(
     unknown = set(changes) - set(_EDITABLE)
     if unknown:
         raise NetworkError(f"Not editable here: {', '.join(sorted(unknown))}.")
-    if not changes:
+    if not changes and not attachments:
         raise NetworkError("Nothing to change.")
     for required in ("equipment_type", "total_units"):
         if required in changes and changes[required] is None:
@@ -140,6 +268,11 @@ async def update_equipment(
         changes["equipment_type"] = changes["equipment_type"].strip()
         if len(changes["equipment_type"]) < 2:
             raise NetworkError("Give the equipment a name.")
+    for field in _DETAILS:
+        if field in changes:
+            changes[field] = clean_detail(field, changes[field])
+    if "specifications" in changes:
+        changes["specifications"] = clean_specifications(changes["specifications"])
 
     # Own inventory only. equipment_write already refuses a foreign row, but an
     # UPDATE matching nothing is not an error: a miss has to be a miss, not a
@@ -178,22 +311,33 @@ async def update_equipment(
     # and leaves no audit line, so the sponsor's activity feed is not filled
     # with "updated" entries where nothing was.
     moved = {k: v for k, v in changes.items() if getattr(e, k) != v}
+    before = {k: getattr(e, k) for k in moved}
     if moved:
-        before = {k: getattr(e, k) for k in moved}
         for field, value in moved.items():
             setattr(e, field, value)
         e.updated_by = claims.user_id
         await session.flush()
+    files = await _attach_files(session, claims, e.id, attachments)
+    if moved or files:
+        # The details are named by count, not written out: an audit line is
+        # read in a feed, and a twenty-label map is not a sentence.
+        said = [
+            f"details now {len(v)} label{'s' if len(v) != 1 else ''}" if k == "specifications"
+            else f"{k} {before[k]} → {v}"
+            for k, v in moved.items()
+        ]
+        note = _files_note(files)
         await audit.log(
             session, "equipment.updated",
-            f"{e.reference_code} updated: "
-            + ", ".join(f"{k} {before[k]} → {v}" for k, v in moved.items()),
+            f"{e.reference_code} updated: " + ", ".join([*said, *([note] if note else [])]),
             [e.id, claims.org_id],
         )
     return {
         "id": e.id, "reference_code": e.reference_code, "equipment_type": e.equipment_type,
         "total_units": e.total_units,
         "calibrated_on": e.calibrated_on, "calibration_expires_on": e.calibration_expires_on,
+        "make": e.make, "model": e.model, "location": e.location,
+        "specifications": e.specifications, "attachments": files,
     }
 
 

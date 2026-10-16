@@ -7,20 +7,44 @@ import uuid
 from typing import Literal, get_args
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
+from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.modules.network import service as network
+from sourcehub.platform.storage import StorageError
 
 router = APIRouter(route_class=TxRoute)
 
 
+def _specifications(v: dict[str, str]) -> dict[str, str]:
+    # The service's rule, met here so a bad map is a 422 before any work.
+    try:
+        return network.clean_specifications(v)
+    except network.NetworkInvalid as e:
+        raise ValueError(str(e)) from None
+
+
 class EquipmentIn(BaseModel):
+    """A new device. Calibration is optional: a device that is never
+    calibrated has no dates, and the loan check only refuses an expired one."""
+
     equipment_type: str = Field(min_length=2)
     total_units: int = Field(gt=0)
     calibrated_on: dt.date | None = None
     calibration_expires_on: dt.date | None = None
+    make: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    model: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    location: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    specifications: dict[str, str] = Field(default_factory=dict)
+    # photos and documentation, uploaded to staging by the form and filed here
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=20)
+
+    @field_validator("specifications")
+    @classmethod
+    def _specs(cls, v: dict[str, str]) -> dict[str, str]:
+        return _specifications(v)
 
 
 class LoanIn(BaseModel):
@@ -106,20 +130,44 @@ async def add_equipment(
     principal: Principal = Depends(require_capability("equipment.manage")),
     session: AsyncSession = Depends(get_session),
 ):
-    return await network.add_equipment(
-        session, principal, body.equipment_type, body.total_units,
-        body.calibrated_on, body.calibration_expires_on,
-    )
+    """Add a device to the caller's own inventory, with its details and files
+    in the same save. A file that cannot be filed refuses the whole save."""
+    try:
+        return await network.add_equipment(
+            session, principal, body.equipment_type, body.total_units,
+            body.calibrated_on, body.calibration_expires_on,
+            make=body.make, model=body.model, location=body.location,
+            specifications=body.specifications,
+            attachments=[a.model_dump() for a in body.attachments],
+        )
+    except network.NetworkInvalid as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
+    except network.NetworkError as e:
+        raise _conflict(e) from None
+    except StorageError as e:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(e)) from None
 
 
 class EquipmentPatchIn(BaseModel):
-    """Every field optional; only the ones SENT are applied. A date is cleared
-    by sending null explicitly — an omitted field is left alone."""
+    """Every field optional; only the ones SENT are applied. A date or a
+    detail is cleared by sending null explicitly — an omitted field is left
+    alone. `specifications` replaces the whole map. `attachments` adds files;
+    one is removed with DELETE /attachments/{id}."""
 
     equipment_type: str | None = Field(default=None, min_length=2)
     total_units: int | None = Field(default=None, gt=0)
     calibrated_on: dt.date | None = None
     calibration_expires_on: dt.date | None = None
+    make: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    model: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    location: str | None = Field(default=None, max_length=network.DETAIL_MAX)
+    specifications: dict[str, str] | None = None
+    attachments: list[AttachmentIn] = Field(default_factory=list, max_length=20)
+
+    @field_validator("specifications")
+    @classmethod
+    def _specs(cls, v: dict[str, str] | None) -> dict[str, str] | None:
+        return None if v is None else _specifications(v)
 
 
 @router.patch("/equipment/{equipment_id}")
@@ -132,16 +180,26 @@ async def update_equipment(
     """Edit a device's details. Own inventory only — 404 otherwise, exactly as
     the status route: never a silent success on someone else's row. Refusals
     the schema cannot express (units below what is on loan, an expiry before
-    its calibration date) come back as 409 with the reason."""
-    changes = {k: getattr(body, k) for k in body.model_fields_set}
-    if not changes:
+    its calibration date) come back as 409 with the reason; a detail or a file
+    that cannot be stored as sent, as 422."""
+    changes = {k: getattr(body, k) for k in body.model_fields_set if k != "attachments"}
+    if "specifications" in changes and changes["specifications"] is None:
+        changes["specifications"] = {}
+    files = [a.model_dump() for a in body.attachments]
+    if not changes and not files:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Nothing to change")
     try:
-        return await network.update_equipment(session, principal, equipment_id, changes)
+        return await network.update_equipment(
+            session, principal, equipment_id, changes, attachments=files
+        )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Equipment not found") from None
+    except network.NetworkInvalid as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
     except network.NetworkError as e:
         raise _conflict(e) from None
+    except StorageError as e:
+        raise HTTPException(status.HTTP_502_BAD_GATEWAY, str(e)) from None
 
 
 # --- loans -------------------------------------------------------------------

@@ -44,7 +44,7 @@ MAX_BYTES = 25 * 1024 * 1024
 # RFP response, where a bid is a deck plus a method statement plus CVs.
 MAX_PER_SLOT = 10
 
-ENTITIES = ("request", "proposal", "task", "qa_review")
+ENTITIES = ("request", "proposal", "task", "qa_review", "equipment")
 
 # Same list the request-sample uploader accepts. Content type is advisory —
 # browsers lie about it — so the extension is what gates.
@@ -52,6 +52,17 @@ _EXTENSIONS = {
     ".csv", ".tsv", ".json", ".jsonl", ".xml", ".txt", ".md", ".pdf",
     ".png", ".jpg", ".jpeg", ".webp", ".gif", ".mp4", ".mov", ".mp3", ".wav",
     ".zip", ".xlsx", ".docx", ".pptx", ".ppt", ".parquet",
+}
+
+# Parents whose slots are fixed, and what each slot takes. A device's photos
+# are shown as pictures in the console, so they must be images a browser
+# draws; its documentation is what a borrower reads. Other parents keep the
+# open slot names their services choose, and the general list above.
+SLOT_RULES: dict[str, dict[str, frozenset[str]]] = {
+    "equipment": {
+        "photos": frozenset({".png", ".jpg", ".jpeg", ".webp"}),
+        "documentation": frozenset({".pdf", ".docx", ".xlsx", ".csv", ".txt", ".md", ".zip"}),
+    },
 }
 
 _COLUMNS = (
@@ -118,6 +129,11 @@ async def attach(
 
     Called inside the caller's own transaction, by a service that has already
     established the caller may write this parent.
+
+    Two passes. Every file is checked, measured and numbered before any is
+    moved: storage is outside the transaction, so a refusal of the third file
+    after the first two had been moved would roll their rows back and leave the
+    files filed with nothing pointing at them.
     """
     from sourcehub.platform import storage
 
@@ -128,20 +144,22 @@ async def attach(
 
     own_prefix = folders.staging_prefix(claims.org_id)
     target = storage.platform_target()
+    rules = SLOT_RULES.get(entity_type)
     # Resolved once: every item in a call hangs off the same parent, and this
     # is the point at which that parent finally has a client and a reference.
     try:
         filing = await folders.folder_for(session, entity_type, entity_id)
     except LookupError:
-        raise AttachmentError("There is no request to file these against.") from None
+        raise AttachmentError("There is nothing to file these against.") from None
     except ValueError as e:
         raise AttachmentError(str(e)) from None
 
-    out: list[dict[str, Any]] = []
     # Per slot: every (doc_no, version, filename, live) already numbered there,
     # soft-deleted rows included, plus what this call has added so far — two
     # files for one slot in a single save must not be given the same number.
     numbered: dict[str, list[tuple[int, int, str, bool]]] = {}
+    # (staged key, final key wanted, filename, slot, size, content type, doc, version)
+    planned: list[tuple[str, str, str, str, int, str | None, int, int]] = []
 
     for item in items:
         key: str = item["storage_key"]
@@ -151,6 +169,19 @@ async def attach(
         if not key.startswith(own_prefix):
             raise AttachmentError("That file does not belong to your organisation.")
         safe = _safe_filename(item["filename"])
+        if any(p[0] == key for p in planned):
+            # One staged object cannot be filed twice: the second move would
+            # find it gone after the first had already been made.
+            raise AttachmentError(f"{safe} was sent twice.")
+        if rules is not None:
+            allowed = rules.get(slot)
+            if allowed is None:
+                raise AttachmentError(f"There is no {slot!r} field here.")
+            ext = "." + safe.rsplit(".", 1)[-1].lower()
+            if ext not in allowed:
+                raise AttachmentError(
+                    f"{safe}: {slot} takes {', '.join(sorted(allowed))} files."
+                )
 
         # The real size enforcement. A presigned PUT cannot cap what was sent,
         # so the number recorded here comes from storage, never the claim.
@@ -198,9 +229,16 @@ async def attach(
 
         name = folders.stored_name(filing.rfp_ref, filing.scope_ref, slot, doc_no, version, safe)
         wanted = f"{filing.base}/{folders.subfolder(entity_type, filing, slot)}/{name}"
+        known.append((doc_no, version, safe, True))
+        planned.append(
+            (key, wanted, safe, slot, size, item.get("content_type") or stored_ct, doc_no, version)
+        )
 
-        # Last, once the file has passed every check: storage is outside the
-        # transaction, so a move made before a rejection could not be undone.
+    out: list[dict[str, Any]] = []
+    for key, wanted, safe, slot, size, content_type, doc_no, version in planned:
+        # Only now, with every file in the call past every check: storage is
+        # outside the transaction, so a move made before a rejection could not
+        # be undone.
         try:
             final = await folders.move_into(target, key, wanted)
         except folders.NoFreeNameError:
@@ -219,7 +257,7 @@ async def attach(
                 ),
                 {
                     "t": entity_type, "e": entity_id, "s": slot, "org": claims.org_id,
-                    "name": safe, "key": final, "ct": item.get("content_type") or stored_ct,
+                    "name": safe, "key": final, "ct": content_type,
                     "size": size, "who": claims.user_id, "doc": doc_no, "ver": version,
                 },
             )
@@ -229,7 +267,6 @@ async def attach(
             # pointing at it. Under the lock it should not happen; if it does,
             # the save is refused rather than half-recorded.
             raise AttachmentError(f"Could not record {safe}; try the upload again.")
-        known.append((doc_no, version, safe, True))
         out.append({**_row(row), "is_current": True})
     return out
 
@@ -268,6 +305,50 @@ async def list_for(
     for r in rows:
         grouped.setdefault(r["entity_id"], []).append(_row(r))
     return grouped
+
+
+async def preview_urls(
+    session: AsyncSession, entity_type: str, entity_ids: list[uuid.UUID], slot: str
+) -> dict[uuid.UUID, str]:
+    """A short-lived inline URL for the FIRST file of a slot on each entity —
+    the picture a list shows beside a row. One query and one signature per
+    entity, signed concurrently, inside the list request: a table would
+    otherwise ask for a URL per row before it could draw a single thumbnail.
+
+    RLS on the select is the access check, as in download_url. A signature
+    that fails leaves that row without a picture rather than failing the list.
+    """
+    import asyncio
+
+    from sourcehub.platform import storage
+
+    if not entity_ids:
+        return {}
+    rows = (
+        await session.execute(
+            text(
+                "SELECT DISTINCT ON (entity_id) entity_id, storage_key, filename "
+                "FROM attachment "
+                "WHERE entity_type = CAST(:t AS attachment_entity) AND entity_id = ANY(:ids) "
+                "  AND slot = :s AND deleted_at IS NULL "
+                "ORDER BY entity_id, doc_no, version DESC"
+            ),
+            {"t": entity_type, "ids": entity_ids, "s": slot},
+        )
+    ).mappings().all()
+    if not rows:
+        return {}
+    target = storage.platform_target()
+
+    async def one(r: Any) -> tuple[uuid.UUID, str | None]:
+        try:
+            url = await storage.presign_get(target, r["storage_key"], r["filename"], inline=True)
+        except Exception:  # noqa: BLE001 — a missing picture, not a broken list
+            return r["entity_id"], None
+        return r["entity_id"], url
+
+    signed = await asyncio.gather(*(one(r) for r in rows))
+    return {k: v for k, v in signed if v}
 
 
 async def download_url(

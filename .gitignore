@@ -57,3 +57,8 @@ marketing/teasers/.tts/
 # Generated from db/*.sql by `make bundle`. Not committed: a second copy of the
 # schema is a second thing to keep in step.
 build/
+
+# --- Design tool output -------------------------------------------------------
+# Impeccable critique snapshots: dated working notes, stale after the next run.
+# The agreed picture lives in PRODUCT.md and DESIGN.md, which are committed.
+.impeccable/

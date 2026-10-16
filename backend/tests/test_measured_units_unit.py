@@ -53,9 +53,11 @@ def test_the_migration_follows_0054():
     assert re.search(r'^down_revision = "0054"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_new_file_is_last_in_the_bundle():
+def test_the_new_file_follows_500_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
-    assert m and m.group(1).split()[-1] == "510_measured_units"
+    assert m
+    files = m.group(1).split()
+    assert files.index("510_measured_units") == files.index("500_mail_retry") + 1
 
 
 def test_the_downgrade_refuses_fractions_and_puts_the_offer_lookup_back():
