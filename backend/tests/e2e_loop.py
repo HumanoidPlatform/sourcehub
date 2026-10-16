@@ -27,9 +27,17 @@ PW = "SourceHub#2026"
 def login(email: str) -> httpx.Client:
     r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW}, timeout=T)
     r.raise_for_status()
-    tok = r.json()["access_token"]
-    c = httpx.Client(base_url=B, headers={"Authorization": f"Bearer {tok}"}, timeout=30)
-    c.org_name = r.json()["org_name"]
+    s = r.json()
+    if s.get("terms_due"):
+        # db/470: the Terms gate. Accept, then refresh for a token without it.
+        auth = {"Authorization": f"Bearer {s['access_token']}"}
+        httpx.post(f"{B}/terms/accept", json={"version": s["terms_due"]}, headers=auth,
+                   timeout=T).raise_for_status()
+        r = httpx.post(f"{B}/auth/refresh", json={"refresh_token": s["refresh_token"]}, timeout=T)
+        r.raise_for_status()
+        s = r.json()
+    c = httpx.Client(base_url=B, headers={"Authorization": f"Bearer {s['access_token']}"}, timeout=30)
+    c.org_name = s["org_name"]
     return c
 
 

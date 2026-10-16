@@ -39,9 +39,15 @@ def can(principal: Principal, capability: str) -> bool:
     return capability in principal.capabilities
 
 
-async def get_principal(
+TERMS_NOT_ACCEPTED = "Accept the Terms & Conditions to continue."
+
+
+async def get_principal_pending_terms(
     credentials: HTTPAuthorizationCredentials = Depends(bearer),
 ) -> Principal:
+    """The bearer, whether or not the Terms are still due. Only the routes a
+    person needs while held at the Terms gate use this: /auth/me, logout,
+    change-password and accepting the Terms."""
     try:
         return decode_access_token(credentials.credentials)
     except JWTError:
@@ -50,6 +56,17 @@ async def get_principal(
             detail="Invalid or expired token",
             headers={"WWW-Authenticate": "Bearer"},
         ) from None
+
+
+async def get_principal(
+    principal: Principal = Depends(get_principal_pending_terms),
+) -> Principal:
+    """The bearer, once the Terms in effect are accepted (db/470, Terms §2.1:
+    nobody uses any part of the Platform before "I Accept"). Every guard below
+    and the org session stand on this, so no route is reachable past it."""
+    if principal.terms_due:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=TERMS_NOT_ACCEPTED)
+    return principal
 
 
 class TxRoute(APIRoute):

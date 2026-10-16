@@ -34,6 +34,7 @@ bucket: a contract listing's samples are copies, made by the sweep
 
 from __future__ import annotations
 
+import datetime as dt
 import re
 import secrets
 import uuid
@@ -116,7 +117,8 @@ _DATASET_COLUMNS = (
     "d.category, d.use_cases, d.regions, d.languages, d.permitted_uses, d.licence_terms, "
     "d.indicative_price_text, d.file_count, d.total_bytes, d.status, d.submitted_at, "
     "d.review_note, d.reviewed_at, d.published_at, d.withdrawn_at, d.withdrawn_reason, "
-    "d.created_at, d.updated_at, "
+    "d.created_at, d.updated_at, d.rights_attested_at, "
+    "(SELECT u.full_name FROM app_user u WHERE u.id = d.rights_attested_by) AS rights_attested_by_name, "
     # the seller's name, which organisation's own policies hide from another
     # partner (db/410); never a join, or the listing would vanish with it
     "datahub_org_name(d.owner_org_id) AS owner_name, "
@@ -162,6 +164,8 @@ def _dataset(m: Any, claims: AccessClaims | None) -> dict[str, Any]:
                 "reviewed_at": m["reviewed_at"],
                 "created_at": m["created_at"],
                 "updated_at": m["updated_at"],
+                "rights_attested_at": m["rights_attested_at"],
+                "rights_attested_by_name": m["rights_attested_by_name"],
             }
         )
     return out
@@ -708,15 +712,26 @@ async def _readiness(session: AsyncSession, m: Any) -> list[str]:
 
 
 async def submit(
-    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID
+    session: AsyncSession, claims: AccessClaims, dataset_id: uuid.UUID, attest: bool
 ) -> dict[str, Any]:
+    """Send a listing for review. The seller declares, each time, that it holds
+    the rights and consents to list the data and describes it accurately
+    (Terms §4.4, §8.2); the declaration is recorded on the listing."""
     m = await _owned(session, claims, dataset_id, "submits it")
     if m["status"] not in ("draft", "rejected"):
         raise CatalogueError(f"A {m['status'].replace('_', ' ')} listing cannot be submitted.")
+    if not attest:
+        raise CatalogueError("Confirm the declaration before submitting.")
     problems = await _readiness(session, m)
     if problems:
         raise CatalogueError(" ".join(problems))
-    await _move(session, dataset_id, m["status"], "in_review")
+    await _move(
+        session,
+        dataset_id,
+        m["status"],
+        "in_review",
+        {"rights_attested_at": dt.datetime.now(dt.timezone.utc), "rights_attested_by": claims.user_id},
+    )
     ops = await _ops_org(session)
     if ops is not None:
         await notifier.notify(
@@ -731,6 +746,7 @@ async def submit(
         "catalogue.dataset.submitted",
         f"Submitted {m['title']} for review",
         [dataset_id, claims.org_id],
+        {"rights_attested": True},
     )
     return await dataset_detail(session, claims, dataset_id)
 

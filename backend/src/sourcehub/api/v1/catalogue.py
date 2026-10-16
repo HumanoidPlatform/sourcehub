@@ -315,14 +315,21 @@ async def retry_copies(
         raise _conflict(e) from None
 
 
+class SubmitIn(BaseModel):
+    # the seller's declaration: rights and consents held, description accurate,
+    # no restricted category without approval (Terms §4.4, §8.2)
+    attest: bool = False
+
+
 @router.post("/catalogue/datasets/{dataset_id}/submit")
 async def submit(
     dataset_id: uuid.UUID,
+    body: SubmitIn | None = None,
     principal: Principal = Depends(require_capability("catalogue.list")),
     session: AsyncSession = Depends(get_session),
 ) -> dict[str, Any]:
     try:
-        return await catalogue.submit(session, principal, dataset_id)
+        return await catalogue.submit(session, principal, dataset_id, bool(body and body.attest))
     except LookupError:
         raise _not_found("Dataset") from None
     except catalogue.CatalogueError as e:

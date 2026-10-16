@@ -31,8 +31,16 @@ PW = "SourceHub#2026"
 def login(email: str) -> httpx.Client:
     r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW}, timeout=T)
     r.raise_for_status()
-    tok = r.json()["access_token"]
-    return httpx.Client(base_url=B, headers={"Authorization": f"Bearer {tok}"}, timeout=T)
+    s = r.json()
+    if s.get("terms_due"):
+        # db/470: the Terms gate. Accept, then refresh for a token without it.
+        auth = {"Authorization": f"Bearer {s['access_token']}"}
+        httpx.post(f"{B}/terms/accept", json={"version": s["terms_due"]}, headers=auth,
+                   timeout=T).raise_for_status()
+        r = httpx.post(f"{B}/auth/refresh", json={"refresh_token": s["refresh_token"]}, timeout=T)
+        r.raise_for_status()
+        s = r.json()
+    return httpx.Client(base_url=B, headers={"Authorization": f"Bearer {s['access_token']}"}, timeout=T)
 
 
 step = 0
@@ -85,7 +93,7 @@ refused(r, 409)
 ok("a key outside the dataset is REFUSED")
 
 # 3 — not ready: no summary, no terms
-refused(seller.post(f"/catalogue/datasets/{DID}/submit"), 409)
+refused(seller.post(f"/catalogue/datasets/{DID}/submit", json={"attest": True}), 409)
 ok("submitting an incomplete listing is REFUSED")
 seller.patch(f"/catalogue/datasets/{DID}", json={
     "summary": "Street-level photos, test listing",
@@ -93,10 +101,12 @@ seller.patch(f"/catalogue/datasets/{DID}", json={
     "licence_terms": "[Seller's licence terms]",
     "indicative_price_text": "From USD [x] per 1,000 images",
 }).raise_for_status()
-r = seller.post(f"/catalogue/datasets/{DID}/submit")
+refused(seller.post(f"/catalogue/datasets/{DID}/submit"), 409)
+ok("submitting without the seller's declaration is REFUSED")
+r = seller.post(f"/catalogue/datasets/{DID}/submit", json={"attest": True})
 r.raise_for_status()
-assert r.json()["status"] == "in_review"
-ok("seller described it and submitted", r.json()["status"])
+assert r.json()["status"] == "in_review" and r.json()["rights_attested_at"]
+ok("seller described it, declared the rights and submitted", r.json()["status"])
 
 # 4 — only Ops publishes, and what buyers read is fixed in review
 refused(seller.post(f"/catalogue/datasets/{DID}/approve"), 403)

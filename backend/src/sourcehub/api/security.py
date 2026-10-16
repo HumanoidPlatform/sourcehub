@@ -44,6 +44,8 @@ class AccessClaims:
     capabilities: frozenset[str]
     mfa_satisfied: bool
     must_change_password: bool
+    # the Terms version this person still has to accept (db/470); None when nothing is due
+    terms_due: str | None = None
 
 
 def issue_access_token(claims: AccessClaims) -> str:
@@ -60,6 +62,7 @@ def issue_access_token(claims: AccessClaims) -> str:
         "caps": sorted(claims.capabilities),
         "mfa": claims.mfa_satisfied,
         "mcp": claims.must_change_password,
+        "tos": claims.terms_due,
         "type": "access",
         "iat": int(now.timestamp()),
         "exp": int((now + dt.timedelta(minutes=settings.access_token_ttl_minutes)).timestamp()),
@@ -85,4 +88,5 @@ def decode_access_token(token: str) -> AccessClaims:
         capabilities=frozenset(payload.get("caps", [])),
         mfa_satisfied=bool(payload.get("mfa", False)),
         must_change_password=bool(payload.get("mcp", False)),
+        terms_due=payload.get("tos"),
     )
