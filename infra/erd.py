@@ -64,6 +64,8 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
             "user_password_history",
             "user_token",
             "invitation",
+            "platform_terms",
+            "terms_acceptance",
         ],
     ),
     (
@@ -139,7 +141,7 @@ GROUPS: list[tuple[str, str, str, list[str]]] = [
         [
             "audit_event",
             "notification",
-            # db/470: platform e-mail waiting for the outbox clock, written in
+            # db/480: platform e-mail waiting for the outbox clock, written in
             # the transaction that decided to send it
             "mail_outbox",
         ],

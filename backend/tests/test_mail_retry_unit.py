@@ -1,4 +1,4 @@
-"""Mail retry: db/490, migration 0053, the adapter's classification and the
+"""Mail retry: db/500, migration 0054, the adapter's classification and the
 dispatcher's decision for each answer.
 
 What this file guards, in the order it would hurt:
@@ -36,10 +36,10 @@ from sourcehub.platform.mail import smtp
 from sourcehub.platform.mail.smtp import SendError, classify
 
 ROOT = Path(__file__).resolve().parents[2]
-SQL = ROOT / "db" / "490_mail_retry.sql"
-SQL_480 = ROOT / "db" / "480_mail_log.sql"
-SQL_470 = ROOT / "db" / "470_mail_outbox.sql"
-MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0053_mail_retry.py"
+SQL = ROOT / "db" / "500_mail_retry.sql"
+SQL_480 = ROOT / "db" / "490_mail_log.sql"
+SQL_470 = ROOT / "db" / "480_mail_outbox.sql"
+MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0054_mail_retry.py"
 BUNDLE = ROOT / "infra" / "bundle_schema.sh"
 
 SQL_TEXT = SQL.read_text(encoding="utf-8")
@@ -60,7 +60,7 @@ def _statements(ddl: str) -> list[str]:
     ns: dict[str, Any] = {}
     tree = ast.parse(MIGRATION_TEXT)
     fn = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_statements")
-    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0053", "exec"), ns)
+    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0054", "exec"), ns)
     return ns["_statements"](ddl)
 
 
@@ -79,21 +79,21 @@ def test_the_migration_carries_the_sql_verbatim():
     assert _literal("_UP") == "\n" + SQL_TEXT
 
 
-def test_the_migration_follows_0052():
-    assert re.search(r'^revision = "0053"$', MIGRATION_TEXT, re.M)
-    assert re.search(r'^down_revision = "0052"$', MIGRATION_TEXT, re.M)
+def test_the_migration_follows_0053():
+    assert re.search(r'^revision = "0054"$', MIGRATION_TEXT, re.M)
+    assert re.search(r'^down_revision = "0053"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_file_is_last_in_the_bundle_after_480():
+def test_the_file_is_last_in_the_bundle_after_490():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     files = m.group(1).split()
-    assert files[-1] == "490_mail_retry"
-    assert files.index("490_mail_retry") == files.index("480_mail_log") + 1
+    assert files[-1] == "500_mail_retry"
+    assert files.index("500_mail_retry") == files.index("490_mail_log") + 1
 
 
 def test_no_comment_line_ends_a_statement_or_holds_a_body_marker():
-    for label, text in (("db/490", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
+    for label, text in (("db/500", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
         for n, line in enumerate(text.splitlines(), 1):
             if line.strip().startswith("--"):
                 assert not line.rstrip().endswith(";"), f"{label} line {n}: {line}"
@@ -166,7 +166,7 @@ def test_the_scan_index_follows_the_new_order():
 def test_the_fan_out_queues_behind_a_person():
     body = _body("mail_enqueue")
     assert "priority)" in body and "coalesce(p_label, ''), 1" in body
-    # single mails keep db/480's mail_enqueue_to, whose rows default to 0
+    # single mails keep db/490's mail_enqueue_to, whose rows default to 0
     assert "mail_enqueue_to" not in _strip_comments(SQL_TEXT)
 
 
@@ -207,14 +207,14 @@ def test_a_resend_keeps_its_priority_and_starts_its_own_count():
     body = _body("mail_resend")
     assert "resent_from, priority)" in body and "m.id, m.priority)" in body
     assert "attempts" not in body
-    # db/480's refusals are all still there
+    # db/490's refusals are all still there
     for refusal in ("no such mail", "only a failed mail", "already re-sent", "retired", "expired"):
         assert refusal in body, refusal
 
 
-def test_the_downgrade_refuses_while_mail_waits_and_restores_480_verbatim():
+def test_the_downgrade_refuses_while_mail_waits_and_restores_490_verbatim():
     down = _literal("_DOWN")
-    assert "RAISE EXCEPTION '0053 downgrade" in down.split("DROP FUNCTION", 1)[0]
+    assert "RAISE EXCEPTION '0054 downgrade" in down.split("DROP FUNCTION", 1)[0]
     for fn in (
         "mail_defer(uuid[], text, interval)",
         "mail_pending(int)",
@@ -558,8 +558,8 @@ class _UndefinedFunctionError(Exception):
     pass
 
 
-class _At0052(_Session):
-    """A database not yet migrated to 0053: there is no mail_defer."""
+class _At0053(_Session):
+    """A database not yet migrated to 0054: there is no mail_defer."""
 
     async def execute(self, stmt, params=None):
         if "mail_defer" in str(stmt):
@@ -570,7 +570,7 @@ class _At0052(_Session):
 
 def test_a_defer_the_database_cannot_record_keeps_the_sent_marks_and_fails_those_rows():
     a, b = _pending_row("a@x.co"), _pending_row("b@x.co")
-    s = _At0052(rows=[a, b])
+    s = _At0053(rows=[a, b])
 
     async def send(msgs):
         return [None, SendError("SMTPRecipientsRefused: 452 over quota", True)]

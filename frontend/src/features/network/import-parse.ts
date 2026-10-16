@@ -50,7 +50,7 @@ export interface ImportResultRow {
   worker_id?: string;
 }
 
-/** What one batch wrote. The invitation e-mails are queued (db/480) and sent a
+/** What one batch wrote. The invitation e-mails are queued (db/490) and sent a
  *  few seconds later, so delivery is not known here: Ops see it on the Mail
  *  page, and the roster shows each person's invitation status. */
 export interface ImportResult {

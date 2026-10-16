@@ -42,7 +42,7 @@ export function useTaskOffers(taskId: string | null | undefined) {
     queryKey: ["offers", taskId],
     queryFn: () => get<TaskOffer[]>(`/tasks/${taskId}/offers`),
     enabled: !!taskId,
-    // db/480: the offer mails are sent by a clock a few seconds after the offer
+    // db/490: the offer mails are sent by a clock a few seconds after the offer
     // is made; while any recipient is still "Queued", watch for the outcome.
     refetchInterval: (q) =>
       (q.state.data ?? []).some((o) => o.recipients.some((r) => !r.sent_at && !r.send_error && !r.response))
@@ -398,7 +398,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         recipient_user_ids: picked,
       }),
     onSuccess: (o) => {
-      // db/480: the mails leave a few seconds later; the offer panel shows each
+      // db/490: the mails leave a few seconds later; the offer panel shows each
       // one go from Queued to Waiting, or to Not sent with the reason.
       toast(
         `Offer on its way to ${o.recipients.length} crowd resource${o.recipients.length === 1 ? "" : "s"}`,

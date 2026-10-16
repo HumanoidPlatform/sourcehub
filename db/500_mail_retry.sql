@@ -1,5 +1,5 @@
 -- ============================================================================
--- 490 · Mail retry: a temporary refusal is tried again, a person comes first
+-- 500 · Mail retry: a temporary refusal is tried again, a person comes first
 --
 -- Until now a mail the server refused was failed at once, whatever the reason.
 -- A 4xx answer -- mailbox full, greylisting, "try again later" -- and Gmail's
@@ -42,13 +42,13 @@ COMMENT ON COLUMN mail_outbox.priority IS
   '0: a person is waiting for this mail (reset, invitation, offer, reminder, '
   'reply). 1: a fan-out (the RFP mails). The dispatcher sends 0 first.';
 
--- The dispatcher's scan, in the order it now sends: replaces the db/470 index.
+-- The dispatcher's scan, in the order it now sends: replaces the db/480 index.
 DROP INDEX mail_outbox_waiting_idx;
 CREATE INDEX mail_outbox_due_idx ON mail_outbox (priority, created_at)
   WHERE sent_at IS NULL AND failed_at IS NULL;
 
 -- ---------------------------------------------------------------------------
--- mail_enqueue -- the fan-out (db/480), now queued behind single mails.
+-- mail_enqueue -- the fan-out (db/490), now queued behind single mails.
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[],
                                         p_entity_type text, p_entity_id uuid, p_label text)
@@ -231,7 +231,7 @@ BEGIN
 END
 $fn$;
 
--- A re-send (db/480) now keeps the source's priority and starts its own count
+-- A re-send (db/490) now keeps the source's priority and starts its own count
 -- of tries from nothing.
 CREATE OR REPLACE FUNCTION mail_resend(p_id uuid) RETURNS uuid
 LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = public AS $fn$

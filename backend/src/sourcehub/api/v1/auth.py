@@ -13,7 +13,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException, Request, status
 from pydantic import BaseModel, Field
 
-from sourcehub.api.deps import Principal, get_principal
+from sourcehub.api.deps import Principal, get_principal_pending_terms
 from sourcehub.api.security import issue_access_token
 from sourcehub.modules.identity import service as identity
 
@@ -52,6 +52,9 @@ class SessionOut(BaseModel):
     scope: str
     capabilities: list[str]
     must_change_password: bool
+    # the Terms version still to accept; the console holds the person at the
+    # Terms gate until it is null, and every other route answers 403 (deps.py)
+    terms_due: str | None = None
 
 
 class ChooseOrgOut(BaseModel):
@@ -76,6 +79,8 @@ class ChangePasswordIn(BaseModel):
 class InvitationAcceptIn(BaseModel):
     token: str
     password: str = Field(min_length=10)
+    # the version the invitee ticked; required unless the preview said terms: null
+    terms_version: str | None = None
 
 
 class ResetRequestIn(BaseModel):
@@ -102,6 +107,7 @@ def _session_out(result: identity.LoginSuccess) -> SessionOut:
         scope=c.scope,
         capabilities=sorted(c.capabilities),
         must_change_password=c.must_change_password,
+        terms_due=c.terms_due,
     )
 
 
@@ -147,13 +153,18 @@ async def refresh(body: RefreshIn, request: Request):
     return _session_out(result)
 
 
+# logout, /me and change-password stay open while the Terms are due: the gate
+# offers Sign out, and a forced password change comes before it
+
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)
-async def logout(body: LogoutIn, principal: Principal = Depends(get_principal)):
+async def logout(body: LogoutIn, principal: Principal = Depends(get_principal_pending_terms)):
     await identity.logout(principal, body.refresh_token, body.everywhere)
 
 
 @router.get("/me", response_model=SessionOut, response_model_exclude={"access_token", "refresh_token"})
-async def me(principal: Principal = Depends(get_principal)):
+async def me(
+    principal: Principal = Depends(get_principal_pending_terms),
+):
     return SessionOut(
         access_token="",
         refresh_token="",
@@ -167,11 +178,14 @@ async def me(principal: Principal = Depends(get_principal)):
         scope=principal.scope,
         capabilities=sorted(principal.capabilities),
         must_change_password=principal.must_change_password,
+        terms_due=principal.terms_due,
     )
 
 
 @router.post("/change-password", status_code=status.HTTP_204_NO_CONTENT)
-async def change_password(body: ChangePasswordIn, principal: Principal = Depends(get_principal)):
+async def change_password(
+    body: ChangePasswordIn, principal: Principal = Depends(get_principal_pending_terms)
+):
     try:
         await identity.change_password(principal, body.current_password, body.new_password)
     except identity.AuthError as e:
@@ -193,13 +207,18 @@ async def invitation_preview(token: str):
         "expires_at": row["expires_at"],
         "valid": valid,
         "already_accepted": row["accepted_at"] is not None,
+        # {version, title, effective_at} to accept with the password, or null
+        "terms": row["terms"],
     }
 
 
 @router.post("/invitation/accept", status_code=status.HTTP_204_NO_CONTENT)
-async def invitation_accept(body: InvitationAcceptIn):
+async def invitation_accept(body: InvitationAcceptIn, request: Request):
+    ip, ua = _client_meta(request)
     try:
-        await identity.invitation_accept(body.token, body.password)
+        await identity.invitation_accept(body.token, body.password, body.terms_version, ip, ua)
+    except identity.TermsError as e:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e)) from None
     except Exception:
         raise HTTPException(
             status.HTTP_400_BAD_REQUEST, "Invitation is invalid, expired or already used"

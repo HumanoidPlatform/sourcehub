@@ -1,6 +1,6 @@
 """outbox: a temporary refusal is tried again, and a person's mail comes first.
 
-db/490 adds attempts, next_attempt_at, last_error and priority to mail_outbox and
+db/500 adds attempts, next_attempt_at, last_error and priority to mail_outbox and
 mail_defer(); mail_pending now returns rows by priority then age, skips rows
 deferred to later, and settles rows whose link has died as 'link expired';
 the fan-out mail_enqueue queues at priority 1; mail_log reports 'retrying'
@@ -8,30 +8,30 @@ and mail_stats counts it; a re-send keeps its priority. Additive: an older
 API's dispatcher reads mail_pending's columns by name and ignores the new ones.
 
 The downgrade refuses while any mail is still waiting, then drops what 490
-added and puts back the db/480 bodies of the five functions it replaced and
-the db/470 waiting index.
+added and puts back the db/490 bodies of the five functions it replaced and
+the db/480 waiting index.
 
-SQL copied verbatim from db/490_mail_retry.sql so the bootstrap and migration
+SQL copied verbatim from db/500_mail_retry.sql so the bootstrap and migration
 paths keep producing identical schemas; a test asserts the two stay
 byte-identical.
 
 Executed one statement at a time, with the splitter 0030 uses, because asyncpg
 refuses two statements in one execute.
 
-Revision ID: 0053
-Revises: 0052
+Revision ID: 0054
+Revises: 0053
 """
 
 from alembic import op
 
-revision = "0053"
-down_revision = "0052"
+revision = "0054"
+down_revision = "0053"
 branch_labels = None
 depends_on = None
 
 _UP = """
 -- ============================================================================
--- 490 · Mail retry: a temporary refusal is tried again, a person comes first
+-- 500 · Mail retry: a temporary refusal is tried again, a person comes first
 --
 -- Until now a mail the server refused was failed at once, whatever the reason.
 -- A 4xx answer -- mailbox full, greylisting, "try again later" -- and Gmail's
@@ -74,13 +74,13 @@ COMMENT ON COLUMN mail_outbox.priority IS
   '0: a person is waiting for this mail (reset, invitation, offer, reminder, '
   'reply). 1: a fan-out (the RFP mails). The dispatcher sends 0 first.';
 
--- The dispatcher's scan, in the order it now sends: replaces the db/470 index.
+-- The dispatcher's scan, in the order it now sends: replaces the db/480 index.
 DROP INDEX mail_outbox_waiting_idx;
 CREATE INDEX mail_outbox_due_idx ON mail_outbox (priority, created_at)
   WHERE sent_at IS NULL AND failed_at IS NULL;
 
 -- ---------------------------------------------------------------------------
--- mail_enqueue -- the fan-out (db/480), now queued behind single mails.
+-- mail_enqueue -- the fan-out (db/490), now queued behind single mails.
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[],
                                         p_entity_type text, p_entity_id uuid, p_label text)
@@ -263,7 +263,7 @@ BEGIN
 END
 $fn$;
 
--- A re-send (db/480) now keeps the source's priority and starts its own count
+-- A re-send (db/490) now keeps the source's priority and starts its own count
 -- of tries from nothing.
 CREATE OR REPLACE FUNCTION mail_resend(p_id uuid) RETURNS uuid
 LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = public AS $fn$
@@ -323,7 +323,7 @@ _DOWN = """
 DO $fn$
 BEGIN
   IF EXISTS (SELECT 1 FROM mail_outbox WHERE sent_at IS NULL AND failed_at IS NULL) THEN
-    RAISE EXCEPTION '0053 downgrade: mail is still waiting to be sent; let the API send it until the Mail page shows nothing waiting, then stop the API and downgrade';
+    RAISE EXCEPTION '0054 downgrade: mail is still waiting to be sent; let the API send it until the Mail page shows nothing waiting, then stop the API and downgrade';
   END IF;
 END
 $fn$;
@@ -332,7 +332,7 @@ DROP FUNCTION IF EXISTS mail_defer(uuid[], text, interval);
 DROP FUNCTION IF EXISTS mail_pending(int);
 DROP FUNCTION IF EXISTS mail_log(text, int, timestamptz);
 
--- the db/480 bodies, verbatim
+-- the db/490 bodies, verbatim
 CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[],
                                         p_entity_type text, p_entity_id uuid, p_label text)
 RETURNS int

@@ -1595,7 +1595,7 @@ def offer_context(
     lead: str | None = None,
 ) -> dict[str, Any]:
     """The subject and every rendered field of a task offer, as the outbox
-    stores them (db/480): messages.task_offer_mail(**offer_context(...)) is the
+    stores them (db/490): messages.task_offer_mail(**offer_context(...)) is the
     mail. Both links sit on their own lines in the text part; the HTML part
     shows them as buttons, and escapes every field (a task title is somebody
     else's input). The wording lives in platform/mail/templates/task_offer.*.
@@ -1890,7 +1890,7 @@ async def create_offer(
         )
     await session.flush()
 
-    # The mails, queued in this transaction (db/480 mail_outbox), one row per
+    # The mails, queued in this transaction (db/490 mail_outbox), one row per
     # recipient and keyed to it: when the clock sends, mail_mark() fills the
     # recipient's sent_at or send_error, which the console shows. Nothing
     # leaves from here, and an offer that rolls back mails nobody. After the

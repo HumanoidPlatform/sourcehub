@@ -502,7 +502,7 @@ async def _approve(
         [r.id, new_org_id, r.requester_org_id, claims.org_id],
     )
 
-    # The invitation mail is queued in this transaction (db/480 mail_outbox)
+    # The invitation mail is queued in this transaction (db/490 mail_outbox)
     # and leaves within seconds through modules/outbox; the Ops mail log shows
     # whether it did, and Ops can re-send it from there or from this request.
     email = (r.contact or {}).get("email")

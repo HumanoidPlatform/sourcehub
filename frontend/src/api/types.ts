@@ -833,7 +833,7 @@ export interface ActivityRow {
   occurred_at: string;
 }
 
-/** One UTC day of the mail log (db/480 mail_stats). */
+/** One UTC day of the mail log (db/490 mail_stats). */
 export interface MailDay {
   day: string;
   sent: number;
@@ -846,14 +846,14 @@ export interface MailStats {
   sent_today: number;
   failed_today: number;
   waiting: number;
-  /** of the waiting, how many a temporary refusal has deferred (db/490) */
+  /** of the waiting, how many a temporary refusal has deferred (db/500) */
   retrying: number;
   /** failed in the last 30 days and not re-sent */
   failed_open: number;
   days: MailDay[];
 }
 
-/** One platform e-mail as the Ops mail log lists it (db/480 mail_log). Never
+/** One platform e-mail as the Ops mail log lists it (db/490 mail_log). Never
  *  carries the mail's content: an unsent invitation's token is in there. */
 export interface MailRow {
   id: string;
@@ -865,7 +865,7 @@ export interface MailRow {
   entity_type: string | null;
   entity_id: string | null;
   org_name: string | null;
-  /** "retrying": still waiting, after a temporary refusal (db/490) */
+  /** "retrying": still waiting, after a temporary refusal (db/500) */
   state: "queued" | "retrying" | "sent" | "failed";
   sent_at: string | null;
   failed_at: string | null;
@@ -1139,6 +1139,9 @@ export interface Dataset {
   reviewed_at?: string | null;
   created_at?: string;
   updated_at?: string;
+  // the seller's declaration on its last submission (db/470)
+  rights_attested_at?: string | null;
+  rights_attested_by_name?: string | null;
   // my listings
   pending_copies?: number;
   open_requests?: number;
@@ -1203,7 +1206,7 @@ export interface DealMessage {
   body: string;
   /** set when the message was emailed to a public request's visitor */
   emailed_to: string | null;
-  /** db/480: what became of that e-mail — queued in the deal's transaction,
+  /** db/490: what became of that e-mail — queued in the deal's transaction,
    *  sent by the clock, or failed with the server's reason; null when the
    *  message was never mailed or its record has been purged */
   email_status: "queued" | "sent" | "failed" | null;

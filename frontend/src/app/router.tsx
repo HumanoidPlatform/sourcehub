@@ -18,12 +18,14 @@ import { PublicCataloguePage, PublicDatasetPage } from "@features/catalogue/publ
 import { DatasetEditorPage, DatasetNewPage, MyDatasetsPage } from "@features/catalogue/seller";
 import { ContractsPage, ContractDetailPage, TasksPage } from "@features/delivery/pages";
 import {
-  AcceptInvitationPage, ForcedPasswordChange, LoginPage, ResetPasswordPage, TaskOfferPage,
+  AcceptInvitationPage, ForcedPasswordChange, ForcedTermsAcceptance, LoginPage, ResetPasswordPage,
+  TaskOfferPage,
 } from "@features/identity/pages";
 import { OrganisationProfilePage } from "@features/identity/organisation";
 import { UsersPage } from "@features/identity/users";
 import { BillingPage } from "@features/invoices/pages";
 import { PrivacyPage } from "@features/legal/pages";
+import { TermsPage } from "@features/legal/terms";
 import {
   MyProposalsPage, OpportunitiesPage, RequestDetailPage, RequestNewPage, RequestsPage,
 } from "@features/marketplace/pages";
@@ -65,6 +67,8 @@ export function AppRouter() {
       {/* Public for the same reason: the phone's privacy notice opens this in a
           browser that is not signed in, and the Play listing will point at it. */}
       <Route path="/privacy" element={<PrivacyPage />} />
+      {/* The Terms, for the invitation page and the Terms gate to link to */}
+      <Route path="/terms" element={<TermsPage />} />
     </>
   );
 
@@ -106,6 +110,18 @@ export function AppRouter() {
   // a provisioned password must be replaced before anything else
   if (session.must_change_password) {
     return <ForcedPasswordChange session={session} />;
+  }
+
+  // then the Terms in effect accepted (db/470): nothing of the console until
+  // then, but a link to the full text, the privacy notice or someone else's
+  // token still opens
+  if (session.terms_due) {
+    return (
+      <Routes>
+        {tokenRoutes}
+        <Route path="*" element={<ForcedTermsAcceptance />} />
+      </Routes>
+    );
   }
 
   return (

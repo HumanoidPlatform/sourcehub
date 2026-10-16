@@ -96,7 +96,7 @@ class Settings(BaseSettings):
     # The pass (modules/outbox) that sends every e-mail the platform writes:
     # resets, invitations, task offers, reminders, DataHub replies, and the RFP
     # mails to every active partner. Rows are written in the deciding
-    # transaction (db/470, db/480) and sent after it commits, as push does for
+    # transaction (db/480, db/490) and sent after it commits, as push does for
     # phones. Its own switch: on a laptop whose DATABASE_URL is a shared
     # database it would mail real people. Five seconds, because a person is
     # waiting for a reset or an invitation. Addresses on reserved domains

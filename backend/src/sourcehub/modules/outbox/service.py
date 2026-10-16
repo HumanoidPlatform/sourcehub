@@ -4,7 +4,7 @@ Business rules, and the ONLY public surface of this module.
 
 A mail is never sent from inside a request. The transaction that decides to
 mail — publishing an RFP, inviting a colleague, offering a task, answering a
-quote request — writes a mail_outbox row (db/470, db/480) and commits; this
+quote request — writes a mail_outbox row (db/480, db/490) and commits; this
 module's clock renders and sends the row a few seconds later. So a decision
 that rolls back mails nobody, a slow mail server never holds a request, and one
 table answers "did it go?" for operations (the Mail screen: today's counts,
@@ -19,7 +19,7 @@ The pass, every MAIL_OUTBOX_TICK_SECONDS:
   2. mail_pending() settles rows older than 48 hours ('too old') and rows
      whose link has died ('link expired'), and returns the rest that are due:
      a person's mail before a fan-out, then oldest first, at most
-     MAIL_OUTBOX_BATCH of them (db/490).
+     MAIL_OUTBOX_BATCH of them (db/500).
   3. Each row is rendered from its template and context
      (platform/mail/messages.build). A row that cannot become a mail — an
      unknown template, a context the builder refuses, or an address on a
@@ -75,7 +75,7 @@ PURGE_EVERY = 3600  # seconds between retention sweeps
 REASON_CHARS = 300
 # A temporary refusal is tried again after these many seconds, one step per
 # refusal: 1 min, 5 min, 15 min, 1 h, 4 h — six tries over about 5.5 hours.
-# mail_defer (db/490) fails the row sooner if the next try would pass its two
+# mail_defer (db/500) fails the row sooner if the next try would pass its two
 # days or the life of the link inside it.
 RETRY_AFTER = (60, 300, 900, 3600, 14400)
 # RFC 2606 / 6761 names and the Docker/mDNS suffix: a database seeded with
@@ -107,7 +107,7 @@ async def enqueue(
 ) -> int:
     """One mail per active user of each organisation, written in THIS
     transaction: it rolls back with the decision it announces. The recipients
-    are found in the database (db/470 org_mail_recipients), never read into a
+    are found in the database (db/480 org_mail_recipients), never read into a
     client's session, which RLS would refuse. Returns how many were written."""
     if not org_ids:
         return 0
@@ -143,7 +143,7 @@ async def enqueue_to(
     scrub: bool = False,
     resend_until: dt.datetime | None = None,
 ) -> uuid.UUID:
-    """One mail to one address, written in THIS transaction (db/480
+    """One mail to one address, written in THIS transaction (db/490
     mail_enqueue_to). `scrub` marks a mail that carries a link token: its
     context is emptied once sent, so the token lives only in the mailbox.
     `resend_until` is when that link dies; Ops cannot re-send past it. Works
@@ -289,9 +289,9 @@ async def _record(session: AsyncSession, outcome: Outcome) -> None:
     for (reason, seconds), ids in outcome.deferred.items():
         # In a savepoint: the marks above record mail that has left the
         # machine, and must commit whatever happens here. A database not yet
-        # at 0053 has no mail_defer; rolling the whole pass back would send
+        # at 0054 has no mail_defer; rolling the whole pass back would send
         # the delivered mail again on every tick. Failing these rows instead
-        # is what 0052 did with a refusal.
+        # is what 0053 did with a refusal.
         try:
             async with session.begin_nested():
                 await session.execute(
@@ -349,7 +349,7 @@ async def run_pass(
 
 
 async def purge(open_session: Opener = anonymous_session) -> int:
-    """Retention (db/480 mail_purge): sent rows after MAIL_OUTBOX_KEEP_SENT_DAYS,
+    """Retention (db/490 mail_purge): sent rows after MAIL_OUTBOX_KEEP_SENT_DAYS,
     failed ones after MAIL_OUTBOX_KEEP_FAILED_DAYS. Returns how many went."""
     async with open_session() as session:
         n = (
@@ -427,7 +427,7 @@ async def log_rows(
 
 
 async def resend(session: AsyncSession, claims: AccessClaims, mail_id: uuid.UUID) -> uuid.UUID:
-    """Queue a failed mail again (db/480 mail_resend): a new row the next pass
+    """Queue a failed mail again (db/490 mail_resend): a new row the next pass
     sends, linked to the failed one. LookupError when there is no such row;
     OutboxError with the database's reason when it will not be re-sent."""
     try:

@@ -1,5 +1,5 @@
 """Every e-mail the platform sends is an outbox row, queued in the deciding
-transaction (db/480). Read off the modules' ASTs, as test_roster_import_unit
+transaction (db/490). Read off the modules' ASTs, as test_roster_import_unit
 does, so a future `send_mail` slipping back into a request handler fails here.
 
     pytest tests/test_mail_callsites_unit.py

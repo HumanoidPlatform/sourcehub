@@ -1,4 +1,4 @@
-"""The mail log: db/480, migration 0052 and the Ops side of modules/outbox.
+"""The mail log: db/490, migration 0053 and the Ops side of modules/outbox.
 
 What this file guards, in the order it would hurt:
 
@@ -9,7 +9,7 @@ What this file guards, in the order it would hurt:
     definer function that checks is_platform_admin() or the row's org_id;
   * the console's offer and reminder screens going blind: mail_mark writes the
     outcome back onto task_offer_recipient and engagement_reminder;
-  * the running 0051 API breaking while 0052 lands: the three-argument
+  * the running 0052 API breaking while 0053 lands: the three-argument
     mail_enqueue stays;
   * the migration drifting from the SQL file, or the capability existing in
     one of the two seeding paths only.
@@ -31,9 +31,9 @@ from sourcehub.config import settings
 from sourcehub.modules.outbox import service as outbox
 
 ROOT = Path(__file__).resolve().parents[2]
-SQL = ROOT / "db" / "480_mail_log.sql"
+SQL = ROOT / "db" / "490_mail_log.sql"
 SEED_SQL = ROOT / "db" / "900_seed.sql"
-MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0052_mail_log.py"
+MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0053_mail_log.py"
 BUNDLE = ROOT / "infra" / "bundle_schema.sh"
 
 SQL_TEXT = SQL.read_text(encoding="utf-8")
@@ -68,12 +68,12 @@ def _statements(ddl: str) -> list[str]:
     ns: dict[str, Any] = {}
     tree = ast.parse(MIGRATION_TEXT)
     fn = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_statements")
-    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0052", "exec"), ns)
+    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0053", "exec"), ns)
     return ns["_statements"](ddl)
 
 
 def _body(fn: str, sig: str | None = None) -> str:
-    """The $fn$ body of a function in db/480; `sig` picks an overload."""
+    """The $fn$ body of a function in db/490; `sig` picks an overload."""
     code = _strip_comments(SQL_TEXT)
     head = rf"FUNCTION {fn}\({re.escape(sig)}" if sig is not None else rf"FUNCTION {fn}\("
     m = re.search(head + r".*?\$fn\$(.*?)\$fn\$", code, re.S)
@@ -90,21 +90,21 @@ def test_the_migration_carries_the_sql_verbatim():
     assert _literal("_UP") == "\n" + SQL_TEXT
 
 
-def test_the_migration_follows_0051():
-    assert re.search(r'^revision = "0052"$', MIGRATION_TEXT, re.M)
-    assert re.search(r'^down_revision = "0051"$', MIGRATION_TEXT, re.M)
+def test_the_migration_follows_0052():
+    assert re.search(r'^revision = "0053"$', MIGRATION_TEXT, re.M)
+    assert re.search(r'^down_revision = "0052"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_file_is_in_the_bundle_after_470():
+def test_the_file_is_in_the_bundle_after_480():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     files = m.group(1).split()
-    assert files.index("480_mail_log") == files.index("470_mail_outbox") + 1
+    assert files.index("490_mail_log") == files.index("480_mail_outbox") + 1
 
 
 def test_no_comment_line_ends_a_statement():
     for label, text in (
-        ("db/480", SQL_TEXT),
+        ("db/490", SQL_TEXT),
         ("_SEED", _literal("_SEED")),
         ("_DOWN", _literal("_DOWN")),
     ):
@@ -284,10 +284,10 @@ def test_the_capabilities_live_in_both_seeding_paths():
     )
 
 
-def test_the_downgrade_refuses_while_mail_waits_and_restores_the_470_bodies():
+def test_the_downgrade_refuses_while_mail_waits_and_restores_the_480_bodies():
     down = _literal("_DOWN")
     assert "sent_at IS NULL AND failed_at IS NULL" in down.split("DELETE FROM", 1)[0]
-    assert "RAISE EXCEPTION '0052 downgrade" in down
+    assert "RAISE EXCEPTION '0053 downgrade" in down
     assert down.index("DELETE FROM role_permission") < down.index("DELETE FROM permission WHERE")
     for fn in (
         "mail_purge(int, int)",
@@ -305,8 +305,8 @@ def test_the_downgrade_refuses_while_mail_waits_and_restores_the_470_bodies():
         "mail_mark(p_ids uuid[], p_reason text)",
     ):
         assert f"CREATE OR REPLACE FUNCTION {fn}" in down, fn
-    # the restored bodies are db/470's, not a retyping
-    sql470 = (ROOT / "db" / "470_mail_outbox.sql").read_text(encoding="utf-8")
+    # the restored bodies are db/480's, not a retyping
+    sql470 = (ROOT / "db" / "480_mail_outbox.sql").read_text(encoding="utf-8")
     for fn in ("mail_enqueue", "mail_pending", "mail_mark"):
         m = re.search(rf"CREATE OR REPLACE FUNCTION {fn}\(.*?\n\$fn\$;", sql470, re.S)
         assert m and m.group(0) in down, fn

@@ -435,7 +435,7 @@ async def _queue_worker_invitation(
     worker_id: uuid.UUID,
     reference_code: str,
 ) -> None:
-    """Queued in the same transaction as the roster row (db/480 mail_outbox)
+    """Queued in the same transaction as the roster row (db/490 mail_outbox)
     and sent within seconds by modules/outbox. Nothing here can roll the invite
     back; the Ops mail log shows whether the mail left, and an import of fifty
     queues fifty rows the same way."""
@@ -752,7 +752,7 @@ async def import_rows(
                 {"row": v.row, "outcome": "skipped", "reason": f"Could not be saved: {what[:160]}"}
             )
 
-    # The invitation mails are queued rows now (db/480), sent within seconds and
+    # The invitation mails are queued rows now (db/490), sent within seconds and
     # visible on the Ops mail log; nothing about delivery is known here.
     noun = "crowd resource" if added + invited == 1 else "crowd resources"
     await audit.log(

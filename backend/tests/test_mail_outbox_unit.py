@@ -1,4 +1,4 @@
-"""The mail outbox: db/470, migration 0051 and modules/outbox.
+"""The mail outbox: db/480, migration 0052 and modules/outbox.
 
 What this file guards, in the order it would hurt:
 
@@ -38,8 +38,8 @@ from sourcehub.platform.mail import smtp as smtp_mod
 from sourcehub.platform.mail.smtp import SMTPDeliveryError
 
 ROOT = Path(__file__).resolve().parents[2]
-SQL = ROOT / "db" / "470_mail_outbox.sql"
-MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0051_mail_outbox.py"
+SQL = ROOT / "db" / "480_mail_outbox.sql"
+MIGRATION = ROOT / "backend" / "migrations" / "versions" / "0052_mail_outbox.py"
 BUNDLE = ROOT / "infra" / "bundle_schema.sh"
 MAIN = ROOT / "backend" / "src" / "sourcehub" / "main.py"
 
@@ -61,7 +61,7 @@ def _statements(ddl: str) -> list[str]:
     ns: dict[str, Any] = {}
     tree = ast.parse(MIGRATION_TEXT)
     fn = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == "_statements")
-    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0051", "exec"), ns)
+    exec(compile(ast.Module(body=[fn], type_ignores=[]), "0052", "exec"), ns)
     return ns["_statements"](ddl)
 
 
@@ -80,20 +80,20 @@ def test_the_migration_carries_the_sql_verbatim():
     assert _literal("_UP") == "\n" + SQL_TEXT
 
 
-def test_the_migration_follows_0050():
-    assert re.search(r'^revision = "0051"$', MIGRATION_TEXT, re.M)
-    assert re.search(r'^down_revision = "0050"$', MIGRATION_TEXT, re.M)
+def test_the_migration_follows_the_terms_0051():
+    assert re.search(r'^revision = "0052"$', MIGRATION_TEXT, re.M)
+    assert re.search(r'^down_revision = "0051"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_file_is_in_the_bundle_after_460():
+def test_the_file_is_in_the_bundle_after_the_terms_470():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
     files = m.group(1).split()
-    assert files.index("470_mail_outbox") == files.index("460_datahub_name") + 1
+    assert files.index("480_mail_outbox") == files.index("470_platform_terms") + 1
 
 
 def test_no_comment_line_ends_a_statement():
-    for label, text in (("db/470", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
+    for label, text in (("db/480", SQL_TEXT), ("_DOWN", _literal("_DOWN"))):
         for n, line in enumerate(text.splitlines(), 1):
             if line.strip().startswith("--"):
                 assert not line.rstrip().endswith(";"), f"{label} line {n}: {line}"
@@ -303,7 +303,7 @@ def test_enqueue_hands_the_organisations_to_the_database_and_nothing_for_none():
     assert len(calls) == 1
     sql, params = calls[0]
     assert "CAST(:c AS jsonb)" in sql and "CAST(:o AS uuid[])" in sql
-    # db/480: the fan-out also records what the mail is about, when the caller says
+    # db/490: the fan-out also records what the mail is about, when the caller says
     assert params == {
         "t": "rfp_awarded",
         "c": '{"title": "x"}',
@@ -333,7 +333,7 @@ def test_sent_rows_are_marked_sent_and_refused_ones_failed_with_the_servers_reas
 
     async def send(msgs):
         assert [m[0] for m in msgs] == ["partner@northstar.co", "other@meridian.co"]
-        # db/490: the adapter says whether a refusal is worth retrying
+        # db/500: the adapter says whether a refusal is worth retrying
         return [None, smtp_mod.SendError("SMTPRecipientsRefused: 550 no such user", False)]
 
     counts = _run(s, send)
@@ -344,7 +344,8 @@ def test_sent_rows_are_marked_sent_and_refused_ones_failed_with_the_servers_reas
     assert s.called("mail_pending") == [{"n": settings.mail_outbox_batch}]
 
 
-def test_the_mail_server_being_down_leaves_rows_waiting_but_settles_the_unsendable():
+def test_the_mail_server_being_down_leaves_rows_waiting_but_settles_the_unsendable(monkeypatch):
+    monkeypatch.setattr(outbox.settings, "mail_outbox_skip_reserved_domains", True)
     good, reserved = _row(), _row(email="demo@acme.example")
     s = _Session(rows=[good, reserved])
 
@@ -394,7 +395,7 @@ def _batch(monkeypatch, fake, messages):
 
 
 def test_a_title_with_a_line_break_becomes_a_one_line_subject_not_a_stopped_queue(monkeypatch):
-    # db/480: subjects carry RFP, task and dataset titles; Reply-To a person's name
+    # db/490: subjects carry RFP, task and dataset titles; Reply-To a person's name
     fake = _FakeSMTP()
     errors = _batch(
         monkeypatch,

@@ -229,7 +229,7 @@ def assignment_reminder_context(
     today: dt.date,
 ) -> tuple[dict[str, Any], str]:
     """(context, line): the subject and every rendered field of a reminder, as
-    the outbox stores them (db/480; messages.assignment_reminder_mail renders
+    the outbox stores them (db/490; messages.assignment_reminder_mail renders
     them), and the one sentence that also goes on the phone's bell. No link:
     the work is in the app, not on a page."""
     title = f"{task_ref} {task_title}"
@@ -403,7 +403,7 @@ async def _send(
     dues: list[Due],
     manual_by: uuid.UUID | None,
 ) -> int:
-    """Queue every due reminder (db/480 mail_outbox), ring the bell, record
+    """Queue every due reminder (db/490 mail_outbox), ring the bell, record
     the rows. The reminder row is written first with no outcome; mail_mark()
     fills its sent_at or send_error when the clock sends, and the console
     shows it. Nothing leaves from here."""

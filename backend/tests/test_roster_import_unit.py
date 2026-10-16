@@ -242,7 +242,7 @@ def test_a_batch_audits_once_and_queues_each_invitation():
     assert _audit_events(fn) == ["roster.imported"]
     calls = _calls(fn)
     assert "_queue_worker_invitation" in calls
-    # db/480: an invitation is an outbox row written in the import transaction,
+    # db/490: an invitation is an outbox row written in the import transaction,
     # never a send from the request; the Ops mail log shows what left
     assert "send_mail" not in calls and "send_many" not in calls
     assert "enqueue_to" in _calls(_function("_queue_worker_invitation"))

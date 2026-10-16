@@ -28,9 +28,17 @@ PW = "SourceHub#2026"
 def login(email: str) -> httpx.Client:
     r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW}, timeout=T)
     r.raise_for_status()
-    tok = r.json()["access_token"]
-    c = httpx.Client(base_url=B, headers={"Authorization": f"Bearer {tok}"}, timeout=30)
-    c.org_name = r.json()["org_name"]
+    s = r.json()
+    if s.get("terms_due"):
+        # db/470: the Terms gate. Accept, then refresh for a token without it.
+        auth = {"Authorization": f"Bearer {s['access_token']}"}
+        httpx.post(f"{B}/terms/accept", json={"version": s["terms_due"]}, headers=auth,
+                   timeout=T).raise_for_status()
+        r = httpx.post(f"{B}/auth/refresh", json={"refresh_token": s["refresh_token"]}, timeout=T)
+        r.raise_for_status()
+        s = r.json()
+    c = httpx.Client(base_url=B, headers={"Authorization": f"Bearer {s['access_token']}"}, timeout=30)
+    c.org_name = s["org_name"]
     return c
 
 
@@ -153,7 +161,7 @@ assert req["pricing"]["estimated_total"] == "75000.00", req["pricing"]
 ok("client publishes", f"{req['reference_code']} {req['status']} at {req['pricing']['text']}")
 
 # every active user of every active partner hears by e-mail: written in the
-# publish transaction (db/470 mail_enqueue), sent by the outbox clock, branded
+# publish transaction (db/480 mail_enqueue), sent by the outbox clock, branded
 m = wait_mail(
     "partner@northstar.example", f"New RFP: {req['reference_code']}", f"/requests/{req['id']}"
 )
@@ -385,7 +393,7 @@ def invitation_token(email: str) -> str:
 def mail_ids(email: str) -> set[str]:
     """Every message the catcher already holds for `email`: the baseline to take
     BEFORE an action that mails, so mail_token() waits for the new one. Mails
-    leave a few seconds after the action now (db/480), and a worker who had
+    leave a few seconds after the action now (db/490), and a worker who had
     an earlier offer still has that mail — its token already answered."""
     msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
     return {m["ID"] for m in msgs}
@@ -404,7 +412,7 @@ def mail_token(email: str, subject_contains: str, before: set[str] = frozenset()
     cannot see it — run the script against a catcher, or drive the invitation
     by hand from the address it was sent to.
     """
-    # a minute: the outbox clock (db/480) sends a few seconds after the commit
+    # a minute: the outbox clock (db/490) sends a few seconds after the commit
     for _ in range(240):
         msgs = httpx.get(f"{MP}/search", params={"query": f"to:{email}"}).json()["messages"]
         msgs = [
@@ -788,7 +796,7 @@ r = agg.post(f"/tasks/{task3['id']}/offers", json={
 assert r.status_code == 201, r.text
 offer = r.json()
 assert offer["status"] == "open" and offer["worker_limit"] == 2 and offer["accepted_count"] == 0, offer
-# db/480: the mails are queued in the offer's transaction and sent by the clock,
+# db/490: the mails are queued in the offer's transaction and sent by the clock,
 # so right now every recipient is "queued" — no outcome yet, and no error
 assert len(offer["recipients"]) == 3, offer
 assert all(not x["send_error"] for x in offer["recipients"]), offer
@@ -803,7 +811,7 @@ ok("a second open offer on the same task refused")
 t1, t2, t3 = (offer_token(e, seen[e]) for e in (w1_email, w2_email, w3_email))
 
 # ... and once the clock has sent them, mail_mark wrote sent_at onto each
-# recipient row (db/480), which is what the console's offer panel shows
+# recipient row (db/490), which is what the console's offer panel shows
 for _ in range(120):
     sent = [x for o in agg.get(f"/tasks/{task3['id']}/offers").json() if o["id"] == offer["id"]
             for x in o["recipients"]]

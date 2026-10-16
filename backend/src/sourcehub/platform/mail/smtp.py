@@ -12,7 +12,7 @@ developer with no mail account working exactly as before.
 smtplib is blocking, so sends run in a thread; the caller awaits a coroutine
 either way, which is the Protocol every adapter here honours.
 
-Failures are raised as SMTPDeliveryError. Since db/480 the one caller is the
+Failures are raised as SMTPDeliveryError. Since db/490 the one caller is the
 outbox dispatcher (modules/outbox): a message the server refuses marks its
 row failed with the server's words, and a connection or login failure leaves
 every row waiting for the next pass. The Ops mail log shows both, which is why

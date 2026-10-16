@@ -1,5 +1,5 @@
 // admin/mail — the Ops mail log: every e-mail the platform sent or tried to
-// (db/480 mail_outbox). Today's counts, the week, the failures with the mail
+// (db/490 mail_outbox). Today's counts, the week, the failures with the mail
 // server's own reason, and a re-send. Nothing here shows a mail's content: an
 // unsent invitation's token is in it, and the API never returns it.
 
@@ -64,7 +64,7 @@ const STATE: Record<
 > = {
   sent: { text: "Sent", tone: "success" },
   failed: { text: "Failed", tone: "critical" },
-  // db/490: the server said "not now"; the clock tries again by itself
+  // db/500: the server said "not now"; the clock tries again by itself
   retrying: { text: "Retrying", tone: "attention" },
   queued: { text: "Waiting", tone: "neutral" },
 };

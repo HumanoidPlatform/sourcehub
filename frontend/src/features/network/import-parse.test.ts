@@ -87,7 +87,7 @@ describe("the template and the report", () => {
     expect(rows.some((r) => r.join(" ").includes("Drone operation"))).toBe(true);
   });
 
-  it("reports what was not imported; invited rows are not errors (their mail is queued, db/480)", () => {
+  it("reports what was not imported; invited rows are not errors (their mail is queued, db/490)", () => {
     const verdicts = [
       { row: 2, status: "ready" as const, reasons: [], normalized: { row: 2, display_name: "A", email: "a@x.example", phone: null, skills: [], trained: false } },
       { row: 3, status: "error" as const, reasons: ["Not an email address: nope."], normalized: { row: 3, display_name: "B", email: null, phone: null, skills: [], trained: false } },

@@ -20,6 +20,9 @@ export interface Session {
   scope: string;
   capabilities: string[];
   must_change_password: boolean;
+  // The Terms version still to accept (db/470); the router holds the person at
+  // the Terms gate while it is set, and the API refuses everything else.
+  terms_due?: string | null;
 }
 
 // Exported so the auth provider can tell, from a `storage` event, that another
@@ -101,6 +104,13 @@ async function tryRefresh(): Promise<Session | null> {
   }
   return refreshing;
 }
+
+/**
+ * A fresh token now, rather than at the next 401: after accepting the Terms
+ * the stored token still says they are due. The auth provider follows through
+ * the session listener, as it does for any refresh.
+ */
+export const refreshSession = (): Promise<Session | null> => tryRefresh();
 
 export async function api<T = unknown>(
   method: string,

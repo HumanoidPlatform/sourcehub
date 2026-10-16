@@ -167,6 +167,8 @@ async def resolve_claims(
         )
     ).scalar_one()
     mfa_satisfied = (not needs_mfa) or (not settings.mfa_enforcement)
+    # db/470: the Terms version still to accept; the session runs as this user
+    terms_due = (await session.execute(text("SELECT terms_due()"))).scalar_one()
     who = (
         await session.execute(
             select(AppUser.full_name, AppUser.email).where(AppUser.id == user_id)
@@ -184,6 +186,7 @@ async def resolve_claims(
         capabilities=frozenset(caps),
         mfa_satisfied=mfa_satisfied,
         must_change_password=must_change_password,
+        terms_due=terms_due,
     )
 
 
@@ -367,27 +370,108 @@ async def change_password(claims: AccessClaims, current: str, new: str) -> None:
 # ---------------------------------------------------------------------------
 
 async def invitation_preview(token_raw: str) -> dict[str, Any] | None:
+    """The invitation, and the Terms the invitee must accept with it (None for
+    a worker's invitation, or when nothing is in effect)."""
     async with anonymous_session() as s:
         row = (
             await s.execute(
                 text("SELECT * FROM invitation_lookup(:h)"), {"h": hash_token(token_raw)}
             )
         ).mappings().first()
-    return dict(row) if row else None
+        if row is None:
+            return None
+        due = (
+            await s.execute(text("SELECT invitation_terms_due(:h)"), {"h": hash_token(token_raw)})
+        ).scalar_one()
+        terms = await _terms_heading(s, due) if due else None
+    return {**dict(row), "terms": terms}
 
 
-async def invitation_accept(token_raw: str, password: str) -> uuid.UUID:
+async def invitation_accept(
+    token_raw: str,
+    password: str,
+    terms_version: str | None = None,
+    ip: str | None = None,
+    user_agent: str | None = None,
+) -> uuid.UUID:
+    """Set the password and, unless the invitee is a crowd worker, accept the
+    Terms: one transaction, so the account never goes live without them."""
     from sourcehub.platform.identity import database as pwd
 
     new_hash, algo = pwd.hash_password(password)
+    h = hash_token(token_raw)
     async with anonymous_session() as s:
+        due = (await s.execute(text("SELECT invitation_terms_due(:h)"), {"h": h})).scalar_one()
+        if due is not None and terms_version != due:
+            raise TermsError(
+                "Accept the Terms & Conditions to finish."
+                if not terms_version
+                else _STALE_TERMS
+            )
         uid = (
             await s.execute(
                 text("SELECT invitation_accept(:h, :p, :a)"),
-                {"h": hash_token(token_raw), "p": new_hash, "a": algo},
+                {"h": h, "p": new_hash, "a": algo},
             )
         ).scalar_one()
+        if due is not None:
+            await s.execute(
+                text("SELECT invitation_terms_accept(:h, :v, :ip, :ua)"),
+                {"h": h, "v": due, "ip": ip, "ua": user_agent},
+            )
     return uid
+
+
+# ---------------------------------------------------------------------------
+# The Onboarding Terms & Conditions (db/470)
+# ---------------------------------------------------------------------------
+
+class TermsError(Exception):
+    """The Terms were not accepted as asked: not ticked, or not the version in effect."""
+
+
+_STALE_TERMS = "These Terms have been replaced. Reload the page and read the current version."
+
+
+async def _terms_heading(session: AsyncSession, version: str) -> dict[str, Any]:
+    row = (
+        await session.execute(
+            text("SELECT version, title, effective_at FROM platform_terms WHERE version = :v"),
+            {"v": version},
+        )
+    ).mappings().one()
+    return dict(row)
+
+
+async def current_terms() -> dict[str, Any] | None:
+    """The version in effect, as anyone reads it, signed in or not."""
+    async with anonymous_session() as s:
+        row = (
+            await s.execute(
+                text(
+                    "SELECT version, title, effective_at, body, checkbox_text, declaration, sha256 "
+                    "FROM platform_terms WHERE version = terms_current_version()"
+                )
+            )
+        ).mappings().first()
+    return dict(row) if row else None
+
+
+async def accept_terms(
+    claims: AccessClaims, version: str, ip: str | None, user_agent: str | None
+) -> None:
+    """Record the signed-in person's acceptance. The token still says the Terms
+    are due until the client refreshes it, which re-reads terms_due()."""
+    async with org_session(claims.org_id, claims.role, claims.user_id) as s:
+        try:
+            await s.execute(
+                text("SELECT terms_accept(:v, :ip, :ua)"),
+                {"v": version, "ip": ip, "ua": user_agent},
+            )
+        except DBAPIError as e:
+            if "not the version in effect" in str(e):
+                raise TermsError(_STALE_TERMS) from None
+            raise
 
 
 async def request_password_reset(email: str, ip: str | None) -> None:
@@ -402,7 +486,7 @@ async def request_password_reset(email: str, ip: str | None) -> None:
         ).mappings().first()
         if row is None:
             return  # silent — no enumeration
-        # Queued in the same transaction as the token (db/480 mail_outbox) and
+        # Queued in the same transaction as the token (db/490 mail_outbox) and
         # sent within seconds by modules/outbox, never from this request. There
         # is no organisation here, so the row belongs to the platform.
         link = f"{settings.app_base_url}/reset-password?token={raw}"
@@ -1216,7 +1300,7 @@ async def _queue_member_invitation(
     raw_token: str,
     user_id: uuid.UUID,
 ) -> None:
-    """Queued in the same transaction as the grant (db/480 mail_outbox) and
+    """Queued in the same transaction as the grant (db/490 mail_outbox) and
     sent within seconds by modules/outbox. Nothing here can roll the change
     back, and the Ops mail log shows whether the mail left."""
     from sourcehub.modules.outbox import service as outbox

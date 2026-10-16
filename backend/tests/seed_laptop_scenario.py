@@ -44,9 +44,18 @@ def login(email: str) -> httpx.Client:
     r = httpx.post(f"{B}/auth/login", json={"email": email, "password": PW}, timeout=30)
     if r.status_code != 200:
         raise SystemExit(f"login failed for {email}: {r.status_code} {r.text}")
+    s = r.json()
+    if s.get("terms_due"):
+        # db/470: the Terms gate. Accept, then refresh for a token without it.
+        auth = {"Authorization": f"Bearer {s['access_token']}"}
+        httpx.post(f"{B}/terms/accept", json={"version": s["terms_due"]}, headers=auth,
+                   timeout=30).raise_for_status()
+        r = httpx.post(f"{B}/auth/refresh", json={"refresh_token": s["refresh_token"]}, timeout=30)
+        r.raise_for_status()
+        s = r.json()
     return httpx.Client(
         base_url=B,
-        headers={"Authorization": f"Bearer {r.json()['access_token']}"},
+        headers={"Authorization": f"Bearer {s['access_token']}"},
         timeout=60,
     )
 

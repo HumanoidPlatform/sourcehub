@@ -184,7 +184,7 @@ def test_every_template_has_a_text_sibling_and_a_builder():
         assert (TEMPLATES / f"{n}.txt").exists(), n
         assert callable(getattr(messages, n)), n
     assert (TEMPLATES / "base.html").exists()
-    # db/480: every mail is an outbox row, so every template has a registered builder
+    # db/490: every mail is an outbox row, so every template has a registered builder
     assert set(messages.OUTBOX) == set(names)
 
 

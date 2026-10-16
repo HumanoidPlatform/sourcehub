@@ -39,11 +39,11 @@ def test_the_migration_follows_0049():
     assert re.search(r'^down_revision = "0049"$', MIGRATION_TEXT, re.M)
 
 
-def test_the_file_is_in_the_bundle_after_450():
+def test_the_new_file_follows_450_in_the_bundle():
     m = re.search(r'^STRUCTURE="([^"]*)"', BUNDLE.read_text(encoding="utf-8"), re.M)
     assert m
-    files = m.group(1).split()
-    assert files.index("460_datahub_name") == files.index("450_dataset_deal_invoices") + 1
+    listed = m.group(1).split()
+    assert listed[listed.index("460_datahub_name") - 1] == "450_dataset_deal_invoices"
 
 
 def test_the_sellers_bell_says_datahub():

@@ -88,7 +88,7 @@ const NAV: Record<string, NavItem[]> = {
     { to: "/ops/datahub", label: "DataHub" },
     { to: "/billing", label: "Billing" },
     { to: "/activity", label: "Activity" },
-    // every e-mail the platform sent or tried to (db/480): today, failures, re-send
+    // every e-mail the platform sent or tried to (db/490): today, failures, re-send
     { to: "/mail", label: "Mail" },
   ],
 };

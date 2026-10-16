@@ -1,6 +1,6 @@
 """mail — the platform mail log, for operations.
 
-Every e-mail the platform sends is a mail_outbox row (db/470, db/480) that the
+Every e-mail the platform sends is a mail_outbox row (db/480, db/490) that the
 outbox clock sends. These routes read that table through its definer functions:
 today's counts, the list with its failures and reasons, and a re-send of a
 failed mail. Capabilities mail.read and mail.resend; the database refuses

@@ -70,7 +70,7 @@ describe("DataHub", () => {
 });
 
 describe("the Mail link", () => {
-  it("ends the operations rail, after Activity (db/480: every e-mail the platform sent)", () => {
+  it("ends the operations rail, after Activity (db/490: every e-mail the platform sent)", () => {
     const links = rail("platform_admin", "platform");
     const labels = links.map(([label]) => label);
     expect(labels.slice(-2)).toEqual(["Activity", "Mail"]);

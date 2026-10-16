@@ -18,6 +18,7 @@ import {
   Skeleton, TagInput, textareaCls, useToast, View,
 } from "@ds/primitives";
 import { useSession } from "@shared/auth";
+import { PRODUCT } from "@shared/brand";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { can } from "@shared/rbac";
 import { ReasonDialog } from "@shared/reason-dialog";
@@ -158,6 +159,7 @@ export function DatasetEditorPage() {
     retry: (n, e) => !(e instanceof ApiError && e.status === 404) && n < 1,
   });
   const [withdrawing, setWithdrawing] = useState(false);
+  const [declaring, setDeclaring] = useState(false);
   const setData = (d: Dataset) => {
     qc.setQueryData(["catalogue-manage", id], d);
     void qc.invalidateQueries({ queryKey: ["catalogue-mine"] });
@@ -165,8 +167,9 @@ export function DatasetEditorPage() {
   // One mutation per move, each named in full so the route scan
   // (backend tests/test_frontend_calls_exist_unit.py) can read its URL.
   const submit = useMutation({
-    mutationFn: () => post<Dataset>(`/catalogue/datasets/${id}/submit`),
-    onSuccess: (d) => { setData(d); toast("Submitted for review"); },
+    // the seller's declaration goes with it (Terms §4.4, §8.2); the API refuses without
+    mutationFn: () => post<Dataset>(`/catalogue/datasets/${id}/submit`, { attest: true }),
+    onSuccess: (d) => { setData(d); setDeclaring(false); toast("Submitted for review"); },
     onError: (e) => toast("Not submitted", errText(e), "critical"),
   });
   const pullBack = useMutation({
@@ -195,8 +198,8 @@ export function DatasetEditorPage() {
           <Pill tone={st.tone}>{st.label}</Pill>
           {d.status === "published" && <Link className="btn" to={`/datahub/public/${d.slug}`}>Public page</Link>}
           {editable && (
-            <Button variant="primary" onClick={() => submit.mutate()} disabled={submit.isPending}>
-              {submit.isPending ? "Submitting…" : "Submit for review"}
+            <Button variant="primary" onClick={() => setDeclaring(true)} disabled={submit.isPending}>
+              Submit for review
             </Button>
           )}
           {d.status === "in_review" && <Button onClick={() => pullBack.mutate()} disabled={pullBack.isPending}>Pull back to edit</Button>}
@@ -212,6 +215,12 @@ export function DatasetEditorPage() {
         <Callout tone="attention" title="With operations for review">
           Submitted {fmtDateTime(d.submitted_at)}. Pull it back if you need to change something.
         </Callout>
+      )}
+      {d.rights_attested_at && d.status !== "draft" && d.status !== "rejected" && (
+        <p className="small muted" style={{ margin: 0 }}>
+          Declaration made {fmtDateTime(d.rights_attested_at)}
+          {d.rights_attested_by_name ? ` by ${d.rights_attested_by_name}` : ""}.
+        </p>
       )}
       {d.status === "withdrawn" && (
         <Callout tone="neutral" title="Withdrawn from sale">{d.withdrawn_reason} Deals already agreed stand.</Callout>
@@ -234,7 +243,56 @@ export function DatasetEditorPage() {
           onClose={() => setWithdrawing(false)}
         />
       )}
+      {declaring && (
+        <DeclarationDialog
+          busy={submit.isPending}
+          onConfirm={() => submit.mutate()}
+          onClose={() => setDeclaring(false)}
+        />
+      )}
     </View>
+  );
+}
+
+/**
+ * What the seller declares each time it sends a listing for review (Terms
+ * §4.4, §8.2). Submitting is disabled until it is ticked, and the listing
+ * records when and by whom.
+ */
+function DeclarationDialog({
+  busy, onConfirm, onClose,
+}: { busy: boolean; onConfirm: () => void; onClose: () => void }) {
+  const [agreed, setAgreed] = useState(false);
+  return (
+    <Dialog
+      title="Submit for review"
+      sub="Before operations reviews this listing, confirm what you are offering."
+      onClose={onClose}
+      busy={busy}
+      foot={
+        <>
+          <Button onClick={onClose}>Cancel</Button>
+          <Button variant="primary" disabled={!agreed || busy} onClick={onConfirm}>
+            {busy ? "Submitting…" : "Submit for review"}
+          </Button>
+        </>
+      }
+    >
+      <p style={{ marginTop: 0 }}>On behalf of my organisation, I declare that:</p>
+      <ul style={{ margin: "0 0 12px", paddingLeft: 20, lineHeight: 1.55 }}>
+        <li>we own this data, or hold every right, licence and consent needed to list and license it as described;</li>
+        <li>the description is accurate, including its source, collection method, dates, format and known limitations;</li>
+        <li>it contains no restricted category of data, such as sensitive personal data or children&apos;s data, without
+          {" "}{PRODUCT}&apos;s prior written approval.</li>
+      </ul>
+      <label className="checkline">
+        <input type="checkbox" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+        <span>
+          I make this declaration under the <Link to="/terms" target="_blank" rel="noreferrer">Terms &amp; Conditions</Link>
+          {" "}(sections 4.4 and 8.2).
+        </span>
+      </label>
+    </Dialog>
   );
 }
 

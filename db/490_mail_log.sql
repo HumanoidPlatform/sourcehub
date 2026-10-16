@@ -1,45 +1,7 @@
-"""outbox: every platform e-mail through the mail log, and an Ops screen.
-
-db/480 widens mail_outbox with whose mail it is (org_id), what it is about
-(entity_type, entity_id, label), a Reply-To, the token-scrubbing flags and the
-re-send chain; adds mail_enqueue_to for one address, write-back of the outcome
-onto task_offer_recipient and engagement_reminder from mail_mark, and the Ops
-reads mail_stats, mail_log, mail_resend, mail_status and mail_purge. Additive:
-the three-argument mail_enqueue stays as a wrapper, so the 0051 API keeps
-publishing while this runs.
-
-_SEED gives the platform role the two new capabilities, mail.read and
-mail.resend, in an existing database; db/900_seed.sql carries them for a fresh
-build (STRUCTURE runs before SEED there).
-
-The downgrade refuses while any mail is still waiting, then removes the
-capabilities, the new functions, the new columns and indexes, and puts the
-db/470 bodies of mail_enqueue, mail_pending and mail_mark back. Sent and
-failed history keeps only what db/470 recorded.
-
-SQL copied verbatim from db/480_mail_log.sql so the bootstrap and migration
-paths keep producing identical schemas; a test asserts the two stay
-byte-identical.
-
-Executed one statement at a time, with the splitter 0030 uses, because asyncpg
-refuses two statements in one execute.
-
-Revision ID: 0052
-Revises: 0051
-"""
-
-from alembic import op
-
-revision = "0052"
-down_revision = "0051"
-branch_labels = None
-depends_on = None
-
-_UP = """
 -- ============================================================================
--- 480 · Mail log: every platform e-mail goes through the outbox, and Ops see it
+-- 490 · Mail log: every platform e-mail goes through the outbox, and Ops see it
 --
--- db/470 queued only the two RFP mails. From here every e-mail the platform
+-- db/480 queued only the two RFP mails. From here every e-mail the platform
 -- sends -- password resets, invitations, task offers, reminders, DataHub
 -- replies, the RFP mails -- is a mail_outbox row, written in the transaction
 -- that decided to send it and sent by the clock (modules/outbox). One table
@@ -68,7 +30,7 @@ _UP = """
 --
 -- OPS READS are SECURITY DEFINER functions that refuse anyone but the platform
 -- role. mail_log never looks at context: an unsent invitation's token is in it.
--- The three-argument mail_enqueue stays, as a wrapper, so the 0051 API keeps
+-- The three-argument mail_enqueue stays, as a wrapper, so the 0052 API keeps
 -- publishing while this file lands.
 -- ============================================================================
 
@@ -108,7 +70,7 @@ CREATE INDEX mail_outbox_resent_idx  ON mail_outbox (resent_from) WHERE resent_f
 
 -- ---------------------------------------------------------------------------
 -- mail_enqueue -- the fan-out to every active user of the given organisations
--- (db/470), now stamping whose mail it is and what it is about.
+-- (db/480), now stamping whose mail it is and what it is about.
 -- ---------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[],
                                         p_entity_type text, p_entity_id uuid, p_label text)
@@ -128,7 +90,7 @@ BEGIN
 END
 $fn$;
 
--- The db/470 shape, for the API that is still running when this file lands.
+-- The db/480 shape, for the API that is still running when this file lands.
 CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[])
 RETURNS int
 LANGUAGE sql VOLATILE SECURITY DEFINER SET search_path = public AS $fn$
@@ -383,134 +345,3 @@ GRANT  EXECUTE ON FUNCTION mail_stats()                                         
 GRANT  EXECUTE ON FUNCTION mail_log(text, int, timestamptz)                                                    TO sourcehub_app;
 GRANT  EXECUTE ON FUNCTION mail_resend(uuid)                                                                   TO sourcehub_app;
 GRANT  EXECUTE ON FUNCTION mail_purge(int, int)                                                                TO sourcehub_app;
-"""
-
-_SEED = """
-INSERT INTO permission (code, module, description, requires_mfa) VALUES
-  ('mail.read',   'audit', 'Read the platform mail log',       false),
-  ('mail.resend', 'audit', 'Re-send a failed platform e-mail', false)
-ON CONFLICT (code) DO NOTHING;
-
-INSERT INTO role_permission (role_id, permission_id)
-SELECT r.id, p.id
-FROM   role r, permission p
-WHERE  r.code = 'platform_admin' AND r.is_system AND p.code IN ('mail.read', 'mail.resend')
-ON CONFLICT DO NOTHING;
-"""
-
-_DOWN = """
-DO $fn$
-BEGIN
-  IF EXISTS (SELECT 1 FROM mail_outbox WHERE sent_at IS NULL AND failed_at IS NULL) THEN
-    RAISE EXCEPTION '0052 downgrade: mail is still waiting to be sent; stop the API and let the queue drain first';
-  END IF;
-END
-$fn$;
-
-DELETE FROM role_permission
-WHERE  permission_id IN (SELECT id FROM permission WHERE code IN ('mail.read', 'mail.resend'));
-DELETE FROM permission WHERE code IN ('mail.read', 'mail.resend');
-
-DROP FUNCTION IF EXISTS mail_purge(int, int);
-DROP FUNCTION IF EXISTS mail_resend(uuid);
-DROP FUNCTION IF EXISTS mail_log(text, int, timestamptz);
-DROP FUNCTION IF EXISTS mail_stats();
-DROP FUNCTION IF EXISTS mail_status(text, uuid);
-DROP FUNCTION IF EXISTS mail_enqueue_to(text, jsonb, citext, text, text, text, uuid, text, boolean, timestamptz);
-DROP FUNCTION IF EXISTS mail_enqueue(text, jsonb, uuid[], text, uuid, text);
-DROP FUNCTION IF EXISTS mail_pending(int);
-
--- the db/470 bodies, verbatim
-CREATE OR REPLACE FUNCTION mail_enqueue(p_template text, p_context jsonb, p_org_ids uuid[])
-RETURNS int
-LANGUAGE plpgsql VOLATILE SECURITY DEFINER SET search_path = public AS $fn$
-DECLARE
-  v_n int;
-BEGIN
-  INSERT INTO mail_outbox (to_email, to_name, template, context)
-  SELECT r.email, r.full_name, p_template,
-         p_context || jsonb_build_object('recipient_name', r.full_name,
-                                         'recipient_org',  r.org_name)
-  FROM   org_mail_recipients(p_org_ids) r;
-  GET DIAGNOSTICS v_n = ROW_COUNT;
-  RETURN v_n;
-END
-$fn$;
-
-CREATE OR REPLACE FUNCTION mail_pending(p_limit int)
-RETURNS TABLE (id uuid, to_email citext, to_name text, template text, context jsonb)
-LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $fn$
-#variable_conflict use_column
-BEGIN
-  UPDATE mail_outbox m
-     SET failed_at = now(), failure_reason = 'too old'
-   WHERE m.sent_at IS NULL AND m.failed_at IS NULL
-     AND m.created_at < now() - interval '48 hours';
-
-  RETURN QUERY
-  SELECT m.id, m.to_email, m.to_name, m.template, m.context
-  FROM   mail_outbox m
-  WHERE  m.sent_at IS NULL AND m.failed_at IS NULL
-  ORDER  BY m.created_at
-  LIMIT  p_limit;
-END
-$fn$;
-
-CREATE OR REPLACE FUNCTION mail_mark(p_ids uuid[], p_reason text) RETURNS void
-LANGUAGE sql SECURITY DEFINER SET search_path = public AS $fn$
-  UPDATE mail_outbox
-     SET sent_at        = CASE WHEN p_reason IS NULL THEN now() END,
-         failed_at      = CASE WHEN p_reason IS NOT NULL THEN now() END,
-         failure_reason = p_reason
-   WHERE id = ANY (p_ids) AND sent_at IS NULL AND failed_at IS NULL
-$fn$;
-
-REVOKE EXECUTE ON FUNCTION mail_enqueue(text, jsonb, uuid[])    FROM PUBLIC;
-REVOKE EXECUTE ON FUNCTION mail_pending(int)                    FROM PUBLIC;
-REVOKE EXECUTE ON FUNCTION mail_mark(uuid[], text)              FROM PUBLIC;
-GRANT  EXECUTE ON FUNCTION mail_enqueue(text, jsonb, uuid[])    TO sourcehub_app;
-GRANT  EXECUTE ON FUNCTION mail_pending(int)                    TO sourcehub_app;
-GRANT  EXECUTE ON FUNCTION mail_mark(uuid[], text)              TO sourcehub_app;
-
-DROP INDEX IF EXISTS mail_outbox_resent_idx;
-DROP INDEX IF EXISTS mail_outbox_entity_idx;
-DROP INDEX IF EXISTS mail_outbox_created_idx;
-ALTER TABLE mail_outbox DROP CONSTRAINT IF EXISTS mail_outbox_entity_pair;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS resent_from;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS resend_until;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS scrubbed_at;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS scrub_on_send;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS reply_to;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS label;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS entity_id;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS entity_type;
-ALTER TABLE mail_outbox DROP COLUMN IF EXISTS org_id;
-"""
-
-
-def _statements(ddl: str) -> list[str]:
-    out: list[str] = []
-    buf: list[str] = []
-    in_body = False
-    for line in ddl.splitlines():
-        if line.count("$fn$") == 1:
-            in_body = not in_body
-        buf.append(line)
-        if not in_body and line.rstrip().endswith(";"):
-            stmt = chr(10).join(buf).strip()
-            buf = []
-            lines = stmt.splitlines()
-            only_comments = all(ln.strip().startswith("--") or not ln.strip() for ln in lines)
-            if stmt and not only_comments:
-                out.append(stmt)
-    return out
-
-
-def upgrade() -> None:
-    for stmt in _statements(_UP) + _statements(_SEED):
-        op.execute(stmt)
-
-
-def downgrade() -> None:
-    for stmt in _statements(_DOWN):
-        op.execute(stmt)
