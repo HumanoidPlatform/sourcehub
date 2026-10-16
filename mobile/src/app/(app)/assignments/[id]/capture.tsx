@@ -8,6 +8,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { clockTone, formatClock } from "@/capture/clock";
+import { probeCamera } from "@/qa_pipeline/device/camera";
+import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
@@ -129,6 +131,14 @@ export default function Capture() {
       alive = false;
     };
   }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // What this camera can take. The assignment screen has no camera to ask, so
+  // a phone opening the camera for the first time is asked here, before the
+  // first shot (qa_pipeline/device/camera.ts keeps the answer).
+  const [camCaps, setCamCaps] = useState<CameraCaps | null>(null);
+  const onCameraReady = useCallback(() => {
+    if (cam.current) void probeCamera(cam.current).then(setCamCaps);
+  }, []);
 
   // A position kept coming in while the camera is open, so the shutter never
   // has to wait on a new GPS lock (qa_pipeline/location/location.ts watchFix).
@@ -347,9 +357,17 @@ export default function Capture() {
   const tooTilted = recording && maxTilt != null && level != null && level.off > maxTilt;
   const tiltHow = level ? tiltAdvice(level) : null;
   const tone = clockTone(elapsed, minSeconds, maxSeconds);
+  // A camera under the task's megapixel floor: every photo would be refused
+  // by rules.ts, so the photo shutter does nothing and says why. On a task
+  // that also takes clips, video mode is still open.
+  const cameraShort =
+    mode === "picture"
+      ? (deviceFindings(thisDevice(), camCaps, spec, a?.task.target_unit).find((f) => f.code === "device_camera") ?? null)
+      : null;
 
   const shoot = async () => {
     if (!cam.current || busy) return;
+    if (cameraShort) return;
     setError(null);
     try {
       if (mode === "picture") {
@@ -418,7 +436,7 @@ export default function Capture() {
 
   return (
     <View style={c.root}>
-      <CameraView ref={cam} style={c.camera} facing="back" mode={mode} mute={false} />
+      <CameraView ref={cam} style={c.camera} facing="back" mode={mode} mute={false} onCameraReady={onCameraReady} />
       <SafeAreaView style={c.overlay} pointerEvents="box-none">
         <View style={c.top}>
           <Pressable onPress={() => router.back()} accessibilityRole="button" style={c.chip}>
@@ -441,6 +459,7 @@ export default function Capture() {
         {spec?.require_gps && !locationOk ? (
           <Text style={c.warn}>This task needs a location on every capture. Turn location on in settings.</Text>
         ) : null}
+        {cameraShort ? <Text style={c.error}>{cameraShort.message}</Text> : null}
         {error ? <Text style={c.error}>{error}</Text> : null}
         {/* Said while the phone can still be turned, not after a minute of
             filming: the point is to prevent the refusal, as the level is.

@@ -19,6 +19,7 @@ import pytest
 
 from sourcehub.modules.delivery import service as delivery
 from sourcehub.modules.delivery.models import Task
+from sourcehub.modules.invoices import service as invoices
 from sourcehub.modules.marketplace import pricing
 from sourcehub.modules.media import service as media
 
@@ -93,13 +94,26 @@ def test_the_crowd_cannot_deliver(unit):
     assert not pricing.crowd_capturable(unit)
 
 
-def test_units_compare_when_both_counted_or_the_same_measure():
-    assert pricing.units_comparable("records", "photos")
-    assert pricing.units_comparable("photos", None)
-    assert pricing.units_comparable("hours", "hours")
-    assert not pricing.units_comparable("hours", "videos")
-    assert not pricing.units_comparable("photos", "hours")
-    assert not pricing.units_comparable(None, "photos")
+# ---------------------------------------------------------------------------
+# The invoice cap
+# ---------------------------------------------------------------------------
+@pytest.mark.parametrize("unit", ["photos", "videos", "records", "responses", "audio_clips"])
+def test_a_counted_contract_is_capped_by_accepted_captures_whatever_else_was_delivered(unit):
+    # hours is None: an unmeasured or other-unit submission on the contract
+    # must not lift the cap, as it once did
+    assert invoices.invoice_cap(unit, 100, None) == Decimal(100)
+    assert invoices.invoice_cap(unit, 100, Decimal("2.5")) == Decimal(100)
+
+
+def test_hours_are_capped_only_when_all_of_them_were_measured():
+    assert invoices.invoice_cap("hours", 3, Decimal("1.25")) == Decimal("1.25")
+    assert invoices.invoice_cap("hours", 3, None) is None
+
+
+@pytest.mark.parametrize("unit", ["sites", "audio_hours", None])
+def test_what_the_platform_cannot_count_is_never_capped(unit):
+    # 3 summary files are not 3 sites
+    assert invoices.invoice_cap(unit, 3, Decimal(3)) is None
 
 
 # ---------------------------------------------------------------------------

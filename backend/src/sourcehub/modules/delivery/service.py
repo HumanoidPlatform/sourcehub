@@ -1199,11 +1199,18 @@ async def settle_assignment(
             else:
                 a.quantity = kept
             await _hand_on(session, a, moved)
+    # A revoked share was shrunk to what it had sent, rounded UP to the two
+    # places a share holds (_share): 1,200 s of footage is a share of 0.34 h.
+    # Its accepted footage is rounded the same way before the compare, or
+    # 0.3333 < 0.34 holds it open for good. A share a person set stays exact.
+    accepted_units = counts["accepted_units"]
+    if a.revoked_at is not None:
+        accepted_units = _share(accepted_units)
     if (
         a.status == "in_progress"
         and counts["in_review"] == 0
         and counts["accepted"] > 0
-        and counts["accepted_units"] >= Decimal(a.quantity)
+        and accepted_units >= Decimal(a.quantity)
     ):
         a.status = "accepted"
         a.decided_at = dt.datetime.now(dt.timezone.utc)

@@ -178,6 +178,23 @@ export const CLIPPED_SHARE = 0.25;
  *  before it is warned about */
 export const EXPOSURE_FRAMES_WARN_SHARE = 0.5;
 
+/** The platform's floor for a worker's phone, checked on the assignment screen
+ *  before a task starts (qa_pipeline/device/device.ts deviceFindings).
+ *
+ *  Starting values, not measured ones: every capture records its phone
+ *  (device_profile), and the fleet query in backend modules/qa/service.py says
+ *  what the crowd actually carries, so these can be moved on that evidence.
+ *  Android 10 (API 29) and iOS 15 are where expo SDK support and ML Kit's
+ *  on-device models are reliable; under 2 GB of RAM the labeller and the
+ *  camera fight for memory, and under 3 GB a clip's frame check runs slow
+ *  enough to hit FRAMES_BUDGET_MS. */
+export const MIN_ANDROID_API = 29;
+export const MIN_IOS_MAJOR = 15;
+/** under this a phone is refused a task... */
+export const MIN_RAM_GB = 2;
+/** ...and under this the worker is told it may struggle, and can carry on */
+export const WARN_RAM_GB = 3;
+
 /** how often the app re-asks the server while in the foreground */
 export const POLL_MS = 30_000;
 /** re-presign when a signed URL has less than this left */

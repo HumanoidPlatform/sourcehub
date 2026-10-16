@@ -53,8 +53,6 @@ describe("account menu", () => {
       "Change password",
       "Manage users",
       "Terms & Conditions",
-      "Privacy notice",
-      "Report a concern",
       "Sign out",
     ]);
     // present on screen, but not something you can activate
@@ -70,10 +68,6 @@ describe("account menu", () => {
     expect(focused()).toBe("Manage users");
     key("ArrowDown");
     expect(focused()).toBe("Terms & Conditions");
-    key("ArrowDown");
-    expect(focused()).toBe("Privacy notice");
-    key("ArrowDown");
-    expect(focused()).toBe("Report a concern");
     key("ArrowDown");
     expect(focused()).toBe("System");
     key("End");
@@ -150,6 +144,17 @@ describe("the Manage users entry", () => {
     session.current = { ...base, scope: "owner", capabilities: ["rfp.create"] };
     open();
     expect(items()).not.toContain("Manage users");
+  });
+
+  it("offers the privacy notice and Report a concern to a crowd worker only", () => {
+    for (const role of ["worker", "client", "tenant", "aggregator", "business", "sponsor", "platform_admin"]) {
+      session.current = { ...base, role };
+      open();
+      const shown = role === "worker";
+      expect(items().includes("Privacy notice")).toBe(shown);
+      expect(items().includes("Report a concern")).toBe(shown);
+      cleanup();
+    }
   });
 
   it("does not crash the whole shell when a stored session has no capabilities", () => {

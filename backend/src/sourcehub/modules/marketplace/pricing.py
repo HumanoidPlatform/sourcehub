@@ -59,14 +59,6 @@ def crowd_capturable(unit: str | None) -> bool:
     return unit is None or unit in CROWD_UNITS
 
 
-def units_comparable(pricing_unit: str | None, task_unit: str | None) -> bool:
-    """Whether a task's delivered units can be checked against a contract's
-    priced ones: both counted per capture, or the same measured unit."""
-    if pricing_unit in COUNTED_UNITS:
-        return task_unit is None or task_unit in COUNTED_UNITS
-    return pricing_unit is not None and pricing_unit == task_unit
-
-
 def _dec(value: Any) -> Decimal:
     return value if isinstance(value, Decimal) else Decimal(str(value))
 

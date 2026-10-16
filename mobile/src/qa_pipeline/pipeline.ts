@@ -40,6 +40,7 @@ import {
   unscoredFinding,
   type UnscoredReason,
 } from "@/qa_pipeline/subject/subject";
+import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { deviceFinding, thisDevice } from "@/qa_pipeline/device/device";
 import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
 import { frameAt, greyImage, sampleFrames } from "@/qa_pipeline/clip/frames";
@@ -222,7 +223,7 @@ export function useCapture(
       //
       // Boxes come back in the orientation ML Kit decoded, which is the
       // displayed one — so the frame they are measured against has to be too.
-      findings.push(deviceFinding(thisDevice()));
+      findings.push(deviceFinding(thisDevice(), await cachedCamera()));
       if (kind === "photo") {
         const shown = width && height ? displayedSize(width, height, result.exifOrientation) : null;
         const [read, faces, pixels] = await Promise.all([

@@ -6,8 +6,8 @@
 // cannot be touched; what they sent back can be retaken or removed.
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useFocusEffect, useLocalSearchParams, useRouter } from "expo-router";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
@@ -16,7 +16,10 @@ import {
   remaining, requirementLabels, sections, unitsOf, unitText,
 } from "@/batches";
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
+import { cachedCamera } from "@/qa_pipeline/device/camera";
+import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
+import { blocking } from "@/qa_pipeline/rules/rules";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
@@ -53,6 +56,16 @@ export default function AssignmentDetail() {
     // a.task.client_documents is re-read on every render; the ids are what
     // actually change, and they are what decides whether there is work to do.
   }, [taskId, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // What the camera can take, as the capture screen last probed it. Re-read
+  // on focus: the first visit to the camera is what answers it, and the
+  // worker comes back here afterwards.
+  const [camera, setCamera] = useState<CameraCaps | null>(null);
+  useFocusEffect(
+    useCallback(() => {
+      void cachedCamera().then(setCamera);
+    }, []),
+  );
 
   const start = useMutation({
     mutationFn: () => post<Assignment>(`/assignments/${id}/start`),
@@ -146,9 +159,15 @@ export default function AssignmentDetail() {
   const unsentLocal = outbox.filter((r) => r.status !== "confirmed");
   const started = a.status !== "assigned";
   const requirements = requirementLabels(spec);
+  // Whether this phone can do the task at all (qa_pipeline/device/device.ts),
+  // asked before the start rather than shot by shot at the site.
+  const phone = deviceFindings(thisDevice(), camera, spec, unit);
+  const phoneBlocked = blocking(phone);
+  const phoneWarned = phone.filter((f) => f.severity === "warn");
 
   const goCapture = async (replaces?: string) => {
     setError(null);
+    if (phoneBlocked.length > 0) return;
     if (a.status === "assigned" || a.status === "rejected") {
       try {
         await start.mutateAsync();
@@ -237,6 +256,16 @@ export default function AssignmentDetail() {
       <Text style={[s.mono, { marginBottom: 14 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
 
       {error && <Callout tone="critical" title={error} />}
+      {phoneBlocked.length > 0 && (
+        <Callout tone="critical" title="This phone cannot do this task">
+          {phoneBlocked.map((f) => f.message).join(" ")}
+        </Callout>
+      )}
+      {phoneBlocked.length === 0 && phoneWarned.length > 0 && (
+        <Callout tone="attention" title="This phone may struggle">
+          {phoneWarned.map((f) => f.message).join(" ")}
+        </Callout>
+      )}
 
       <AssignmentStatus
         counts={{ ...unitsOf(a), quantity: a.quantity }}

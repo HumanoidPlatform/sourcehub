@@ -164,18 +164,15 @@ async def accepted_assets(session: AsyncSession, contract_id: uuid.UUID) -> tupl
     return int(m["assets"]), int(m["passed"])
 
 
-async def accepted_units(
-    session: AsyncSession, contract_id: uuid.UUID, pricing_unit: str | None
-) -> Decimal | None:
-    """What gate 2 has accepted on a contract, in its pricing unit, or None
-    when that cannot be known.
+async def accepted_hours(session: AsyncSession, contract_id: uuid.UUID) -> Decimal | None:
+    """Hours of footage gate 2 has accepted on a contract, or None when that
+    cannot be known.
 
     Each accepted submission says what it delivered in its task's unit
-    (submission.unit_quantity, db/510). They add up only where every task's
-    unit compares with the contract's (pricing.units_comparable: both counted
-    per capture, or the same measured unit) and every submission was measured.
-    Hours delivered before db/510 were not, and then the partner's figure
-    stands unchecked, as it always did.
+    (submission.unit_quantity, db/510). They add up to hours only when every
+    one is an hours task and was measured. Hours delivered before db/510 were
+    not, and a task in any other unit says nothing about hours; then the
+    partner's figure stands unchecked, as it always did.
     """
     rows = (
         await session.execute(
@@ -189,10 +186,25 @@ async def accepted_units(
     ).all()
     total = Decimal(0)
     for unit, units in rows:
-        if units is None or not pricing.units_comparable(pricing_unit, unit):
+        if units is None or unit != "hours":
             return None
         total += Decimal(units)
     return total
+
+
+def invoice_cap(pricing_unit: str | None, assets: int, hours: Decimal | None) -> Decimal | None:
+    """The most a per-unit contract may have invoiced in all, or None for no cap.
+
+    A counted unit (pricing.COUNTED_UNITS) is capped at the captures gate 2
+    accepted, as it always was. Hours are capped at the measured footage
+    (accepted_hours) when all of it was measured. Anything else, sites
+    among them, the platform cannot count, and the client checks it.
+    """
+    if pricing_unit in pricing.COUNTED_UNITS:
+        return Decimal(assets)
+    if pricing_unit == "hours":
+        return hours
+    return None
 
 
 async def contract_totals(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
@@ -281,10 +293,11 @@ async def raise_invoice(
                 f"{c['reference_code']} is counted in whole "
                 f"{pricing.unit_words(c['pricing_unit'], 2).split(' ', 1)[1]}."
             )
-        delivered = await accepted_units(session, contract_id, c["pricing_unit"])
+        hours = await accepted_hours(session, contract_id) if c["pricing_unit"] == "hours" else None
+        delivered = invoice_cap(c["pricing_unit"], assets, hours)
         if delivered is not None and quantity + invoiced_quantity > delivered:
             left = max(delivered - invoiced_quantity, Decimal(0))
-            if c["pricing_unit"] in pricing.FRACTIONAL_UNITS:
+            if c["pricing_unit"] == "hours":
                 # hours of footage: what was measured, to the invoice's two places
                 left = left.quantize(Decimal("0.01"), rounding=ROUND_DOWN)
                 raise InvoiceError(
