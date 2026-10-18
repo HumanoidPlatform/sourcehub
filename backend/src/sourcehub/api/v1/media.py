@@ -3,6 +3,10 @@
 The API stays on the control path and off the data path: a presigned PUT is
 minted here, the bytes go straight to object storage, and confirm asks
 storage what it holds.
+
+Galleries read by page (media.list_gallery): a slim row per tile with its
+poster already signed, and the full row on its own route when a capture is
+opened. The bare task list keeps its old shape until the console has moved.
 """
 
 from __future__ import annotations
@@ -12,12 +16,13 @@ import json
 import uuid
 from typing import Any, Literal
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
 from sourcehub.modules.media import service as media
+from sourcehub.modules.storage.service import StorageTargetError
 from sourcehub.platform.storage import StorageError
 
 router = APIRouter(route_class=TxRoute)
@@ -50,6 +55,18 @@ class DeviceCheck(BaseModel):
         return v
 
 
+class ThumbnailIn(BaseModel):
+    """A poster the device made from the capture, for the gallery tile.
+
+    Offered, never required: an older build sends none and its tiles show a
+    placeholder. A small JPEG and nothing else — 2 MiB is generous for a
+    320 px frame — so the second PUT can never be a second copy of the clip.
+    """
+
+    size_bytes: int = Field(gt=0, le=media.MAX_THUMB_BYTES)
+    content_type: Literal["image/jpeg"]
+
+
 class PresignIn(BaseModel):
     filename: str = Field(min_length=1, max_length=255)
     content_type: str = Field(min_length=3, max_length=120)
@@ -64,6 +81,8 @@ class PresignIn(BaseModel):
     replaces_asset_id: uuid.UUID | None = None
     # a clip's running time as the device measured it; an hours task counts by it
     duration_s: float | None = Field(default=None, gt=0, le=media.MAX_CLIP_SECONDS + 5)
+    # a poster for the tile, PUT beside the capture before confirm; optional
+    thumbnail: ThumbnailIn | None = None
 
 
 def _map(e: Exception) -> HTTPException:
@@ -71,6 +90,14 @@ def _map(e: Exception) -> HTTPException:
         return HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
     if isinstance(e, media.MediaInvalid):
         return HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e))
+    # The client's bucket, not ours: a destination that cannot be reached or
+    # refuses is a bad gateway; one that is no longer configured is a conflict
+    # between the record and the world. Both read as a 500 before, which said
+    # neither.
+    if isinstance(e, StorageError):
+        return HTTPException(status.HTTP_502_BAD_GATEWAY, str(e))
+    if isinstance(e, StorageTargetError):
+        return HTTPException(status.HTTP_409_CONFLICT, str(e))
     return HTTPException(status.HTTP_409_CONFLICT, str(e))
 
 
@@ -88,6 +115,7 @@ async def presign(
             sha256=body.sha256, captured_at=body.captured_at, lat=body.lat, lon=body.lon,
             checks=[c.model_dump(exclude_none=True) for c in body.checks],
             replaces_asset_id=body.replaces_asset_id, duration_s=body.duration_s,
+            thumbnail=body.thumbnail.model_dump() if body.thumbnail else None,
         )
     except StorageError as e:
         # The capture presign runs against the CLIENT's bucket, so this is the
@@ -105,7 +133,7 @@ async def confirm(
 ):
     try:
         return await media.confirm_asset(session, principal, asset_id)
-    except (LookupError, media.MediaError) as e:
+    except (LookupError, media.MediaError, StorageError, StorageTargetError) as e:
         raise _map(e) from None
 
 
@@ -138,12 +166,62 @@ async def assignment_assets(
 @router.get("/tasks/{task_id}/assets")
 async def task_assets(
     task_id: uuid.UUID,
+    limit: int | None = Query(default=None, ge=1, le=media.GALLERY_PAGE_MAX),
+    after: str | None = Query(default=None, max_length=512),
+    flagged: bool = Query(default=False),
     principal: Principal = Depends(get_principal),
     session: AsyncSession = Depends(get_session),
 ):
+    """Bare, this is still the old unbounded array: tests/e2e_loop.py reads it
+    and the console is moving off it. Any of limit, after or flagged asks for
+    a page instead — the shape frozen in frontend/src/api/types.ts
+    (GalleryPage). A later release retires the array."""
     try:
-        return await media.list_assets(session, principal, task_id=task_id)
-    except LookupError as e:
+        if limit is None and after is None and not flagged:
+            return await media.list_assets(session, principal, task_id=task_id)
+        return await media.list_gallery(
+            session, principal, parent="task", parent_id=task_id,
+            limit=limit or media.GALLERY_PAGE, after=after, flagged=flagged,
+        )
+    except (LookupError, media.MediaInvalid, StorageError, StorageTargetError) as e:
+        raise _map(e) from None
+
+
+@router.get("/batches/{batch_id}/assets")
+async def batch_assets(
+    batch_id: uuid.UUID,
+    limit: int = Query(default=media.GALLERY_PAGE, ge=1, le=media.GALLERY_PAGE_MAX),
+    after: str | None = Query(default=None, max_length=512),
+    flagged: bool = Query(default=False),
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """One send, a page at a time: the aggregator's gate-1 review."""
+    try:
+        return await media.list_gallery(
+            session, principal, parent="batch", parent_id=batch_id,
+            limit=limit, after=after, flagged=flagged,
+        )
+    except (LookupError, media.MediaInvalid, StorageError, StorageTargetError) as e:
+        raise _map(e) from None
+
+
+@router.get("/submissions/{submission_id}/assets")
+async def submission_assets(
+    submission_id: uuid.UUID,
+    limit: int = Query(default=media.GALLERY_PAGE, ge=1, le=media.GALLERY_PAGE_MAX),
+    after: str | None = Query(default=None, max_length=512),
+    flagged: bool = Query(default=False),
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """One bundle, a page at a time: the partner's gate-2 review."""
+    try:
+        return await media.list_gallery(
+            session, principal, parent="submission", parent_id=submission_id,
+            limit=limit, after=after, flagged=flagged,
+        )
+    except (LookupError, media.MediaInvalid, StorageError, StorageTargetError) as e:
         raise _map(e) from None
 
 
@@ -158,5 +236,35 @@ async def asset_url(
     carrying both a header and a query signature."""
     try:
         return await media.asset_view_url(session, principal, asset_id)
-    except (LookupError, media.MediaError) as e:
+    except (LookupError, media.MediaError, StorageError, StorageTargetError) as e:
+        raise _map(e) from None
+
+
+@router.get("/assets/{asset_id}")
+async def asset_detail(
+    asset_id: uuid.UUID,
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """The full row, read when a capture is opened in the preview; the lists
+    carry the slim one. Visibility as the lists: a sent-back frame is the
+    supplier's alone. The router matches whole paths, so this never takes a
+    request meant for /assets/{id}/url."""
+    try:
+        return await media.get_asset(session, principal, asset_id)
+    except LookupError as e:
+        raise _map(e) from None
+
+
+@router.get("/tasks/{task_id}/check-summary")
+async def task_check_summary(
+    task_id: uuid.UUID,
+    principal: Principal = Depends(get_principal),
+    session: AsyncSession = Depends(get_session),
+):
+    """The task dialog's line on the phone's checks, counted in the database
+    rather than from every row of the task."""
+    try:
+        return await media.check_summary(session, principal, task_id)
+    except LookupError as e:
         raise _map(e) from None

@@ -7,10 +7,12 @@
 // while a child dialog (assign, review) is open, so Escape and the backdrop
 // never close two layers at once.
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
 import { get, post } from "@api/client";
-import type { AssetRow, Assignment, Batch, CaptureSpec, Task, TaskOffer, WorkerRow } from "@api/types";
+import type {
+  AllRetake, AssetRow, Assignment, Batch, BatchDecisionIn, CaptureSpec, Task, TaskOffer, WorkerRow,
+} from "@api/types";
 import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
   textareaCls, useToast,
@@ -23,10 +25,10 @@ import { RateDialog } from "@shared/rating";
 import { can } from "@shared/rbac";
 import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
 import { amountWords, byDuration, round2, unitPlural, unitsOf } from "@shared/units";
-import {
-  AssetGallery, RETAKE_REASONS, useAssignmentAssets, useTaskAssets, type Mark,
-} from "./AssetGallery";
+import { RETAKE_REASONS, useAssignmentAssets, type Mark } from "./AssetGallery";
 import { Brief } from "./brief";
+import { galleryKeys } from "./gallery-keys";
+import { GalleryGrid, type GallerySource } from "./GalleryGrid";
 
 export function useTaskAssignments(taskId: string | null | undefined) {
   return useQuery({
@@ -163,6 +165,12 @@ export interface DecideTarget {
   accepted_before?: number;
   /** task.target_unit, so the header reads "12 min of footage" rather than a bare number */
   unit?: string | null;
+  /** the task, for the queries a verdict refreshes (db/530) */
+  task_id?: string;
+  /** How many captures are in the batch, from the row that opened this
+   *  (batch.items, Gate1Row.ready_assets): the header and the tally read it
+   *  rather than counting rows, because the rows now arrive a page at a time. */
+  in_batch?: number;
 }
 
 /** Where an assignment stands, read off its batches: it stays in_progress on
@@ -188,9 +196,11 @@ export function openBatch(a: Assignment): Batch | null {
 
 /** "3 to retake: 2 blurred, 1 wrong subject" — the note the reviewer would
  *  otherwise type out of their own marks. Editable once written: it is a
- *  starting point, not the verdict. */
-function noteFromMarks(marks: Record<string, Mark>): string {
+ *  starting point, not the verdict. A blanket retake counts for every capture
+ *  it will reach — the batch less the explicit marks — under its reason. */
+function noteFromMarks(marks: Record<string, Mark>, blanket?: { reason: string; n: number }): string {
   const counts = new Map<string, number>();
+  if (blanket && blanket.n > 0) counts.set(blanket.reason, blanket.n);
   for (const m of Object.values(marks)) {
     if (m.outcome !== "retake" || !m.reason) continue;
     counts.set(m.reason, (counts.get(m.reason) ?? 0) + 1);
@@ -213,53 +223,105 @@ export function DecideAssignmentDialog({
   onDone: (outcome: "accept" | "reject") => void;
 }) {
   const qc = useQueryClient();
-  const assets = useAssignmentAssets(target.id);
+  // Only this batch's captures are in front of the reviewer: what earlier
+  // batches had accepted is settled and is not judged again. A batch is paged
+  // from the server, scoped to itself (db/530). Without one — the assignment
+  // route, answering the oldest batch in review — the legacy array is loaded
+  // and filtered here, as it always was.
+  const legacy = useAssignmentAssets(target.batch_id ? null : target.id);
+  const legacyRows = useMemo(
+    () => (legacy.data ?? []).filter((a) => (a.stage ? a.stage === "in_review" : true)),
+    [legacy.data],
+  );
+  const source: GallerySource = target.batch_id
+    ? { kind: "batch", id: target.batch_id }
+    : { kind: "rows", rows: legacyRows, loading: legacy.isLoading };
+  // How many are being judged: the count the opening row carried, or the
+  // legacy array's ready captures. Never the loaded pages — page one of four
+  // is not the batch.
+  const inBatch = target.in_batch ?? legacyRows.filter((a) => a.status === "ready").length;
+
   const [note, setNote] = useState("");
   // Whether the reviewer has taken the note over. Until they do it follows
   // their marks; after, it is theirs and nothing overwrites it.
   const [noteIsMine, setNoteIsMine] = useState(false);
   const [marks, setMarks] = useState<Record<string, Mark>>({});
-  const [error, setError] = useState<string | null>(null);
+  // "Everything in this batch again, for this reason": one field the server
+  // expands into a mark per capture, so a batch of any size goes back without
+  // every row in the browser (the old way needed them all and capped at 200).
+  // An explicit mark — a Keep, or a retake for another reason — wins over it.
+  const [allRetake, setAllRetake] = useState<AllRetake | null>(null);
   const [allReason, setAllReason] = useState("");
-  // Only this batch's captures are in front of the reviewer: what earlier
-  // batches had accepted is settled and is not judged again.
-  const inBatch = (assets.data ?? []).filter((a) =>
-    target.batch_id ? a.batch_id === target.batch_id : a.stage ? a.stage === "in_review" : true,
-  );
-  const ready = inBatch.filter((a) => a.status === "ready");
-  const retake = Object.values(marks).filter((m) => m.outcome === "retake").length;
+  const [error, setError] = useState<string | null>(null);
+
+  const blanket: Mark | undefined = allRetake
+    ? { outcome: "retake", reason: allRetake.reason, note: allRetake.note ?? undefined }
+    : undefined;
+  const markOf = (id: string): Mark | undefined => marks[id] ?? blanket;
   const kept = Object.values(marks).filter((m) => m.outcome === "keep").length;
+  const explicitRetake = Object.values(marks).filter((m) => m.outcome === "retake").length;
+  const retake = allRetake ? Math.max(inBatch - kept, 0) : explicitRetake;
+  const unmarked = Math.max(inBatch - retake - kept, 0);
+
+  const noteFor = (ms: Record<string, Mark>, all: AllRetake | null) =>
+    noteFromMarks(ms, all ? { reason: all.reason, n: inBatch - Object.keys(ms).length } : undefined);
 
   const mark = (a: AssetRow, m: Mark | null) =>
     setMarks((prev) => {
       const next = { ...prev };
       if (m) next[a.id] = m;
       else delete next[a.id];
-      if (!noteIsMine) setNote(noteFromMarks(next));
+      if (!noteIsMine) setNote(noteFor(next, allRetake));
       return next;
     });
 
   const markAll = () => {
     if (!allReason) return;
-    setMarks(() => {
-      const next: Record<string, Mark> = {};
-      for (const a of ready) next[a.id] = { outcome: "retake", reason: allReason, note: "" };
-      if (!noteIsMine) setNote(noteFromMarks(next));
-      return next;
-    });
+    const all: AllRetake = { reason: allReason, note: null };
+    setAllRetake(all);
+    if (!noteIsMine) setNote(noteFor(marks, all));
+  };
+  const unmarkAll = () => {
+    setAllRetake(null);
+    if (!noteIsMine) setNote(noteFor(marks, null));
   };
 
   const decide = useMutation({
-    mutationFn: (outcome: "accept" | "reject") =>
-      post(target.batch_id ? `/batches/${target.batch_id}/decide` : `/assignments/${target.id}/decide`, {
+    mutationFn: (outcome: "accept" | "reject") => {
+      // The same body on both routes. all_retake rides only a rejection: the
+      // server refuses it on an accept, and Accept is open only when nothing
+      // is marked to go back anyway.
+      const body: BatchDecisionIn = {
         outcome,
         note: note || null,
         marks: Object.entries(marks).map(([asset_id, m]) => ({
           asset_id, outcome: m.outcome, reason: m.reason ?? null, note: m.note || null,
         })),
-      }),
+        all_retake: outcome === "reject" ? allRetake : null,
+      };
+      return post(target.batch_id ? `/batches/${target.batch_id}/decide` : `/assignments/${target.id}/decide`, body);
+    },
     onSuccess: (_d, outcome) => {
-      void qc.invalidateQueries();
+      // The queries a verdict changes, by name (db/530): this batch's and the
+      // task's gallery pages, the rows that count captures, the queues, the
+      // trail. Invalidating everything refetched every loaded page and
+      // re-signed every link in view.
+      const byTask = (name: string) => (target.task_id ? [name, target.task_id] : [name]);
+      const keys: readonly (readonly unknown[])[] = [
+        ...(target.batch_id ? [galleryKeys.scope("batch", target.batch_id)] : []),
+        ...(target.task_id ? [galleryKeys.scope("task", target.task_id)] : []),
+        byTask("assignments"),
+        byTask("reviews"),
+        ["assignment-assets", target.id],
+        ["asset"],
+        ["gate1"],
+        ["tasks"],
+        // the roster counts each worker's open_assignments, and an accept
+        // settles one — the same reason invalidateCrowdChange names it
+        ["workers"],
+        ["activity"],
+      ];
+      for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
       onDone(outcome);
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not record the verdict"),
@@ -269,7 +331,7 @@ export function DecideAssignmentDialog({
     <Dialog
       size="wide"
       title={`Review ${target.worker_name ?? "the worker"}'s batch${target.batch_no ? ` ${target.batch_no}` : ""}`}
-      sub={`${target.task_ref} · ${target.task_title} · ${ready.length} in this batch${
+      sub={`${target.task_ref} · ${target.task_title} · ${inBatch} in this batch${
         target.accepted_before != null
           ? ` · ${round2(target.accepted_before)} of ${amountWords(target.quantity, target.unit)} accepted before`
           : ""
@@ -305,33 +367,40 @@ export function DecideAssignmentDialog({
         <Brief spec={target.capture_spec} instructions={target.task_instructions} />
       </div>
       <div style={{ marginTop: 12 }}>
-        <AssetGallery
-          assets={inBatch}
-          loading={assets.isLoading}
-          emptyHint="Nothing in this batch."
-          marks={marks}
-          onMark={mark}
-        />
+        <GalleryGrid source={source} emptyHint="Nothing in this batch." markOf={markOf} onMark={mark} />
         {/* Open a capture to judge it. Everything unmarked is accepted with
             the batch and stays accepted; only what is marked goes back. */}
         <p className="small muted" style={{ marginTop: 6 }} data-testid="mark-tally">
           {retake > 0 || kept > 0
-            ? `${retake} to retake · ${kept} keep · ${Math.max(ready.length - retake - kept, 0)} unmarked`
+            ? `${retake} to retake · ${kept} keep · ${unmarked} unmarked`
             : "Open a capture to send it back on its own. Everything unmarked is accepted."}
         </p>
-        {ready.length > 1 && (
+        {inBatch > 1 && (
           <div className="row" style={{ gap: 8, marginTop: 6, alignItems: "center" }}>
             <select
               aria-label="Reason for sending the whole batch back"
               className={inputCls}
               style={{ maxWidth: 260 }}
               value={allReason}
-              onChange={(e) => setAllReason(e.target.value)}
+              onChange={(e) => {
+                const reason = e.target.value;
+                setAllReason(reason);
+                // A blanket already laid follows the picker, as Mark all and
+                // Unmark all would: a new reason re-lays it and rewrites the
+                // note, the placeholder lifts it. The picker must never show
+                // one thing while the verdict would carry another.
+                if (!allRetake) return;
+                const all: AllRetake | null = reason ? { reason, note: null } : null;
+                setAllRetake(all);
+                if (!noteIsMine) setNote(noteFor(marks, all));
+              }}
             >
               <option value="">Send the whole batch back for…</option>
               {RETAKE_REASONS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
             </select>
-            <Button size="sm" disabled={!allReason} onClick={markAll}>Mark all to retake</Button>
+            {allRetake
+              ? <Button size="sm" onClick={unmarkAll}>Unmark all</Button>
+              : <Button size="sm" disabled={!allReason} onClick={markAll}>Mark all to retake</Button>}
           </div>
         )}
       </div>
@@ -575,12 +644,21 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
 
 /* --- the task's crowd: progress, gate 1, cancel, reopen ---------------------- */
 
+/** After a cancel, reopen or reassign: the rows that count this task's crowd
+ *  and its captures, the gate-1 queue, the task's gallery and the trail
+ *  (db/530). Named, where a blanket call used to refetch every open query. */
+function invalidateCrowdChange(qc: QueryClient, taskId: string) {
+  const keys: readonly (readonly unknown[])[] = [
+    ["assignments", taskId], ["tasks"], ["workers"], ["gate1"], galleryKeys.scope("task", taskId), ["activity"],
+  ];
+  for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
+}
+
 export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: () => void }) {
   const qc = useQueryClient();
   const toast = useToast();
   const session = useSession();
   const rows = useTaskAssignments(task.id);
-  const taskAssets = useTaskAssets(task.id);
   const offers = useTaskOffers(task.id);
   const [assigning, setAssigning] = useState(false);
   const [offering, setOffering] = useState(false);
@@ -594,7 +672,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
 
   const act = useMutation({
     mutationFn: (v: { id: string; action: "cancel" | "reopen" }) => post(`/assignments/${v.id}/${v.action}`, {}),
-    onSuccess: () => void qc.invalidateQueries(),
+    onSuccess: () => invalidateCrowdChange(qc, task.id),
     onError: (e) => setError(e instanceof Error ? e.message : "Could not update the assignment"),
   });
   const closeOffer = useMutation({
@@ -650,6 +728,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
           batch_id: batch?.id ?? null, batch_no: batch?.batch_no ?? null,
           accepted_before: d.progress ? unitsOf(d).accepted : undefined,
           unit: task.target_unit,
+          task_id: task.id, in_batch: batch?.items,
         }}
         onClose={() => setDeciding(null)}
         onDone={() => setDeciding(null)}
@@ -795,7 +874,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
       {error && <Callout tone="critical" title={error} />}
       <div style={{ marginTop: 14 }}>
         <div className="eyebrow" style={{ marginBottom: 8 }}>Captured so far</div>
-        <AssetGallery assets={taskAssets.data ?? []} loading={taskAssets.isLoading} emptyHint="Files uploaded from the capture app appear here as they are confirmed." />
+        <GalleryGrid source={{ kind: "task", id: task.id }} emptyHint="Files uploaded from the capture app appear here as they are confirmed." />
       </div>
     </Dialog>
   );
@@ -831,7 +910,7 @@ export function ReassignDialog({ task, assignment, onClose }: { task: Task; assi
     mutationFn: () =>
       post(`/assignments/${assignment.id}/reassign`, { worker_user_id: worker, note: note.trim() || null }),
     onSuccess: () => {
-      void qc.invalidateQueries();
+      invalidateCrowdChange(qc, task.id);
       toast(
         `${moving} ${unit} reassigned`,
         kept ? `${assignment.worker_name ?? "The first worker"}'s ${kept} uploaded captures are in your review queue.` : undefined,
@@ -894,14 +973,16 @@ export function ReassignDialog({ task, assignment, onClose }: { task: Task; assi
 
 export function SubmitToPartnerDialog({ task, onClose, onDone }: { task: Task; onClose: () => void; onDone: () => void }) {
   const rows = useTaskAssignments(task.id);
-  const assets = useTaskAssets(task.id);
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const list = (rows.data ?? []).filter((a) => a.status !== "cancelled");
   const accepted = new Set(list.filter((a) => a.status === "accepted").map((a) => a.id));
   const open = list.filter((a) => a.status !== "accepted");
-  const bundled = (assets.data ?? []).filter((a) => a.status === "ready" && a.assignment_id && accepted.has(a.assignment_id)).length;
+  // What the submission would bundle, counted on the server into the task row
+  // already in hand (db/530). This dialog used to load every capture of the
+  // task to count the ready ones on accepted assignments.
+  const bundled = task.asset_summary?.submittable ?? 0;
   const blocked = open.length > 0 || bundled === 0;
 
   const submit = useMutation({
@@ -933,7 +1014,7 @@ export function SubmitToPartnerDialog({ task, onClose, onDone }: { task: Task; o
           {open.length} assignment{open.length === 1 ? " is" : "s are"} not accepted yet. Accept or cancel them at gate 1, then submit.
         </Callout>
       )}
-      {open.length === 0 && bundled === 0 && !assets.isLoading && (
+      {open.length === 0 && bundled === 0 && (
         <Callout tone="attention" title="Nothing to submit">No accepted assignment has ready captures.</Callout>
       )}
       <div className="formgrid" style={{ marginTop: 12 }}>

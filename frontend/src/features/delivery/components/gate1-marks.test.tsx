@@ -8,12 +8,13 @@
 //
 // Drives the real dialog with the real gallery, because what is being tested is
 // which control appears on which capture and what the two halves of the verdict
-// post together.
+// post together. The first describes take the assignment route, where the rows
+// come as one array; "the batch route" takes the paged gallery (db/530).
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { AssetRow } from "@api/types";
+import type { AssetRow, GalleryRow } from "@api/types";
 
 const api = vi.hoisted(() => ({
   get: vi.fn((_path: string): Promise<unknown> => Promise.resolve([])),
@@ -22,9 +23,9 @@ const api = vi.hoisted(() => ({
 vi.mock("@api/client", () => api);
 
 import { ToastProvider } from "@ds/primitives";
-import { DecideAssignmentDialog } from "./assignments";
+import { DecideAssignmentDialog, type DecideTarget } from "./assignments";
 
-const TARGET = {
+const TARGET: DecideTarget = {
   id: "a1", quantity: 3, worker_name: "Sana Kulkarni", worker_note: null,
   task_ref: "TSK-14", task_title: "Aisle clips, Bengaluru",
   capture_spec: {
@@ -47,20 +48,52 @@ function asset(over: Partial<AssetRow>): AssetRow {
   } as AssetRow;
 }
 
+/** the slim row the paged route hands a tile, as the server builds it from the full one */
+function galleryRow(a: AssetRow): GalleryRow {
+  return {
+    id: a.id, task_id: a.task_id, assignment_id: a.assignment_id, submission_id: a.submission_id,
+    batch_id: "b1", batch_no: 2, status: a.status, stage: "in_review",
+    filename: a.filename, mime_type: a.mime_type, duration_s: null,
+    captured_at: a.captured_at, captured_by_name: a.captured_by_name, quarantine_reason: a.quarantine_reason,
+    review_reason: a.review_reason ?? null, review_label: a.review_label ?? null, badge: null, thumb_url: null,
+  };
+}
+
 const ASSETS = [
   asset({ id: "as1", filename: "shelf-1.jpg" }),
   asset({ id: "as2", filename: "shelf-2.jpg" }),
   asset({ id: "as3", filename: "shelf-3.jpg" }),
 ];
 
-function show(done: (o: "accept" | "reject") => void = () => {}) {
+/** The API as both routes see it: the legacy array, one page of the batch,
+ *  the preview's link, and the full row the paged gallery fetches for the
+ *  one capture opened. */
+const serve = (rows: AssetRow[]) => (path: string): Promise<unknown> => {
+  if (path === "/assignments/a1/assets") return Promise.resolve(rows);
+  if (path.startsWith("/batches/b1/assets?")) {
+    return Promise.resolve({ items: rows.map(galleryRow), has_more: false, next_cursor: null, expires_in: 900, total: rows.length });
+  }
+  if (path.startsWith("/assets/") && path.endsWith("/url")) {
+    return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
+  }
+  if (path.startsWith("/assets/")) {
+    const id = path.slice("/assets/".length);
+    return Promise.resolve(rows.find((a) => a.id === id) ?? asset({ id }));
+  }
+  return Promise.resolve([]);
+};
+
+const fresh = () => new QueryClient({ defaultOptions: { queries: { retry: false } } });
+
+function show(target: DecideTarget = TARGET, client = fresh()) {
   render(
-    <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
+    <QueryClientProvider client={client}>
       <ToastProvider>
-        <DecideAssignmentDialog target={TARGET} onClose={() => {}} onDone={done} />
+        <DecideAssignmentDialog target={target} onClose={() => {}} onDone={() => {}} />
       </ToastProvider>
     </QueryClientProvider>,
   );
+  return client;
 }
 
 /** Open a capture's preview: the verdict is taken beside the picture. */
@@ -75,13 +108,7 @@ const retake = () =>
 const acceptBtn = () => screen.getByRole("button", { name: "Accept" }) as HTMLButtonElement;
 
 beforeEach(() => {
-  api.get.mockReset().mockImplementation((path: string) => {
-    if (path === "/assignments/a1/assets") return Promise.resolve(ASSETS);
-    if (path.startsWith("/assets/")) {
-      return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
-    }
-    return Promise.resolve([]);
-  });
+  api.get.mockReset().mockImplementation(serve(ASSETS));
   api.post.mockReset().mockImplementation(() => Promise.resolve({}));
 });
 
@@ -99,6 +126,8 @@ describe("marking captures at gate 1", () => {
       expect(api.post).toHaveBeenCalledWith("/assignments/a1/decide", expect.objectContaining({
         outcome: "reject",
         marks: [{ asset_id: "as1", outcome: "retake", reason: "blur", note: "the whole shelf is soft" }],
+        // the same body as the batch route; nothing blanket here
+        all_retake: null,
       })),
     );
   });
@@ -176,19 +205,11 @@ describe("marking captures at gate 1", () => {
 
 describe("a capture sent back in an earlier round", () => {
   beforeEach(() => {
-    api.get.mockImplementation((path: string) => {
-      if (path === "/assignments/a1/assets") {
-        return Promise.resolve([
-          asset({ id: "as1", status: "rejected", review_reason: "blur",
-                  review_label: "Blur (variance of Laplacian)", review_note: "aisle 3 is soft" }),
-          asset({ id: "as2", filename: "shelf-2.jpg" }),
-        ]);
-      }
-      if (path.startsWith("/assets/")) {
-        return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
-      }
-      return Promise.resolve([]);
-    });
+    api.get.mockImplementation(serve([
+      asset({ id: "as1", status: "rejected", review_reason: "blur",
+              review_label: "Blur (variance of Laplacian)", review_note: "aisle 3 is soft" }),
+      asset({ id: "as2", filename: "shelf-2.jpg" }),
+    ]));
   });
 
   it("can still be opened, and says why it went back", async () => {
@@ -222,17 +243,7 @@ describe("the brief beside the captures", () => {
   });
 
   it("renders nothing at all on a task that recorded no brief", () => {
-    render(
-      <QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}>
-        <ToastProvider>
-          <DecideAssignmentDialog
-            target={{ ...TARGET, capture_spec: {}, task_instructions: null }}
-            onClose={() => {}}
-            onDone={() => {}}
-          />
-        </ToastProvider>
-      </QueryClientProvider>,
-    );
+    show({ ...TARGET, capture_spec: {}, task_instructions: null });
     // An empty panel would promise conditions that were never set.
     expect(screen.queryByTestId("review-brief")).toBeNull();
   });
@@ -273,25 +284,17 @@ describe("walking the batch", () => {
 // Recorded since the checks existed, shown nowhere until now.
 describe("the evidence behind a flag", () => {
   beforeEach(() => {
-    api.get.mockImplementation((path: string) => {
-      if (path === "/assignments/a1/assets") {
-        return Promise.resolve([
-          asset({
-            id: "as1",
-            device_checks: [
-              { code: "wrong_subject", severity: "warn", message: "Doesn't look like retail shelf.",
-                score: 0.12, detail: { veto: ["floor"], labels: ["Floor", "Hand"] } },
-              { code: "tilt_measured", severity: "info", message: "Held 6\u00b0 off square.",
-                detail: { off: 6.3, roll: 6.3, pitch: -1.2 } },
-            ],
-          }),
-        ]);
-      }
-      if (path.startsWith("/assets/")) {
-        return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
-      }
-      return Promise.resolve([]);
-    });
+    api.get.mockImplementation(serve([
+      asset({
+        id: "as1",
+        device_checks: [
+          { code: "wrong_subject", severity: "warn", message: "Doesn't look like retail shelf.",
+            score: 0.12, detail: { veto: ["floor"], labels: ["Floor", "Hand"] } },
+          { code: "tilt_measured", severity: "info", message: "Held 6° off square.",
+            detail: { off: 6.3, roll: 6.3, pitch: -1.2 } },
+        ],
+      }),
+    ]));
   });
 
   it("says which word vetoed it, and how square the phone was", async () => {
@@ -299,7 +302,143 @@ describe("the evidence behind a flag", () => {
     await open("shelf-1.jpg");
     expect(await screen.findByText(/vetoed on floor/)).toBeTruthy();
     expect(screen.getByText(/saw Floor, Hand/)).toBeTruthy();
-    expect(screen.getByText(/6.3\u00b0 off square/)).toBeTruthy();
-    expect(screen.getByText(/roll 6.3\u00b0, pitch -1.2\u00b0/)).toBeTruthy();
+    expect(screen.getByText(/6.3° off square/)).toBeTruthy();
+    expect(screen.getByText(/roll 6.3°, pitch -1.2°/)).toBeTruthy();
+  });
+});
+
+// db/530: a batch is paged from the server and judged against its own count,
+// and "all of it again" is one field the server expands rather than a mark per
+// row in the browser — a batch of 201 used to be unsendable as a whole.
+describe("the batch route", () => {
+  const BATCH: DecideTarget = { ...TARGET, batch_id: "b1", batch_no: 2, task_id: "t1", in_batch: 3 };
+  const allReason = () => screen.getByLabelText("Reason for sending the whole batch back") as HTMLSelectElement;
+  const markAll = () => fireEvent.click(screen.getByRole("button", { name: "Mark all to retake" }));
+  const sendBack = () => fireEvent.click(screen.getByRole("button", { name: "Send back" }));
+  const note = () => screen.getByLabelText(/Verdict note/) as HTMLTextAreaElement;
+  const tally = () => screen.getByTestId("mark-tally").textContent;
+
+  it("pages the batch itself, counts from the row that opened it, and fetches the one capture opened", async () => {
+    show({ ...BATCH, in_batch: 7 });
+    await open("shelf-1.jpg");
+    expect(api.get).toHaveBeenCalledWith("/batches/b1/assets?limit=60");
+    expect(api.get).not.toHaveBeenCalledWith("/assignments/a1/assets");
+    // the header reads the batch's count, not how many rows a page brought
+    expect(screen.getByText(/7 in this batch/)).toBeTruthy();
+    await waitFor(() => expect(api.get).toHaveBeenCalledWith("/assets/as1"));
+    await screen.findByTestId("preview-position");
+    expect(api.get).toHaveBeenCalledWith("/assets/as1/url");
+  });
+
+  it("sends the whole batch back as one field, not a mark per row", async () => {
+    show(BATCH);
+    await screen.findByRole("button", { name: /^shelf-1\.jpg/ });
+    fireEvent.change(allReason(), { target: { value: "blur" } });
+    markAll();
+    expect(screen.getByTestId("mark-tally").textContent).toBe("3 to retake · 0 keep · 0 unmarked");
+    expect(acceptBtn().disabled).toBe(true);
+
+    sendBack();
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/batches/b1/decide", {
+        outcome: "reject", note: "3 to retake: 3 blurred.", marks: [], all_retake: { reason: "blur", note: null },
+      }),
+    );
+  });
+
+  it("lets a Keep after Mark all stand, as an explicit mark beside the blanket", async () => {
+    show(BATCH);
+    await screen.findByRole("button", { name: /^shelf-1\.jpg/ });
+    fireEvent.change(allReason(), { target: { value: "blur" } });
+    markAll();
+    await open("shelf-2.jpg");
+    fireEvent.click(await screen.findByRole("button", { name: "Keep" }));
+    expect(screen.getByTestId("mark-tally").textContent).toBe("2 to retake · 1 keep · 0 unmarked");
+
+    sendBack();
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/batches/b1/decide", expect.objectContaining({
+        marks: [{ asset_id: "as2", outcome: "keep", reason: null, note: null }],
+        all_retake: { reason: "blur", note: null },
+      })),
+    );
+  });
+
+  it("re-picking the reason after Mark all moves the blanket and the note with it", async () => {
+    show(BATCH);
+    await screen.findByRole("button", { name: /^shelf-1\.jpg/ });
+    fireEvent.change(allReason(), { target: { value: "blur" } });
+    markAll();
+    expect(note().value).toBe("3 to retake: 3 blurred.");
+    // The picker is the blanket's reason. Changing it must not leave the note
+    // saying blurred while the server is told obscured.
+    fireEvent.change(allReason(), { target: { value: "occlusion" } });
+    expect(note().value).toBe("3 to retake: 3 obscured or badly framed.");
+
+    sendBack();
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/batches/b1/decide", expect.objectContaining({
+        note: "3 to retake: 3 obscured or badly framed.", all_retake: { reason: "occlusion", note: null },
+      })),
+    );
+  });
+
+  it("picking the placeholder after Mark all lifts the blanket, not just the picker", async () => {
+    show(BATCH);
+    await screen.findByRole("button", { name: /^shelf-1\.jpg/ });
+    fireEvent.change(allReason(), { target: { value: "blur" } });
+    markAll();
+    expect(tally()).toBe("3 to retake · 0 keep · 0 unmarked");
+
+    // The picker shows nothing, so nothing may stay armed behind it.
+    fireEvent.change(allReason(), { target: { value: "" } });
+    expect(tally()).not.toMatch(/\d+ to retake/);
+    expect(note().value).toBe("");
+    expect(acceptBtn().disabled).toBe(false);
+    expect(screen.queryByRole("button", { name: "Unmark all" })).toBeNull();
+
+    // and a single mark then goes back on its own, with no blanket beside it
+    await open("shelf-1.jpg");
+    fireEvent.change(await screen.findByLabelText("Send this capture back to be shot again"), { target: { value: "blur" } });
+    sendBack();
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/batches/b1/decide", expect.objectContaining({
+        marks: [{ asset_id: "as1", outcome: "retake", reason: "blur", note: null }], all_retake: null,
+      })),
+    );
+  });
+
+  it("sends all_retake: null with per-capture marks", async () => {
+    show(BATCH);
+    await open("shelf-1.jpg");
+    fireEvent.change(await screen.findByLabelText("Send this capture back to be shot again"), { target: { value: "blur" } });
+    sendBack();
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/batches/b1/decide", {
+        outcome: "reject", note: "1 to retake: 1 blurred.",
+        marks: [{ asset_id: "as1", outcome: "retake", reason: "blur", note: null }],
+        all_retake: null,
+      }),
+    );
+  });
+
+  it("refreshes the named queries after a verdict, never everything", async () => {
+    const qc = show(BATCH);
+    const spy = vi.spyOn(qc, "invalidateQueries");
+    await screen.findByRole("button", { name: /^shelf-1\.jpg/ });
+    fireEvent.change(allReason(), { target: { value: "blur" } });
+    markAll();
+    sendBack();
+    await waitFor(() => expect(spy).toHaveBeenCalledWith({ queryKey: ["activity"] }));
+
+    const keys = spy.mock.calls.map(([f]) => f?.queryKey);
+    expect(keys).toEqual(expect.arrayContaining([
+      ["gallery", "batch", "b1"], ["gallery", "task", "t1"], ["assignments", "t1"], ["reviews", "t1"],
+      ["assignment-assets", "a1"], ["asset"], ["gate1"], ["tasks"], ["activity"],
+      // the roster's open_assignments move with the verdict, as on every other crowd change
+      ["workers"],
+    ]));
+    // a bare call would refetch every loaded page and re-sign every link in view
+    expect(spy.mock.calls.every(([f]) => Array.isArray(f?.queryKey))).toBe(true);
   });
 });

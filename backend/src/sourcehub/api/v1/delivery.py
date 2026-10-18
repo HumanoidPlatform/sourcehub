@@ -110,10 +110,26 @@ class AssetMarkIn(BaseModel):
     note: str | None = Field(default=None, max_length=500)
 
 
+class AllRetakeIn(BaseModel):
+    """"Mark all to retake", as one field.
+
+    The console used to expand it into a mark per loaded row, which needed every
+    row in the browser and stopped at the 200 marks a body may carry. The server
+    expands it against the batch instead (qa.expand_all_retake), so a batch of
+    any size goes back whole. A capture also named in `marks` takes that mark:
+    an explicit Keep survives the blanket. Reject only.
+    """
+
+    reason: str = Field(min_length=1, max_length=40)
+    note: str | None = Field(default=None, max_length=500)
+
+
 class AssignmentDecideIn(BaseModel):
     outcome: Literal["accept", "reject"]
     note: str | None = None
     marks: list[AssetMarkIn] = Field(default_factory=list, max_length=200)
+    # every capture not named in marks to be shot again, for this one reason
+    all_retake: AllRetakeIn | None = None
 
 
 class ReassignIn(BaseModel):
@@ -433,6 +449,7 @@ async def decide_assignment(
             body.outcome,
             body.note,
             [m.model_dump() for m in body.marks],
+            body.all_retake.model_dump() if body.all_retake else None,
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Assignment not found") from None
@@ -457,6 +474,7 @@ async def decide_batch(
             body.outcome,
             body.note,
             [m.model_dump() for m in body.marks],
+            body.all_retake.model_dump() if body.all_retake else None,
         )
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Batch not found") from None

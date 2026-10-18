@@ -428,6 +428,18 @@ td.right,th.right{text-align:right}
   background:var(--surface-2);display:grid;place-items:center;color:var(--ink-4);position:relative}
 .asset .tag{position:absolute;bottom:3px;left:3px;font-family:var(--font-mono);
   font-size:9px;color:var(--ink-3);background:var(--surface);border-radius:2px;padding:0 3px}
+/* db/530: GalleryGrid pads the grid to its full height and renders the rows in
+   view. align-content:start keeps those rows at the top of the padded box
+   rather than spread down it, or every row would land in the wrong place. */
+.assetgrid[data-windowed]{align-content:start}
+/* the poster fills the tile; the tile is border-box, so the picture sits
+   inside the 1px border and the rounded corner. Scoped to the windowed grid:
+   the legacy AssetGallery tile sizes its <img> inline and must not move. */
+.assetgrid[data-windowed] .asset>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:inherit}
+/* a clip's running time, bottom-right where the status tag is bottom-left,
+   legible over a dark poster */
+.asset .dur{position:absolute;bottom:3px;right:3px;font-family:var(--font-mono);font-size:9px;
+  color:#fff;background:rgba(0,0,0,.6);border-radius:2px;padding:0 3px}
 
 /* --- empty / skeleton ----------------------------------------------------- */
 .empty{display:flex;flex-direction:column;align-items:center;gap:var(--s-3);

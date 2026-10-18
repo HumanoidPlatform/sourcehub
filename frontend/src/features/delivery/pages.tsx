@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { get, post } from "@api/client";
 import type {
-  ActivityRow, AssetRow, Assignment, CaptureSpec, Contract, InvoiceRow, Org, Rfp, SubjectSpec, Task,
+  ActivityRow, Assignment, CaptureSpec, CheckSummary, Contract, InvoiceRow, Org, Rfp, SubjectSpec, Task,
 } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Meter, Metric, Panel,
@@ -30,8 +30,10 @@ import {
 import { AssignmentUploadDialog } from "@features/capture/dialog";
 import { useUploadActivity } from "@features/capture/hooks";
 import { ContractThreadPanel } from "@features/messages/contract-thread";
-import { AssetGallery, useTaskAssets } from "./components/AssetGallery";
+import { threadKeys } from "@features/messages/hooks";
 import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
+import { galleryKeys } from "./components/gallery-keys";
+import { GalleryGrid } from "./components/GalleryGrid";
 
 /* --- contracts / deliveries list --------------------------------------------- */
 
@@ -658,7 +660,15 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
     mutationFn: () =>
       post(`/contracts/${contract.id}/approve`, { score: Number(score), comment }),
     onSuccess: () => {
-      void qc.invalidateQueries();
+      // What approval changes, by name (db/530): this contract and the list,
+      // the invoices it settles, the rating and the vendor directory it feeds,
+      // the trail and the overview — and the request's thread, which approval
+      // closes. A blanket call refetched every open query, galleries included.
+      const keys: readonly (readonly unknown[])[] = [
+        ["contract", contract.id], ["contracts"], ["invoices"], ["overview"], ["activity"],
+        ["ratings"], ["vendors"], ["vendor"], threadKeys.list(contract.request_id),
+      ];
+      for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
       toast("Contract completed", `${contract.partner_name} has been rated. Invoices are settled on Billing.`, "success");
       onClose();
     },
@@ -674,7 +684,8 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
   const dispute = useMutation({
     mutationFn: () => post(`/contracts/${contract.id}/dispute`, { reason: comment }),
     onSuccess: () => {
-      void qc.invalidateQueries();
+      const keys: readonly (readonly unknown[])[] = [["contract", contract.id], ["contracts"], ["overview"], ["activity"]];
+      for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
       toast("Sent back", `${contract.partner_name} has been told what to change.`, "attention");
       onClose();
     },
@@ -791,50 +802,46 @@ function qaReviewList(reviews: QaReviewRow[] | undefined): React.ReactNode {
 // dozens of "checks" and bury the two that matter. The headline counts what
 // somebody has to act on; the measurements are named separately, and read in
 // full in an asset's own preview.
-function complaints(assets: AssetRow[] | undefined) {
-  return (assets ?? []).flatMap((asset) =>
-    (asset.device_checks ?? [])
-      .filter((check) => check.severity === "warn" || check.severity === "block")
-      .map((check) => ({ asset, check })),
-  );
-}
-
-function deviceCheckSummary(assets: AssetRow[] | undefined, loading: boolean): string {
+//
+// Counted on the server (GET /tasks/{id}/check-summary, db/530): the dialog
+// used to load every capture of the task, checks and all, to add these up.
+// Both are pure over that payload, so a test can hand them one. Page tests
+// answer unknown GETs with [] or null, so the payload is read defensively.
+export function deviceCheckSummary(s: CheckSummary | undefined, loading: boolean): string {
   if (loading) return "Loading capture checks…";
-  const checks = (assets ?? []).flatMap((a) => a.device_checks ?? []);
-  if (!checks.length) return "No device checks recorded";
-  const warnings = checks.filter((c) => c.severity === "warn").length;
-  const blockers = checks.filter((c) => c.severity === "block").length;
-  const measured = checks.filter((c) => c.severity === "info").length;
-  const wrongSubject = checks.filter((c) => c.code === "wrong_subject").length;
-  const unscored = checks.filter((c) => c.code === "subject_unscored").length;
+  if (!s || !s.with_checks) return "No device checks recorded";
+  const wrongSubject = s.by_code.wrong_subject ?? 0;
+  const unscored = s.by_code.subject_unscored ?? 0;
   const head =
-    warnings || blockers
+    s.warnings || s.blockers
       ? [
-          warnings ? `${warnings} warning${warnings === 1 ? "" : "s"}` : null,
-          blockers ? `${blockers} blocker${blockers === 1 ? "" : "s"}` : null,
+          s.warnings ? `${s.warnings} warning${s.warnings === 1 ? "" : "s"}` : null,
+          s.blockers ? `${s.blockers} blocker${s.blockers === 1 ? "" : "s"}` : null,
         ]
       : ["No warnings"];
   return [
     ...head,
     wrongSubject ? `${wrongSubject} off-subject flag${wrongSubject === 1 ? "" : "s"}` : null,
     unscored ? `${unscored} unscored capture${unscored === 1 ? "" : "s"}` : null,
-    measured ? `${measured} measurement${measured === 1 ? "" : "s"}` : null,
+    s.measurements ? `${s.measurements} measurement${s.measurements === 1 ? "" : "s"}` : null,
   ].filter(Boolean).join(" · ");
 }
 
-function deviceCheckList(assets: AssetRow[] | undefined): React.ReactNode {
-  const checks = complaints(assets);
-  if (!checks.length) return null;
+/** The first complaints, as the server listed them (at most eight), and how
+ *  many more there are to read in the previews. */
+export function deviceCheckList(s: CheckSummary | undefined): React.ReactNode {
+  const listed = s?.complaints ?? [];
+  if (!listed.length) return null;
+  const more = (s?.complaints_total ?? listed.length) - listed.length;
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-      {checks.slice(0, 8).map(({ asset, check }, i) => (
-        <div key={`${asset.id}:${i}`} className="small">
-          <b>{asset.filename ?? "Capture"}</b>: {check.message}
-          {check.score != null && <span className="muted"> · score {check.score.toFixed(2)}</span>}
+      {listed.map((c, i) => (
+        <div key={`${c.asset_id}:${i}`} className="small">
+          <b>{c.filename ?? "Capture"}</b>: {c.message}
+          {c.score != null && <span className="muted"> · score {c.score.toFixed(2)}</span>}
         </div>
       ))}
-      {checks.length > 8 && <div className="small muted">+{checks.length - 8} more in the asset previews.</div>}
+      {more > 0 && <div className="small muted">+{more} more in the asset previews.</div>}
     </div>
   );
 }
@@ -878,19 +885,27 @@ function TaskDetailDialog({
     queryFn: () =>
       get<QaReviewRow[]>(`/tasks/${t.id}/reviews`),
   });
-  const assets = useTaskAssets(t.id);
+  // The phone's findings over the task, counted on the server (db/530); the
+  // rows themselves are paged into the gallery below, never loaded whole.
+  const checks = useQuery({
+    queryKey: galleryKeys.checkSummary(t.id),
+    queryFn: () => get<CheckSummary>(`/tasks/${t.id}/check-summary`),
+  });
+  // Start where the phone pointed: a reviewer's first pass is the captures
+  // the checks complained about, not every frame of the task.
+  const [flagged, setFlagged] = useState(false);
   const sub = t.last_submission;
   const summary = t.assignment_summary;
   const assetSummary = t.asset_summary;
   const captureSpec = t.capture_spec as CaptureSpec;
   const deliveredAssets = sub?.asset_count ?? assetSummary?.bundled ?? 0;
-  const readyAssets = assetSummary?.ready ?? (assets.data ?? []).filter((a) => a.status === "ready").length;
-  const quarantinedAssets = assetSummary?.quarantined ?? (assets.data ?? []).filter((a) => a.status === "quarantined").length;
+  const readyAssets = assetSummary?.ready ?? 0;
+  const quarantinedAssets = assetSummary?.quarantined ?? 0;
   const documentRows = slotRows(t.client_documents);
   const documentRowsForDisplay: [string, React.ReactNode][] = documentRows.length
     ? documentRows
     : [["Guidelines / evidence files", "No client documents attached"]];
-  const checkDetails = deviceCheckList(assets.data);
+  const checkDetails = deviceCheckList(checks.data);
   return (
     <Dialog
       size="wide"
@@ -938,7 +953,7 @@ function TaskDetailDialog({
             ...(sub?.supplier_note
               ? ([["Supplier note", sub.supplier_note]] as [string, React.ReactNode][])
               : []),
-            ["Device / phone checks", deviceCheckSummary(assets.data, assets.isLoading)],
+            ["Device / phone checks", deviceCheckSummary(checks.data, checks.isLoading)],
             ...(checkDetails ? ([["Check details", checkDetails]] as [string, React.ReactNode][]) : []),
           ]} />
         </section>
@@ -963,11 +978,27 @@ function TaskDetailDialog({
         </section>
       </div>
       <div style={{ marginTop: 14 }}>
-        <div className="eyebrow" style={{ marginBottom: 8 }}>Captured assets</div>
-        <AssetGallery
-          assets={assets.data ?? []}
-          loading={assets.isLoading}
-          emptyHint="Files confirmed from the capture app appear here."
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
+          <div className="eyebrow">Captured assets</div>
+          {/* A button, not a checkbox: Dialog focuses the first input on open,
+              and a filter is not the field a person arrived to fill. */}
+          <Button
+            size="sm"
+            variant={flagged ? "primary" : undefined}
+            aria-pressed={flagged}
+            title="Only the captures the phone raised a warning on"
+            onClick={() => setFlagged((f) => !f)}
+            style={{ marginLeft: "auto" }}
+          >
+            Flagged only
+          </Button>
+        </div>
+        <GalleryGrid
+          source={{ kind: "task", id: t.id, flagged }}
+          emptyTitle={flagged ? "Nothing flagged" : undefined}
+          emptyHint={flagged
+            ? "The phone raised no warning on any capture of this task."
+            : "Files confirmed from the capture app appear here."}
         />
       </div>
     </Dialog>
@@ -1118,8 +1149,16 @@ export function TasksPage() {
           task={live(submitting)}
           onClose={() => setSubmitting(null)}
           onDone={() => {
+            const t = submitting;
             setSubmitting(null);
-            void qc.invalidateQueries();
+            // What a submission changes, by name (db/530): the task and its
+            // crowd, its gallery (the rows are bundled now), the partner's
+            // queue, the contract, the trail and the overview.
+            const keys: readonly (readonly unknown[])[] = [
+              ["tasks"], ["assignments", t.id], galleryKeys.scope("task", t.id), ["qa-queue"],
+              ["contracts"], ["contract"], ["activity"], ["overview"],
+            ];
+            for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
             toast("Submitted for QA", "The delivery partner has been notified.", "success");
           }}
         />

@@ -6,8 +6,19 @@ The bytes never traverse the API. A crowd resource asks for a presigned PUT, upl
 straight to object storage, then confirms; the API HEADs the object and
 records what storage actually holds (size, etag, content type) rather than
 what the client claimed. That is the whole of the pilot's ingest: nobody
-pool, no thumbnails, no automated checks yet. The asset_status value
-'uploaded' is reserved for the day verification becomes asynchronous.
+pool, no automated checks yet. The asset_status value 'uploaded' is
+reserved for the day verification becomes asynchronous.
+
+A capture may carry a poster: a small JPEG the phone makes from the file at
+capture time, PUT beside it under the same name (thumb_key_for) before it
+confirms, and noted on the row once confirm has seen it. It is what a gallery
+tile shows; the original is opened on purpose, one at a time (asset_view_url).
+
+Galleries read by page (list_gallery): a task's, a batch's or a submission's
+captures in capture order, through a keyset cursor over db/530's index, as slim
+rows carrying the one badge a tile shows and the poster already signed. The
+full row is get_asset. The bare task list keeps its old unbounded shape until
+the console has moved off it.
 
 No ORM model, on purpose. asset is partitioned with a composite primary key
 (id, created_at); every statement here is written by hand, exactly as audit
@@ -24,6 +35,8 @@ Two idempotency rules the phone relies on:
 
 from __future__ import annotations
 
+import asyncio
+import base64
 import datetime as dt
 import json
 import re
@@ -57,6 +70,29 @@ MAX_ASSETS_PER_ASSIGNMENT = 500
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
+# The poster the phone makes from a capture at capture time: a small JPEG a
+# gallery tile can show without touching the original (a tile on a 1 GB clip
+# used to fetch the clip's header and index from the client's bucket to draw
+# 76 px). Optional and plain: one PUT beside the capture, promised at presign,
+# noted at confirm, never a condition of the capture being ready.
+MAX_THUMB_BYTES = 2 * 1024 * 1024
+THUMB_CONTENT_TYPE = "image/jpeg"
+_THUMB_SUFFIX = ".thumb.jpg"
+
+# A gallery page: 60 fills a review dialog with rows to spare; a caller may ask
+# for up to 100 and no more.
+GALLERY_PAGE = 60
+GALLERY_PAGE_MAX = 100
+
+# The one badge a tile carries, most telling first: the phone's domain verdict,
+# then what a clip's frames showed, then that it could not look. The same
+# order as the console's BADGE map (features/delivery/components/
+# AssetGallery.tsx), so the server picks the check the web would have picked.
+BADGE_ORDER = (
+    "wrong_subject", "forbidden_subject", "person_in_frame", "black", "frozen",
+    "subject_unscored", "clip_unchecked",
+)
+
 _ASSET_COLUMNS = (
     "a.id, a.task_id, a.assignment_id, a.submission_id, a.captured_by_user_id, "
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
@@ -78,6 +114,93 @@ _ASSET_FROM = (
     "LEFT JOIN defect_code d ON d.code = a.review_reason "
     "LEFT JOIN capture_batch cb ON cb.id = a.batch_id "
 )
+
+# Who sees which captures, in every list and in the detail: the supplier sees
+# every capture of its own, failed attempts and sent-back frames included;
+# anyone else (the delivery partner, the client) sees only what is ready. RLS
+# decides which rows a session may read at all; this decides which of those a
+# gallery shows. :me is the caller's organisation.
+_VISIBLE = "a.deleted_at IS NULL AND (a.supplier_org_id = :me OR a.status = 'ready')"
+
+# The order a gallery reads in, as db/530's asset_task_gallery_idx holds it:
+# captured_at with the untimed last — coalesce to 'infinity' is NULLS LAST as
+# an expression an index can carry — then created_at, then id. A page continues
+# from a cursor with a row comparison over the same three, so the index serves
+# the LIMIT without a sort. The cursor carries the three values printed in one
+# fixed UTC form whatever the session's DateStyle (_CURSOR_TS; 'infinity' has
+# no datetime) and cursor_binds() hands them to the query as typed timestamptz
+# parameters. Measured on a 2,000-capture task under RLS:
+# every page is a Merge Append of index scans with no Sort, but the row
+# comparison runs as a filter, not an index condition — the planner treats a
+# COALESCE in a qual as leaky under row-level security — so page N reads and
+# discards the N-1 pages before it (about 2 ms for the last page of 2,000). A
+# stored generated column holding the coalesce would make it a seek, if task
+# galleries ever grow to where that matters.
+_GALLERY_KEY = "coalesce(a.captured_at, 'infinity'::timestamptz)"
+_GALLERY_ORDER = f"ORDER BY {_GALLERY_KEY}, a.created_at, a.id"
+_GALLERY_AFTER = (
+    f"({_GALLERY_KEY}, a.created_at, a.id) > "
+    "(CAST(:k_at AS timestamptz), CAST(:k_created AS timestamptz), :k_id)"
+)
+# The cursor's timestamps in one fixed form, whatever the session's DateStyle.
+# ::text prints a timestamptz as the session is configured to — ISO only under
+# DateStyle=ISO, the default, which the app never sets — so a cursor minted
+# under one setting could be refused (decode_cursor) under another. to_char
+# pins it: UTC, microseconds, then +00, which is exactly what _PG_TIMESTAMPTZ
+# takes and cursor_binds() parses. {} is the column.
+_CURSOR_TS = "to_char({} AT TIME ZONE 'UTC', 'YYYY-MM-DD HH24:MI:SS.US+00')"
+# the phone's device checks (presign_capture), one row each
+_DEVICE_CHECKS = "jsonb_array_elements(coalesce(a.check_results->'device', '[]'::jsonb))"
+# a capture the phone flagged: one of its checks is a badge a tile would show
+_FLAGGED = (
+    f"EXISTS (SELECT 1 FROM {_DEVICE_CHECKS} c "
+    "WHERE c->>'code' = ANY(CAST(:badge_codes AS text[])))"
+)
+
+# The slim row a gallery tile is drawn from: a few hundred bytes against the
+# full row's kilobytes of checks, hashes and coordinates. The full row is
+# get_asset, read when a capture is opened. :badge_codes is BADGE_ORDER.
+_GALLERY_COLUMNS = (
+    "a.id, a.task_id, a.assignment_id, a.submission_id, a.batch_id, cb.batch_no, "
+    "cb.status AS batch_status, a.status, a.filename, a.mime_type, a.duration_s, "
+    "a.captured_at, a.created_at, coalesce(w.display_name, u.full_name) AS captured_by_name, "
+    "a.quarantine_reason, a.review_reason, d.label AS review_label, "
+    "a.storage_target_id, a.metadata->>'thumb_key' AS thumb_key, "
+    # the cursor's two timestamps in their one fixed form (_CURSOR_TS); the
+    # untimed key is 'infinity', the one value no datetime prints
+    "CASE WHEN a.captured_at IS NULL THEN 'infinity' "
+    f"ELSE {_CURSOR_TS.format('a.captured_at')} END AS k_at, "
+    f"{_CURSOR_TS.format('a.created_at')} AS k_created, "
+    # stage() reads `replaced` only for a rejected row, so only there is the
+    # lookup paid for (_ASSET_COLUMNS pays it on every row)
+    "CASE WHEN a.status = 'rejected' THEN EXISTS (SELECT 1 FROM asset r "
+    "     WHERE r.replaces_asset_id = a.id AND r.deleted_at IS NULL "
+    "       AND r.status <> 'erased') ELSE false END AS replaced, "
+    # the one badge the tile shows: the first of the row's checks in BADGE_ORDER
+    f"(SELECT c FROM {_DEVICE_CHECKS} c "
+    " WHERE c->>'code' = ANY(CAST(:badge_codes AS text[])) "
+    " ORDER BY array_position(CAST(:badge_codes AS text[]), c->>'code') LIMIT 1) AS badge "
+)
+
+# How each gallery scope is checked, and how it narrows the page. The probe goes
+# through task so task's restrictive worker policy applies: a bare probe on
+# submission answers any worker of the supplier, because that table never
+# narrows a worker to their own rows. It yields the task, which anchors every
+# page on the index whatever the scope; the second fragment narrows the page
+# to the batch or the submission. :p is the parent.
+_GALLERY_SCOPES: dict[str, tuple[str, str]] = {
+    "task": ("SELECT t.id FROM task t WHERE t.id = :p AND t.deleted_at IS NULL", ""),
+    "batch": (
+        "SELECT t.id FROM capture_batch b JOIN task t ON t.id = b.task_id "
+        "WHERE b.id = :p AND t.deleted_at IS NULL",
+        " AND a.batch_id = :p",
+    ),
+    "submission": (
+        "SELECT t.id FROM submission s JOIN task t ON t.id = s.task_id "
+        "WHERE s.id = :p AND t.deleted_at IS NULL",
+        " AND a.submission_id = :p",
+    ),
+}
 
 
 def stage(status: str, batch_status: str | None, replaced: bool) -> str:
@@ -377,6 +500,86 @@ def _to_numeric(v: float | None) -> Decimal | None:
     return None if v is None else Decimal(str(round(v, 6)))
 
 
+def thumb_key_for(storage_key: str) -> str:
+    """Where a capture's poster sits: beside it, under the same name. Pure.
+
+        CTR-05_TSK-06_AG-04_WKR-13_ef051366.jpg.thumb.jpg
+
+    A capture's key can never contain '.thumb.' (_capture_name rebuilds every
+    name as …_<hex8>.<ext>), so the two never collide, the five '_' fields
+    still split, and a plain sort of the bucket keeps each poster next to its
+    capture.
+    """
+    return f"{storage_key}{_THUMB_SUFFIX}"
+
+
+def thumb_promise(storage_key: str, thumbnail: dict[str, Any] | None) -> dict[str, Any] | None:
+    """What presign writes to asset.metadata.thumb when a poster is offered:
+    its key, the size claimed and the content type. A poster is a small JPEG
+    and nothing else; what the route refuses by shape is refused here by rule
+    as well, so a caller past the route cannot promise a 25 MB PNG. Pure."""
+    if thumbnail is None:
+        return None
+    size = int(thumbnail.get("size_bytes") or 0)
+    ctype = str(thumbnail.get("content_type") or "")
+    if ctype != THUMB_CONTENT_TYPE:
+        raise MediaInvalid(f"A poster is {THUMB_CONTENT_TYPE}; that one is {ctype or 'untyped'}.")
+    if size <= 0 or size > MAX_THUMB_BYTES:
+        raise MediaInvalid(f"A poster is capped at {MAX_THUMB_BYTES // (1024 * 1024)} MB.")
+    return {"key": thumb_key_for(storage_key), "claimed_size": size, "content_type": ctype}
+
+
+async def _thumb_put(target: Any, promise: dict[str, Any]) -> dict[str, Any]:
+    """The second PUT of a presign: where the poster goes, and how."""
+    from sourcehub.platform import storage
+
+    url, extra = await storage.presign_put(target, promise["key"])
+    return {
+        "storage_key": promise["key"], "url": url, "method": "PUT",
+        "headers": {"Content-Type": promise["content_type"], **extra},
+    }
+
+
+async def _record_thumb(session: AsyncSession, row: Any, target: Any = None) -> None:
+    """Note the poster, if the device promised one and storage holds it.
+
+    HEAD on the promised key; metadata gains thumb_key and thumb_size. A poster
+    that is missing, a destination that refuses, a destination that is gone,
+    a file far larger than a poster, a file that is not an image at all: each
+    leaves the capture exactly as it was. The poster is for the tile and the
+    capture is the deliverable, and the second never waits on the first.
+    """
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
+
+    meta = row["metadata"] or {}
+    promise = meta.get("thumb")
+    if not promise or meta.get("thumb_key"):
+        return
+    key = promise.get("key") or thumb_key_for(row["storage_key"])
+    try:
+        if target is None:
+            target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+        s = await storage.head(target, key)
+    except (LookupError, storage.StorageError, storage_svc.StorageTargetError):
+        return
+    if s.size > MAX_THUMB_BYTES:
+        return
+    # The promise said image/jpeg, but the key holds whatever the device PUT
+    # there, and a tile is an <img>: text or HTML under it would draw as a
+    # broken image on every reviewer's screen. What storage reports is what the
+    # browser would be told, so that is what is checked; untyped counts as not.
+    if not (s.content_type or "").startswith("image/"):
+        return
+    await session.execute(
+        text(
+            "UPDATE asset SET metadata = metadata || CAST(:m AS jsonb), updated_at = now() "
+            "WHERE id = :id"
+        ),
+        {"m": json.dumps({"thumb_key": key, "thumb_size": s.size}), "id": row["id"]},
+    )
+
+
 async def presign_capture(
     session: AsyncSession,
     claims: AccessClaims,
@@ -392,6 +595,7 @@ async def presign_capture(
     checks: list[dict[str, Any]] | None = None,
     replaces_asset_id: uuid.UUID | None = None,
     duration_s: float | None = None,
+    thumbnail: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Record the manifest and mint a one-object upload URL.
 
@@ -402,6 +606,14 @@ async def presign_capture(
     replaces_asset_id makes this capture a retake of one the aggregator sent
     back: it must be a rework capture of this same assignment that nothing has
     replaced yet. The replaced row stays, with its reason, for the record.
+
+    thumbnail is a poster the device made from the capture ({size_bytes,
+    content_type}; thumb_promise). When offered, the promise is written to
+    asset.metadata.thumb and a second PUT comes back as `thumb`, which the
+    device completes before it confirms. Optional: an app without one, and
+    every capture before this, shows a placeholder tile. A promise already on
+    the row and not yet kept gets its PUT back again, so a poster that failed
+    once can still arrive.
 
     The key is server-generated under the contract, task and assignment so a
     device can never choose where bytes land. The row is inserted as
@@ -437,7 +649,7 @@ async def presign_capture(
     existing = (
         await session.execute(
             text(
-                "SELECT id, status, storage_key FROM asset "
+                "SELECT id, status, storage_key, metadata FROM asset "
                 "WHERE assignment_id = :a AND sha256 = :sha AND deleted_at IS NULL "
                 "  AND status IN ('pending','uploaded','ready') "
                 "ORDER BY created_at DESC LIMIT 1"
@@ -446,18 +658,34 @@ async def presign_capture(
         )
     ).mappings().one_or_none()
     if existing is not None:
+        meta = existing["metadata"] or {}
+        # a poster promised but not yet seen by confirm: its PUT again, so the
+        # device can finish what failed, whatever state the capture is in
+        owed = meta.get("thumb") if meta.get("thumb") and not meta.get("thumb_key") else None
         if existing["status"] == "ready":
             return {
                 "asset_id": existing["id"], "storage_key": existing["storage_key"],
                 "url": None, "method": "PUT", "headers": {}, "expires_in": 0,
                 "status": "ready",
+                "thumb": await _thumb_put(target, owed) if owed else None,
             }
+        promise = thumb_promise(existing["storage_key"], thumbnail)
+        if promise is not None:
+            await session.execute(
+                text(
+                    "UPDATE asset SET metadata = metadata || CAST(:m AS jsonb), "
+                    "       updated_at = now() WHERE id = :id"
+                ),
+                {"m": json.dumps({"thumb": promise}), "id": existing["id"]},
+            )
+        promise = promise or owed
         url, extra = await storage.presign_put(target, existing["storage_key"])
         return {
             "asset_id": existing["id"], "storage_key": existing["storage_key"],
             "url": url, "method": "PUT",
             "headers": {"Content-Type": content_type, **extra},
             "expires_in": settings.storage_presign_ttl_seconds, "status": existing["status"],
+            "thumb": await _thumb_put(target, promise) if promise else None,
         }
 
     if replaces_asset_id is not None:
@@ -533,6 +761,7 @@ async def presign_capture(
     else:
         raise MediaError("Could not mint a unique name for this capture; try again.")
     safe = name  # what the bucket holds is what every gallery shows
+    promise = thumb_promise(key, thumbnail)
     await session.execute(
         text(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
@@ -548,7 +777,12 @@ async def presign_capture(
             "org": a["supplier_org_id"], "contract": a["contract_id"], "key": key, "name": safe,
             "ct": content_type, "size": size_bytes, "sha": sha, "cat": captured_at,
             "lat": _to_numeric(lat), "lon": _to_numeric(lon),
-            "meta": json.dumps({"claimed_size": size_bytes, "kind": kind}),
+            # the poster's promise rides in metadata (db/530): no column, and
+            # nothing a reader of the row has to know about
+            "meta": json.dumps(
+                {"claimed_size": size_bytes, "kind": kind}
+                | ({"thumb": promise} if promise else {})
+            ),
             # What the phone decided before it queued the file. Recorded, not
             # trusted: everything enforced above was checked here, on the
             # server, from the manifest the device sent.
@@ -564,6 +798,7 @@ async def presign_capture(
         "url": url, "method": "PUT",
         "headers": {"Content-Type": content_type, **extra},
         "expires_in": settings.storage_presign_ttl_seconds, "status": "pending",
+        "thumb": await _thumb_put(target, promise) if promise else None,
     }
 
 
@@ -575,6 +810,9 @@ async def confirm_asset(
     A size mismatch quarantines the row and RETURNS it (HTTP 200) rather than
     raising: TxRoute skips the commit on an exception, and the quarantine
     marker is exactly the thing that must persist.
+
+    The poster, if one was promised, is looked for only once the original has
+    passed, and decides nothing (_record_thumb).
     """
     from sourcehub.modules.storage import service as storage_svc
     from sourcehub.platform import storage
@@ -583,7 +821,7 @@ async def confirm_asset(
         await session.execute(
             text(
                 "SELECT id, assignment_id, storage_key, filename, size_bytes, status, "
-                "       storage_target_id "
+                "       storage_target_id, metadata "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -592,6 +830,9 @@ async def confirm_asset(
     if row is None:
         raise LookupError("asset not found")
     if row["status"] == "ready":
+        # The poster may arrive after the capture did: a device whose first
+        # poster PUT failed sends it again and confirms again.
+        await _record_thumb(session, row)
         return (await _get_asset(session, asset_id)) or {}
     if row["status"] != "pending":
         raise MediaError(f"A {row['status']} asset cannot be confirmed.")
@@ -634,6 +875,7 @@ async def confirm_asset(
             ),
             {"etag": s.etag, "ct": s.content_type, "id": asset_id},
         )
+        await _record_thumb(session, row, target)
     return (await _get_asset(session, asset_id)) or {}
 
 
@@ -666,21 +908,316 @@ async def list_assets(
     if parent is None:
         raise LookupError("not found")
 
-    # The supplier sees every capture of its own, failed attempts included;
-    # anyone else (the delivery partner, the client) sees only what is ready.
     params["me"] = claims.org_id
     rows = (
         await session.execute(
             text(
                 "SELECT " + _ASSET_COLUMNS + _ASSET_FROM
-                + "WHERE a.deleted_at IS NULL "
-                + "  AND (a.supplier_org_id = :me OR a.status = 'ready') AND " + where
+                + "WHERE " + _VISIBLE + " AND " + where
                 + " ORDER BY a.captured_at NULLS LAST, a.created_at"
             ),
             params,
         )
     ).mappings().all()
     return [_asset_dict(r) for r in rows]
+
+
+# A timestamptz as _CURSOR_TS prints it. The cursor carries exactly this and
+# decode_cursor takes nothing looser: Python's own parser also accepts ISO week
+# dates and compact forms that Postgres refuses, and a value that passed here
+# only to fail in the CAST would be a 500 where the contract says 422.
+_PG_TIMESTAMPTZ = re.compile(r"\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{1,6})?[+-]\d{2}(:\d{2})?")
+
+
+def encode_cursor(k_at: str, k_created: str, asset_id: uuid.UUID) -> str:
+    """Where a page ended, as an opaque token: the three keyset values as the
+    page printed them (_CURSOR_TS; 'infinity' included), JSON, base64url
+    without padding. Pure."""
+    raw = json.dumps([k_at, k_created, str(asset_id)], separators=(",", ":")).encode()
+    return base64.urlsafe_b64encode(raw).decode().rstrip("=")
+
+
+def decode_cursor(after: str) -> tuple[str, str, uuid.UUID]:
+    """The three keyset values back, or MediaInvalid. A token is only ever one
+    this list issued; anything else — hand-edited, truncated, another list's —
+    is refused here, before it reaches the database as a bad timestamp. Pure."""
+    try:
+        raw = base64.urlsafe_b64decode(after + "=" * (-len(after) % 4))
+        k_at, k_created, asset_id = json.loads(raw)
+        if not all(isinstance(v, str) for v in (k_at, k_created, asset_id)):
+            raise TypeError("cursor fields")
+        if k_at != "infinity" and not _PG_TIMESTAMPTZ.fullmatch(k_at):
+            raise ValueError("k_at")
+        if not _PG_TIMESTAMPTZ.fullmatch(k_created):
+            raise ValueError("k_created")
+        return k_at, k_created, uuid.UUID(asset_id)
+    except (ValueError, TypeError):
+        raise MediaInvalid("That is not a page of this list.") from None
+
+
+# asyncpg sends datetime.max as timestamptz 'infinity', the untimed captures' key
+_INFINITY = dt.datetime.max.replace(tzinfo=dt.timezone.utc)
+
+
+def cursor_binds(k_at: str, k_created: str, k_id: uuid.UUID) -> dict[str, Any]:
+    """The cursor's three values as typed binds for _GALLERY_AFTER. Pure.
+
+    Typed rather than cast in SQL: the text to timestamptz cast is not
+    leakproof (its errors could echo the input) and depends on the session's
+    time zone, so it could never be part of an index condition under RLS; a
+    timestamptz parameter compares with leakproof operators and is exactly
+    the value the cursor printed. (The seek itself is still held back by the
+    COALESCE in the key; see the note above _GALLERY_KEY.)
+    """
+    return {
+        "k_at": _INFINITY if k_at == "infinity" else dt.datetime.fromisoformat(k_at),
+        "k_created": dt.datetime.fromisoformat(k_created),
+        "k_id": k_id,
+    }
+
+
+def _gallery_dict(r: Any, thumb_url: str | None) -> dict[str, Any]:
+    badge = r["badge"]
+    return {
+        "id": r["id"],
+        "task_id": r["task_id"],
+        "assignment_id": r["assignment_id"],
+        "submission_id": r["submission_id"],
+        "batch_id": r["batch_id"],
+        "batch_no": r["batch_no"],
+        "status": r["status"],
+        "stage": stage(r["status"], r["batch_status"], bool(r["replaced"])),
+        "filename": r["filename"],
+        "mime_type": r["mime_type"],
+        "duration_s": None if r["duration_s"] is None else float(r["duration_s"]),
+        "captured_at": r["captured_at"],
+        "captured_by_name": r["captured_by_name"],
+        "quarantine_reason": r["quarantine_reason"],
+        "review_reason": r["review_reason"],
+        "review_label": r["review_label"],
+        # the one check the tile shows (BADGE_ORDER), as the console draws it
+        "badge": (
+            {k: badge.get(k) for k in ("code", "message", "severity")}
+            if isinstance(badge, dict) else None
+        ),
+        # signed inside the page (_sign_thumbs); None draws the placeholder tile
+        "thumb_url": thumb_url,
+    }
+
+
+# How many posters are signed at once within one page: a signature is CPU, or
+# a round trip when keyless GCS asks IAM to sign; eight keep a page of sixty
+# well under a second without a burst the signer refuses.
+_SIGNERS = 8
+
+
+async def _sign_thumbs(session: AsyncSession, rows: Any) -> dict[uuid.UUID, str | None]:
+    """A short-lived inline URL for each row's poster, by asset id.
+
+    Only a row with a recorded thumb_key is signed: a capture whose poster never
+    arrived shows a placeholder, and the original is never signed for a tile —
+    the tile on a 1 GB clip used to fetch the clip. Each distinct destination
+    is resolved once per page (one SECURITY DEFINER read each, as
+    catalogue.contract_captures does), then the signatures run _SIGNERS at a
+    time. A signature that fails, or a destination that is gone, leaves that
+    tile unpictured rather than failing the page.
+    """
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
+
+    wanted = [r for r in rows if r["thumb_key"]]
+    if not wanted:
+        return {}
+    targets: dict[Any, Any] = {}
+    for r in wanted:
+        if r["storage_target_id"] not in targets:
+            try:
+                targets[r["storage_target_id"]] = await storage_svc.resolve_by_id(
+                    session, r["storage_target_id"]
+                )
+            except storage_svc.StorageTargetError:
+                targets[r["storage_target_id"]] = None
+    gate = asyncio.Semaphore(_SIGNERS)
+
+    async def one(r: Any) -> tuple[uuid.UUID, str | None]:
+        target = targets[r["storage_target_id"]]
+        if target is None:
+            return r["id"], None
+        async with gate:
+            try:
+                url = await storage.presign_get(
+                    target, r["thumb_key"], f"{r['filename'] or r['id']}{_THUMB_SUFFIX}",
+                    inline=True,
+                )
+            except (storage.StorageError, storage_svc.StorageTargetError):
+                return r["id"], None
+        return r["id"], url
+
+    return dict(await asyncio.gather(*(one(r) for r in wanted)))
+
+
+async def list_gallery(
+    session: AsyncSession,
+    claims: AccessClaims,
+    *,
+    parent: str,
+    parent_id: uuid.UUID,
+    limit: int = GALLERY_PAGE,
+    after: str | None = None,
+    flagged: bool = False,
+) -> dict[str, Any]:
+    """One page of a gallery: a task's, a batch's or a submission's captures.
+
+    The parent is checked first, through task, so one the caller may not see is
+    a 404 rather than an empty page (_GALLERY_SCOPES). Rows are read under
+    _VISIBLE in _GALLERY_ORDER, one more than asked for so has_more costs no
+    second query; next_cursor is the last row's three keyset values. total is
+    counted on the first page only — the console keeps it for "n of total" —
+    under the same predicate and filter as the page. flagged narrows to the
+    captures the phone raised a badge on; it is a filter, not an order, so it
+    rides the cursor and the index unchanged. Posters are signed inside the
+    page (_sign_thumbs): a tile never asks for a URL of its own.
+    """
+    probe, narrow = _GALLERY_SCOPES[parent]
+    task_id = (await session.execute(text(probe), {"p": parent_id})).scalar_one_or_none()
+    if task_id is None:
+        raise LookupError("not found")
+    limit = max(1, min(int(limit), GALLERY_PAGE_MAX))
+
+    where = _VISIBLE + " AND a.task_id = :t" + narrow
+    params: dict[str, Any] = {"me": claims.org_id, "t": task_id, "p": parent_id}
+    if flagged:
+        where += " AND " + _FLAGGED
+        params["badge_codes"] = list(BADGE_ORDER)
+    page_where = where
+    page_params = {**params, "badge_codes": list(BADGE_ORDER), "n": limit + 1}
+    if after is not None:
+        k_at, k_created, k_id = decode_cursor(after)
+        page_where += " AND " + _GALLERY_AFTER
+        page_params.update(cursor_binds(k_at, k_created, k_id))
+
+    rows = (
+        await session.execute(
+            text(
+                "SELECT " + _GALLERY_COLUMNS + _ASSET_FROM + "WHERE " + page_where
+                + " " + _GALLERY_ORDER + " LIMIT :n"
+            ),
+            page_params,
+        )
+    ).mappings().all()
+    has_more = len(rows) > limit
+    rows = rows[:limit]
+    total = None
+    if after is None:
+        total = int(
+            (
+                await session.execute(text("SELECT count(*) FROM asset a WHERE " + where), params)
+            ).scalar_one()
+        )
+    thumbs = await _sign_thumbs(session, rows)
+    last = rows[-1] if has_more else None
+    return {
+        "items": [_gallery_dict(r, thumbs.get(r["id"])) for r in rows],
+        "has_more": has_more,
+        "next_cursor": (
+            encode_cursor(last["k_at"], last["k_created"], last["id"]) if last is not None else None
+        ),
+        "expires_in": settings.storage_presign_ttl_seconds,
+        "total": total,
+    }
+
+
+async def get_asset(
+    session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID
+) -> dict[str, Any]:
+    """The full row, for the preview, under the same visibility rule as the
+    lists. RLS alone would hand a sent-back capture — the reviewer's reason and
+    note on it — to the partner and the client, who see it in no list; so a
+    capture a gallery would not show is not found here either."""
+    row = (
+        await session.execute(
+            text("SELECT " + _ASSET_COLUMNS + _ASSET_FROM + "WHERE a.id = :id AND " + _VISIBLE),
+            {"id": asset_id, "me": claims.org_id},
+        )
+    ).mappings().one_or_none()
+    if row is None:
+        raise LookupError("asset not found")
+    return _asset_dict(row)
+
+
+async def check_summary(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID
+) -> dict[str, Any]:
+    """The task dialog's line on the phone's checks, counted in the database.
+
+    The dialog used to load every capture of the task to count warnings. Three
+    statements over the checks instead, under list_assets' visibility: how many
+    captures, and how many carry checks at all; every check by severity and
+    code; and the first eight complaints — warn or block; a measurement is not
+    a complaint — in gallery order, for the list under the line.
+    """
+    parent = (
+        await session.execute(
+            text("SELECT 1 FROM task WHERE id = :t AND deleted_at IS NULL"), {"t": task_id}
+        )
+    ).scalar_one_or_none()
+    if parent is None:
+        raise LookupError("task not found")
+    params = {"t": task_id, "me": claims.org_id}
+    heads = (
+        await session.execute(
+            text(
+                "SELECT count(*) AS captures, "
+                "       count(*) FILTER (WHERE jsonb_array_length("
+                "         coalesce(a.check_results->'device', '[]'::jsonb)) > 0) AS with_checks "
+                "FROM asset a WHERE a.task_id = :t AND " + _VISIBLE
+            ),
+            params,
+        )
+    ).mappings().one()
+    by = (
+        await session.execute(
+            text(
+                "SELECT c->>'severity' AS severity, c->>'code' AS code, count(*) AS n "
+                f"FROM asset a, {_DEVICE_CHECKS} c "
+                "WHERE a.task_id = :t AND " + _VISIBLE + " GROUP BY 1, 2"
+            ),
+            params,
+        )
+    ).mappings().all()
+    complaints = (
+        await session.execute(
+            text(
+                "SELECT a.id AS asset_id, a.filename, c->>'code' AS code, "
+                "       c->>'severity' AS severity, c->>'message' AS message, "
+                "       CAST(c->>'score' AS double precision) AS score "
+                f"FROM asset a, {_DEVICE_CHECKS} WITH ORDINALITY AS dc(c, n) "
+                "WHERE a.task_id = :t AND " + _VISIBLE
+                + " AND c->>'severity' IN ('warn', 'block') "
+                + _GALLERY_ORDER + ", dc.n LIMIT 8"
+            ),
+            params,
+        )
+    ).mappings().all()
+
+    severity = {"warn": 0, "block": 0, "info": 0}
+    by_code: dict[str, int] = {}
+    for r in by:
+        n = int(r["n"])
+        if r["severity"] in severity:
+            severity[r["severity"]] += n
+        if r["code"]:
+            by_code[r["code"]] = by_code.get(r["code"], 0) + n
+    return {
+        "captures": int(heads["captures"]),
+        "with_checks": int(heads["with_checks"]),
+        "warnings": severity["warn"],
+        "blockers": severity["block"],
+        "measurements": severity["info"],
+        "by_code": dict(sorted(by_code.items())),
+        "complaints_total": severity["warn"] + severity["block"],
+        "complaints": [dict(r) for r in complaints],
+    }
 
 
 async def asset_view_url(

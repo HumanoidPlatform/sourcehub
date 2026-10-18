@@ -92,6 +92,10 @@ beforeEach(() => {
     if (path === "/network/workers") return Promise.resolve([WORKER]);
     if (path === "/tasks") return Promise.resolve([TASK]);
     if (path === "/qa/gate1") return Promise.resolve([]);
+    // the crowd dialog's gallery is paged (db/530)
+    if (path.startsWith("/tasks/t1/assets?")) {
+      return Promise.resolve({ items: [], has_more: false, next_cursor: null, expires_in: 900, total: 0 });
+    }
     return Promise.resolve([]);
   });
   api.post.mockReset().mockImplementation(() => Promise.resolve({}));

@@ -1,6 +1,10 @@
-// delivery/components — the capture gallery. The same tiles serve the
-// aggregator's gate-1 review, the delivery partner's gate 2 and the client's
-// delivery drawer; RLS decides which captures each of them is handed.
+// delivery/components — the capture gallery over one assignment's rows: the
+// worker's own capture dialog, which adopts pending rows out of the same
+// payload its uploader confirms into, and the one decide route that has no
+// batch yet. The review dialogs — gate 1 on a batch, gate 2 on a submission,
+// a task's detail — moved to GalleryGrid (db/530), which pages the rows and
+// draws posters; the preview, the badge table and the check rows below are
+// shared with it.
 //
 // Bytes never pass through the API: a tile asks for a short-lived signed URL
 // only when it scrolls into view and renders the original straight from
@@ -15,14 +19,6 @@ import { Button, Dl, Empty, inputCls, selectCls } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { assetStatus, statusMeta } from "@shared/status";
 
-export function useTaskAssets(taskId: string | null | undefined, enabled = true) {
-  return useQuery({
-    queryKey: ["task-assets", taskId],
-    queryFn: () => get<AssetRow[]>(`/tasks/${taskId}/assets`),
-    enabled: !!taskId && enabled,
-  });
-}
-
 export function useAssignmentAssets(assignmentId: string | null | undefined) {
   return useQuery({
     queryKey: ["assignment-assets", assignmentId],
@@ -31,8 +27,9 @@ export function useAssignmentAssets(assignmentId: string | null | undefined) {
   });
 }
 
-// A signed URL lives 15 minutes; refetch a little before it dies.
-function useAssetUrl(assetId: string, enabled: boolean) {
+// A signed URL lives 15 minutes; refetch a little before it dies. The one
+// call a GalleryGrid preview makes, too: its tiles never ask for a link.
+export function useAssetUrl(assetId: string, enabled: boolean) {
   return useQuery({
     queryKey: ["asset-url", assetId],
     queryFn: () => get<AssetUrl>(`/assets/${assetId}/url`),
@@ -133,7 +130,7 @@ export type Mark = { outcome: "keep" | "retake"; reason?: string; note?: string 
 const reasonLabel = (code: string | null | undefined): string =>
   RETAKE_REASONS.find(([v]) => v === code)?.[1] ?? code ?? "";
 
-export function isVideo(a: AssetRow): boolean {
+export function isVideo(a: { mime_type: string | null; filename: string | null }): boolean {
   return (a.mime_type ?? "").startsWith("video/") || /\.(mp4|mov)$/i.test(a.filename ?? "");
 }
 
@@ -249,8 +246,10 @@ function AssetThumb({
 }
 
 /** The one badge a tile carries, most telling first: the phone's domain
- *  verdict, then what a clip's frames showed, then that it could not look. */
-const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
+ *  verdict, then what a clip's frames showed, then that it could not look.
+ *  The server's BADGE_ORDER for a paged GalleryRow is this same order; a code
+ *  added here without it there is a tile that stays blank. */
+export const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
   wrong_subject: { text: "subject?", tone: "amber" },
   // Something the client said must not appear. A separate question from
   // whether the subject is there, and now a separate finding: a capture can
@@ -266,7 +265,7 @@ const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
   clip_unchecked: { text: "unchecked", tone: "grey" },
 };
 
-function subjectCheck(asset: AssetRow) {
+export function subjectCheck(asset: Pick<AssetRow, "device_checks">) {
   const checks = asset.device_checks ?? [];
   for (const code of Object.keys(BADGE)) {
     const c = checks.find((x) => x.code === code);
@@ -283,7 +282,7 @@ function subjectCheck(asset: AssetRow) {
  *  handset took it. Those are worth having in front of a reviewer, but a
  *  warning listed fifth among them is a warning nobody reads. Complaints keep
  *  the "Phone check" heading they always had; measurements get their own. */
-function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode][] {
+export function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode][] {
   const all = checks ?? [];
   const lines = (list: DeviceCheck[], key: string) => (
     <span key={key}>
@@ -309,7 +308,7 @@ function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode]
   return rows;
 }
 
-function AssetPreview({
+export function AssetPreview({
   asset,
   mark,
   onMark,

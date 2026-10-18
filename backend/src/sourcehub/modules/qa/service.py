@@ -302,11 +302,41 @@ def plan_marks(
     return plan
 
 
+def expand_all_retake(
+    marks: list[dict[str, Any]],
+    known: dict[uuid.UUID, str],
+    all_retake: dict[str, Any] | None,
+) -> list[dict[str, Any]]:
+    """"Mark all to retake", expanded against the batch as it stands. Pure.
+
+    The console used to expand it into one mark per loaded row, which needed
+    every row in the browser and stopped at the 200 marks a body may carry. A
+    retake mark for every capture that can be marked — ready or rejected; a
+    pending upload or a quarantined file never became part of the batch — that
+    the reviewer did not name, then the explicit marks, LAST: plan_marks gives
+    the last word to the last mark, so an explicit Keep survives the blanket.
+    None passes the marks through untouched. The reason is checked by
+    plan_marks like any other mark's.
+    """
+    if all_retake is None:
+        return list(marks)
+    named = {m["asset_id"] for m in marks}
+    reason = (all_retake.get("reason") or "").strip()
+    note = (all_retake.get("note") or "").strip() or None
+    blanket = [
+        {"asset_id": asset_id, "outcome": "retake", "reason": reason, "note": note}
+        for asset_id, was in known.items()
+        if was in ("ready", "rejected") and asset_id not in named
+    ]
+    return blanket + list(marks)
+
+
 async def _apply_marks(
     session: AsyncSession,
     claims: AccessClaims,
     batch_id: uuid.UUID,
     marks: list[dict[str, Any]],
+    all_retake: dict[str, Any] | None = None,
 ) -> dict[str, int]:
     """Put each named capture where the reviewer put it, and count the reasons.
 
@@ -315,8 +345,11 @@ async def _apply_marks(
     replacement before they can resubmit; attach_to_submission stops bundling
     it, so it never reaches the delivery partner; and every rollup that filters
     on 'ready' drops it without being told. See db/210_asset_review.sql.
+
+    all_retake is "mark all": expanded here, against the batch's own rows
+    (expand_all_retake), so it can never reach a capture outside the batch.
     """
-    if not marks:
+    if not marks and all_retake is None:
         return {}
 
     known = {
@@ -331,6 +364,7 @@ async def _apply_marks(
             )
         ).mappings().all()
     }
+    marks = expand_all_retake(marks, known, all_retake)
     wanted = sorted({str(m["reason"]).strip() for m in marks if (m.get("reason") or "").strip()})
     live = (
         set(
@@ -375,6 +409,7 @@ async def decide_gate1(
     outcome: str,  # 'accept' | 'reject'
     note: str | None,
     marks: list[dict[str, Any]] | None = None,
+    all_retake: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """The verdict addressed to an assignment, as before batches: it answers
     the assignment's oldest batch still in review (decide_batch)."""
@@ -396,7 +431,7 @@ async def decide_gate1(
         if exists is None:
             raise LookupError("assignment not found")
         raise QaError("Nothing on this assignment is waiting for review.")
-    return await decide_batch(session, claims, batch_id, outcome, note, marks)
+    return await decide_batch(session, claims, batch_id, outcome, note, marks, all_retake)
 
 
 async def decide_batch(
@@ -406,13 +441,17 @@ async def decide_batch(
     outcome: str,  # 'accept' | 'reject'
     note: str | None,
     marks: list[dict[str, Any]] | None = None,
+    all_retake: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Answer one batch, capture by capture.
 
     Every capture in it is accepted unless marked to be shot again. 'accept'
     means nothing is marked; 'reject' means something is — the marks carry the
     reasons, so a note is optional (qa_review's own CHECK gets the count when
-    there is none). Accepted captures stay accepted: a later batch never puts
+    there is none). all_retake ({reason, note}) marks every capture the
+    reviewer did not name, on the server, so a batch of any size goes back
+    whole; it is a send-back by definition and refused with 'accept'.
+    Accepted captures stay accepted: a later batch never puts
     them back in front of anyone. Then the assignment is settled
     (delivery.settle_assignment): accepted once its accepted captures reach its
     quantity, and on a reassigned one, rework moves to the worker who took over.
@@ -421,6 +460,8 @@ async def decide_batch(
 
     if outcome not in ("accept", "reject"):
         raise QaError("Outcome must be accept or reject.")
+    if all_retake is not None and outcome != "reject":
+        raise QaError("Marking every capture to be shot again sends the batch back: reject it.")
     note = (note or "").strip() or None
 
     b = (
@@ -444,7 +485,7 @@ async def decide_batch(
         raise QaError(f"Batch {b['batch_no']} has already been answered.")
     assignment_id = b["assignment_id"]
 
-    tally = await _apply_marks(session, claims, batch_id, marks or [])
+    tally = await _apply_marks(session, claims, batch_id, marks or [], all_retake)
     counts = (
         await session.execute(
             text(

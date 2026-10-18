@@ -476,7 +476,7 @@ r = northstar.post(f"/contracts/{contract['id']}/tasks", json={
     "title": "Metro shelf capture, wave 2",
     "target": "4 photos", "target_quantity": 4, "target_unit": "photos",
     "instructions": "Full shelf in frame, no shoppers, landscape.",
-    "capture_spec": {"media": "photo", "require_gps": True},
+    "capture_spec": {"media": ["photo"], "require_gps": True},
     "due_on": "2026-10-11",
 })
 assert r.status_code == 201, r.text
@@ -585,7 +585,8 @@ assert retake["status"] == "ready", retake
 ok("quarantined shot discarded and retaken", "3 ready")
 
 r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Aisles 1-2 done."})
-assert r.status_code == 200 and r.json()["status"] == "submitted", r.text
+assert r.status_code == 200 and r.json()["status"] == "in_progress", r.text  # db/350
+assert [b["status"] for b in r.json()["batches"]] == ["in_review"], r.json()["batches"]
 assert r.json()["assets"]["ready"] == 3, r.json()["assets"]
 ok("worker submits the assignment", "3 ready")
 
@@ -640,10 +641,11 @@ ok("accept refused while a capture is marked, and the marks roll back with it")
 
 r = agg.post(f"/assignments/{a1['id']}/decide", json={
     "outcome": "reject", "note": "Retake 2 with less glare.", "marks": [MARK]})
-assert r.status_code == 200 and r.json()["assignment_status"] == "rejected", r.text
+assert r.status_code == 200 and r.json()["assignment_status"] == "in_progress", r.text  # db/350
 assert r.json()["retake"] == 1, r.json()
 mine = worker1.get("/me/assignments").json()[0]
-assert mine["status"] == "rejected" and "glare" in mine["decision_note"], mine
+assert mine["status"] == "in_progress" and "glare" in mine["decision_note"], mine  # db/350
+assert [b["status"] for b in mine["batches"]] == ["reviewed"], mine["batches"]
 # The marked frame stops counting; the two that passed survive the round trip.
 assert mine["assets"]["ready"] == 2, f"A KEPT CAPTURE WAS LOST IN THE ROUND TRIP: {mine['assets']}"
 ok("gate 1 sends back one capture, not the batch", "2 of 3 still ready")
@@ -657,7 +659,34 @@ r = worker1.get(f"/assets/{p1a['asset_id']}/url")
 assert r.status_code == 200, f"WORKER CANNOT SEE WHAT WAS SENT BACK: {r.status_code} {r.text}"
 ok("the worker reads the reason and can still open the frame", marked["review_label"])
 
-assert worker1.post(f"/assignments/{a1['id']}/start").json()["status"] == "in_progress"
+# db/530: the paged gallery draws the same line as the arrays. The supplier's
+# first page counts the frame it sent back; the partner's counts only what is
+# ready; a sibling worker and the partner get a 404 for the sent-back frame's
+# own row, which carries the review reason; and a capture the phone uploaded no
+# poster for carries no poster link. A cursor nobody issued is a 422.
+sup = agg.get(f"/tasks/{task2['id']}/assets", params={"limit": 10}).json()
+par = northstar.get(f"/tasks/{task2['id']}/assets", params={"limit": 10}).json()
+assert (sup["total"], par["total"]) == (3, 2), (sup["total"], par["total"])
+assert sup["has_more"] is False and sup["next_cursor"] is None, sup
+sent_back = next(i for i in sup["items"] if i["id"] == p1a["asset_id"])
+assert sent_back["stage"] == "rework" and sent_back["review_reason"] == "exposure", sent_back
+assert "device_checks" not in sent_back and "sha256" not in sent_back, sent_back
+assert all(i["thumb_url"] is None for i in sup["items"]), "A POSTER LINK FOR A CAPTURE WITHOUT ONE"
+batch1 = q[0]["batch_id"]
+assert agg.get(f"/batches/{batch1}/assets").json()["total"] == 3
+assert northstar.get(f"/batches/{batch1}/assets").json()["total"] == 2
+for who, path in ((worker2, f"/batches/{batch1}/assets"), (worker2, f"/assets/{p1a['asset_id']}"),
+                  (northstar, f"/assets/{p1a['asset_id']}")):
+    r = who.get(path)
+    assert r.status_code == 404, f"GALLERY LEAK on {path}: {r.status_code} {r.text}"
+r = worker1.get(f"/assets/{p1a['asset_id']}")
+assert r.status_code == 200 and r.json()["review_reason"] == "exposure", r.text
+r = agg.get(f"/tasks/{task2['id']}/assets", params={"limit": 2, "after": "not-a-cursor"})
+assert r.status_code == 422, f"A FORGED CURSOR WAS ACCEPTED: {r.status_code} {r.text}"
+ok("gallery pages and the capture row keep a sent-back frame inside the supplier",
+   f"supplier total {sup['total']}, partner {par['total']}")
+
+assert worker1.post(f"/assignments/{a1['id']}/start").status_code == 409  # db/350
 r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Nothing changed."})
 assert r.status_code == 409, f"RESUBMITTED WITHOUT REPLACING THE SENT-BACK FRAME: {r.text}"
 ok("the batch cannot go back up until the frame is replaced", r.json()["detail"][:44])
@@ -677,6 +706,32 @@ capture(worker1, a1["id"], "shelf-04.jpg", b"\xff\xd8\xff" + b"shelf-04" * 400)
 r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Retaken."})
 assert r.status_code == 200 and r.json()["assets"]["ready"] == 3, r.text
 ok("worker reworks and resubmits", "3 ready")
+
+# db/530: "Mark all to retake" is one field, expanded on the server, so a batch
+# of any size goes back whole. Batch 2 holds the one retake; every ready capture
+# in it comes back rejected with the blanket reason, and accept cannot ride with
+# a blanket. Then the worker reworks that round too.
+q2 = next(x for x in agg.get("/qa/gate1").json() if x["assignment_id"] == a1["id"])
+assert q2["batch_id"] != q[0]["batch_id"] and q2["ready_assets"] == 1, q2
+r = agg.post(f"/batches/{q2['batch_id']}/decide", json={
+    "outcome": "accept", "all_retake": {"reason": "blur"}})
+assert r.status_code == 409, f"ACCEPTED A BATCH WITH A BLANKET RETAKE: {r.status_code} {r.text}"
+r = agg.post(f"/batches/{q2['batch_id']}/decide", json={
+    "outcome": "reject", "all_retake": {"reason": "blur", "note": "soft focus on the retake"}})
+assert r.status_code == 200 and (r.json()["retake"], r.json()["kept"]) == (1, 0), r.text
+page = agg.get(f"/batches/{q2['batch_id']}/assets").json()
+assert page["total"] == 1 and all(
+    i["status"] == "rejected" and i["review_reason"] == "blur" and i["stage"] == "rework"
+    for i in page["items"]), page
+ok("mark all to retake sends the whole batch back with one reason", "1 of 1 rejected")
+
+assert worker1.post(f"/assignments/{a1['id']}/start").status_code == 409  # db/350
+r = worker1.delete(f"/assets/{page['items'][0]['id']}")
+assert r.status_code == 204, r.text
+capture(worker1, a1["id"], "shelf-04b.jpg", b"\xff\xd8\xff" + b"shelf-04b" * 400)
+r = worker1.post(f"/assignments/{a1['id']}/submit", json={"note": "Retaken again."})
+assert r.status_code == 200 and r.json()["assets"]["ready"] == 3, r.text
+ok("worker reworks the blanket round and resubmits", "3 ready")
 
 # not before it is accepted: the trigger reads the assignment's state (db/380)
 r = agg.post(f"/assignments/{a1['id']}/rating", json={"score": 5, "comment": "Great eye."})
@@ -713,6 +768,26 @@ ok("aggregator bundles the accepted captures into the submission", "asset_count 
 
 assets = northstar.get(f"/tasks/{task2['id']}/assets").json()
 assert len(assets) == 3 and all(a["status"] == "ready" for a in assets), assets
+
+# db/530: the same captures by page. Two per page, so the cursor is taken at
+# least once; the pages joined are the bare array in the same order, the total
+# is told once, and the slim row carries none of the full row's weight.
+paged, cursor, pages = [], None, 0
+while True:
+    params = {"limit": 2, **({"after": cursor} if cursor else {})}
+    page = northstar.get(f"/tasks/{task2['id']}/assets", params=params).json()
+    pages += 1
+    paged += page["items"]
+    assert page["total"] == (len(assets) if pages == 1 else None), page
+    assert len(page["items"]) <= 2, page
+    if not page["has_more"]:
+        assert page["next_cursor"] is None, page
+        break
+    cursor = page["next_cursor"]
+assert [i["id"] for i in paged] == [a["id"] for a in assets], (paged, assets)
+assert "device_checks" not in paged[0] and "check_results" not in paged[0], paged[0]
+assert agg.get(f"/tasks/{task2['id']}/assets", params={"limit": 2}).json()["total"] == 3
+ok("the gallery pages to the same captures as the array", f"{pages} pages of 2")
 # The retake, not the first shot: that one was discarded during rework above.
 url = northstar.get(f"/assets/{retake['id']}/url").json()["url"]
 got = httpx.get(url, timeout=30)
@@ -721,14 +796,25 @@ ok("partner views the originals through a signed inline URL", f"{len(got.content
 
 sub3 = next(x for x in northstar.get("/qa/queue").json() if x["task_id"] == task2["id"])
 assert sub3["asset_count"] == 3, sub3
+# db/530: the submission's own page, for the gate-2 dialog; a sibling worker gets
+# a 404 because the probe goes through task, not through submission alone
+r = northstar.get(f"/submissions/{sub3['submission_id']}/assets")
+assert r.status_code == 200 and r.json()["total"] == 3, r.text
+r = worker2.get(f"/submissions/{sub3['submission_id']}/assets")
+assert r.status_code == 404, f"WORKER ISOLATION LEAK on the submission gallery: {r.status_code}"
+summary = northstar.get(f"/tasks/{task2['id']}/check-summary").json()
+assert summary["captures"] == 3, summary
+assert summary["complaints_total"] == len(summary["complaints"]), summary
+ok("the submission pages and the check summary count without the rows",
+   f"{summary['captures']} captures, {summary['warnings']} warnings")
 r = northstar.post(f"/qa/submissions/{sub3['submission_id']}/decide",
                    json={"outcome": "pass", "note": "Clean."})
 assert r.status_code == 200 and r.json()["task_status"] == "qa_passed", r.text
 ok("gate 2 passes the bundled submission")
 
 gates = [x["gate"] for x in northstar.get(f"/tasks/{task2['id']}/reviews").json()]
-assert gates.count("gate1_supplier") == 2 and gates.count("gate2_partner") == 1, gates
-ok("trail holds both gate-1 verdicts and the gate-2 pass")
+assert gates.count("gate1_supplier") == 3 and gates.count("gate2_partner") == 1, gates
+ok("trail holds all three gate-1 verdicts and the gate-2 pass")
 
 assert client.get(f"/tasks/{task2['id']}/assignments").json() == []
 assert len(client.get(f"/tasks/{task2['id']}/assets").json()) == 3
@@ -986,7 +1072,9 @@ ok("partner raises an invoice",
 rival_sees = any(i["id"] == inv1["id"] for i in meridian.get("/invoices").json())
 assert not rival_sees, "RIVAL SEES INVOICE"
 r = northstar.post(f"/invoices/{inv1['id']}/pay", json={})
-assert r.status_code == 403, r.text  # a partner holds no invoice.pay
+# 0049: a partner may hold invoice.pay as a dataset buyer, and is then refused by the
+# service (409) rather than the capability guard (403); either way it cannot pay this one
+assert r.status_code in (403, 409), r.text
 r = northstar.post(f"/invoices/{inv1['id']}/acknowledge")
 assert r.status_code == 409, r.text  # nothing to acknowledge yet
 r = client.post(f"/invoices/{inv1['id']}/pay", json={"payment_reference": "TT-20261004-1"})

@@ -468,6 +468,10 @@ export interface AssetSummary {
   bundled: number;
   /** ready captures in the task's unit: hours of footage for hours */
   ready_units?: number;
+  /** ready captures in a batch of an accepted assignment: what "Submit to
+   *  partner" would bundle (db/530). The submit dialog used to load every
+   *  row of the task to count these. 0 for a client. */
+  submittable: number;
 }
 
 export interface AssignmentAssets {
@@ -651,6 +655,91 @@ export interface AssetUrl {
   expires_in: number;
 }
 
+// The paged gallery (db/530): GET /tasks/{id}/assets?limit=&after=&flagged=,
+// GET /batches/{id}/assets and GET /submissions/{id}/assets. One slim row per
+// tile — what the tile shows and nothing else; the full AssetRow comes from
+// GET /assets/{id} when a capture is opened. The bare /tasks/{id}/assets, with
+// no limit, still returns the old AssetRow[] for e2e_loop.py.
+export interface GalleryRow {
+  id: string;
+  task_id: string;
+  assignment_id: string | null;
+  submission_id: string | null;
+  batch_id: string | null;
+  batch_no: number | null;
+  status: string;
+  /** never null from the server; the rows adapter derives it for an older payload */
+  stage: NonNullable<AssetRow["stage"]>;
+  filename: string | null;
+  mime_type: string | null;
+  /** a clip's running time; null for a photo */
+  duration_s: number | null;
+  captured_at: string | null;
+  captured_by_name: string | null;
+  quarantine_reason: string | null;
+  review_reason: string | null;
+  review_label: string | null;
+  /** The one phone finding a tile carries, chosen on the server in BADGE
+   *  order; null when the phone had nothing to say. */
+  badge: { code: string; message: string; severity: DeviceCheck["severity"] } | null;
+  /** A signed link to the ~320 px poster the phone uploaded beside the
+   *  capture, good for the page's expires_in. null until the phone has sent
+   *  one, or when signing it failed; the tile then draws a placeholder. */
+  thumb_url: string | null;
+}
+
+export interface GalleryPage {
+  items: GalleryRow[];
+  has_more: boolean;
+  /** opaque; hand it back as ?after= for the next page */
+  next_cursor: string | null;
+  /** seconds the page's thumb_urls stay valid */
+  expires_in: number;
+  /** every row the caller may see, on the first page only; null after */
+  total: number | null;
+}
+
+// GET /tasks/{id}/check-summary — the phone's findings over a whole task,
+// counted on the server so the task dialog no longer loads every row to add
+// them up. A measurement (severity info) is counted, never listed.
+export interface CheckSummary {
+  captures: number;
+  with_checks: number;
+  warnings: number;
+  blockers: number;
+  measurements: number;
+  /** checks by code across the task — {"wrong_subject": 3} */
+  by_code: Record<string, number>;
+  complaints_total: number;
+  /** the first eight warnings and blockers, oldest capture first */
+  complaints: {
+    asset_id: string;
+    filename: string | null;
+    code: string;
+    severity: "block" | "warn";
+    message: string;
+    score: number | null;
+  }[];
+}
+
+/** "Everything in this batch again, for this reason": expanded on the server
+ *  into a retake mark per capture, so a batch of any size goes back in one
+ *  field. An explicit mark on a capture wins over it. */
+export interface AllRetake {
+  reason: string;
+  note: string | null;
+}
+
+// POST /batches/{id}/decide and POST /assignments/{id}/decide share this body.
+export interface BatchDecisionIn {
+  outcome: "accept" | "reject";
+  note: string | null;
+  /** the reviewer's explicit marks, at most 200 */
+  marks: { asset_id: string; outcome: "keep" | "retake"; reason: string | null; note: string | null }[];
+  /** only with outcome "reject"; the server refuses it on an accept */
+  all_retake: AllRetake | null;
+}
+
 // POST /assignments/{id}/assets/presign. A repeat for the same sha256 returns
 // the same asset with a fresh URL; status "ready" means the server already
 // holds the bytes and the PUT is skipped.
@@ -662,6 +751,10 @@ export interface Presign {
   headers: Record<string, string>;
   expires_in: number;
   status: string;
+  /** A second PUT for the poster, when the request offered a `thumbnail`
+   *  (db/530). The console never offers one, so here it is always null; the
+   *  phone PUTs the poster to it before it confirms. */
+  thumb?: { storage_key: string; url: string; method: "PUT"; headers: Record<string, string> } | null;
 }
 
 export interface QaQueueRow {

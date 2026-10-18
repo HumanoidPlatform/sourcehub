@@ -13,8 +13,9 @@ import {
 } from "@ds/primitives";
 import { fmtDateTime } from "@shared/format";
 import { AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
-import { AssetGallery, useTaskAssets } from "@features/delivery/components/AssetGallery";
 import { DecideAssignmentDialog } from "@features/delivery/components/assignments";
+import { galleryKeys } from "@features/delivery/components/gallery-keys";
+import { GalleryGrid } from "@features/delivery/components/GalleryGrid";
 
 /* --- gate 2: the delivery partner reviews a submission ------------------------ */
 
@@ -79,8 +80,18 @@ export function QaQueuePage() {
           row={deciding}
           onClose={() => setDeciding(null)}
           onDone={(outcome) => {
+            const r = deciding;
             setDeciding(null);
-            void qc.invalidateQueries();
+            // What a gate-2 verdict changes, by name (db/530): the queue, the
+            // task and its contract, the review trail, this submission's and
+            // the task's gallery pages, the invoice a pass may raise, the trail
+            // and the overview. A blanket call refetched every open query.
+            const keys: readonly (readonly unknown[])[] = [
+              ["qa-queue"], ["tasks"], ["contracts"], ["contract"], ["reviews", r.task_id],
+              galleryKeys.scope("submission", r.submission_id), galleryKeys.scope("task", r.task_id),
+              ["invoices"], ["activity"], ["overview"],
+            ];
+            for (const queryKey of keys) void qc.invalidateQueries({ queryKey });
             toast(
               outcome === "pass" ? "QA passed" : "Sent back for rework",
               outcome === "pass" ? "Ready to include in the delivery." : "The supplier has been notified.",
@@ -97,9 +108,6 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
   const [note, setNote] = useState("");
   const [files, setFiles] = useState<AttachmentDraft[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const assets = useTaskAssets(row.task_id);
-  // the captures bundled into THIS attempt; a count-only submission has none
-  const bundled = (assets.data ?? []).filter((a) => a.submission_id === row.submission_id);
 
   const decide = useMutation({
     mutationFn: (outcome: "pass" | "fail") =>
@@ -139,10 +147,13 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
       {row.supplier_note && (
         <Callout title="Supplier's note">{row.supplier_note}</Callout>
       )}
-      {(bundled.length > 0 || assets.isLoading) && (
+      {/* The captures bundled into THIS attempt, paged from the server and
+          scoped to the submission (db/530); the count is the queue row's. A
+          count-only submission has none and shows no gallery. */}
+      {row.asset_count > 0 && (
         <div style={{ marginTop: 12 }}>
           <div className="eyebrow" style={{ marginBottom: 8 }}>Captures in this submission</div>
-          <AssetGallery assets={bundled} loading={assets.isLoading} />
+          <GalleryGrid source={{ kind: "submission", id: row.submission_id }} emptyHint="Nothing is bundled into this attempt." />
         </div>
       )}
       <div className="formgrid" style={{ marginTop: 12 }}>
@@ -234,6 +245,7 @@ export function Gate1Page() {
             worker_note: deciding.worker_note, task_ref: deciding.task_ref, task_title: deciding.task_title,
             capture_spec: deciding.capture_spec, task_instructions: deciding.task_instructions,
             batch_id: deciding.batch_id, batch_no: deciding.batch_no, accepted_before: deciding.accepted_before,
+            task_id: deciding.task_id, in_batch: deciding.ready_assets,
           }}
           onClose={() => setDeciding(null)}
           onDone={(outcome) => {

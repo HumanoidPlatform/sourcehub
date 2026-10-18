@@ -358,9 +358,16 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "            count(*) FILTER (WHERE s.status = 'quarantined') AS quarantined, "
                 "            count(*) FILTER (WHERE s.status = 'ready' AND s.submission_id IS NOT NULL) "
                 "              AS bundled, "
+                # what submit_task would bundle right now — attach_to_submission's
+                # predicate: ready, sent in a batch, its assignment accepted. A
+                # client cannot read task_assignment, so for them the join is
+                # empty and this is 0; the submit dialog is not theirs anyway.
+                "            count(*) FILTER (WHERE s.status = 'ready' AND s.batch_id IS NOT NULL "
+                "                             AND ta.status = 'accepted') AS submittable, "
                 "            round(coalesce(sum(capture_units(tk.target_unit, s.duration_s)) "
                 "              FILTER (WHERE s.status = 'ready'), 0), 4) AS ready_units "
-                "     FROM asset s WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary, "
+                "     FROM asset s LEFT JOIN task_assignment ta ON ta.id = s.assignment_id "
+                "     WHERE s.task_id = :tid AND s.deleted_at IS NULL) z) AS asset_summary, "
                 # the partner's rating of this task's supplier, once given; RLS
                 # hands it to the partner, the supplier and Ops, nobody else
                 "  (SELECT row_to_json(v) FROM ("

@@ -12,11 +12,9 @@ const api = vi.hoisted(() => ({
   post: vi.fn((_path: string, _body?: unknown): Promise<unknown> => Promise.resolve({})),
 }));
 vi.mock("@api/client", () => api);
-vi.mock("./AssetGallery", () => ({
-  AssetGallery: () => null,
-  useTaskAssets: () => ({ data: [], isLoading: false }),
-  useAssignmentAssets: () => ({ data: [], isLoading: false }),
-}));
+// "Captured so far" is the paged gallery (db/530); this is about the campaign
+// view, so it draws nothing.
+vi.mock("./GalleryGrid", () => ({ GalleryGrid: () => null }));
 // The dialog reads the session for the worker-rating button (db/380): the
 // aggregator that opens it, holding rating.write.
 vi.mock("@shared/auth", () => ({
