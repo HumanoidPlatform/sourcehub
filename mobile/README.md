@@ -121,6 +121,17 @@ green *Looks like …* line in the viewfinder. `EXPO_PUBLIC_SUBJECT_STUB` in
 `.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF` and
 `SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
 
+**CLIP subject check (on trial, development builds only).** `EXPO_PUBLIC_SUBJECT_CLIP`
+in `.env` turns on a second subject check (`src/qa_pipeline/subject/clipSubject.ts`,
+react-native-executorch, CLIP ViT-B/32): `shadow` scores every capture and
+records `subject_clip_measured` while ML Kit still decides; `decide` puts
+CLIP's verdict to the worker instead. Unset, nothing loads. The models
+(~600 MB) download when the camera opens; a line in the viewfinder shows the
+download and the last shot's score on both checks, and Metro logs `[clip] …`.
+It needs a development build made after the library was added (a native
+module), and it is read under `__DEV__` only, so an `eas update` cannot turn
+it on for workers. `CLIP_SUBJECT_MIN_MARGIN` in `src/config.ts` is its cut.
+
 A clip gets the same treatment through its frames (`src/validation/clip.ts`,
 `src/capture/frames.ts`): one frame every five seconds, three to forty of
 them, inside a 45-second budget. Each frame is labelled and scored like a

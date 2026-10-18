@@ -56,6 +56,15 @@ A virtualenv of its own: torch must not go into the backend's.
 Results go to `%LOCALAPPDATA%\subject_eval\out\` (`report.md`, per-pair scores).
 `SUBJECT_EVAL_DATA` overrides the folder.
 
+ML Kit on the laptop, for a set the phone never scored (the local set): the
+app's labeller is a plain TFLite file inside Google's AAR. Extract it and run
+`mlkit_local.py` before `evaluate.py`; it labels every photo with the same
+model, calibration and 0.15 floor the phone uses.
+
+    curl -LO https://dl.google.com/android/maven2/com/google/mlkit/image-labeling/17.0.9/image-labeling-17.0.9.aar
+    unzip -p image-labeling-17.0.9.aar assets/mlkit_label_default_model/mobile_ica_8bit_with_metadata_tflite > model.tflite
+    tools/subject_eval/.venv/Scripts/python -I tools/subject_eval/mlkit_local.py model.tflite
+
 ## 3. Delete
 
     rm -rf "$LOCALAPPDATA/subject_eval" "$LOCALAPPDATA/subject_eval.tgz"

@@ -53,6 +53,17 @@ export async function frameAt(videoUri: string, timeS: number): Promise<{ uri: s
  *  JPEG quality: compression artefacts are exactly the small sharp edges the
  *  blur check would otherwise mistake for focus. */
 export async function greyImage(imageUri: string, width = QUALITY_WIDTH): Promise<GreyImage> {
+  const img = await rgbaImage(imageUri, width);
+  return { width: img.width, height: img.height, data: greyOf(img.data) };
+}
+
+/** The image `width` pixels wide (height to scale), in colour, four bytes a
+ *  pixel. For the CLIP subject check, which needs colour where the quality
+ *  checks need only grey. */
+export async function rgbaImage(
+  imageUri: string,
+  width: number,
+): Promise<{ width: number; height: number; data: Uint8Array }> {
   const ctx = ImageManipulator.manipulate(imageUri);
   let saved: string | null = null;
   try {
@@ -62,7 +73,7 @@ export async function greyImage(imageUri: string, width = QUALITY_WIDTH): Promis
       saved = out.uri;
       if (!out.base64) throw new Error("no pixels back from the resize");
       const img = decode(bytesOf(out.base64), { useTArray: true, formatAsRGBA: true });
-      return { width: img.width, height: img.height, data: greyOf(img.data) };
+      return { width: img.width, height: img.height, data: img.data };
     } finally {
       ref.release();
     }

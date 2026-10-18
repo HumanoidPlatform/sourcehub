@@ -58,6 +58,15 @@ export const SUBJECT_OFF = 0.3;
 export const SUBJECT_VETO = 0.5;
 /** false = shadow mode: score and report, never ask the worker */
 export const SUBJECT_DIALOG = true;
+/** The CLIP subject check's pass mark (qa_pipeline/subject/clipSubject.ts, on
+ *  trial in development builds): how much more a photo must look like its
+ *  subject than like the closest typical mistake. -0.0013 is where the laptop
+ *  evaluation (tools/subject_eval) warned on 10% of good photos and passed 2%
+ *  of wrong ones; web photos, so provisional until set from phone captures. */
+export const CLIP_SUBJECT_MIN_MARGIN = -0.0013;
+/** The size photos are shrunk to before CLIP looks at them: wide enough that
+ *  each quarter view is still the model's own 224 pixels. */
+export const CLIP_IMAGE_WIDTH = 448;
 /** How much a capture must look like the client's own example photos
  *  (qa_pipeline/examples/examples.ts) before that stops counting against it.
  *

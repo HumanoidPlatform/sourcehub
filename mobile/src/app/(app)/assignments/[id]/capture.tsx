@@ -16,7 +16,15 @@ import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
-import { LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import {
+  clipMode,
+  type ClipStatus,
+  clipStatus,
+  onClipStatus,
+  textVectors,
+  warmClip,
+} from "@/qa_pipeline/subject/clipSubject";
 import { useAssignments, useOutbox } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
@@ -74,6 +82,33 @@ const HOW: Record<"rotate" | "tip", string> = {
   rotate: "turn it level",
   tip: "tip it upright",
 };
+
+function clipStatusText(s: ClipStatus): string {
+  switch (s.state) {
+    case "downloading":
+      return `downloading models ${Math.round(s.progress * 100)}%`;
+    case "loading":
+      return "loading models";
+    case "failed":
+      return `unavailable (${s.error})`;
+    default:
+      return s.state;
+  }
+}
+
+/** The last shot on both checks: "CLIP -0.0123 warn · ML Kit 0.62 pass". */
+function trialLine(findings: Finding[]): string {
+  const clip = findings.find((f) => f.code === "subject_clip_measured");
+  const clipNot = findings.find((f) => f.code === "subject_clip_unscored");
+  const mk = findings.find((f) => f.code === "subject_measured");
+  const clipText = clip
+    ? `CLIP ${clip.score?.toFixed(4)} ${(clip.score ?? 0) >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn"}${
+        typeof clip.detail?.ms === "number" ? ` (${clip.detail.ms} ms)` : ""
+      }`
+    : `CLIP not scored (${String(clipNot?.detail?.reason ?? "?")})`;
+  const mkText = mk ? `ML Kit ${mk.message.replace(/^Subject scored /, "")}` : "ML Kit not scored";
+  return `${clipText} · ${mkText}`;
+}
 
 export default function Capture() {
   // replaces: a retake of one capture the aggregator sent back. One shot, then
@@ -175,6 +210,25 @@ export default function Capture() {
   const save = useCapture(
     id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
   );
+
+  // The CLIP subject check on trial (development builds only; clipSubject.ts).
+  // The models download when the camera opens, and the subject's phrases are
+  // embedded once they are in, so the first shot does not wait on either. A
+  // line on screen says where that stands and what the last shot scored on
+  // both checks, side by side.
+  const clipOn = clipMode() !== "off";
+  const [clip, setClip] = useState<ClipStatus>(clipStatus());
+  const [trial, setTrial] = useState<string | null>(null);
+  const subjectKey = JSON.stringify(spec?.subject ?? null);
+  useEffect(() => {
+    if (!clipOn) return;
+    const off = onClipStatus(setClip);
+    const subject = spec?.subject;
+    void warmClip()
+      ?.then(() => (subject ? textVectors(subject) : null))
+      .catch(() => undefined);
+    return off;
+  }, [clipOn, subjectKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
@@ -322,6 +376,7 @@ export default function Capture() {
   // file waits on disk until they do. Keep queues it, warning attached, for
   // the reviewer to see; Retake throws it away and counts the refusal.
   const settle = (o: CaptureOutcome) => {
+    if (clipOn) setTrial(trialLine(o.findings));
     if (o.kept) {
       kept(o.findings, o.onSubject);
       return;
@@ -522,6 +577,12 @@ export default function Capture() {
             {checking.total > 0 ? `Checking clip… ${checking.done}/${checking.total}` : "Checking clip…"}
           </Text>
         ) : null}
+        {clipOn ? (
+          <Text style={c.trial}>
+            {`CLIP ${clipMode()}: ${clipStatusText(clip)}`}
+            {trial ? `\n${trial}` : ""}
+          </Text>
+        ) : null}
         <Level tilt={level} tolerance={maxTilt} />
         <View style={c.bottom}>
           {recording ? (
@@ -577,6 +638,7 @@ const c = StyleSheet.create({
   checking: { color: "#fff", backgroundColor: "rgba(0,0,0,0.55)", padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
   level: { alignItems: "center", justifyContent: "center", flex: 1 },
   levelBar: { width: 120, height: 2, borderRadius: 1 },
+  trial: { color: "#fff", backgroundColor: "rgba(0,0,0,0.6)", fontSize: 11, padding: 6, marginHorizontal: 12, marginTop: 6, borderRadius: 6 },
   levelText: { color: "rgba(255,255,255,0.9)", marginTop: 10, fontSize: 13, fontWeight: "600", textShadowColor: "#000", textShadowRadius: 4 },
   bottom: { alignItems: "center", paddingBottom: 28 },
   shutter: { width: 76, height: 76, borderRadius: 38, backgroundColor: "#fff", borderWidth: 5, borderColor: "rgba(255,255,255,0.4)" },

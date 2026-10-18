@@ -9,8 +9,14 @@
 import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
-import type { CaptureSpec } from "@/api/types";
-import { FRAMES_BUDGET_MS, MIN_SUBJECT_FRAMES, SUBJECT_DIALOG, SUBJECT_FRAMES_MIN_SHARE } from "@/config";
+import type { CaptureSpec, SubjectSpec } from "@/api/types";
+import {
+  CLIP_IMAGE_WIDTH,
+  FRAMES_BUDGET_MS,
+  MIN_SUBJECT_FRAMES,
+  SUBJECT_DIALOG,
+  SUBJECT_FRAMES_MIN_SHARE,
+} from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/qa_pipeline/clip/clip";
@@ -40,10 +46,20 @@ import {
   unscoredFinding,
   type UnscoredReason,
 } from "@/qa_pipeline/subject/subject";
+import {
+  clipFinding,
+  clipMeasured,
+  clipMode,
+  type ClipResult,
+  clipUnscoredFinding,
+  framesMargin,
+  photoDetail,
+  scoreImage,
+} from "@/qa_pipeline/subject/clipSubject";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { deviceFinding, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
 import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
-import { frameAt, greyImage, sampleFrames } from "@/qa_pipeline/clip/frames";
+import { frameAt, greyImage, rgbaImage, sampleFrames } from "@/qa_pipeline/clip/frames";
 import { blurFinding, framesBlurFinding, measureSharpness, type Sharpness } from "@/qa_pipeline/blur/blur";
 import {
   type Exposure,
@@ -298,6 +314,11 @@ export function useCapture(
         // Only a build with no labeller at all stops asking.
         let noLabeller = false;
         let lastMiss: { reason: UnscoredReason; error?: string } | null = null;
+        // CLIP on trial (clipSubject.ts): its own margin per frame, beside ML Kit's labels
+        const clipOn = subject != null && clipMode() !== "off";
+        const clipMargins: number[] = [];
+        let clipMiss: Exclude<ClipResult, { margins: unknown }> | null = null;
+        let clipMs = 0;
         const sampled = await sampleFrames(
           moved.uri,
           times,
@@ -306,6 +327,13 @@ export function useCapture(
             greys.push(frame.grey);
             sharps.push(measureSharpness(frame.image));
             expos.push(measureExposure(frame.image));
+            if (clipOn && subject) {
+              const r = await clipScore(frame.uri, subject);
+              if ("margins" in r) {
+                clipMargins.push(r.margins.margin);
+                clipMs += r.ms;
+              } else clipMiss = r;
+            }
             if ((!subject && !usable) || noLabeller) return;
             const seen = await labelImage(frame.uri);
             if ("unscored" in seen) {
@@ -348,6 +376,23 @@ export function useCapture(
           } else {
             const miss: { reason: UnscoredReason; error?: string } = lastMiss ?? { reason: "timeout" };
             findings.push(unscoredFinding(miss.reason, miss.error));
+          }
+          if (clipOn) {
+            if (clipMargins.length > 0) {
+              const m = framesMargin(clipMargins);
+              findings.push(
+                clipMeasured(m, {
+                  margin: Number(m.toFixed(4)),
+                  frames: clipMargins.length,
+                  per_frame: clipMargins.map((x) => Number(x.toFixed(4))),
+                  ms: clipMs,
+                }),
+              );
+              if (clipMode() === "decide") wordMiss = clipFinding(m, subject, { frames: clipMargins.length });
+            } else {
+              const miss: Exclude<ClipResult, { margins: unknown }> = clipMiss ?? { unscored: "error" };
+              findings.push(clipUnscoredFinding(miss.unscored, miss.error));
+            }
           }
         }
         let exampleMiss = false;
@@ -394,6 +439,17 @@ export function useCapture(
           if (banned) findings.push(banned);
           findings.push(subjectMeasured(scored));
           wordMiss = subjectFinding(scored, subject);
+          // CLIP on trial: recorded beside ML Kit, and in "decide" mode its
+          // verdict is the one the worker is asked about
+          if (clipMode() !== "off") {
+            const r = await clipScore(moved.uri, subject);
+            if ("margins" in r) {
+              findings.push(clipMeasured(r.margins.margin, photoDetail(r.margins, r.ms)));
+              if (clipMode() === "decide") wordMiss = clipFinding(r.margins.margin, subject);
+            } else {
+              findings.push(clipUnscoredFinding(r.unscored, r.error));
+            }
+          }
           if (wordMiss) findings.push(wordMiss);
         }
         let exampleMiss = false;
@@ -445,6 +501,15 @@ export function useCapture(
 // The finding handed back is the word check's, because it carries the sentence
 // a worker can act on ("Doesn't look like retail shelf. Saw: floor…"). The
 // example score reaches the reviewer as its own measurement.
+/** CLIP's margin for one image file, or why there is none. Never throws. */
+async function clipScore(uri: string, subject: SubjectSpec): Promise<ClipResult> {
+  try {
+    return await scoreImage(await rgbaImage(uri, CLIP_IMAGE_WIDTH), subject);
+  } catch (e) {
+    return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
 function prompted(wordMiss: Finding | null, exampleMiss: boolean, usedExamples: boolean): Finding | null {
   if (!usedExamples) return wordMiss;
   return wordMiss && exampleMiss ? wordMiss : null;
