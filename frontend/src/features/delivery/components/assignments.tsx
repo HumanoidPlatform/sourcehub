@@ -508,14 +508,15 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
   offer: TaskOffer; assignments: Assignment[]; onClose: () => void; onRemind: () => void; busy: boolean;
 }) {
   const m = statusMeta(offerStatus, offer.effective_status);
+  // The phone is the channel (mobile app/(app)/offers/[id].tsx): every
+  // recipient is told the moment the offer is made, so until they answer
+  // they are waiting. Mail delivery, where mail is on, stays in the tooltip.
   const label = (r: TaskOffer["recipients"][number]) =>
     r.response === "accepted" ? { text: "Accepted", tone: "success" as const }
     : r.response === "declined" ? { text: "Declined", tone: "neutral" as const }
-    : r.send_error ? { text: "Not sent", tone: "critical" as const }
-    : r.sent_at ? { text: "Waiting", tone: "attention" as const }
-    : { text: "Queued", tone: "neutral" as const };
+    : { text: "Waiting", tone: "attention" as const };
   const byId = new Map(assignments.map((a) => [a.id, a]));
-  const sent = offer.recipients.filter((r) => r.sent_at).length;
+  const notified = offer.recipients.length;
   const answered = offer.recipients.filter((r) => r.response).length;
   const started = offer.recipients.filter((r) => {
     const a = r.assignment_id ? byId.get(r.assignment_id) : null;
@@ -549,7 +550,7 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
           )}
         </div>
         <div className="small muted">
-          {sent} sent · {answered} answered · {offer.accepted_count} accepted · {started} started · {submitted} submitted
+          {notified} notified · {answered} answered · {offer.accepted_count} accepted · {started} started · {submitted} submitted
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {offer.recipients.map((r) => {

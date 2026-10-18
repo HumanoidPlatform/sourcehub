@@ -50,6 +50,11 @@ NOT_ROUTED_ON_PURPOSE = {
         "Capture happens on the phone; the console has no assignment page, so a "
         "crowd resource signing in here sees an inert row. Known and accepted."
     ),
+    "offer": (
+        "Handled only by the phone app (mobile/src/app/(app)/offers/[id].tsx), where "
+        "a crowd resource reads the brief and accepts or declines. The console has "
+        "no page for a crowd member's own offer."
+    ),
 }
 
 

@@ -10,6 +10,12 @@ from collections.abc import Mapping
 from dataclasses import dataclass
 from typing import Any, NamedTuple
 
+# One chunk of a resumable upload. A multiple of 256 KiB, which Google
+# requires, and above the 5 MiB S3 insists on for every part but the last.
+# The phone reads exactly this much at a time (mobile upload/chunks.ts), so it
+# is also the most of a capture that is ever in memory on either side.
+CHUNK_BYTES = 8 * 1024 * 1024
+
 
 class ObjectStat(NamedTuple):
     """What storage actually holds for a key — never what the client claimed."""
@@ -17,6 +23,36 @@ class ObjectStat(NamedTuple):
     size: int
     content_type: str | None
     etag: str | None
+    # The provider's own digest of the stored bytes, where it gives one: S3's
+    # etag for a single PUT, Azure's content-md5 when the upload set it, GCS's
+    # crc32c. Recorded on the asset at confirm; nothing recomputes it.
+    checksum: str | None = None
+
+
+class UploadSession(NamedTuple):
+    """A resumable upload storage has agreed to take, as the asset stores it.
+
+    `session` is whatever the provider's protocol resumes by: Google's session
+    URL (which authorises writes — a credential, never listed), S3's upload id,
+    or for Azure a prefix for the block ids, since Azure keeps no session and
+    the uncommitted blocks themselves are the state.
+    """
+
+    protocol: str  # 'gcs' | 'azure' | 's3'
+    session: str
+    chunk_size: int
+    size: int
+
+
+class UploadStatus(NamedTuple):
+    """How far a resumable upload has got, as storage reports it.
+
+    Google counts bytes; Azure and S3 count parts. Either way this is the
+    answer the phone resumes from, and never its own idea of where it was.
+    """
+
+    bytes_done: int | None
+    parts_done: list[int]
 
 
 class StorageError(RuntimeError):

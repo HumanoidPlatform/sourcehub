@@ -1656,6 +1656,14 @@ _STATE_MESSAGES = {
 }
 
 
+def offer_notice(org_name: str, task_ref: str, task_title: str, lead: str = "") -> str:
+    """The bell row and the push for an offer, the first time and on every
+    reminder. It used to send the worker to their email; the phone answers an
+    offer itself now (mobile app/(app)/offers/[id].tsx), so it says to open it."""
+    head = f"{lead} " if lead else ""
+    return f"{head}{org_name} is offering {task_ref} {task_title} — open it to accept or decline."
+
+
 def offer_context(
     *,
     worker_name: str,
@@ -1962,15 +1970,17 @@ async def create_offer(
             respond_by=respond_by, instructions=instructions,
             accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
         ))
-        # The bell row, and through modules/push the phone: an offer used to
-        # reach the worker by email only, until the first reminder.
-        await notifier.notify(
-            session, claims.org_id,
-            f"{org_name} is offering {t.reference_code} {t.title} — "
-            "use the links in your email to answer.",
-            user_id=w["user_id"],
-        )
     await session.flush()
+
+    # The bell row, and through modules/push the phone, where the worker opens
+    # the offer and answers it (mobile app/(app)/offers/[id].tsx). After the
+    # flush: the recipient row's id is the link. An offer used to reach the
+    # worker by email only, until the first reminder.
+    for r in recipients:
+        await notifier.notify(
+            session, claims.org_id, offer_notice(org_name, t.reference_code, t.title),
+            "offer", {"id": str(r.id)}, user_id=r.worker_user_id,
+        )
 
     # The mails, queued in this transaction (db/490 mail_outbox), one row per
     # recipient and keyed to it: when the clock sends, mail_mark() fills the
@@ -2021,6 +2031,78 @@ async def close_offer(
     return await offer_by_id(session, o.id)
 
 
+# The offers addressed to one worker, for the phone's board (my_offers) and for
+# the tap that answers one (respond_to_my_offer). The same columns as
+# task_offer_lookup() — _preview_dict and _respond read either — plus the
+# task's id and capture spec: the brief on the phone shows the spec and the
+# device check reads it. Answered offers stay a week, so the board can say
+# "you accepted" instead of losing the card.
+#
+# It runs as the supplier (org_session below), the way the click's write
+# already does. A worker's own session may read their recipient rows and the
+# offers addressed to them (db/130 worker policies) but not a task they do not
+# yet hold — and the brief IS the task. The WHERE on worker_user_id and the
+# supplier org is what keeps the read to their own rows.
+_MY_OFFERS = text(
+    "SELECT r.id AS recipient_id, o.id AS offer_id, o.supplier_org_id, org.name AS org_name, "
+    "       o.created_by, r.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
+    "       r.email AS worker_email, "
+    "       EXISTS (SELECT 1 FROM user_role_grant g JOIN role rl ON rl.id = g.role_id "
+    "               WHERE g.user_id = r.worker_user_id AND g.org_id = o.supplier_org_id "
+    "                 AND rl.code = 'worker' AND g.revoked_at IS NULL) AS grant_live, "
+    "       t.id AS task_id, t.reference_code AS task_ref, t.title AS task_title, "
+    "       t.instructions AS task_instructions, t.due_on AS task_due_on, t.status AS task_status, "
+    "       t.target_unit, t.capture_spec, "
+    "       o.quantity, o.instructions, o.due_on, o.respond_by, "
+    "       o.status AS offer_status, o.worker_limit, o.accepted_count, "
+    "       r.response, r.responded_at, r.assignment_id "
+    "FROM task_offer_recipient r "
+    "JOIN task_offer o ON o.id = r.offer_id "
+    "JOIN task t ON t.id = o.task_id "
+    "JOIN organisation org ON org.id = o.supplier_org_id "
+    "JOIN app_user u ON u.id = r.worker_user_id "
+    "LEFT JOIN crowd_worker w ON w.user_id = r.worker_user_id "
+    "                        AND w.aggregator_org_id = o.supplier_org_id AND w.deleted_at IS NULL "
+    "WHERE r.worker_user_id = :me AND r.supplier_org_id = :org "
+    "  AND (CAST(:r AS uuid) IS NULL OR r.id = CAST(:r AS uuid)) "
+    "  AND (o.status = 'open' OR r.responded_at > now() - interval '7 days') "
+    "ORDER BY o.respond_by, o.created_at"
+)
+
+
+async def _my_offer_rows(
+    claims: AccessClaims, recipient_id: uuid.UUID | None
+) -> list[dict[str, Any]]:
+    params = {"me": claims.user_id, "org": claims.org_id, "r": recipient_id}
+    async with org_session(claims.org_id, "aggregator", claims.user_id) as s:
+        rows = (await s.execute(_MY_OFFERS, params)).mappings().all()
+    return [dict(r) for r in rows]
+
+
+def _my_offer_dict(row: dict[str, Any]) -> dict[str, Any]:
+    """The preview the email link shows, plus what the phone needs: the row's
+    own id to answer with, the places left, the task to show and to open once
+    accepted."""
+    d = _preview_dict(row)
+    d["id"] = row["recipient_id"]
+    d["places_left"] = max(0, int(row["worker_limit"]) - int(row["accepted_count"]))
+    d["assignment_id"] = row["assignment_id"]
+    d["task"] = {**d["task"], "id": row["task_id"], "capture_spec": row["capture_spec"] or {}}
+    return d
+
+
+async def my_offers(claims: AccessClaims) -> list[dict[str, Any]]:
+    """The worker's offers for the board: the open ones, and the week's answered."""
+    return [_my_offer_dict(r) for r in await _my_offer_rows(claims, None)]
+
+
+async def _lookup_my_offer(claims: AccessClaims, recipient_id: uuid.UUID) -> dict[str, Any]:
+    rows = await _my_offer_rows(claims, recipient_id)
+    if not rows:
+        raise LookupError("offer not found")
+    return rows[0]
+
+
 async def _lookup_offer(token: str) -> dict[str, Any]:
     async with anonymous_session() as s:
         row = (
@@ -2061,11 +2143,22 @@ async def preview_offer(token: str) -> dict[str, Any]:
 
 
 async def respond_to_offer(token: str, action: str) -> dict[str, Any]:
-    """The click. Serialised per offer by FOR UPDATE on the offer row, so the
+    """The click in the email: the token is the proof of who is answering."""
+    return await _respond(await _lookup_offer(token), action)
+
+
+async def respond_to_my_offer(
+    claims: AccessClaims, recipient_id: uuid.UUID, action: str
+) -> dict[str, Any]:
+    """The tap in the app: the session is the proof. The recipient row is this
+    worker's or the lookup finds nothing, and the write is the click's."""
+    return await _respond(await _lookup_my_offer(claims, recipient_id), action)
+
+
+async def _respond(row: dict[str, Any], action: str) -> dict[str, Any]:
+    """The answer. Serialised per offer by FOR UPDATE on the offer row, so the
     limit is exact under concurrent accepts; the CHECK on accepted_count is
     the brace to that belt. Nothing is written when the answer is refused."""
-    row = await _lookup_offer(token)
-
     async with org_session(row["supplier_org_id"], "aggregator", row["worker_user_id"]) as s:
         o = (
             await s.execute(

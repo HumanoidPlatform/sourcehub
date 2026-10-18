@@ -227,9 +227,10 @@ function AssetThumb({
         </span>
       )}
       {onRemove && (
-        // The worker's own capture, before submission. A quarantined or
-        // stuck-pending one occupies a quantity slot until it goes, which is
-        // why this is offered on more than the ready tiles.
+        // The worker's own capture, before submission. A stuck-pending one
+        // holds a quantity slot for a day (media/service.py HELD_SQL), and a
+        // quarantined one is a file that has to be re-sent or dropped, which
+        // is why this is offered on more than the ready tiles.
         <button
           type="button"
           className="iconbtn"

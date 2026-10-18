@@ -92,6 +92,13 @@ class Settings(BaseSettings):
     catalogue_copy_tick_seconds: int = 60
     catalogue_copy_batch: int = 20
 
+    # The pass (modules/media/sweep) that aborts and drops capture uploads
+    # that never finished: a pending asset untouched for days, with or without
+    # a storage session behind it. Hourly is plenty; the function it asks
+    # returns nothing most of the time.
+    upload_sweep_enabled: bool = True
+    upload_sweep_tick_seconds: int = 3600
+
     # --- Mail outbox ---------------------------------------------------------
     # The pass (modules/outbox) that sends every e-mail the platform writes:
     # resets, invitations, task offers, reminders, DataHub replies, and the RFP

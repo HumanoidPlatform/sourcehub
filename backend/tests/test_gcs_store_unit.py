@@ -213,6 +213,7 @@ class _Blob:
     def __init__(self, fail: Exception | None = None, size: int = 7) -> None:
         self.fail, self.size = fail, size
         self.content_type, self.etag = "application/pdf", '"abc123"'
+        self.crc32c = "AAAAAA=="
         self.calls: list[tuple[str, dict[str, Any]]] = []
         self.written = bytearray()
 
@@ -257,6 +258,7 @@ async def test_head_reports_what_storage_holds(monkeypatch, key_info):
     _fake(monkeypatch, _Bucket(blob))
     s = await storage.head(_target(key_info), "k")
     assert (s.size, s.content_type, s.etag) == (7, "application/pdf", "abc123")
+    assert s.checksum == "crc32c:AAAAAA==", "what confirm records as storage_checksum"
     assert blob.calls[0][1] == {"timeout": (5, 30), "retry": None}, "fail fast, no hidden retries"
 
 

@@ -68,6 +68,14 @@ class CaptureSpec(BaseModel):
     # record one in the app. Off by default: a recording is provably from the
     # place and time it claims.
     allow_library: bool | None = None
+    # The phone a task demands, checked on the device BEFORE the task starts
+    # (mobile qa_pipeline/device/device.ts deviceFindings): the Android release
+    # ("12"), the iOS major, and total memory in GB. A task may raise the
+    # platform's own floors with these, never lower them. `notes` stays free
+    # text for what a phone cannot verify about itself (LiDAR, a tripod).
+    min_android_version: float | None = Field(default=None, ge=8, le=20)
+    min_ios_version: float | None = Field(default=None, ge=12, le=30)
+    min_ram_gb: float | None = Field(default=None, ge=0.5, le=32)
 
 
 class PeopleRequirements(BaseModel):

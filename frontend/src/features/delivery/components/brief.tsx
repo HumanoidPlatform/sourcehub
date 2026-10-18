@@ -11,6 +11,7 @@
 import { Dl } from "@ds/primitives";
 import type { CaptureSpec, SubjectSpec } from "@api/types";
 import { mediaList } from "@shared/format";
+import { deviceWords } from "@shared/units";
 
 /** The stated conditions as one line. Anything the client left blank is absent
  *  rather than shown as "none": an unset tolerance is not a tolerance of zero. */
@@ -24,6 +25,8 @@ export function captureRequirementText(spec: CaptureSpec): string {
   if (spec.min_megapixels) parts.push(`Minimum ${spec.min_megapixels} MP`);
   if (spec.max_tilt_deg) parts.push(`Squareness within ${spec.max_tilt_deg} degrees`);
   if (spec.max_duration_s) parts.push(`Maximum ${spec.max_duration_s}s`);
+  const device = deviceWords(spec);
+  if (device) parts.push(device);
   if (spec.notes) parts.push(spec.notes);
   return parts.length ? parts.join(" · ") : "No special capture constraints recorded";
 }

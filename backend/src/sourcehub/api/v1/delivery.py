@@ -72,6 +72,8 @@ class SubmitIn(BaseModel):
     note: str | None = None
 
 
+# A share has no ceiling but the task's own target: the aggregator decides how
+# much one person takes on, and the server takes every capture of it.
 class AssignmentIn(BaseModel):
     worker_user_id: uuid.UUID
     quantity: Decimal = Field(gt=0, max_digits=12, decimal_places=2)
@@ -371,6 +373,37 @@ async def my_assignments(
 ):
     """The worker's board. RLS shows a worker their own rows and nothing else."""
     return await delivery.my_assignments(session, principal)
+
+
+class OfferRespondIn(BaseModel):
+    action: Literal["accept", "decline"]
+
+
+@router.get("/me/offers")
+async def my_offers(
+    principal: Principal = Depends(require_capability("assignment.read")),
+):
+    """The offers made to this worker, for the phone's board. No request
+    session: the read opens its own, as the offer link's does (see
+    delivery._MY_OFFERS for why)."""
+    return await delivery.my_offers(principal)
+
+
+@router.post("/me/offers/{recipient_id}/respond")
+async def respond_to_my_offer(
+    recipient_id: uuid.UUID,
+    body: OfferRespondIn,
+    principal: Principal = Depends(require_capability("assignment.read")),
+):
+    """Accept or decline from the phone: the same write as the email link's."""
+    try:
+        return await delivery.respond_to_my_offer(principal, recipient_id, body.action)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Offer not found") from None
+    except delivery.OfferUnavailableError as e:
+        raise HTTPException(e.http_status, str(e)) from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
 
 
 @router.get("/assignments/{assignment_id}")

@@ -178,26 +178,25 @@ export const CLIPPED_SHARE = 0.25;
  *  before it is warned about */
 export const EXPOSURE_FRAMES_WARN_SHARE = 0.5;
 
-/** The platform's floor for a worker's phone, checked on the assignment screen
- *  before a task starts (qa_pipeline/device/device.ts deviceFindings).
- *
- *  Starting values, not measured ones: every capture records its phone
- *  (device_profile), and the fleet query in backend modules/qa/service.py says
- *  what the crowd actually carries, so these can be moved on that evidence.
- *  Android 10 (API 29) and iOS 15 are where expo SDK support and ML Kit's
- *  on-device models are reliable; under 2 GB of RAM the labeller and the
- *  camera fight for memory, and under 3 GB a clip's frame check runs slow
- *  enough to hit FRAMES_BUDGET_MS. */
-export const MIN_ANDROID_API = 29;
-export const MIN_IOS_MAJOR = 15;
-/** under this a phone is refused a task... */
-export const MIN_RAM_GB = 2;
-/** ...and under this the worker is told it may struggle, and can carry on */
-export const WARN_RAM_GB = 3;
-
 /** how often the app re-asks the server while in the foreground */
 export const POLL_MS = 30_000;
 /** re-presign when a signed URL has less than this left */
 export const PRESIGN_SAFETY_MS = 60_000;
 /** give up on a capture after this many failed rounds */
 export const MAX_ATTEMPTS = 8;
+/** a PUT with no progress for this long is cancelled and retried (upload/uploader.ts) */
+export const PUT_STALL_MS = 60_000;
+/** One chunk of a resumable upload, and the size above which a file is sent in
+ *  chunks rather than one PUT (upload/chunks.ts). Mirrors the server's
+ *  CHUNK_BYTES (platform/storage/types.py): a multiple of 256 KiB for Google,
+ *  above S3's 5 MiB minimum. Also the most of a file ever read into memory —
+ *  a file this size or smaller is hashed whole, a bigger one never is. */
+export const CHUNK_BYTES = 8 * 1024 * 1024;
+/** Parts of one chunked upload in flight at once, by connection. Google takes
+ *  its chunks one after another; Azure and S3 take parts in any order. */
+export const PARTS_IN_FLIGHT_WIFI = 3;
+export const PARTS_IN_FLIGHT_CELL = 1;
+/** Signed part URLs are fetched this many at a time (upload/chunks.ts) */
+export const PART_URL_BATCH = 8;
+/** under this much free space the camera says so (assignments/[id]/capture.tsx) */
+export const LOW_STORAGE_BYTES = 500 * 1024 * 1024;

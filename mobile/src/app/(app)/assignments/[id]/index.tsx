@@ -15,15 +15,15 @@ import {
   type Action, boardStatus, byDuration, handedOver, hoursText, isRevoked, localUnits, nextAction, ownNote, progressOf,
   remaining, requirementLabels, sections, unitsOf, unitText,
 } from "@/batches";
-import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed, type CaptureRow } from "@/db/outbox";
+import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed } from "@/db/outbox";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
-import { blocking } from "@/qa_pipeline/rules/rules";
 import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Pill, Screen, s } from "@/ui";
+import { dropCaptures } from "@/upload/drop";
 import { uploader } from "@/upload/uploader";
 import { AssignmentStatus } from "@/components/AssignmentStatus";
 import { DocumentList } from "@/components/DocumentList";
@@ -116,9 +116,11 @@ export default function AssignmentDetail() {
   // the one line a worker should read before the first shot, and the phone
   // will hold them to it after each one.
   const subject = spec.subject ?? null;
-  // Remove a capture the worker does not want to send. The local row goes
-  // either way; the uploaded asset needs the server too, and freeing that slot
-  // is what lets them shoot a replacement against a full quota.
+  // Remove a capture the worker does not want to send. A row still on the
+  // phone takes its file and its server slot with it (upload/drop.ts); a
+  // capture that only exists on the server is asked of the server directly,
+  // and its refusal ("sent for review") is shown. Freeing the slot is what
+  // lets them shoot a replacement against a full quota.
   const removeCapture = ({ captureId, assetId }: { captureId?: string; assetId?: string }) => {
     Alert.alert("Remove this capture?", "It will not be sent for review.", [
       { text: "Keep", style: "cancel" },
@@ -128,8 +130,12 @@ export default function AssignmentDetail() {
         onPress: () => {
           void (async () => {
             try {
-              if (assetId) await del(`/assets/${assetId}`);
-              if (captureId) await deleteCapture(captureId);
+              if (captureId) {
+                const row = await deleteCapture(captureId);
+                if (row) await dropCaptures([row]);
+              } else if (assetId) {
+                await del(`/assets/${assetId}`);
+              }
               await Promise.all([assets.refetch(), list.refetch()]);
             } catch (e) {
               Alert.alert("Could not remove it", e instanceof Error ? e.message : "Try again.");
@@ -159,15 +165,14 @@ export default function AssignmentDetail() {
   const unsentLocal = outbox.filter((r) => r.status !== "confirmed");
   const started = a.status !== "assigned";
   const requirements = requirementLabels(spec);
-  // Whether this phone can do the task at all (qa_pipeline/device/device.ts),
-  // asked before the start rather than shot by shot at the site.
+  // Where this phone falls short of the task's own device requirements
+  // (qa_pipeline/device/device.ts). A warning, never a gate: the worker may
+  // still start; a capture from a phone that falls short is refused at the
+  // shutter (qa_pipeline/pipeline.ts).
   const phone = deviceFindings(thisDevice(), camera, spec, unit);
-  const phoneBlocked = blocking(phone);
-  const phoneWarned = phone.filter((f) => f.severity === "warn");
 
   const goCapture = async (replaces?: string) => {
     setError(null);
-    if (phoneBlocked.length > 0) return;
     if (a.status === "assigned" || a.status === "rejected") {
       try {
         await start.mutateAsync();
@@ -204,7 +209,7 @@ export default function AssignmentDetail() {
       {
         text: "Discard",
         style: "destructive",
-        onPress: () => void discardFailed(id).then((rows: CaptureRow[]) => Promise.all(rows.map((r) => deleteLocal(r.local_uri)))),
+        onPress: () => void discardFailed(id).then(dropCaptures),
       },
     ]);
   };
@@ -256,14 +261,9 @@ export default function AssignmentDetail() {
       <Text style={[s.mono, { marginBottom: 14 }]}>{a.task.reference_code}{a.due_on ? ` · due ${a.due_on}` : ""}</Text>
 
       {error && <Callout tone="critical" title={error} />}
-      {phoneBlocked.length > 0 && (
-        <Callout tone="critical" title="This phone cannot do this task">
-          {phoneBlocked.map((f) => f.message).join(" ")}
-        </Callout>
-      )}
-      {phoneBlocked.length === 0 && phoneWarned.length > 0 && (
-        <Callout tone="attention" title="This phone may struggle">
-          {phoneWarned.map((f) => f.message).join(" ")}
+      {phone.length > 0 && (
+        <Callout tone="attention" title="This phone may not meet this task's requirements">
+          {phone.map((f) => f.message).join(" ")} Captures that fall short will be refused.
         </Callout>
       )}
 
@@ -306,7 +306,7 @@ export default function AssignmentDetail() {
                   title="Discard"
                   variant="danger"
                   style={{ flex: 1 }}
-                  onPress={() => void discardCapture(r.id).then((row) => deleteLocal(row?.local_uri ?? null))}
+                  onPress={() => void discardCapture(r.id).then((row) => (row ? dropCaptures([row]) : undefined))}
                 />
               </View>
             </View>

@@ -34,10 +34,18 @@ from urllib.parse import urlparse
 
 import urllib3
 from minio import Minio
+from minio.datatypes import Part
 from minio.error import S3Error
 
 from sourcehub.config import settings
-from sourcehub.platform.storage.types import ObjectStat, StorageError, StorageTarget
+from sourcehub.platform.storage.types import (
+    CHUNK_BYTES,
+    ObjectStat,
+    StorageError,
+    StorageTarget,
+    UploadSession,
+    UploadStatus,
+)
 
 _DEFAULT_HOST = "s3.amazonaws.com"
 
@@ -145,7 +153,14 @@ def _head_sync(t: StorageTarget, key: str) -> ObjectStat:
         # A real call to a real host, so this one genuinely can be unreachable.
         raise _unreachable(t.endpoint, e) from None
     etag = (s.etag or "").strip('"') or None
-    return ObjectStat(size=s.size or 0, content_type=s.content_type, etag=etag)
+    # S3's etag is the object's MD5 for one PUT and an MD5-of-MD5s with a part
+    # count for a multipart upload: the checksum the service records either way
+    return ObjectStat(
+        size=s.size or 0,
+        content_type=s.content_type,
+        etag=etag,
+        checksum=f"etag:{etag}" if etag else None,
+    )
 
 
 async def head(t: StorageTarget, key: str) -> ObjectStat:
@@ -231,3 +246,151 @@ async def verify(t: StorageTarget) -> None:
     and reads is usable, and lifecycle rules can handle the probe.
     """
     await asyncio.to_thread(_verify_sync, t)
+
+
+# ---------------------------------------------------------------------------
+# Resumable uploads: an S3 multipart upload. Create gives an upload id; the
+# phone PUTs each part to a URL signed for (uploadId, partNumber); complete
+# assembles the parts by their etags; abort throws the parts away. S3 keeps an
+# unfinished upload, and bills for its parts, until it is aborted — which is
+# what modules/media/sweep.py is for.
+#
+# minio exposes multipart only through private methods (its public put_object
+# drives them itself), so this is the ONE place that calls them, against the
+# version pinned in pyproject. A rename there breaks here, loudly, and nowhere
+# else. Part URLs go through the public get_presigned_url.
+# ---------------------------------------------------------------------------
+
+
+def _multipart_error(e: S3Error, what: str) -> StorageError:
+    return StorageError(f"Storage refused to {what} the upload: {e.code}")
+
+
+def _resumable_start_sync(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    try:
+        upload_id = _client(t, signing=False)._create_multipart_upload(
+            t.bucket, key, {"Content-Type": content_type}
+        )
+    except S3Error as e:
+        raise _multipart_error(e, "open") from None
+    except Exception as e:
+        raise _unreachable(t.endpoint, e) from None
+    return UploadSession("s3", str(upload_id), CHUNK_BYTES, size)
+
+
+def _part_urls_sync(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    c = _client(t, signing=True)
+    try:
+        return {
+            n: c.get_presigned_url(
+                "PUT",
+                t.bucket,
+                key,
+                expires=_ttl(),
+                extra_query_params={"partNumber": str(n), "uploadId": session.session},
+            )
+            for n in parts
+        }
+    except Exception as e:
+        raise _unreachable(t.public_endpoint or t.endpoint, e) from None
+
+
+def _parts_sync(c: Minio, t: StorageTarget, key: str, upload_id: str) -> list[Part]:
+    """Every part S3 holds for the upload, across pages. S3Error passes through."""
+    out: list[Part] = []
+    marker: str | None = None
+    while True:
+        r = c._list_parts(t.bucket, key, upload_id, part_number_marker=marker)
+        out.extend(r.parts)
+        if not r.is_truncated:
+            return out
+        marker = str(r.next_part_number_marker)
+
+
+def _resumable_status_sync(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    try:
+        parts = _parts_sync(_client(t, signing=False), t, key, session.session)
+    except S3Error as e:
+        if e.code == "NoSuchUpload":
+            raise LookupError(key) from None
+        raise _multipart_error(e, "list") from None
+    except Exception as e:
+        raise _unreachable(t.endpoint, e) from None
+    return UploadStatus(None, sorted(p.part_number for p in parts))
+
+
+def _resumable_complete_sync(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    c = _client(t, signing=False)
+    try:
+        parts = _parts_sync(c, t, key, session.session)
+    except S3Error as e:
+        if e.code == "NoSuchUpload":
+            # Completed earlier, or never started: whether the object is
+            # there says which. A second confirm is the first case.
+            try:
+                c.stat_object(t.bucket, key)
+            except Exception:
+                raise LookupError(key) from None
+            return
+        raise _multipart_error(e, "list") from None
+    except Exception as e:
+        raise _unreachable(t.endpoint, e) from None
+    expected = -(-session.size // session.chunk_size)
+    if sorted(p.part_number for p in parts) != list(range(1, expected + 1)):
+        # Some parts never arrived: read by the caller as "not uploaded yet",
+        # and the phone asks for the status and sends what is missing.
+        raise LookupError(key)
+    try:
+        c._complete_multipart_upload(
+            t.bucket,
+            key,
+            session.session,
+            [Part(p.part_number, p.etag) for p in sorted(parts, key=lambda p: p.part_number)],
+        )
+    except S3Error as e:
+        raise _multipart_error(e, "complete") from None
+    except Exception as e:
+        raise _unreachable(t.endpoint, e) from None
+
+
+def _resumable_abort_sync(t: StorageTarget, key: str, session: UploadSession) -> None:
+    try:
+        _client(t, signing=False)._abort_multipart_upload(t.bucket, key, session.session)
+    except S3Error as e:
+        if e.code == "NoSuchUpload":
+            return  # already gone is the desired state
+        raise _multipart_error(e, "abort") from None
+    except Exception as e:
+        raise _unreachable(t.endpoint, e) from None
+
+
+async def resumable_start(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    return await asyncio.to_thread(_resumable_start_sync, t, key, size, content_type)
+
+
+async def resumable_part_urls(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    return await asyncio.to_thread(_part_urls_sync, t, key, session, parts)
+
+
+async def resumable_status(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    return await asyncio.to_thread(_resumable_status_sync, t, key, session)
+
+
+async def resumable_complete(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    await asyncio.to_thread(_resumable_complete_sync, t, key, session, content_type)
+
+
+async def resumable_abort(t: StorageTarget, key: str, session: UploadSession) -> None:
+    await asyncio.to_thread(_resumable_abort_sync, t, key, session)

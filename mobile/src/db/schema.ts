@@ -107,3 +107,26 @@ ALTER TABLE captures ADD COLUMN replaces_asset_id TEXT;
 export const SCHEMA_V7 = `
 ALTER TABLE captures ADD COLUMN duration_s REAL;
 `;
+
+// A chunked, resumable upload (upload/chunks.ts). A file over CHUNK_BYTES is
+// sent in pieces against a session storage keeps, and these columns are where
+// the phone stands in it: how the file is being sent, the protocol the
+// destination speaks, the Google session URL or nothing, how much storage
+// holds (bytes for Google, part numbers for Azure and S3), the signed URLs for
+// the next parts, whether storage must be asked where things stand before
+// another byte goes (after a cut, a restart, or the network returning), and
+// whether the next presign must open a fresh session because the old one is
+// gone. The status CHECK is unchanged: presigned is "session ready", uploading
+// is "chunks going up", uploaded is "all in, confirm". Nothing here is the
+// truth about what storage holds; status is asked, never assumed.
+export const SCHEMA_V8 = `
+ALTER TABLE captures ADD COLUMN upload_mode TEXT;
+ALTER TABLE captures ADD COLUMN upload_protocol TEXT;
+ALTER TABLE captures ADD COLUMN session_url TEXT;
+ALTER TABLE captures ADD COLUMN chunk_size INTEGER;
+ALTER TABLE captures ADD COLUMN bytes_done INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE captures ADD COLUMN parts_done TEXT;
+ALTER TABLE captures ADD COLUMN part_urls TEXT;
+ALTER TABLE captures ADD COLUMN needs_status INTEGER NOT NULL DEFAULT 0;
+ALTER TABLE captures ADD COLUMN restart INTEGER NOT NULL DEFAULT 0;
+`;

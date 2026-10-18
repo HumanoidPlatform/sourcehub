@@ -84,7 +84,9 @@ beforeEach(() => {
 
 it("counts the funnel and shows each recipient's reminder history", async () => {
   show();
-  expect(await screen.findByText("3 sent · 2 answered · 2 accepted · 1 started · 1 submitted")).toBeTruthy();
+  // every recipient is told on the phone the moment the offer is made, so the
+  // funnel starts at "notified", not at whose email went out
+  expect(await screen.findByText("3 notified · 2 answered · 2 accepted · 1 started · 1 submitted")).toBeTruthy();
   expect(screen.getByText("reminded ×1")).toBeTruthy();
   // the assignments table: how often each worker has been chased
   expect(screen.getByText(/^2× · /)).toBeTruthy();

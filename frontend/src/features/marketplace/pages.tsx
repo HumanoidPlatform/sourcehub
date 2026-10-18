@@ -25,6 +25,7 @@ import {
   money, titleCase, utcDateOf,
 } from "@shared/format";
 import { bidText, describePricing, estimatedTotal, priceText, quantityWords, unitWords } from "@shared/pricing";
+import { deviceWords } from "@shared/units";
 import {
   AttachmentList, AttachmentsField, attachmentPayload, fromServer, type AttachmentDraft,
 } from "@shared/attachments";
@@ -409,6 +410,7 @@ interface Draft {
   capture_max_tilt_deg: string;
   capture_min_duration_s: string; capture_max_duration_s: string; capture_min_video_lines: string;
   capture_allow_library: boolean;
+  capture_min_android_version: string; capture_min_ios_version: string; capture_min_ram_gb: string;
   acceptance: string; qt_min_pass_rate_pct: string;
   rp_max_retakes: string; rp_retake_window_days: string;
   rp_rework_cost_bearer: string; rp_partial_acceptance_allowed: boolean;
@@ -439,6 +441,7 @@ const BLANK: Draft = {
   capture_max_tilt_deg: "",
   capture_min_duration_s: "", capture_max_duration_s: "", capture_min_video_lines: "",
   capture_allow_library: false,
+  capture_min_android_version: "", capture_min_ios_version: "", capture_min_ram_gb: "",
   acceptance: "", qt_min_pass_rate_pct: "",
   rp_max_retakes: "", rp_retake_window_days: "",
   rp_rework_cost_bearer: "", rp_partial_acceptance_allowed: false,
@@ -479,6 +482,13 @@ function biddingClosed(r: Rfp): boolean {
 /** A number field as the API wants it: absent rather than an empty string,
  *  because every one of these columns is nullable and `""` is not a number. */
 const num = (v: string): number | null => (v.trim() === "" ? null : Number(v));
+// the device floors as the review step reads them back, before they are a spec
+const draftDevice = (d: Draft): string | null =>
+  deviceWords({
+    min_android_version: num(d.capture_min_android_version),
+    min_ios_version: num(d.capture_min_ios_version),
+    min_ram_gb: num(d.capture_min_ram_gb),
+  });
 /** Same for text, and for a select whose blank option means "not answered". */
 const str = (v: string): string | null => (v.trim() === "" ? null : v.trim());
 /** db/340 people_requirements from the form: only the answers given, or null. */
@@ -579,6 +589,9 @@ export function RequestNewPage() {
       capture_max_duration_s: String(cap.max_duration_s ?? ""),
       capture_min_video_lines: String(cap.min_video_lines ?? ""),
       capture_allow_library: !!cap.allow_library,
+      capture_min_android_version: String(cap.min_android_version ?? ""),
+      capture_min_ios_version: String(cap.min_ios_version ?? ""),
+      capture_min_ram_gb: String(cap.min_ram_gb ?? ""),
       qt_min_pass_rate_pct: String(qt.min_pass_rate_pct ?? ""),
       rp_max_retakes: String(rp.max_retakes ?? ""),
       rp_retake_window_days: String(rp.retake_window_days ?? ""),
@@ -708,6 +721,9 @@ export function RequestNewPage() {
           max_duration_s: num(d.capture_max_duration_s),
           min_video_lines: num(d.capture_min_video_lines),
           allow_library: d.capture_allow_library || null,
+          min_android_version: num(d.capture_min_android_version),
+          min_ios_version: num(d.capture_min_ios_version),
+          min_ram_gb: num(d.capture_min_ram_gb),
         }),
 
         acceptance: str(d.acceptance),
@@ -1030,12 +1046,27 @@ export function RequestNewPage() {
                 </select>
               )}
             </Field>
+            {/* Device Specifications. The three floors are ENFORCED on the
+                worker's phone (mobile qa_pipeline/device/device.ts): a shortfall
+                is a warning before the task and refuses each capture at the
+                shutter. Blank means no requirement — there is no platform
+                floor. The notes are not enforced: a phone cannot tell whether
+                it has LiDAR. */}
+            <Field label="Minimum Android" hint="Release number, e.g. 12. Blank for no requirement. The worker's phone warns before the task and refuses captures that fall short.">
+              {(id) => <input id={id} className={inputCls} type="number" min={8} max={20} step="1" value={d.capture_min_android_version} onChange={set("capture_min_android_version")} placeholder="12" />}
+            </Field>
+            <Field label="Minimum iOS" hint="Major version, e.g. 16. Blank for no floor.">
+              {(id) => <input id={id} className={inputCls} type="number" min={12} max={30} step="1" value={d.capture_min_ios_version} onChange={set("capture_min_ios_version")} placeholder="16" />}
+            </Field>
+            <Field label="Minimum memory (GB)" hint="Total RAM. Blank for no floor.">
+              {(id) => <input id={id} className={inputCls} type="number" min={0.5} max={32} step="0.5" value={d.capture_min_ram_gb} onChange={set("capture_min_ram_gb")} placeholder="4" />}
+            </Field>
             <Field
-              label="Device Specifications"
+              label="Other hardware notes"
               span
-              hint="Optional device type, model, OS/version, or special hardware requirements."
+              hint="Anything a phone cannot verify about itself: LiDAR, a calibrated camera, a tripod. Shown to the partner, not enforced."
             >
-              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="Android 12+, LiDAR-capable phone, calibrated camera, or other hardware needs." />}
+              {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.capture_notes} onChange={set("capture_notes")} placeholder="LiDAR-capable phone, calibrated camera, or other hardware needs." />}
             </Field>
             <label className="checkline span">
               <input type="checkbox" checked={showCrew} onChange={(e) => setShowCrew(e.target.checked)} />
@@ -1434,7 +1465,8 @@ export function RequestNewPage() {
             ...(d.countries.length ? [["Location / Locale", d.countries.map(localeLabel).join(", ")] as Row] : []),
             ...(d.location_type
               ? [["Location Type", labelOf(LOCATION_TYPES, d.location_type as LocationType)] as Row] : []),
-            ...(d.capture_notes ? [["Device Specifications", d.capture_notes] as Row] : []),
+            ...(draftDevice(d) ? [["Device", draftDevice(d)] as Row] : []),
+            ...(d.capture_notes ? [["Hardware notes", d.capture_notes] as Row] : []),
             ...(crewOf(d) ? [["Crew requirements", crewText(crewOf(d))] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
             ...(d.qt_min_pass_rate_pct
@@ -2070,8 +2102,11 @@ export function RequestDetailPage() {
             ...(r.spec.capture.require_gps
               ? [["GPS", "A fix is required on every capture"] as [string, React.ReactNode]]
               : []),
+            ...(deviceWords(r.spec.capture)
+              ? [["Device", deviceWords(r.spec.capture)] as [string, React.ReactNode]]
+              : []),
             ...(r.spec.capture.notes
-              ? [["Device Specifications", r.spec.capture.notes] as [string, React.ReactNode]]
+              ? [["Hardware notes", r.spec.capture.notes] as [string, React.ReactNode]]
               : []),
             // One row about place, not four. This panel used to carry
             // "Location" (which was the GPS flag), "Where", "Countries" and

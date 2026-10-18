@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { Assignment } from "@api/types";
 import { room } from "@features/capture/intake";
 import { mediaKinds } from "@features/capture/rules";
-import { amountWords, byDuration, unitPlural, unitsOf } from "./units";
+import { amountWords, byDuration, deviceWords, unitPlural, unitsOf } from "./units";
 
 const assignment = (progress: Assignment["progress"]): Assignment => ({ quantity: 0.5, progress }) as Assignment;
 
@@ -37,5 +37,15 @@ describe("a share in hours of footage (db/510)", () => {
 
   it("an hours task takes video only", () => {
     expect(mediaKinds({}, "hours")).toEqual(["video"]);
+  });
+});
+
+describe("the phone a task demands", () => {
+  it("reads as the brief says it, or nothing", () => {
+    expect(deviceWords({ min_android_version: 12, min_ios_version: 16, min_ram_gb: 4 })).toBe("Android 12+ · iOS 16+ · 4 GB RAM or more");
+    expect(deviceWords({ min_ram_gb: 4 })).toBe("4 GB RAM or more");
+    // the free text is not a floor: a phone cannot check "LiDAR" about itself
+    expect(deviceWords({ notes: "LiDAR-capable" })).toBeNull();
+    expect(deviceWords(null)).toBeNull();
   });
 });

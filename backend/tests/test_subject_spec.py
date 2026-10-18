@@ -78,6 +78,21 @@ def test_capture_spec_takes_a_clips_bounds_and_refuses_nonsense():
         CaptureSpec(min_video_lines=0)
 
 
+def test_capture_spec_takes_a_device_floor_and_refuses_nonsense():
+    from sourcehub.api.v1.marketplace import CaptureSpec
+
+    s = CaptureSpec(media=["video"], min_android_version=12, min_ios_version=16, min_ram_gb=4)
+    assert (s.min_android_version, s.min_ios_version, s.min_ram_gb) == (12, 16, 4)
+    # the free text stays free: a phone cannot verify "LiDAR" about itself
+    assert CaptureSpec(notes="LiDAR-capable").min_android_version is None
+    with pytest.raises(ValidationError):
+        CaptureSpec(min_android_version=3)
+    with pytest.raises(ValidationError):
+        CaptureSpec(min_ios_version=9)
+    with pytest.raises(ValidationError):
+        CaptureSpec(min_ram_gb=0)
+
+
 def test_presign_takes_a_clip_of_minutes_but_not_of_hours():
     from sourcehub.api.v1.media import PresignIn
     from sourcehub.modules.media.service import MAX_VIDEO_BYTES

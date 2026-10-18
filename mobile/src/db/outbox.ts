@@ -5,6 +5,9 @@
 import { getDb } from "./index";
 
 export type CaptureStatus = "captured" | "presigned" | "uploading" | "uploaded" | "confirmed" | "failed";
+/** how a file is sent: one PUT, or chunks against a session storage keeps */
+export type UploadMode = "single" | "resumable";
+export type UploadProtocol = "gcs" | "azure" | "s3";
 
 export interface CaptureRow {
   id: string;
@@ -33,6 +36,23 @@ export interface CaptureRow {
   replaces_asset_id: string | null;
   /** A clip's running time in seconds; null for a photo. */
   duration_s: number | null;
+  // --- a chunked, resumable upload (upload/chunks.ts); null or 0 for one PUT ---
+  /** set by the presign's answer: how this file is being sent */
+  upload_mode: UploadMode | null;
+  upload_protocol: UploadProtocol | null;
+  /** Google's session URL, which every chunk goes to; the other two sign a URL per part */
+  session_url: string | null;
+  chunk_size: number | null;
+  /** what storage holds, as it last said: bytes (Google) */
+  bytes_done: number;
+  /** JSON number[]: the parts storage holds (Azure, S3) */
+  parts_done: string | null;
+  /** JSON {n: {url, expires_at}}: signed URLs for parts not yet sent */
+  part_urls: string | null;
+  /** 1: ask storage where the upload stands before sending another byte */
+  needs_status: number;
+  /** 1: the session is gone; the next presign must open a fresh one */
+  restart: number;
   created_at: number;
   updated_at: number;
 }
@@ -131,17 +151,48 @@ export async function patchCapture(id: string, patch: Partial<CaptureRow>): Prom
   emitOutboxChange();
 }
 
-/** an app that died mid-PUT restarts the PUT rather than waiting forever */
+/** An app that died mid-upload. One PUT restarts rather than waiting for ever;
+ *  a chunked upload asks storage what landed before sending another byte. */
 export async function resetStuck(): Promise<void> {
   const db = await getDb();
-  await db.runAsync("UPDATE captures SET status = 'presigned', updated_at = ? WHERE status = 'uploading'", [Date.now()]);
+  const now = Date.now();
+  await db.runAsync(
+    "UPDATE captures SET needs_status = 1, updated_at = ? WHERE status = 'uploading' AND upload_mode = 'resumable'",
+    [now],
+  );
+  await db.runAsync(
+    "UPDATE captures SET status = 'presigned', updated_at = ? WHERE status = 'uploading' AND upload_mode IS NOT 'resumable'",
+    [now],
+  );
+}
+
+/** The network came back: every chunked upload in flight asks storage where
+ *  it stands rather than trusting its own count across the gap. */
+export async function flagResumableForStatus(): Promise<void> {
+  const db = await getDb();
+  await db.runAsync(
+    "UPDATE captures SET needs_status = 1, updated_at = ? WHERE status IN ('presigned','uploading') AND upload_mode = 'resumable'",
+    [Date.now()],
+  );
+  emitOutboxChange();
+}
+
+/** The worker says now, not after the backoff: every waiting row may go at once. */
+export async function retryNow(): Promise<number> {
+  const db = await getDb();
+  const r = await db.runAsync(
+    "UPDATE captures SET next_attempt_at = 0, updated_at = ? WHERE status NOT IN ('confirmed','failed') AND next_attempt_at > ?",
+    [Date.now(), Date.now()],
+  );
+  if (r.changes) emitOutboxChange();
+  return r.changes;
 }
 
 export async function retryFailed(assignmentId?: string): Promise<number> {
   const db = await getDb();
   const r = await db.runAsync(
     `UPDATE captures SET status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
-                         put_url = NULL, url_expires_at = NULL, updated_at = ?
+                         put_url = NULL, url_expires_at = NULL, needs_status = 1, updated_at = ?
      WHERE status = 'failed' AND local_uri IS NOT NULL ${assignmentId ? "AND assignment_id = ?" : ""}`,
     assignmentId ? [Date.now(), assignmentId] : [Date.now()],
   );
@@ -163,10 +214,15 @@ export async function discardFailed(assignmentId?: string): Promise<CaptureRow[]
   return rows;
 }
 
-export async function deleteCapture(id: string): Promise<void> {
+/** removes one capture's row, whatever its state, and hands it back so the
+ *  caller can drop the file and the server's slot with it (upload/drop.ts) */
+export async function deleteCapture(id: string): Promise<CaptureRow | null> {
   const db = await getDb();
+  const row = await db.getFirstAsync<CaptureRow>("SELECT * FROM captures WHERE id = ?", [id]);
+  if (!row) return null;
   await db.runAsync("DELETE FROM captures WHERE id = ?", [id]);
   emitOutboxChange();
+  return row;
 }
 
 /** one failed capture back to the start of the pipeline */
@@ -174,7 +230,7 @@ export async function retryCapture(id: string): Promise<void> {
   const db = await getDb();
   await db.runAsync(
     `UPDATE captures SET status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
-                         put_url = NULL, url_expires_at = NULL, updated_at = ?
+                         put_url = NULL, url_expires_at = NULL, needs_status = 1, updated_at = ?
      WHERE id = ? AND status = 'failed' AND local_uri IS NOT NULL`,
     [Date.now(), id],
   );
@@ -210,13 +266,19 @@ export async function listByAssignment(assignmentId: string): Promise<CaptureRow
   );
 }
 
-export async function nextRunnable(now: number): Promise<CaptureRow | null> {
+export type QueueOrder = "oldest" | "smallest";
+
+/** The next row that can move, skipping any another lane holds. "oldest" is
+ *  the queue's natural order; "smallest" lets the photos pass a clip that is
+ *  taking its time (upload/uploader.ts runs one lane of each). */
+export async function nextRunnable(now: number, exclude: string[] = [], order: QueueOrder = "oldest"): Promise<CaptureRow | null> {
   const db = await getDb();
+  const skip = exclude.length ? `AND id NOT IN (${exclude.map(() => "?").join(", ")})` : "";
   const row = await db.getFirstAsync<CaptureRow>(
     `SELECT * FROM captures
-     WHERE status NOT IN ('confirmed','failed') AND next_attempt_at <= ?
-     ORDER BY created_at LIMIT 1`,
-    [now],
+     WHERE status NOT IN ('confirmed','failed') AND next_attempt_at <= ? ${skip}
+     ORDER BY ${order === "smallest" ? "size, created_at" : "created_at"} LIMIT 1`,
+    [now, ...exclude],
   );
   return row ?? null;
 }

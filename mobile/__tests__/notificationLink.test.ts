@@ -6,8 +6,13 @@ describe("where a notification takes the worker", () => {
     expect(target({ link_page: "assignment", link_params: { assignment_id: "a2" } })).toBe("/assignments/a2");
   });
 
+  it("opens the offer a row or push is about, to be answered there", () => {
+    expect(target({ link_page: "offer", link_params: { id: "r1" } })).toBe("/offers/r1");
+    expect(target({ link_page: "offer", link_params: {} })).toBe("/assignments");
+  });
+
   it("falls back to the board for anything else", () => {
-    // an offer row carries no link: it is answered from the email
+    // a row with no link, or a console page the phone has no screen for
     expect(target({ link_page: null, link_params: {} })).toBe("/assignments");
     expect(target({ link_page: "tasks", link_params: { id: "t1" } })).toBe("/assignments");
     expect(target({ link_page: "assignment", link_params: null })).toBe("/assignments");

@@ -67,6 +67,7 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     from sourcehub.modules.catalogue import sweep as catalogue_copy
     from sourcehub.modules.engage import service as engage
     from sourcehub.modules.marketplace import sweep
+    from sourcehub.modules.media import sweep as upload_sweep
     from sourcehub.modules.outbox import service as outbox
     from sourcehub.modules.push import service as push
 
@@ -79,6 +80,8 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
         asyncio.create_task(catalogue_copy.run_forever())
         if settings.catalogue_copy_enabled else None,
         asyncio.create_task(outbox.run_forever()) if settings.mail_outbox_enabled else None,
+        asyncio.create_task(upload_sweep.run_forever())
+        if settings.upload_sweep_enabled else None,
     ]
     try:
         yield

@@ -91,6 +91,9 @@ const clips = (n: number) => `${n} clip${n === 1 ? "" : "s"}`;
 
 export const isRevoked = (a: Assignment): boolean => a.revoked_at != null;
 
+/** Whether another capture may be taken: the share has room. `onPhone` is in
+ *  the share's unit (localUnits). There is no other ceiling: a worker uploads
+ *  whatever share the aggregator gave them. */
 export function canCapture(a: Assignment, onPhone: number): boolean {
   if (isRevoked(a)) return false;
   if (!["assigned", "in_progress", "rejected"].includes(a.status)) return false;
@@ -261,6 +264,10 @@ export function requirementLabels(spec: CaptureSpec | null | undefined): string[
   if (spec.min_video_lines) out.push(`${spec.min_video_lines}p minimum`);
   if (spec.max_tilt_deg) out.push(`Within ${spec.max_tilt_deg}° of level`);
   if (spec.allow_library) out.push("Clips from the gallery allowed");
+  // the phone the task demands; qa_pipeline/device/device.ts holds the worker to it before the start
+  if (spec.min_android_version) out.push(`Android ${spec.min_android_version}+`);
+  if (spec.min_ios_version) out.push(`iOS ${spec.min_ios_version}+`);
+  if (spec.min_ram_gb) out.push(`${spec.min_ram_gb} GB RAM or more`);
   return out;
 }
 

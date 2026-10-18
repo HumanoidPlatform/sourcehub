@@ -22,6 +22,7 @@ Two things here are easy to get wrong and both have bitten:
 from __future__ import annotations
 
 import asyncio
+import base64
 import contextlib
 import datetime as dt
 import re
@@ -35,6 +36,7 @@ from azure.core.exceptions import (
     ResourceNotFoundError,
 )
 from azure.storage.blob import (
+    BlobBlock,
     BlobSasPermissions,
     BlobServiceClient,
     ContentSettings,
@@ -42,7 +44,14 @@ from azure.storage.blob import (
 )
 
 from sourcehub.config import settings
-from sourcehub.platform.storage.types import ObjectStat, StorageError, StorageTarget
+from sourcehub.platform.storage.types import (
+    CHUNK_BYTES,
+    ObjectStat,
+    StorageError,
+    StorageTarget,
+    UploadSession,
+    UploadStatus,
+)
 
 # 3-63 chars, lowercase letters, digits and single inner hyphens. Checked here
 # because nothing upstream does: the column takes 255 characters of anything,
@@ -184,7 +193,15 @@ def _head_sync(t: StorageTarget, key: str) -> ObjectStat:
     except Exception as e:  # noqa: BLE001
         raise _wrap(t.endpoint, e) from None
     ct = p.content_settings.content_type if p.content_settings else None
-    return ObjectStat(size=p.size or 0, content_type=ct, etag=(p.etag or "").strip('"') or None)
+    # Azure keeps a content MD5 for a blob written in one request; a blob
+    # committed from blocks has none, and the service then records nothing
+    md5 = p.content_settings.content_md5 if p.content_settings else None
+    return ObjectStat(
+        size=p.size or 0,
+        content_type=ct,
+        etag=(p.etag or "").strip('"') or None,
+        checksum=f"md5:{base64.b64encode(bytes(md5)).decode()}" if md5 else None,
+    )
 
 
 async def head(t: StorageTarget, key: str) -> ObjectStat:
@@ -295,3 +312,118 @@ def _verify_sync(t: StorageTarget) -> None:
 async def verify(t: StorageTarget) -> None:
     _check_container(t)
     await asyncio.to_thread(_verify_sync, t)
+
+
+# ---------------------------------------------------------------------------
+# Resumable uploads: Azure keeps no session. Each chunk is a Put Block under a
+# block id — staged, uncommitted, kept seven days — and the blob comes into
+# being when the ids are committed in order. The "session" is a prefix for the
+# ids, so one blob's abandoned blocks and a later retry's never mix, and block
+# ids within a blob must all be the same length, hence the zero-padded part.
+# The write SAS the phone already gets covers Put Block and Put Block List.
+# ---------------------------------------------------------------------------
+
+
+def _block_id(prefix: str, n: int) -> str:
+    return base64.b64encode(f"{prefix}-{n:06d}".encode()).decode()
+
+
+def _part_of(block_id: str, prefix: str) -> int | None:
+    """The part number behind a block id of ours; None for anything else."""
+    try:
+        raw = base64.b64decode(block_id).decode()
+    except Exception:
+        return None
+    head, _, num = raw.rpartition("-")
+    return int(num) if head == prefix and num.isdigit() else None
+
+
+def _part_urls_sync(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    base = _sas(t, key, BlobSasPermissions(create=True, write=True))
+    return {
+        n: f"{base}&comp=block&blockid={quote(_block_id(session.session, n), safe='')}"
+        for n in parts
+    }
+
+
+def _staged(t: StorageTarget, key: str, prefix: str) -> tuple[list[int], bool]:
+    """(our uncommitted parts in order, whether the blob is already committed)."""
+    try:
+        committed, uncommitted = _service(t).get_blob_client(t.bucket, key).get_block_list("all")
+    except ResourceNotFoundError:
+        return [], False  # nothing staged yet: Azure has no blob to list blocks of
+    except StorageError:
+        raise
+    except Exception as e:
+        raise _wrap(t.endpoint, e) from None
+    mine = sorted(p for b in uncommitted if (p := _part_of(b.id, prefix)) is not None)
+    return mine, bool(committed)
+
+
+def _resumable_status_sync(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    parts, _ = _staged(t, key, session.session)
+    return UploadStatus(None, parts)
+
+
+def _resumable_complete_sync(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    parts, committed = _staged(t, key, session.session)
+    expected = -(-session.size // session.chunk_size)
+    if parts != list(range(1, expected + 1)):
+        if committed and not parts:
+            return  # committed earlier; a second confirm finds nothing to do
+        # Some parts never arrived: the caller reads this as "not uploaded
+        # yet", and the phone asks for the status and sends what is missing.
+        raise LookupError(key)
+    try:
+        _service(t).get_blob_client(t.bucket, key).commit_block_list(
+            [BlobBlock(block_id=_block_id(session.session, n)) for n in parts],
+            content_settings=ContentSettings(content_type=content_type),
+        )
+    except StorageError:
+        raise
+    except AzureError as e:
+        raise StorageError(f"Azure refused to assemble the upload: {type(e).__name__}") from None
+    except Exception as e:
+        raise _wrap(t.endpoint, e) from None
+
+
+async def resumable_start(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    _check_container(t)
+    # Nothing to open on Azure's side; the prefix is all the state there is.
+    return UploadSession("azure", uuid.uuid4().hex[:12], CHUNK_BYTES, size)
+
+
+async def resumable_part_urls(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    _check_container(t)
+    try:
+        return await asyncio.to_thread(_part_urls_sync, t, key, session, parts)
+    except StorageError:
+        raise
+    except Exception as e:
+        raise _wrap(t.public_endpoint or t.endpoint, e) from None
+
+
+async def resumable_status(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    _check_container(t)
+    return await asyncio.to_thread(_resumable_status_sync, t, key, session)
+
+
+async def resumable_complete(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    _check_container(t)
+    await asyncio.to_thread(_resumable_complete_sync, t, key, session, content_type)
+
+
+async def resumable_abort(t: StorageTarget, key: str, session: UploadSession) -> None:
+    # Uncommitted blocks expire on their own after seven days; there is no
+    # call to hurry them and nothing else to clear.
+    return None

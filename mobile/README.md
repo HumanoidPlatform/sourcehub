@@ -63,6 +63,37 @@ expired links and give-ups are in one place. Airplane mode is fine: captures
 wait; reconnecting resumes them. Uninstalling the app deletes captures that
 have not been uploaded, which is why Settings shows how many are queued.
 
+A file up to 8 MB goes up in one PUT, hashed whole first. Anything bigger is
+sent in 8 MB chunks against a session storage keeps (a Google resumable
+session, Azure uncommitted blocks, an S3 multipart upload), with the phone's
+own capture id naming the file instead of a hash (`src/upload/chunks.ts`,
+`src/upload/parts.ts`). After a cut, an app restart or the network returning,
+the phone asks storage what it already holds and continues from there; at
+most one chunk is re-sent. S3 and Azure verify each chunk's digest; confirm
+checks the size on every provider.
+
+Two lanes run at once: one takes the oldest row, the other the smallest, so
+a long clip never holds up the photos behind it. On Android a foreground
+service with a progress notification keeps the loop running when the phone
+is locked or the worker switches apps (`src/upload/service.ts`, registered
+by `plugins/withUploadService.js`). The loop takes it the moment a step
+begins while the app is in front, the only time Android allows that, lets it
+go when the queue cannot move (offline, signed out, a 401) so the phone is
+not kept awake for nothing, and takes it afresh each time the app is opened;
+Android 15 allows it six hours a day, after which uploads wait for the app
+to be opened. On iOS the screen stays awake while a lane is uploading
+instead.
+
+A poor connection never fails a capture: the row waits with backoff, four
+seconds doubling to five minutes, for as long as the app runs, and the tile
+says "Retrying in …". Only a definitive refusal, or a storage link refused
+eight times in a row, parks a capture as failed. A request with no answer in
+30 s and a transfer with no progress for 60 s count as network failures. A
+401 stops the loop and leaves the queue for the next sign-in. Discarding a
+capture also frees its place on the server (`src/upload/drop.ts`), and the
+camera stops at the share's quantity; there is no other ceiling on what a
+worker uploads.
+
 ## Checks
 
 ```bash
@@ -98,7 +129,22 @@ the same frames, shrunk to 16×16, tell a dark clip (refused past half its
 frames) from a still one (a warning — a tripod shot looks the same as a
 stalled encoder). Before any of that, `rules.ts` refuses a clip outside the
 task's `min_duration_s`–`max_duration_s`, below its `min_video_lines`, or the
-wrong way up. A task with `allow_library` shows a *Gallery* chip so a clip the
+wrong way up. The phone itself is held to the task's own device requirements
+(`min_android_version`, `min_ios_version`, `min_ram_gb`, from the RFP's Device
+Specifications; `qa_pipeline/device/device.ts`), and to nothing else: there is
+no platform floor, and a task that names none asks nothing of any phone. On the
+offer and assignment screens a shortfall is a warning that names it, so the
+worker learns before travelling, and they may still accept and start. At the
+shutter the same shortfall refuses the capture, like a photo under the task's
+megapixels, so nothing is sent that would be sent back.
+
+**Offers.** A task the aggregator broadcasts ("Offer to crowd") appears under
+*Offered to you* at the top of the board, and the push opens it. The offer screen
+(`app/(app)/offers/[id].tsx`) shows the brief — amount, due date, instructions,
+subject, requirement chips — runs the same device check as an assignment, and has
+Accept and Decline (backend `GET /me/offers`, `POST /me/offers/{id}/respond`).
+Accepting lands on the new assignment; a place someone else took first comes back
+as the server's reason, not a silent failure. A task with `allow_library` shows a *Gallery* chip so a clip the
 phone already holds can be sent; it goes through every check the same way.
 The viewfinder reads *Checking clip… 12/40* while the frames run.
 

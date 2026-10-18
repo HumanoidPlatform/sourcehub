@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7 } from "./schema";
+import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8 } from "./schema";
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -64,5 +64,17 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
       // the column is already there
     }
     await db.execAsync("PRAGMA user_version = 7");
+  }
+  if (version < 8) {
+    // Eight ALTERs, each its own statement: SQLite adds one column per ALTER,
+    // and a column that is already there must not stop the ones after it.
+    for (const stmt of SCHEMA_V8.split(";").map((s) => s.trim()).filter(Boolean)) {
+      try {
+        await db.execAsync(stmt);
+      } catch {
+        // the column is already there
+      }
+    }
+    await db.execAsync("PRAGMA user_version = 8");
   }
 }

@@ -1,9 +1,12 @@
 // SHA-256 of a local file, as hex. The manifest the server records carries
-// it, and presign is idempotent on it, so it must be computed before the
-// first presign and never change.
+// it for a file sent in one PUT, and presign is idempotent on it, so it must
+// be computed before the first presign and never change.
 //
 // expo-crypto has no streaming digest, so the file is read into memory once.
-// The caps in config.ts keep that within reach of a mid-range phone.
+// Only a file up to CHUNK_BYTES ever gets here: anything bigger is sent in
+// chunks and named by the phone's own capture id instead (machine.ts
+// wantsChunks), because reading a gigabyte clip into the JavaScript heap is
+// what had the OS kill the app at this step.
 //
 // The native digest takes a TYPED ARRAY. On iOS expo-crypto has no async
 // variant, and its synchronous binding rejects a bare ArrayBuffer with an

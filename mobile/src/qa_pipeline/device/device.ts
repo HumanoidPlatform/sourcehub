@@ -20,16 +20,20 @@
 // what the account already does.
 
 //
-// It is also a GATE now, before a task starts (deviceFindings below): a phone
-// under the platform floor (config MIN_ANDROID_API, MIN_IOS_MAJOR, MIN_RAM_GB),
-// or whose camera cannot reach the task's min_megapixels, is told so on the
-// assignment screen — before the worker travels, not shot by shot at the site.
-// A figure the OS would not give is never held against the phone.
+// It is also held to the TASK's device requirements (deviceFindings below):
+// the client's capture_spec.min_android_version, min_ios_version, min_ram_gb
+// ("Android 12+" from the RFP's Device Specifications) and min_megapixels.
+// There is no platform floor of our own: a task that names no requirement
+// asks nothing of any phone. Before the task, the assignment and offer screens
+// show where the phone falls short as a warning — the worker may still accept
+// and start. At the shutter the same shortfall refuses the capture
+// (pipeline.ts, deviceRefusals), so a phone that cannot meet the brief never
+// sends a capture that would be sent back. A figure the OS would not give is
+// never held against the phone.
 
 import * as Device from "expo-device";
 import { Platform } from "react-native";
 import type { CaptureSpec } from "@/api/types";
-import { MIN_ANDROID_API, MIN_IOS_MAJOR, MIN_RAM_GB, WARN_RAM_GB } from "@/config";
 import { type Finding, mediaKinds, numeric } from "@/qa_pipeline/rules/rules";
 
 /** What the back camera can take, probed once per install on the capture
@@ -124,28 +128,29 @@ export function cameraCaps(sizes: string[], probedAt: string): CameraCaps | null
   return { maxPhotoMp: Math.round(best / 1e5) / 10, sizes, probedAt };
 }
 
-/** The release a worker knows by name, for the API levels near the floor. */
-const ANDROID_RELEASE: Record<number, string> = { 26: "8", 27: "8.1", 28: "9", 29: "10", 30: "11", 31: "12", 32: "12L", 33: "13", 34: "14", 35: "15", 36: "16" };
-
-function androidName(api: number): string {
-  return ANDROID_RELEASE[api] ?? `API ${api}`;
+/** The release a version string names, to one decimal: "8.1.0" is 8.1,
+ *  "17.2.1" is 17.2, "12" is 12. The client's floor is a number like 8.1, so
+ *  the major alone would read an 8.1 phone as short of it. Null when the
+ *  string holds no number. */
+export function versionNumber(v?: string | null): number | null {
+  const m = /^\s*(\d+)(?:\.(\d+))?/.exec(String(v ?? ""));
+  return m ? Number(`${m[1]}.${m[2] ?? "0"}`) : null;
 }
 
-/** The leading number of a version string: "17.2.1" is 17. */
-function majorOf(v?: string | null): number | null {
-  const n = parseInt(String(v ?? ""), 10);
-  return Number.isFinite(n) ? n : null;
-}
-
-/** Whether this phone can do this task, asked before it starts.
+/** Where this phone falls short of what the TASK asks of it. Nothing is asked
+ * that the client did not: a spec with no device fields yields nothing for
+ * any phone.
  *
- * BLOCK where the phone clearly cannot: an OS under the platform floor, memory
- * under MIN_RAM_GB, or a camera whose largest picture is under the task's
+ * BLOCK where a capture from this phone would be refused: an OS under the
+ * task's min_android_version / min_ios_version (release numbers), memory under
+ * its min_ram_gb, or a camera whose largest picture is under its
  * min_megapixels on a photo-only task — every photo it took would be refused
  * by rules.ts at the shutter anyway. On a task that also takes clips the
  * camera shortfall is a WARN: the worker can still do the work in video.
  *
- * WARN on memory under WARN_RAM_GB: the phone will manage, slowly.
+ * None of these stops the worker accepting or starting the task: the screens
+ * before it show them as a warning. At the shutter, the OS and memory ones
+ * refuse the capture (deviceRefusals, pipeline.ts).
  *
  * Nothing where a figure is missing. A camera not yet probed (a fresh install
  * that has never opened the capture screen) is asked again there, before the
@@ -160,30 +165,26 @@ export function deviceFindings(
 ): Finding[] {
   const out: Finding[] = [];
 
-  const os = d.os === "iOS" ? majorOf(d.osVersion) : (d.apiLevel ?? null);
-  const floor = d.os === "iOS" ? MIN_IOS_MAJOR : MIN_ANDROID_API;
-  if (os != null && (d.os === "iOS" || d.os === "Android") && os < floor) {
+  // The OS, in the release a client names ("Android 12+")
+  const release = versionNumber(d.osVersion);
+  const taskOs = numeric(d.os === "iOS" ? spec?.min_ios_version : spec?.min_android_version);
+  if ((d.os === "iOS" || d.os === "Android") && taskOs != null && release != null && release < taskOs) {
     out.push({
       code: "device_os",
       severity: "block",
-      message:
-        d.os === "iOS"
-          ? `This phone runs iOS ${d.osVersion}; tasks need iOS ${MIN_IOS_MAJOR} or newer.`
-          : `This phone runs Android ${d.osVersion ?? androidName(os)}; tasks need Android ${androidName(floor)} or newer.`,
-      detail: { os: d.os, os_version: d.osVersion ?? null, api_level: d.apiLevel ?? null, floor },
+      message: `This task needs ${d.os} ${taskOs} or newer; this phone runs ${d.os} ${d.osVersion}.`,
+      detail: { os: d.os, os_version: d.osVersion ?? null, api_level: d.apiLevel ?? null, floor: taskOs, source: "task" },
     });
   }
 
   const gb = memoryGb(d.totalMemory);
-  if (gb != null && gb < WARN_RAM_GB) {
-    const refuse = gb < MIN_RAM_GB;
+  const taskGb = numeric(spec?.min_ram_gb);
+  if (gb != null && taskGb != null && gb < taskGb) {
     out.push({
       code: "device_memory",
-      severity: refuse ? "block" : "warn",
-      message: refuse
-        ? `This phone has ${gb} GB of memory; tasks need at least ${MIN_RAM_GB} GB.`
-        : `This phone has ${gb} GB of memory, so checking each capture may be slow.`,
-      detail: { memory_gb: gb, min_gb: MIN_RAM_GB, warn_gb: WARN_RAM_GB },
+      severity: "block",
+      message: `This task needs at least ${taskGb} GB of memory; this phone has ${gb} GB.`,
+      detail: { memory_gb: gb, min_gb: taskGb, source: "task" },
     });
   }
 
@@ -202,4 +203,11 @@ export function deviceFindings(
   }
 
   return out;
+}
+
+/** What refuses a capture at the shutter: the OS and memory shortfalls. The
+ *  camera is judged on the photo itself there (rules.ts min_megapixels), so
+ *  it is not repeated; the capture screen only says so beforehand. */
+export function deviceRefusals(d: DeviceFacts, spec: CaptureSpec | null | undefined): Finding[] {
+  return deviceFindings(d, null, spec).filter((f) => f.code === "device_os" || f.code === "device_memory");
 }

@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { get } from "@/api/client";
-import type { Assignment, AssetRow, AssetUrl, NotificationRow } from "@/api/types";
+import type { Assignment, AssetRow, AssetUrl, NotificationRow, OfferRow } from "@/api/types";
 import { POLL_MS } from "@/config";
 import { listByAssignment, onOutboxChange, summaryByAssignment, type CaptureRow, type OutboxSummary, rejectionsByAssignment, type RejectionCount } from "@/db/outbox";
 
@@ -9,6 +9,17 @@ export function useAssignments() {
   return useQuery({
     queryKey: ["assignments"],
     queryFn: () => get<Assignment[]>("/me/assignments"),
+    refetchInterval: POLL_MS,
+    refetchIntervalInBackground: false,
+  });
+}
+
+/** Tasks offered to this worker, answered on the phone (offers.ts). Polled
+ *  like the board; a push refreshes it at once (notifications/PushMount). */
+export function useOffers() {
+  return useQuery({
+    queryKey: ["offers"],
+    queryFn: () => get<OfferRow[]>("/me/offers"),
     refetchInterval: POLL_MS,
     refetchIntervalInBackground: false,
   });

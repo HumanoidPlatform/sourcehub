@@ -58,6 +58,15 @@ describe("sending part of an assignment", () => {
   it("a reassigned worker captures nothing", () => {
     expect(canCapture(base({ revoked_at: "2026-10-02T00:00:00Z" }), 0)).toBe(false);
   });
+
+  it("has no ceiling but the share itself", () => {
+    // a thousand-photo share is a thousand photos: nothing on the phone or
+    // the server stops the worker short of what the aggregator gave them
+    const big = base({ quantity: 1000, assets: { pending: 0, ready: 999, quarantined: 0, total: 999 } });
+    expect(canCapture(big, 0)).toBe(true);
+    expect(canCapture(big, 1)).toBe(true);
+    expect(remaining(big, 999)).toBe(1);
+  });
 });
 
 describe("the board", () => {
@@ -137,6 +146,10 @@ describe("words for the worker", () => {
     ]);
     expect(requirementLabels({ media: ["video"], min_duration_s: 10, max_duration_s: 50, max_tilt_deg: 10 })).toEqual([
       "Videos only", "10–50 s per clip", "Within 10° of level",
+    ]);
+    // the phone the task demands is said up front: device.ts holds the worker to it before the start
+    expect(requirementLabels({ media: ["video"], min_android_version: 12, min_ram_gb: 4 })).toEqual([
+      "Videos only", "Android 12+", "4 GB RAM or more",
     ]);
   });
 

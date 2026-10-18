@@ -378,17 +378,15 @@ export class UploadQueue {
     if (!item.file && (patch.status === "presigned" || patch.status === "captured")) {
       Object.assign(patch, { status: "failed", last_error: NO_FILE, next_attempt_at: 0 });
     }
-    // A PUT answered by nothing at all, twice, with the browser online
-    // throughout: a network blip does not usually do that, a bucket without a
-    // CORS rule for this origin always does. Stop early and say so — eight
-    // rounds of backoff would take ten minutes to reach the same message.
-    if (
-      patch.status !== "failed" &&
-      outcome.type === "retryable" &&
-      /storage answered 0/.test(outcome.error) &&
-      (patch.attempts ?? 0) >= 2 &&
-      !item.saw_offline
-    ) {
+    // A PUT answered by nothing at all, twice in a row, with the browser
+    // online throughout: a network blip does not usually do that, a bucket
+    // without a CORS rule for this origin always does. Stop early and say so —
+    // eight rounds of backoff would take ten minutes to reach the same
+    // message. Counted on its own rather than from `attempts`, which a
+    // refused link also raises: one 403 and then one blip is not CORS.
+    const empty = outcome.type === "retryable" && /storage answered 0/.test(outcome.error);
+    item.empty_answers = empty ? (item.empty_answers ?? 0) + 1 : 0;
+    if (patch.status !== "failed" && empty && item.empty_answers >= 2 && !item.saw_offline) {
       Object.assign(patch, { status: "failed", last_error: CORS_HINT, next_attempt_at: 0 });
     }
 

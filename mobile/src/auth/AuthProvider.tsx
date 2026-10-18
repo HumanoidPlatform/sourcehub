@@ -4,6 +4,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { bindSessionListener, loadSession, login as apiLogin, logout as apiLogout } from "@/api/client";
 import type { OrgChoice, Session } from "@/api/types";
+import { deleteLocal } from "@/capture/files";
 import { purgeOtherUsers } from "@/db/outbox";
 import { unregisterPush } from "@/notifications/push";
 import { queryClient } from "@/query/queryClient";
@@ -35,7 +36,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (choice) return choice;
     const s = await loadSession();
     if (s) {
-      await purgeOtherUsers(s.user_id);
+      // Their files go with their rows. The rows are what the uploader reads;
+      // the files are what fills the phone — and what a shared phone would
+      // otherwise keep of a colleague's unsent work until the app was removed.
+      const left = await purgeOtherUsers(s.user_id);
+      await Promise.all(left.map((r) => deleteLocal(r.local_uri)));
       queryClient.clear();
       uploader.kick();
     }

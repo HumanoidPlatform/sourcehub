@@ -39,9 +39,14 @@ describe("planNext", () => {
 });
 
 describe("applyResult", () => {
-  it("records the presign and resets the attempt counter", () => {
+  it("records the presign and leaves the attempt counter alone", () => {
+    // resetting it on the presign is what made a refused link loop for ever
     const p = applyResult({ ...base, attempts: 3 }, { type: "presigned", asset_id: "a", url: "u", headers: {}, expires_in: 900, status: "pending" }, NOW);
-    expect(p).toMatchObject({ status: "presigned", asset_id: "a", put_url: "u", url_expires_at: NOW + 900_000, attempts: 0 });
+    expect(p).toMatchObject({ status: "presigned", asset_id: "a", put_url: "u", url_expires_at: NOW + 900_000 });
+    expect(p.attempts).toBeUndefined();
+  });
+  it("a PUT that lands resets the counter", () => {
+    expect(applyResult({ ...base, status: "uploading", attempts: 5 }, { type: "put_ok" }, NOW)).toMatchObject({ status: "uploaded", attempts: 0 });
   });
   it("skips the PUT when the server already holds the file", () => {
     const p = applyResult(base, { type: "presigned", asset_id: "a", url: null, headers: {}, expires_in: 0, status: "ready" }, NOW);
@@ -61,10 +66,17 @@ describe("applyResult", () => {
     const p = applyResult({ ...base, status: "uploaded" }, { type: "not_in_storage" }, NOW);
     expect(p.status).toBe("presigned");
   });
-  it("re-presigns after a rejected signature", () => {
+  it("re-presigns after a rejected signature, with backoff and a count", () => {
     const p = applyResult({ ...base, status: "uploading", put_url: "u" }, { type: "put_rejected" }, NOW);
     expect(p.status).toBe("captured");
     expect(p.put_url).toBeNull();
+    expect(p.attempts).toBe(1);
+    expect(p.next_attempt_at).toBeGreaterThan(NOW);
+  });
+  it("gives up on a destination that refuses every link", () => {
+    const p = applyResult({ ...base, status: "uploading", put_url: "u", attempts: 7 }, { type: "put_rejected" }, NOW, 8);
+    expect(p.status).toBe("failed");
+    expect(p.last_error).toMatch(/refused 8 upload links/);
   });
   it("parks a fatal error as failed", () => {
     expect(applyResult(base, { type: "fatal", error: "422" }, NOW).status).toBe("failed");
