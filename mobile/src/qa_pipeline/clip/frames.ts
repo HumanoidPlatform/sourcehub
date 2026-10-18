@@ -103,7 +103,14 @@ export async function sampleFrames(
     try {
       // One resize serves every pixel check: the 16×16 patch is the quality
       // image averaged down, not a second trip through the native resizer.
-      const image = await greyImage(shot.uri);
+      // A frame that will not decode is skipped like one that never came out:
+      // it used to reject the whole clip, after the file was already moved in.
+      let image: Awaited<ReturnType<typeof greyImage>>;
+      try {
+        image = await greyImage(shot.uri);
+      } catch {
+        continue;
+      }
       const grey = patchOf(image, PATCH);
       await each({ time: times[i], uri: shot.uri, width: shot.width, height: shot.height, grey, image }, i);
       done++;

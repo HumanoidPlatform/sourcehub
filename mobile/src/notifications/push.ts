@@ -71,18 +71,32 @@ export async function sendToken(token: string): Promise<void> {
 }
 
 /** Sign-out. Call while the session is still valid. Never throws: signing out
- *  must work offline, and the next sign-in on this phone moves the token. */
+ *  must work offline. The token is forgotten only once the server has let go
+ *  of it; otherwise forgetPush (auth/endSession.ts) finds it still here. */
 export async function unregisterPush(): Promise<void> {
   try {
     const token = await getKv(KV_TOKEN);
     if (token) await del("/me/push-token", { token });
-  } catch {
-    // offline or already gone
-  }
-  try {
     await setKv(KV_TOKEN, "");
   } catch {
-    // nothing to forget
+    // offline or already gone: left for forgetPush
+  }
+}
+
+/** After any sign-out. A token still remembered is one the server may still
+ *  push the previous worker's news to — the sign-out was offline, or the
+ *  session died on refresh and was never unregistered — and a shared phone
+ *  would show it on the lock screen. Dropping the phone's registration makes
+ *  that token dead; the next sign-in registers afresh (PushMount). */
+export async function forgetPush(): Promise<void> {
+  try {
+    await Notifications.dismissAllNotificationsAsync();
+    if (await getKv(KV_TOKEN)) {
+      await Notifications.unregisterForNotificationsAsync();
+      await setKv(KV_TOKEN, "");
+    }
+  } catch {
+    // no notifications module in this build, or nothing to drop
   }
 }
 

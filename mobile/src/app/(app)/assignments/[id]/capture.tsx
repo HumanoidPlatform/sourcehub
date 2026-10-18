@@ -3,7 +3,8 @@
 
 import { CameraView, useCameraPermissions, useMicrophonePermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -75,11 +76,14 @@ const HOW: Record<"rotate" | "tip", string> = {
   tip: "tip it upright",
 };
 
+const KEEP_AWAKE_TAG = "capture";
+
 export default function Capture() {
   // replaces: a retake of one capture the aggregator sent back. One shot, then
   // back to the assignment, where the replaced capture has left the rework list.
   const { id, replaces } = useLocalSearchParams<{ id: string; replaces?: string }>();
   const router = useRouter();
+  const navigation = useNavigation();
   const list = useAssignments();
   const a = (list.data ?? []).find((x) => x.id === id);
   const cam = useRef<CameraView>(null);
@@ -92,6 +96,7 @@ export default function Capture() {
   const startedAt = useRef<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [busy, setBusy] = useState(false);
+  const shutterHeld = useRef(false);
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ text: string; tone: "warn" | "ok" } | null>(null);
@@ -270,6 +275,32 @@ export default function Capture() {
     return stop;
   }, [camPerm?.granted, wantOrientation]);
 
+  // The screen stays on while a clip is being recorded or checked. A worker
+  // filming a shelf run does not touch the phone, and a screen that times out
+  // pauses the activity and ends the recording early.
+  const filming = recording || checking != null;
+  useEffect(() => {
+    if (!filming) return;
+    void activateKeepAwakeAsync(KEEP_AWAKE_TAG);
+    return () => {
+      void deactivateKeepAwake(KEEP_AWAKE_TAG);
+    };
+  }, [filming]);
+
+  // Leaving now would cut the recording off or drop the check's answer onto
+  // whatever screen came next: Done, the hardware back and the swipe all wait.
+  const filmingRef = useRef(false);
+  useEffect(() => {
+    filmingRef.current = filming;
+  }, [filming]);
+  useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        if (filmingRef.current) e.preventDefault();
+      }),
+    [navigation],
+  );
+
   if (!camPerm) return null;
   if (!camPerm.granted) {
     return (
@@ -301,6 +332,9 @@ export default function Capture() {
   const kept = (findings: Finding[], onSubject = false) => {
     setCount((n) => n + 1);
     if (replaces) {
+      // the clip's check is still "running" until saveClip's finally, and this
+      // back is the end of it, not the worker walking out mid-check
+      filmingRef.current = false;
       router.back();
       return;
     }
@@ -318,6 +352,13 @@ export default function Capture() {
     }
   };
 
+  // Keep or Retake that could not finish (the disk is full, the database is
+  // locked) says so, rather than leaving a counter that did not move.
+  const failed = (e: unknown) => {
+    setNotice(null);
+    setError(e instanceof Error ? e.message : "The capture could not be saved.");
+  };
+
   // The subject check is the one verdict the worker answers themselves: the
   // file waits on disk until they do. Keep queues it, warning attached, for
   // the reviewer to see; Retake throws it away and counts the refusal.
@@ -331,8 +372,8 @@ export default function Capture() {
     const others = o.findings.filter((f) => f !== o.finding);
     warn(others.length > 0 ? others : [o.finding]);
     Alert.alert(`Doesn't look like ${spec?.subject?.domain ?? "the subject"}`, `${o.finding.message} Keep it anyway, or shoot it again?`, [
-      { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null)) },
-      { text: "Keep", onPress: () => void o.keep().then(kept) },
+      { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null), failed) },
+      { text: "Keep", onPress: () => void o.keep().then(kept, failed) },
     ]);
   };
 
@@ -397,12 +438,15 @@ export default function Capture() {
   const deviceShort = deviceRefusals(thisDevice(), spec);
 
   const shoot = async () => {
-    if (!cam.current || busy) return;
+    if (!cam.current || busy || shutterHeld.current) return;
     // the reason is already on screen (below); the shutter stays put
     if (cameraShort || shareFull) return;
     setError(null);
     try {
       if (mode === "picture") {
+        // `busy` is the last render's value: two quick taps both read false
+        // and took two photos. The ref is set before the first await.
+        shutterHeld.current = true;
         setBusy(true);
         const photo = await cam.current.takePictureAsync({ quality: 0.9, exif: true, skipProcessing: false });
         if (photo?.uri) {
@@ -450,18 +494,26 @@ export default function Capture() {
         // How square the clip was held over its length, not at its first frame.
         const middle = medianOff(offs);
         const heldAs = middle != null ? { ...(tilt.current ?? attitude ?? { roll: 0, pitch: 0, held: null }), off: middle } : attitude;
-        if (video?.uri) await saveClip({ uri: video.uri, duration }, heldAs, shotAs);
+        // A recording that came back with no file (stopped by the OS, a camera
+        // error) used to vanish without a word.
+        if (!video?.uri) throw new Error("The recording was not saved. Try again.");
+        await saveClip({ uri: video.uri, duration }, heldAs, shotAs);
       } else {
         cam.current.stopRecording();
       }
     } catch (e) {
       setRecording(false);
       startedAt.current = null;
+      // a failed recording stops the sampling too, or it grows for as long as
+      // the screen stays open and the level shows stale readings
+      holdTally.current = null;
+      tiltSamples.current = null;
       // A rejection has already deleted the file and left the queue untouched,
       // so the counter not advancing is the correct outcome, not a failure.
       if (e instanceof CaptureRejected) setNotice(null);
       setError(e instanceof Error ? e.message : "Capture failed.");
     } finally {
+      shutterHeld.current = false;
       setBusy(false);
     }
   };
@@ -471,7 +523,13 @@ export default function Capture() {
       <CameraView ref={cam} style={c.camera} facing="back" mode={mode} mute={false} onCameraReady={onCameraReady} />
       <SafeAreaView style={c.overlay} pointerEvents="box-none">
         <View style={c.top}>
-          <Pressable onPress={() => router.back()} accessibilityRole="button" style={c.chip}>
+          <Pressable
+            onPress={() => router.back()}
+            disabled={filming}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: filming }}
+            style={[c.chip, filming && { opacity: 0.4 }]}
+          >
             <Text style={c.chipText}>Done</Text>
           </Pressable>
           <Text style={c.counter}>{replaces ? "Retake" : `${count} saved`}</Text>

@@ -21,6 +21,12 @@ export function logUpload(e: Omit<UploadLogEntry, "at">): void {
   listeners.forEach((l) => l());
 }
 
+/** sign-out: the next person on this phone does not read this one's story */
+export function clearUploadLog(): void {
+  entries = [];
+  listeners.forEach((l) => l());
+}
+
 function subscribe(l: () => void) {
   listeners.add(l);
   return () => {

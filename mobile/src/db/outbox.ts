@@ -2,7 +2,16 @@
 // until the server confirms the bytes. The uploader drains it; the screens
 // subscribe to it.
 
+import { currentUserId } from "@/api/client";
 import { getDb } from "./index";
+
+/** Every read and bulk write is the signed-in worker's alone. A shared phone
+ *  keeps a colleague's unsent captures for when they sign back in; until then
+ *  nothing lists, counts, retries or uploads them under someone else's token.
+ *  Signed out, the owner matches no row. */
+function owner(): string {
+  return currentUserId() ?? "";
+}
 
 export type CaptureStatus = "captured" | "presigned" | "uploading" | "uploaded" | "confirmed" | "failed";
 /** how a file is sent: one PUT, or chunks against a session storage keeps */
@@ -118,8 +127,8 @@ export async function rejectionsByAssignment(assignmentId: string): Promise<Reje
   // exactly the one wanted here.
   return db.getAllAsync<RejectionCount>(
     `SELECT code, count(*) AS n, message, max(created_at) AS latest FROM rejections
-     WHERE assignment_id = ? GROUP BY code ORDER BY n DESC, code`,
-    [assignmentId],
+     WHERE assignment_id = ? AND user_id = ? GROUP BY code ORDER BY n DESC, code`,
+    [assignmentId, owner()],
   );
 }
 
@@ -181,8 +190,8 @@ export async function flagResumableForStatus(): Promise<void> {
 export async function retryNow(): Promise<number> {
   const db = await getDb();
   const r = await db.runAsync(
-    "UPDATE captures SET next_attempt_at = 0, updated_at = ? WHERE status NOT IN ('confirmed','failed') AND next_attempt_at > ?",
-    [Date.now(), Date.now()],
+    "UPDATE captures SET next_attempt_at = 0, updated_at = ? WHERE status NOT IN ('confirmed','failed') AND next_attempt_at > ? AND user_id = ?",
+    [Date.now(), Date.now(), owner()],
   );
   if (r.changes) emitOutboxChange();
   return r.changes;
@@ -193,24 +202,31 @@ export async function retryFailed(assignmentId?: string): Promise<number> {
   const r = await db.runAsync(
     `UPDATE captures SET status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
                          put_url = NULL, url_expires_at = NULL, needs_status = 1, updated_at = ?
-     WHERE status = 'failed' AND local_uri IS NOT NULL ${assignmentId ? "AND assignment_id = ?" : ""}`,
-    assignmentId ? [Date.now(), assignmentId] : [Date.now()],
+     WHERE status = 'failed' AND local_uri IS NOT NULL AND user_id = ? ${assignmentId ? "AND assignment_id = ?" : ""}`,
+    assignmentId ? [Date.now(), owner(), assignmentId] : [Date.now(), owner()],
   );
   emitOutboxChange();
   return r.changes;
 }
 
 export async function discardFailed(assignmentId?: string): Promise<CaptureRow[]> {
+  return deleteWhere(
+    `status = 'failed' AND user_id = ? ${assignmentId ? "AND assignment_id = ?" : ""}`,
+    assignmentId ? [owner(), assignmentId] : [owner()],
+  );
+}
+
+/** Selects then deletes exactly the rows it selected, in one transaction: a
+ *  lane writing 'failed' between the two can no longer lose a row whose file
+ *  and server slot the caller was handed nothing to clean up. */
+async function deleteWhere(where: string, params: (string | number)[]): Promise<CaptureRow[]> {
   const db = await getDb();
-  const rows = await db.getAllAsync<CaptureRow>(
-    `SELECT * FROM captures WHERE status = 'failed' ${assignmentId ? "AND assignment_id = ?" : ""}`,
-    assignmentId ? [assignmentId] : [],
-  );
-  await db.runAsync(
-    `DELETE FROM captures WHERE status = 'failed' ${assignmentId ? "AND assignment_id = ?" : ""}`,
-    assignmentId ? [assignmentId] : [],
-  );
-  emitOutboxChange();
+  let rows: CaptureRow[] = [];
+  await db.withTransactionAsync(async () => {
+    rows = await db.getAllAsync<CaptureRow>(`SELECT * FROM captures WHERE ${where}`, params);
+    for (const r of rows) await db.runAsync("DELETE FROM captures WHERE id = ?", [r.id]);
+  });
+  if (rows.length) emitOutboxChange();
   return rows;
 }
 
@@ -247,13 +263,22 @@ export async function discardCapture(id: string): Promise<CaptureRow | null> {
   return row;
 }
 
-/** a different person signed in on this phone: their predecessor's queue goes */
-export async function purgeOtherUsers(userId: string): Promise<CaptureRow[]> {
+/** Another account's unsent captures, removed only when the person signed in
+ *  says so (Settings). They used to go silently at the next sign-in, while the
+ *  sign-out dialog promised they would wait. The caller drops files and slots
+ *  it can (upload/drop.ts needs the owner's token, so here only the files). */
+export async function discardOthers(): Promise<CaptureRow[]> {
+  return deleteWhere("user_id <> ? AND status <> 'confirmed'", [owner()]);
+}
+
+/** how many captures on this phone belong to someone not signed in */
+export async function othersWaiting(): Promise<number> {
   const db = await getDb();
-  const rows = await db.getAllAsync<CaptureRow>("SELECT * FROM captures WHERE user_id <> ?", [userId]);
-  await db.runAsync("DELETE FROM captures WHERE user_id <> ?", [userId]);
-  if (rows.length) emitOutboxChange();
-  return rows;
+  const row = await db.getFirstAsync<{ n: number }>(
+    "SELECT count(*) AS n FROM captures WHERE user_id <> ? AND status <> 'confirmed'",
+    [owner()],
+  );
+  return row?.n ?? 0;
 }
 
 // --- reads ----------------------------------------------------------------
@@ -261,8 +286,8 @@ export async function purgeOtherUsers(userId: string): Promise<CaptureRow[]> {
 export async function listByAssignment(assignmentId: string): Promise<CaptureRow[]> {
   const db = await getDb();
   return db.getAllAsync<CaptureRow>(
-    "SELECT * FROM captures WHERE assignment_id = ? ORDER BY created_at",
-    [assignmentId],
+    "SELECT * FROM captures WHERE assignment_id = ? AND user_id = ? ORDER BY created_at",
+    [assignmentId, owner()],
   );
 }
 
@@ -276,9 +301,9 @@ export async function nextRunnable(now: number, exclude: string[] = [], order: Q
   const skip = exclude.length ? `AND id NOT IN (${exclude.map(() => "?").join(", ")})` : "";
   const row = await db.getFirstAsync<CaptureRow>(
     `SELECT * FROM captures
-     WHERE status NOT IN ('confirmed','failed') AND next_attempt_at <= ? ${skip}
+     WHERE status NOT IN ('confirmed','failed') AND next_attempt_at <= ? AND user_id = ? ${skip}
      ORDER BY ${order === "smallest" ? "size, created_at" : "created_at"} LIMIT 1`,
-    [now, ...exclude],
+    [now, owner(), ...exclude],
   );
   return row ?? null;
 }
@@ -296,8 +321,8 @@ export async function summary(assignmentId?: string): Promise<OutboxSummary> {
        sum(CASE WHEN status IN ('captured','presigned','uploading','uploaded') THEN 1 ELSE 0 END) AS queued,
        sum(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed,
        sum(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) AS confirmed
-     FROM captures ${assignmentId ? "WHERE assignment_id = ?" : ""}`,
-    assignmentId ? [assignmentId] : [],
+     FROM captures WHERE user_id = ? ${assignmentId ? "AND assignment_id = ?" : ""}`,
+    assignmentId ? [owner(), assignmentId] : [owner()],
   );
   return { queued: row?.queued ?? 0, failed: row?.failed ?? 0, confirmed: row?.confirmed ?? 0 };
 }
@@ -309,7 +334,8 @@ export async function summaryByAssignment(): Promise<Record<string, OutboxSummar
        sum(CASE WHEN status IN ('captured','presigned','uploading','uploaded') THEN 1 ELSE 0 END) AS queued,
        sum(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed,
        sum(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) AS confirmed
-     FROM captures GROUP BY assignment_id`,
+     FROM captures WHERE user_id = ? GROUP BY assignment_id`,
+    [owner()],
   );
   const out: Record<string, OutboxSummary> = {};
   for (const r of rows) out[r.assignment_id] = { queued: r.queued, failed: r.failed, confirmed: r.confirmed };

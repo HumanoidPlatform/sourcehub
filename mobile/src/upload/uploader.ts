@@ -27,7 +27,7 @@
 import NetInfo from "@react-native-community/netinfo";
 import * as Legacy from "expo-file-system/legacy";
 import { AppState, type AppStateStatus } from "react-native";
-import { ApiError, get, loadSession, post } from "@/api/client";
+import { ApiError, currentUserId, get, loadSession, post } from "@/api/client";
 import type { AssetRow, Presign } from "@/api/types";
 import { CHUNK_BYTES, PARTS_IN_FLIGHT_CELL, PARTS_IN_FLIGHT_WIFI, POLL_MS, PRESIGN_SAFETY_MS, PUT_STALL_MS } from "@/config";
 import { deleteLocal } from "@/capture/files";
@@ -255,8 +255,10 @@ class Uploader {
       });
     }
 
-    if (outcomes.some((o) => o.type === "halt")) {
-      // the session is gone, not the capture: nothing is written to the row
+    // The session is gone, not the capture: nothing is written to the row. Nor
+    // when someone else signed in while this step ran — what their token got
+    // back says nothing about this row, which waits for its owner.
+    if (outcomes.some((o) => o.type === "halt") || currentUserId() !== row.user_id) {
       this.halted = true;
       return false;
     }
