@@ -118,6 +118,9 @@ export function applyResult(
         // the server already holds this exact file: skip straight to confirm
         return { status: "uploaded", asset_id: ev.asset_id, put_url: null, put_headers: null, url_expires_at: null, attempts: 0, last_error: null, note: "Already on the server" };
       }
+      // The attempt counter is NOT reset here: a presign is the cheap half of
+      // every PUT retry, and resetting on it made a refused link an endless
+      // loop (presign, PUT, 403, presign…). A PUT that lands resets it.
       return {
         status: "presigned",
         asset_id: ev.asset_id,
@@ -126,15 +129,23 @@ export function applyResult(
         // needs depends on the client bucket this capture is bound for.
         put_headers: ev.headers ?? {},
         url_expires_at: now + ev.expires_in * 1000,
-        attempts: 0,
         last_error: null,
       };
     case "put_started":
       return { status: "uploading" };
     case "put_ok":
-      return { status: "uploaded", last_error: null };
-    case "put_rejected":
-      return { status: "captured", put_url: null, put_headers: null, url_expires_at: null, attempts: row.attempts + 1, last_error: "Upload link expired; asking for a new one." };
+      return { status: "uploaded", attempts: 0, last_error: null };
+    case "put_rejected": {
+      // Usually an expired signature, occasionally a destination that refuses
+      // every link: a new URL is asked for, but with backoff and under the
+      // same cap as any other failure, so the second kind ends as a failed
+      // file the uploader can see rather than a loop nobody can.
+      const attempts = row.attempts + 1;
+      if (attempts >= maxAttempts) {
+        return { status: "failed", attempts, last_error: `Storage refused ${attempts} upload links in a row. The destination may have changed; try again later.` };
+      }
+      return { status: "captured", put_url: null, put_headers: null, url_expires_at: null, attempts, next_attempt_at: now + delayFor(attempts), last_error: "Upload link refused; asking for a new one." };
+    }
     case "confirmed":
       return { status: "confirmed", last_error: null };
     case "not_in_storage":

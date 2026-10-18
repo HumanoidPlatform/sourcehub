@@ -8,6 +8,7 @@ tests/e2e_loop.py against the stack.
 from __future__ import annotations
 
 import datetime as dt
+from decimal import Decimal
 
 from sourcehub.modules.delivery import service as delivery
 from sourcehub.platform.mail import smtp
@@ -110,3 +111,38 @@ def test_message_is_multipart_alternative_text_first():
 def test_message_without_html_stays_plain():
     msg = smtp._build("a@b.example", "Hi", "plain body")
     assert msg.get_content_type() == "text/plain"
+
+
+# ---------------------------------------------------------------------------
+# Answered from the phone (mobile app/(app)/offers/[id].tsx)
+# ---------------------------------------------------------------------------
+
+
+def test_offer_notice_sends_the_worker_to_the_app_not_their_email():
+    s = delivery.offer_notice("Hyderabad Field Crew", "TSK-21", "final fan operation")
+    assert s == (
+        "Hyderabad Field Crew is offering TSK-21 final fan operation"
+        " — open it to accept or decline."
+    )
+    assert "email" not in s
+    # the reminders lead with their own word and no double space
+    led = delivery.offer_notice("H", "TSK-1", "t", lead="Last call:")
+    assert led.startswith("Last call: H is offering")
+
+
+def test_my_offer_dict_adds_what_the_phone_needs():
+    r = {
+        "recipient_id": "r1", "task_id": "t1", "capture_spec": {"media": ["video"]},
+        "assignment_id": None, "org_name": "H", "worker_name": "V",
+        "worker_email": "v@x.example", "task_ref": "TSK-21", "task_title": "fan",
+        "task_instructions": None, "task_due_on": None, "target_unit": "hours",
+        "quantity": Decimal("0.05"), "instructions": None, "due_on": None,
+        "respond_by": dt.datetime.now(dt.UTC) + dt.timedelta(days=1),
+        "worker_limit": 3, "accepted_count": 1, "response": None, "responded_at": None,
+        "offer_status": "open", "task_status": "assigned", "grant_live": True,
+    }
+    d = delivery._my_offer_dict(r)
+    assert (d["id"], d["state"], d["places_left"], d["quantity"]) == ("r1", "open", 2, 0.05)
+    assert d["task"]["id"] == "t1" and d["task"]["capture_spec"] == {"media": ["video"]}
+    # a spec the task never had reads as none, not null, like _assignment_dict
+    assert delivery._my_offer_dict({**r, "capture_spec": None})["task"]["capture_spec"] == {}

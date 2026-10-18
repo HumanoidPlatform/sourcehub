@@ -8,7 +8,7 @@ const mockDigest = jest.fn(async (_alg: string, data: unknown) => {
   return new Uint8Array([0xde, 0xad, 0xbe, 0xef]).buffer;
 });
 const mockBytes = jest.fn(async () => new Uint8Array([1, 2, 3]));
-const mockReadAsString = jest.fn(async () => "AQID"); // base64 of [1, 2, 3]
+const mockReadAsString = jest.fn(async (_uri: string, _opts?: unknown) => "AQID"); // base64 of [1, 2, 3]
 
 jest.mock("expo-crypto", () => ({
   CryptoDigestAlgorithm: { SHA256: "SHA-256" },

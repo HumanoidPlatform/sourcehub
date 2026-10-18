@@ -44,6 +44,7 @@ export function PushMount() {
     const received = Notifications.addNotificationReceivedListener(() => {
       void qc.invalidateQueries({ queryKey: ["notifications"] });
       void qc.invalidateQueries({ queryKey: ["assignments"] });
+      void qc.invalidateQueries({ queryKey: ["offers"] });
     });
 
     const open = (response: Notifications.NotificationResponse | null) => {

@@ -7,15 +7,17 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { canCapture, localUnits, remaining } from "@/batches";
 import { clockTone, formatClock } from "@/capture/clock";
+import { freeSpace } from "@/capture/files";
 import { probeCamera } from "@/qa_pipeline/device/camera";
-import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
+import { type CameraCaps, deviceFindings, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
-import { MAX_VIDEO_SECONDS } from "@/config";
-import { useAssignments } from "@/query/hooks";
+import { LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { useAssignments, useOutbox } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
 import type { ExampleSet } from "@/qa_pipeline/examples/examples";
@@ -113,6 +115,32 @@ export default function Capture() {
   const tilt = useRef<Tilt | null>(null);
   const [level, setLevel] = useState<Tilt | null>(null);
   const spec = a?.task.capture_spec;
+
+  // What is already on the phone for this share, so the shutter stops where
+  // the server would refuse: at the share's quantity. The camera used to keep
+  // taking shots the presign then turned down one by one, each a failed upload
+  // for the worker to discard. Live: the row lands in the outbox before the
+  // counter moves.
+  const outbox = useOutbox(id);
+  const unsent = outbox.filter((r) => r.status !== "confirmed");
+  const shareFull =
+    a && !canCapture(a, localUnits(a, unsent))
+      ? remaining(a, localUnits(a, unsent)) <= 0
+        ? "This share is complete. Go back and send it for review."
+        : "This assignment can no longer take captures."
+      : null;
+
+  // How much room the phone has, re-read after every capture. Files sit in
+  // the app's own storage until the server confirms them, and a phone that
+  // fills up mid-run fails at the save with a message about the recording.
+  const [free, setFree] = useState<number | null>(null);
+  useEffect(() => {
+    void freeSpace().then(setFree);
+  }, [count]);
+  const lowStorage =
+    free != null && free < LOW_STORAGE_BYTES
+      ? `Phone storage is low: ${Math.round(free / (1024 * 1024))} MB free. Uploads free space as they finish.`
+      : null;
 
   // The client's example photos, as the assignment screen labelled them. Read
   // from the device store, never fetched here: the camera must not wait on a
@@ -326,7 +354,7 @@ export default function Capture() {
   };
 
   const pick = async () => {
-    if (busy || recording) return;
+    if (busy || recording || shareFull) return;
     setError(null);
     try {
       const r = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ["videos"], videoMaxDuration: maxSeconds });
@@ -364,10 +392,14 @@ export default function Capture() {
     mode === "picture"
       ? (deviceFindings(thisDevice(), camCaps, spec, a?.task.target_unit).find((f) => f.code === "device_camera") ?? null)
       : null;
+  // A phone under the task's OS or memory requirement: said here, before the
+  // tap, and every capture it takes is refused by the pipeline (device.ts).
+  const deviceShort = deviceRefusals(thisDevice(), spec);
 
   const shoot = async () => {
     if (!cam.current || busy) return;
-    if (cameraShort) return;
+    // the reason is already on screen (below); the shutter stays put
+    if (cameraShort || shareFull) return;
     setError(null);
     try {
       if (mode === "picture") {
@@ -460,6 +492,11 @@ export default function Capture() {
           <Text style={c.warn}>This task needs a location on every capture. Turn location on in settings.</Text>
         ) : null}
         {cameraShort ? <Text style={c.error}>{cameraShort.message}</Text> : null}
+        {deviceShort.length > 0 ? (
+          <Text style={c.warn}>{deviceShort.map((f) => f.message).join(" ")} Captures from this phone will be refused.</Text>
+        ) : null}
+        {shareFull ? <Text style={c.error}>{shareFull}</Text> : null}
+        {lowStorage ? <Text style={c.warn}>{lowStorage}</Text> : null}
         {error ? <Text style={c.error}>{error}</Text> : null}
         {/* Said while the phone can still be turned, not after a minute of
             filming: the point is to prevent the refusal, as the level is.

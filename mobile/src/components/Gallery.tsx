@@ -11,7 +11,9 @@ import type { CaptureRow } from "@/db/outbox";
 import { useAssetUrl } from "@/query/hooks";
 import { assetStage, assetStatus, captureStatus, meta, TONE_COLOR } from "@/status";
 import { C, s } from "@/ui";
+import { completeFraction } from "@/upload/parts";
 import { useUploadProgress } from "@/upload/progress";
+import { retryText } from "@/upload/words";
 import { Player } from "./Player";
 
 export function Gallery({
@@ -159,10 +161,32 @@ function flagged(raw: string | null): string | null {
   }
 }
 
+/** The clock a waiting tile counts down by: ticks once a second only while
+ *  there is a wait to count, and stands still otherwise. */
+function useNow(until: number): number {
+  const [now, setNow] = useState(() => Date.now());
+  const ticking = until > now;
+  useEffect(() => {
+    if (!ticking) return;
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, [ticking]);
+  return now;
+}
+
 function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captureId?: string; assetId?: string }) => void }) {
   const progress = useUploadProgress();
   const m = meta(captureStatus, row.status);
-  const pct = row.status === "uploading" ? Math.round((progress.get(row.id) ?? 0) * 100) : null;
+  // A chunked upload shows how much storage holds even between chunks, so a
+  // long clip's tile moves across the whole upload, not only while a part is
+  // in flight. A row waiting out a backoff says so rather than looking stuck.
+  const chunked = row.upload_mode === "resumable";
+  const live = progress.get(row.id);
+  const fraction = live ?? (chunked ? completeFraction(row) : null);
+  const moving = row.status === "uploading" || (chunked && row.status === "presigned");
+  const pct = moving && fraction != null ? Math.round(fraction * 100) : null;
+  const now = useNow(row.next_attempt_at);
+  const waiting = retryText(row, now);
   const isVideo = row.mime.startsWith("video/");
   // The uploader deletes the local file once the bytes are confirmed, to keep
   // the phone's storage free. This tile still owns the asset_id, so it fetches
@@ -177,6 +201,8 @@ function LocalTile({ row, onRemove }: { row: CaptureRow; onRemove?: (o: { captur
       <Tag tone={m.tone} text={pct != null ? `${pct}%` : m.label} />
       {row.status === "failed" && row.last_error ? (
         <Text numberOfLines={2} style={g.err}>{row.last_error}</Text>
+      ) : waiting ? (
+        <Text numberOfLines={2} style={g.flag}>{waiting}</Text>
       ) : flags ? (
         // The capture was kept and is uploading normally; this says why a
         // reviewer may query it, while the worker is still on site to redo it.

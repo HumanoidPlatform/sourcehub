@@ -12,6 +12,19 @@ function sizeOf(info: Awaited<ReturnType<typeof Legacy.getInfoAsync>>): number {
   return info.exists && "size" in info && typeof info.size === "number" ? info.size : 0;
 }
 
+const mb = (bytes: number): number => Math.round(bytes / (1024 * 1024));
+
+/** Free space on the volume captures are saved to, in bytes; null where the
+ *  phone will not say. Read by the camera screen, and by the save below when
+ *  it fails, so a full phone is reported as one rather than as a bad recording. */
+export async function freeSpace(): Promise<number | null> {
+  try {
+    return await Legacy.getFreeDiskStorageAsync();
+  } catch {
+    return null;
+  }
+}
+
 /** Wait for a just-recorded file to stop growing. Best effort, never fatal.
  *
  *  expo-camera's recordAsync resolves when recording STOPS, but the muxer may
@@ -77,6 +90,15 @@ export async function moveIntoPrivateDir(fromUri: string, assignmentId: string, 
           // it, so say the one thing that helps.
           throw new Error(
             "The recording was lost because the phone turned while filming. Film again, holding it steady.",
+          );
+        }
+        // The file is there and cannot be copied: the usual reason is that
+        // there is nowhere to copy it to.
+        const room = await freeSpace();
+        if (room != null && room < sizeOf(src)) {
+          throw new Error(
+            `The phone is out of storage: ${mb(room)} MB free, and the recording needs ${mb(sizeOf(src))} MB. ` +
+              "Let the uploads finish or free some space, then film again.",
           );
         }
         throw new Error(

@@ -46,7 +46,14 @@ from google.cloud import storage as gcs
 from google.oauth2 import service_account
 
 from sourcehub.config import settings
-from sourcehub.platform.storage.types import ObjectStat, StorageError, StorageTarget
+from sourcehub.platform.storage.types import (
+    CHUNK_BYTES,
+    ObjectStat,
+    StorageError,
+    StorageTarget,
+    UploadSession,
+    UploadStatus,
+)
 
 # 3-63 characters: lowercase letters, digits, dashes, underscores and dots,
 # starting and ending with a letter or digit. (Dotted names may run to 222 but
@@ -210,10 +217,13 @@ def _head_sync(t: StorageTarget, key: str) -> ObjectStat:
         raise LookupError(key) from None
     except Exception as e:
         raise _wrap(e, t) from None
+    crc = getattr(blob, "crc32c", None)
     return ObjectStat(
         size=int(blob.size or 0),
         content_type=blob.content_type,
         etag=(blob.etag or "").strip('"') or None,
+        # Google computes a CRC32C over every object, however it arrived
+        checksum=f"crc32c:{crc}" if crc else None,
     )
 
 
@@ -353,3 +363,93 @@ def _verify_sync(t: StorageTarget) -> None:
 async def verify(t: StorageTarget) -> None:
     _check_bucket(t)
     await asyncio.to_thread(_verify_sync, t)
+
+
+# ---------------------------------------------------------------------------
+# Resumable uploads: a session Google keeps for seven days. The session URL
+# alone authorises writing the object, which is why the asset never lists it.
+# The phone PUTs each chunk to it with a Content-Range; Google answers 308 and
+# says in Range how much it holds, or 200/201 when the last chunk lands. Status
+# is asked the same way with an empty body, so the server can answer the phone
+# without the phone ever holding anything but its own chunk.
+# ---------------------------------------------------------------------------
+
+_SESSION_TIMEOUT = httpx.Timeout(_TIMEOUT[1], connect=_TIMEOUT[0])
+
+
+def _resumable_start_sync(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    client, _ = _client(t)
+    blob = client.bucket(t.bucket).blob(key)
+    try:
+        url = blob.create_resumable_upload_session(
+            content_type=content_type, size=size, timeout=_TIMEOUT, retry=None, checksum=None
+        )
+    except Exception as e:
+        raise _wrap(e, t) from None
+    if not url:
+        raise StorageError("Google did not open an upload session.")
+    return UploadSession("gcs", str(url), CHUNK_BYTES, size)
+
+
+def _bytes_held(range_header: str | None) -> int:
+    """Google's `Range: bytes=0-8388607` is the last byte held: one more is the count."""
+    m = re.match(r"bytes=0-(\d+)$", (range_header or "").strip())
+    return int(m.group(1)) + 1 if m else 0
+
+
+def _resumable_status_sync(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    try:
+        r = httpx.put(
+            session.session,
+            content=b"",
+            headers={"Content-Range": f"bytes */{session.size}"},
+            timeout=_SESSION_TIMEOUT,
+        )
+    except httpx.HTTPError as e:
+        raise StorageError(f"Could not reach Google's upload session: {type(e).__name__}") from None
+    if r.status_code == 308:
+        return UploadStatus(_bytes_held(r.headers.get("Range")), [])
+    if 200 <= r.status_code < 300:
+        return UploadStatus(session.size, [])
+    if r.status_code in (404, 410):
+        raise LookupError(key)
+    raise StorageError(f"Google refused the upload session query: HTTP {r.status_code}.")
+
+
+def _resumable_abort_sync(session: UploadSession) -> None:
+    # Google answers 499 to the cancel; anything else, including no answer, is
+    # left to the seven-day expiry. Best effort by design.
+    with contextlib.suppress(Exception):
+        httpx.delete(session.session, headers={"Content-Length": "0"}, timeout=_SESSION_TIMEOUT)
+
+
+async def resumable_start(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    _check_bucket(t)
+    return await asyncio.to_thread(_resumable_start_sync, t, key, size, content_type)
+
+
+async def resumable_part_urls(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    # Every chunk goes to the session URL; there is nothing per part to sign.
+    return {}
+
+
+async def resumable_status(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    return await asyncio.to_thread(_resumable_status_sync, t, key, session)
+
+
+async def resumable_complete(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    # The last chunk completes a Google session; confirm's head() then finds
+    # the object or does not. Nothing to assemble here.
+    return None
+
+
+async def resumable_abort(t: StorageTarget, key: str, session: UploadSession) -> None:
+    await asyncio.to_thread(_resumable_abort_sync, session)

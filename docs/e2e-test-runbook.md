@@ -113,9 +113,10 @@ so the team's pilot build is untouched.
 
 `APP_BASE_URL` is `http://192.168.1.34:5173`, your laptop. The link inside an offer or
 invitation mail therefore points at your dev console, and the phone must be on the same
-Wi-Fi to open it. **The app has no offers screen** — an offer is accepted through that link
-or not at all. Where the phone is only needed for capture, assign directly (A6) and skip
-mail entirely.
+Wi-Fi to open it. **An offer is answered in the app**: it appears under *Offered to you* at
+the top of the board (and as a push), and the offer screen has Accept and Decline. The
+email links are a second way in where mail is on. Where the phone is only needed for
+capture, assign directly (A6) and skip the offer.
 
 ### Sign-ins
 
@@ -260,8 +261,14 @@ reads **"Tap to start, tap again to stop · 10–45 s"**.
 | C12 | Tap a clip | it **plays in the app**, full screen, controls and sound; Close returns |
 | C13 | **Is the picture upright?** | the open question — a landscape-held clip should play landscape. Record the answer |
 | C14 | Wait for the uploads | tiles reach **ready** and the counter matches |
+| C15 | Record a long clip (a few minutes), then switch aeroplane mode **on** at about a quarter and **off** a minute later | the tile's percentage stops, shows **"Retrying in …"**, and continues from about where it stopped — not from zero. No capture is marked failed |
+| C16 | Kill the app mid-upload and reopen it | the upload continues from the last chunk storage holds |
+| C17 | While a clip uploads, take several photos, then switch to another app and lock the phone | the **"Uploading captures"** notification shows progress; the photos go up before the clip finishes; everything is **ready** when you come back |
+| C18 | Discard a clip mid-upload | it leaves the grid; the console's pending count drops; nothing of it is left in the bucket |
 
-A clip over ~100 MB refused at upload is the deployed 9ce7d99 API, not a regression — §1.
+A file up to 8 MB goes up in one PUT; anything bigger in 8 MB chunks against a storage
+session, so a cut costs at most one chunk (`mobile/src/upload/chunks.ts`). A poor connection
+only delays a capture; it never fails one.
 
 ---
 

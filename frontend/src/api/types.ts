@@ -245,6 +245,11 @@ export interface CaptureSpec {
   min_video_lines?: number | null;
   /** a clip may be picked from the phone's gallery rather than recorded */
   allow_library?: boolean | null;
+  /** the phone a task demands, checked on the device before the task starts:
+   *  Android release ("12"), iOS major, total memory in GB */
+  min_android_version?: number | null;
+  min_ios_version?: number | null;
+  min_ram_gb?: number | null;
   /** what a capture must show; the phone's domain check reads it */
   subject?: SubjectSpec | null;
 }

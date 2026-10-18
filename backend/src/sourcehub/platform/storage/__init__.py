@@ -20,12 +20,22 @@ from __future__ import annotations
 from types import ModuleType
 
 from sourcehub.config import settings
-from sourcehub.platform.storage.types import ObjectStat, StorageError, StorageTarget
+from sourcehub.platform.storage.types import (
+    CHUNK_BYTES,
+    ObjectStat,
+    StorageError,
+    StorageTarget,
+    UploadSession,
+    UploadStatus,
+)
 
 __all__ = [
+    "CHUNK_BYTES",
     "ObjectStat",
     "StorageError",
     "StorageTarget",
+    "UploadSession",
+    "UploadStatus",
     "copy",
     "copy_between",
     "delete",
@@ -33,6 +43,11 @@ __all__ = [
     "platform_target",
     "presign_get",
     "presign_put",
+    "resumable_abort",
+    "resumable_complete",
+    "resumable_part_urls",
+    "resumable_start",
+    "resumable_status",
     "stat",
     "verify",
 ]
@@ -166,3 +181,48 @@ async def copy_between(
 async def delete(t: StorageTarget, key: str) -> None:
     """Remove an object. Already-gone counts as success."""
     await _adapter(t.provider).delete(t, key)
+
+
+# ---------------------------------------------------------------------------
+# Resumable uploads. A capture too big for one PUT goes up in CHUNK_BYTES
+# pieces against a session that STORAGE keeps, so a phone that loses its
+# connection asks where it got to and carries on from there (mobile
+# upload/chunks.ts). Google, Azure and S3 each do this their own way; these
+# five calls are the one shape modules/media sees.
+# ---------------------------------------------------------------------------
+
+
+async def resumable_start(
+    t: StorageTarget, key: str, size: int, content_type: str
+) -> UploadSession:
+    """Open the session the chunks are written to. Stored on the asset and
+    never listed: Google's session URL by itself authorises writes."""
+    return await _adapter(t.provider).resumable_start(t, key, size, content_type)
+
+
+async def resumable_part_urls(
+    t: StorageTarget, key: str, session: UploadSession, parts: list[int]
+) -> dict[int, str]:
+    """One signed URL per part number, for the providers that take parts
+    (Azure, S3). Google needs none: every chunk goes to the session URL."""
+    return await _adapter(t.provider).resumable_part_urls(t, key, session, parts)
+
+
+async def resumable_status(t: StorageTarget, key: str, session: UploadSession) -> UploadStatus:
+    """How far the upload has got, as storage says. LookupError when the
+    session is gone, so the caller starts a new one."""
+    return await _adapter(t.provider).resumable_status(t, key, session)
+
+
+async def resumable_complete(
+    t: StorageTarget, key: str, session: UploadSession, content_type: str
+) -> None:
+    """Assemble the parts into the object. Safe to call twice: an upload that
+    was already completed is left as it is."""
+    await _adapter(t.provider).resumable_complete(t, key, session, content_type)
+
+
+async def resumable_abort(t: StorageTarget, key: str, session: UploadSession) -> None:
+    """Drop an unfinished upload and whatever it has stored. Already gone
+    counts as success."""
+    await _adapter(t.provider).resumable_abort(t, key, session)

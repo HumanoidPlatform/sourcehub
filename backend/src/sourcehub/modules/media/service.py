@@ -27,16 +27,23 @@ RETURNING row must also pass the SELECT policy, and a plain INSERT needs only
 the WITH CHECK.
 
 Two idempotency rules the phone relies on:
-  * presign is keyed on (assignment, sha256): the same file asked for twice
-    gets the same asset row and a fresh URL, so an expired URL costs nothing;
+  * presign is keyed on the phone's own capture id, or on (assignment, sha256)
+    for a build that hashes: the same file asked for twice gets the same asset
+    row and a fresh URL, so an expired URL costs nothing — and a chunked
+    upload asked for again gets its session back, so a cut costs one chunk;
   * confirm on a ready asset returns it unchanged, so a retry after a lost
     response is harmless.
+
+A file over CHUNK_BYTES goes up in chunks against a session storage keeps
+(db/540, platform/storage resumable_*). The session is a credential and is
+never listed: only presign hands it to the capturing worker.
 """
 
 from __future__ import annotations
 
 import asyncio
 import base64
+import contextlib
 import datetime as dt
 import json
 import re
@@ -50,6 +57,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
 from sourcehub.modules.marketplace import pricing
+from sourcehub.platform.storage.types import CHUNK_BYTES, UploadSession
 
 
 class MediaError(Exception):
@@ -60,13 +68,86 @@ class MediaInvalid(Exception):
     """The request itself is not acceptable (422)."""
 
 
+class MediaGone(Exception):  # noqa: N818 - named like MediaError and MediaInvalid above
+    """What the phone is continuing no longer exists (410): the storage
+    session expired or was swept. The phone starts that upload again."""
+
+
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 VIDEO_EXTENSIONS = {".mp4", ".mov"}
 MAX_IMAGE_BYTES = 25 * 1024 * 1024
 # Clips run to minutes now, and the phone checks them before they leave (see
 # mobile/src/qa_pipeline/clip/clip.ts); a single SAS PUT takes up to 5000 MiB.
 MAX_VIDEO_BYTES = 2 * 1024 * 1024 * 1024
-MAX_ASSETS_PER_ASSIGNMENT = 500
+
+# What already holds a place in a share, for presign_capture's one ceiling,
+# the share's quantity — there is no cap on captures beyond what the
+# aggregator assigned. Delivered or on its way: not a capture sent back for
+# rework, which freed its place; not a
+# quarantined upload, whose bytes did not match and which will be re-sent or
+# removed; and not a pending row the phone gave up on — a presign whose PUT
+# never came within a day is a capture that was discarded, lost, or sits on a
+# phone that has not been online since, and counting it had the server refuse
+# a worker whose phone said two were left. The phone counts ready captures
+# plus its own queue (mobile batches.ts remaining()); this must not count more
+# than that for long, or the two disagree and the worker cannot see why.
+HELD_SQL = (
+    "status IN ('pending','uploaded','ready') "
+    "AND NOT (status = 'pending' AND created_at < now() - interval '24 hours')"
+)
+# The row a repeat presign of the same file reuses. Quarantined is in the list
+# so a retry after a size mismatch gets its row back, reset to pending, rather
+# than minting a second one that leaves the first holding a place for ever.
+REUSABLE_SQL = "status IN ('pending','uploaded','ready','quarantined')"
+
+
+def upload_session_from(raw: Any) -> UploadSession | None:
+    """The storage session an asset row holds, or None for a single PUT. The
+    column is jsonb; the driver hands it back decoded, a test as text."""
+    if not raw:
+        return None
+    d = raw if isinstance(raw, dict) else json.loads(raw)
+    try:
+        return UploadSession(
+            str(d["protocol"]), str(d["session"]), int(d["chunk_size"]), int(d["size"])
+        )
+    except (KeyError, TypeError, ValueError):
+        return None
+
+
+async def _store_session(
+    session: AsyncSession, asset_id: uuid.UUID, us: UploadSession | None
+) -> None:
+    await session.execute(
+        text(
+            "UPDATE asset SET upload_session = CAST(:s AS jsonb), updated_at = now() "
+            "WHERE id = :id"
+        ),
+        {"s": json.dumps(us._asdict()) if us is not None else None, "id": asset_id},
+    )
+
+
+def _resumable_answer(
+    asset_id: uuid.UUID, key: str, us: UploadSession, content_type: str, state: str,
+    thumb: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """What presign returns for a chunked upload: no PUT URL, the protocol the
+    phone speaks, and for Google the session URL every chunk goes to. Azure
+    and S3 take a URL per part (upload_part_urls). The only place the session
+    leaves the server, and only to the worker who owns the capture. thumb is
+    the poster's own single PUT (_thumb_put), when one was promised: the
+    poster is small and never chunked."""
+    return {
+        "asset_id": asset_id, "storage_key": key,
+        "url": None, "method": "RESUMABLE",
+        "headers": {"Content-Type": content_type},
+        "expires_in": settings.storage_presign_ttl_seconds, "status": state,
+        "upload": {
+            "protocol": us.protocol, "chunk_size": us.chunk_size, "size": us.size,
+            "session_url": us.session if us.protocol == "gcs" else None,
+        },
+        "thumb": thumb,
+    }
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 
@@ -588,7 +669,7 @@ async def presign_capture(
     filename: str,
     content_type: str,
     size_bytes: int,
-    sha256: str,
+    sha256: str | None = None,
     captured_at: dt.datetime,
     lat: float | None,
     lon: float | None,
@@ -596,12 +677,26 @@ async def presign_capture(
     replaces_asset_id: uuid.UUID | None = None,
     duration_s: float | None = None,
     thumbnail: dict[str, Any] | None = None,
+    client_capture_id: uuid.UUID | None = None,
+    resumable: bool = False,
+    restart: bool = False,
 ) -> dict[str, Any]:
-    """Record the manifest and mint a one-object upload URL.
+    """Record the manifest and mint the upload: a one-object PUT URL, or for a
+    big file the phone asked to send in chunks, a storage session.
 
     duration_s is a clip's running time as the device measured it. A task in
     hours counts its clips by it, so there it is required; anywhere else a
     clip carries it when the device sent one. A photo has none.
+
+    A capture is named by sha256, or by client_capture_id — the phone's own id
+    for it — since hashing a gigabyte on a phone is what loaded it into memory
+    and had the OS kill the app. Either finds the row again. Nothing verifies
+    the hash; confirm checks the size against storage.
+
+    resumable asks for chunks, honoured above CHUNK_BYTES. A pending chunked
+    row asked for again gets its stored session back, so the phone resumes;
+    restart drops that session and opens a fresh one, for a phone told the
+    old one is gone (upload_status, 410).
 
     replaces_asset_id makes this capture a retake of one the aggregator sent
     back: it must be a rework capture of this same assignment that nothing has
@@ -625,9 +720,11 @@ async def presign_capture(
 
     a = await _assignment_for_upload(session, claims, assignment_id)
 
-    sha = sha256.lower()
-    if not _SHA256.match(sha):
+    sha = sha256.lower() if sha256 else None
+    if sha is not None and not _SHA256.match(sha):
         raise MediaInvalid("sha256 must be 64 hex characters.")
+    if sha is None and client_capture_id is None:
+        raise MediaInvalid("A capture needs a sha256 or a client_capture_id.")
     safe, kind = _safe_filename(filename)
     allowed = _allowed_kinds(a.get("capture_spec"), a.get("target_unit"))
     if kind not in allowed:
@@ -644,17 +741,23 @@ async def presign_capture(
     # SECURITY DEFINER function: this runs in the worker's session, which
     # cannot read storage_target and should not be able to.
     target, target_id = await storage_svc.resolve_for_contract(session, a["contract_id"])
+    chunked = resumable and size_bytes > CHUNK_BYTES
 
-    # idempotent on (assignment, sha256): a retry or an expired URL reuses the row
+    # Idempotent on the phone's own capture id, or on (assignment, sha256) for
+    # a build that hashes: a retry, an expired URL or a resume reuses the row.
+    if client_capture_id is not None:
+        same, ident = "client_capture_id = :ident", client_capture_id
+    else:
+        same, ident = "sha256 = :ident", sha
     existing = (
         await session.execute(
             text(
-                "SELECT id, status, storage_key, metadata FROM asset "
-                "WHERE assignment_id = :a AND sha256 = :sha AND deleted_at IS NULL "
-                "  AND status IN ('pending','uploaded','ready') "
+                "SELECT id, status, storage_key, metadata, upload_session FROM asset "
+                "WHERE assignment_id = :a AND deleted_at IS NULL AND " + same + " "
+                "  AND " + REUSABLE_SQL + " "
                 "ORDER BY created_at DESC LIMIT 1"
             ),
-            {"a": assignment_id, "sha": sha},
+            {"a": assignment_id, "ident": ident},
         )
     ).mappings().one_or_none()
     if existing is not None:
@@ -669,6 +772,10 @@ async def presign_capture(
                 "status": "ready",
                 "thumb": await _thumb_put(target, owed) if owed else None,
             }
+        state = existing["status"]
+        held = upload_session_from(existing["upload_session"])
+        # a poster offered now is promised on the row before any answer goes
+        # back, chunked or not: the promise is what confirm later looks for
         promise = thumb_promise(existing["storage_key"], thumbnail)
         if promise is not None:
             await session.execute(
@@ -679,12 +786,53 @@ async def presign_capture(
                 {"m": json.dumps({"thumb": promise}), "id": existing["id"]},
             )
         promise = promise or owed
+        if state == "quarantined":
+            # the same file again after a size mismatch: the row is reused and
+            # the bytes are expected afresh, so the old verdict goes with them —
+            # and so does any session, whose parts are what did not add up
+            await session.execute(
+                text(
+                    "UPDATE asset SET status = 'pending', quarantine_reason = NULL, etag = NULL, "
+                    "       upload_session = NULL, updated_at = now() WHERE id = :id"
+                ),
+                {"id": existing["id"]},
+            )
+            state = "pending"
+            if held is not None:
+                with contextlib.suppress(Exception):
+                    await storage.resumable_abort(target, existing["storage_key"], held)
+                held = None
+        if chunked:
+            if held is not None and not restart:
+                # the phone is resuming: the session it had is the one it needs
+                return _resumable_answer(
+                    existing["id"], existing["storage_key"], held, content_type, state,
+                    thumb=await _thumb_put(target, promise) if promise else None,
+                )
+            if held is not None:
+                with contextlib.suppress(Exception):
+                    await storage.resumable_abort(target, existing["storage_key"], held)
+            fresh = await storage.resumable_start(
+                target, existing["storage_key"], size_bytes, content_type
+            )
+            await _store_session(session, existing["id"], fresh)
+            return _resumable_answer(
+                existing["id"], existing["storage_key"], fresh, content_type, state,
+                thumb=await _thumb_put(target, promise) if promise else None,
+            )
+        if held is not None:
+            # The row was being chunked and is now asked for as one PUT. A
+            # session left behind would have confirm try to assemble parts
+            # that never come, so it goes before the PUT link is issued.
+            with contextlib.suppress(Exception):
+                await storage.resumable_abort(target, existing["storage_key"], held)
+            await _store_session(session, existing["id"], None)
         url, extra = await storage.presign_put(target, existing["storage_key"])
         return {
             "asset_id": existing["id"], "storage_key": existing["storage_key"],
             "url": url, "method": "PUT",
             "headers": {"Content-Type": content_type, **extra},
-            "expires_in": settings.storage_presign_ttl_seconds, "status": existing["status"],
+            "expires_in": settings.storage_presign_ttl_seconds, "status": state,
             "thumb": await _thumb_put(target, promise) if promise else None,
         }
 
@@ -710,15 +858,12 @@ async def presign_capture(
         await session.execute(
             text(
                 "SELECT count(*) AS n, round(coalesce(sum(capture_units(:unit, duration_s)), 0), 4) AS units "
-                "FROM asset WHERE assignment_id = :a "
-                "AND deleted_at IS NULL AND status NOT IN ('rejected','erased')"
+                "FROM asset WHERE assignment_id = :a AND deleted_at IS NULL AND " + HELD_SQL
             ),
             {"a": assignment_id, "unit": a.get("target_unit")},
         )
     ).mappings().one()
     n = int(held["n"])
-    if n >= MAX_ASSETS_PER_ASSIGNMENT:
-        raise MediaError(f"An assignment holds at most {MAX_ASSETS_PER_ASSIGNMENT} captures.")
     # The aggregator asked for a number of units and reviews every one of them.
     # Refusing here rather than at submit costs the worker a message instead of
     # an upload over a field connection. In hours the clip that crosses the
@@ -766,21 +911,23 @@ async def presign_capture(
         text(
             "INSERT INTO asset (id, task_id, assignment_id, captured_by_user_id, supplier_org_id, "
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
-            "                   status, captured_at, captured_lat, captured_lon, metadata, "
-            "                   check_results, storage_target_id, replaces_asset_id, duration_s) "
+            "                   client_capture_id, status, captured_at, captured_lat, "
+            "                   captured_lon, metadata, check_results, storage_target_id, "
+            "                   replaces_asset_id, duration_s) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
-            "        'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
+            "        :cid, 'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
             "        CAST(:checks AS jsonb), :target, :replaces, :dur)"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
             "org": a["supplier_org_id"], "contract": a["contract_id"], "key": key, "name": safe,
-            "ct": content_type, "size": size_bytes, "sha": sha, "cat": captured_at,
-            "lat": _to_numeric(lat), "lon": _to_numeric(lon),
+            "ct": content_type, "size": size_bytes, "sha": sha, "cid": client_capture_id,
+            "cat": captured_at, "lat": _to_numeric(lat), "lon": _to_numeric(lon),
             # the poster's promise rides in metadata (db/530): no column, and
             # nothing a reader of the row has to know about
             "meta": json.dumps(
-                {"claimed_size": size_bytes, "kind": kind}
+                {"claimed_size": size_bytes, "kind": kind,
+                 "upload": "chunked" if chunked else "single"}
                 | ({"thumb": promise} if promise else {})
             ),
             # What the phone decided before it queued the file. Recorded, not
@@ -792,6 +939,13 @@ async def presign_capture(
             "dur": duration,
         },
     )
+    if chunked:
+        fresh = await storage.resumable_start(target, key, size_bytes, content_type)
+        await _store_session(session, asset_id, fresh)
+        return _resumable_answer(
+            asset_id, key, fresh, content_type, "pending",
+            thumb=await _thumb_put(target, promise) if promise else None,
+        )
     url, extra = await storage.presign_put(target, key)
     return {
         "asset_id": asset_id, "storage_key": key,
@@ -799,6 +953,86 @@ async def presign_capture(
         "headers": {"Content-Type": content_type, **extra},
         "expires_in": settings.storage_presign_ttl_seconds, "status": "pending",
         "thumb": await _thumb_put(target, promise) if promise else None,
+    }
+
+
+async def _own_pending_upload(
+    session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID
+) -> tuple[dict[str, Any], UploadSession]:
+    """The chunked upload the caller is continuing: theirs, pending, with a
+    session. Touches updated_at so the sweep sees the phone is at work.
+
+    A row the sweep removed is answered as gone (410), not as never having
+    existed (404): the phone reads gone as "start this upload again", and the
+    file is still on the phone — a 404 it would read as a failure."""
+    row = (
+        await session.execute(
+            text(
+                "SELECT id, storage_key, status, captured_by_user_id, storage_target_id, "
+                "       mime_type, upload_session, deleted_at "
+                "FROM asset WHERE id = :id"
+            ),
+            {"id": asset_id},
+        )
+    ).mappings().one_or_none()
+    if row is None:
+        raise LookupError("asset not found")
+    if row["captured_by_user_id"] != claims.user_id:
+        raise MediaError("Only the crowd resource uploading this capture can continue it.")
+    if row["deleted_at"] is not None:
+        raise MediaGone("This upload was abandoned and removed; start it again.")
+    if row["status"] != "pending":
+        raise MediaError(f"A {row['status']} asset is not being uploaded.")
+    us = upload_session_from(row["upload_session"])
+    if us is None:
+        raise MediaError("This capture is not a chunked upload.")
+    await session.execute(
+        text("UPDATE asset SET updated_at = now() WHERE id = :id"), {"id": asset_id}
+    )
+    return dict(row), us
+
+
+def part_count(us: UploadSession) -> int:
+    return -(-us.size // us.chunk_size)
+
+
+async def upload_part_urls(
+    session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID, parts: list[int]
+) -> dict[str, Any]:
+    """Signed URLs for the parts the phone is about to send (Azure, S3)."""
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
+
+    row, us = await _own_pending_upload(session, claims, asset_id)
+    expected = part_count(us)
+    bad = [n for n in parts if n < 1 or n > expected]
+    if bad:
+        raise MediaInvalid(f"This upload has {expected} parts; part {bad[0]} does not exist.")
+    target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+    urls = await storage.resumable_part_urls(target, row["storage_key"], us, sorted(set(parts)))
+    return {
+        "urls": {str(n): u for n, u in urls.items()},
+        "expires_in": settings.storage_presign_ttl_seconds,
+    }
+
+
+async def upload_status(
+    session: AsyncSession, claims: AccessClaims, asset_id: uuid.UUID
+) -> dict[str, Any]:
+    """How far storage says the upload has got — what the phone resumes from,
+    never its own idea of where it was."""
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
+
+    row, us = await _own_pending_upload(session, claims, asset_id)
+    target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+    try:
+        st = await storage.resumable_status(target, row["storage_key"], us)
+    except LookupError:
+        raise MediaGone("The upload session has expired. Start this upload again.") from None
+    return {
+        "bytes_done": st.bytes_done, "parts_done": st.parts_done,
+        "chunk_size": us.chunk_size, "size": us.size, "parts": part_count(us),
     }
 
 
@@ -821,7 +1055,7 @@ async def confirm_asset(
         await session.execute(
             text(
                 "SELECT id, assignment_id, storage_key, filename, size_bytes, status, "
-                "       storage_target_id, metadata "
+                "       storage_target_id, metadata, mime_type, upload_session "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -836,6 +1070,7 @@ async def confirm_asset(
         return (await _get_asset(session, asset_id)) or {}
     if row["status"] != "pending":
         raise MediaError(f"A {row['status']} asset cannot be confirmed.")
+    us = upload_session_from(row["upload_session"])
 
     a_status = (
         await session.execute(
@@ -851,6 +1086,12 @@ async def confirm_asset(
 
     try:
         target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+        if us is not None:
+            # The chunks are assembled first. Parts still missing come back as
+            # "not uploaded yet", and the phone asks storage what is missing.
+            await storage.resumable_complete(
+                target, row["storage_key"], us, row["mime_type"] or "application/octet-stream"
+            )
         s = await storage.head(target, row["storage_key"])
     except LookupError:
         raise MediaError("File not uploaded yet.") from None
@@ -859,7 +1100,7 @@ async def confirm_asset(
         await session.execute(
             text(
                 "UPDATE asset SET status = 'quarantined', etag = :etag, updated_at = now(), "
-                "       quarantine_reason = :why WHERE id = :id"
+                "       upload_session = NULL, quarantine_reason = :why WHERE id = :id"
             ),
             {
                 "etag": s.etag, "id": asset_id,
@@ -867,13 +1108,20 @@ async def confirm_asset(
             },
         )
     else:
+        # The provider's own digest of what it holds, recorded beside the
+        # phone's claims; the session is spent and goes.
         await session.execute(
             text(
                 "UPDATE asset SET status = 'ready', etag = :etag, "
-                "       mime_type = coalesce(:ct, mime_type), uploaded_at = now(), updated_at = now() "
+                "       mime_type = coalesce(:ct, mime_type), uploaded_at = now(), "
+                "       updated_at = now(), upload_session = NULL, "
+                "       metadata = metadata || CAST(:extra AS jsonb) "
                 "WHERE id = :id"
             ),
-            {"etag": s.etag, "ct": s.content_type, "id": asset_id},
+            {
+                "etag": s.etag, "ct": s.content_type, "id": asset_id,
+                "extra": json.dumps({"storage_checksum": s.checksum} if s.checksum else {}),
+            },
         )
         await _record_thumb(session, row, target)
     return (await _get_asset(session, asset_id)) or {}
@@ -1297,11 +1545,15 @@ async def discard_asset(
     that is not with the aggregator: one not yet sent, or one sent back for
     rework. What is in review or accepted is part of the record.
     """
+    from sourcehub.modules.storage import service as storage_svc
+    from sourcehub.platform import storage
+
     row = (
         await session.execute(
             text(
                 "SELECT a.id, a.status AS asset_status, a.batch_id, ta.worker_user_id, "
-                "       ta.status, ta.revoked_at "
+                "       ta.status, ta.revoked_at, "
+                "       a.storage_key, a.storage_target_id, a.upload_session "
                 "FROM asset a JOIN task_assignment ta ON ta.id = a.assignment_id "
                 "WHERE a.id = :id AND a.deleted_at IS NULL"
             ),
@@ -1322,9 +1574,20 @@ async def discard_asset(
             "This capture was sent for review. Only one sent back for rework can be removed."
         )
     await session.execute(
-        text("UPDATE asset SET deleted_at = now(), updated_at = now() WHERE id = :id"),
+        text(
+            "UPDATE asset SET deleted_at = now(), updated_at = now(), upload_session = NULL "
+            "WHERE id = :id"
+        ),
         {"id": asset_id},
     )
+    us = upload_session_from(row["upload_session"])
+    if us is not None:
+        # An unfinished chunked upload still holds parts in storage. Best
+        # effort: the row is gone either way, and the sweep or the provider's
+        # own expiry clears what this cannot reach.
+        with contextlib.suppress(Exception):
+            target = await storage_svc.resolve_by_id(session, row["storage_target_id"])
+            await storage.resumable_abort(target, row["storage_key"], us)
 
 
 # How many of an assignment's captures stand where (stage, above), in SQL. One

@@ -173,6 +173,10 @@ describe("UploadQueue", () => {
     h.put(() => (++puts === 1 ? { status: 403, body: null } : { status: 201, body: null }));
     await h.q.add("as", [file("a.jpg")], ctx);
     await settle();
+    // a refused link now waits out a backoff before the new one is asked for,
+    // so a destination refusing every link cannot loop flat out
+    await vi.advanceTimersByTimeAsync(6000);
+    await settle();
     expect(h.calls.presign).toHaveLength(2);
     expect((h.calls.presign as { sha256: string }[]).map((p) => p.sha256)).toEqual(["sha-a.jpg", "sha-a.jpg"]);
     expect(h.calls.put).toHaveLength(2);
@@ -229,6 +233,27 @@ describe("UploadQueue", () => {
     expect(h.calls.put).toHaveLength(2);
     expect(h.item("a.jpg").status).toBe("failed");
     expect(h.item("a.jpg").last_error).toMatch(/CORS/);
+  });
+
+  it("one refused link and then one blip is not a CORS problem", async () => {
+    // presign no longer resets the attempt counter, so the counter alone
+    // would read 403-then-nothing as two empty answers
+    const h = harness();
+    let n = 0;
+    h.put(() => {
+      n++;
+      if (n === 1) return { status: 403, body: null };
+      if (n === 2) return { status: 0, body: null };
+      return { status: 201, body: null };
+    });
+    await h.q.add("as", [file("a.jpg")], ctx);
+    await settle();
+    for (let i = 0; i < 4; i++) {
+      await vi.advanceTimersByTimeAsync(20_000);
+      await settle();
+    }
+    expect(h.calls.put).toHaveLength(3);
+    expect(h.item("a.jpg").status).toBe("confirmed");
   });
 
   it("retry keeps the hash and goes round again", async () => {

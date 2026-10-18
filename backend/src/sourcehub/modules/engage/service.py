@@ -443,11 +443,11 @@ async def _send(
             template, to, to_name = "task_offer", r["email"], r["worker_name"]
             scrub, until = True, r["respond_by"]
             task_ref, task_title = r["task_ref"], r["task_title"]
+            # the row opens the offer on the phone, where it is answered
             await notifier.notify(
                 session, org_id,
-                f"{lead} {org_name} is offering {r['task_ref']} {r['task_title']} — "
-                "use the links in your email to answer.",
-                user_id=d.worker_user_id,
+                delivery.offer_notice(org_name, r["task_ref"], r["task_title"], lead),
+                "offer", {"id": str(r["recipient_id"])}, user_id=d.worker_user_id,
             )
         else:
             a = assignments[d.subject_id]

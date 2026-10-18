@@ -37,8 +37,11 @@ const SPEC_LABEL: Record<string, string> = {
   max_duration_s: "Maximum length",
   min_video_lines: "Video size",
   allow_library: "Gallery picks",
+  min_android_version: "Minimum Android",
+  min_ios_version: "Minimum iOS",
+  min_ram_gb: "Minimum memory",
   subject: "Subject",
-  notes: "Notes",
+  notes: "Hardware notes",
   languages: "Languages",
 };
 
@@ -55,6 +58,9 @@ function specRows(spec: CaptureSpec | null | undefined, targetUnit: string | nul
     else if (k === "max_duration_s" || k === "min_duration_s") text = `${String(v)} s`;
     else if (k === "min_video_lines") text = `at least ${String(v)}p`;
     else if (k === "allow_library") text = v ? "allowed" : "not allowed";
+    else if (k === "min_android_version") text = `Android ${String(v)} or newer`;
+    else if (k === "min_ios_version") text = `iOS ${String(v)} or newer`;
+    else if (k === "min_ram_gb") text = `${String(v)} GB`;
     else if (k === "subject") text = typeof v === "object" && v && "domain" in v ? String((v as { domain: string }).domain) : String(v);
     else text = Array.isArray(v) ? v.join(", ") : String(v);
     rows.push([SPEC_LABEL[k] ?? k.replace(/_/g, " "), text]);

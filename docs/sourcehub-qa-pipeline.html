@@ -466,6 +466,13 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     clip outside the task's <code>min_duration_s</code>–<code>max_duration_s</code> (one second of tolerance
     either way; the camera stops at the maximum), a frame whose short side is under <code>min_video_lines</code>
     ("at least 1080p"), and the wrong orientation — all recorded on the phone as refusals, like a photo's.</p>
+    <p><strong>The phone itself.</strong> <code>qa_pipeline/device/device.ts</code> holds the handset to the
+    task's own device requirements from the RFP's Device Specifications — <code>min_android_version</code>,
+    <code>min_ios_version</code> (release numbers) and <code>min_ram_gb</code> — and to nothing else: there is no
+    platform floor, so a task that names none asks nothing of any phone. On the offer and assignment screens a
+    shortfall is a warning that names it; the worker may still accept and start. At the shutter the same
+    shortfall refuses the capture, recorded like any other refusal, so a phone under the brief never sends a
+    capture that would be sent back. The free-text hardware notes are shown to the partner and not enforced.</p>
     <p><strong>The frames.</strong> <code>clip.ts frameTimes()</code> picks one instant every
     <code>FRAME_EVERY_S</code> (5 s), never fewer than <code>MIN_FRAMES</code> (3) nor more than
     <code>MAX_FRAMES</code> (40), spread evenly and a quarter-second in from either end. <code>frames.ts</code>
@@ -504,6 +511,11 @@ seen  = the five most confident labels, for the reviewer</pre></div>
     <code>detail</code> (≤ 1 KB of JSON) alongside <code>code</code>, <code>severity</code> and <code>message</code>; older builds
     that send neither are unaffected. <code>presign_asset</code> stores the list verbatim as
     <code>asset.check_results = {"device": [...]}</code>, as it always did.</p>
+    <p>The same request now names the capture by the phone's own <code>client_capture_id</code> (its outbox row), with
+    <code>sha256</code> optional: a file over 8 MB is never hashed on the phone. With <code>resumable: true</code> the server
+    opens a storage session and answers <code>method: "RESUMABLE"</code>; the phone sends the file in 8 MB chunks, asks
+    <code>GET /assets/{id}/upload/status</code> where storage stands after any cut, and confirm assembles the parts
+    before the usual size check (<code>db/540_resumable_uploads.sql</code>, <code>mobile/src/upload/chunks.ts</code>).</p>
     <div class="code"><div class="name">asset.check_results.device[0] — a kept floor shot</div>
 <pre>{
   "code": "wrong_subject",

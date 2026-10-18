@@ -1,7 +1,16 @@
-// The device profile that rides with a capture. Pure; expo-device is not read here.
+// The device profile that rides with a capture, and the task's device
+// requirements a phone is held to. Pure; expo-device is not read here.
 
 import type { CaptureSpec } from "@/api/types";
-import { type CameraCaps, cameraCaps, deviceFinding, deviceFindings, memoryGb } from "@/qa_pipeline/device/device";
+import {
+  type CameraCaps,
+  cameraCaps,
+  deviceFinding,
+  deviceFindings,
+  deviceRefusals,
+  memoryGb,
+  versionNumber,
+} from "@/qa_pipeline/device/device";
 
 describe("memoryGb", () => {
   it("rounds bytes to one decimal", () => {
@@ -13,6 +22,17 @@ describe("memoryGb", () => {
     expect(memoryGb(null)).toBeNull();
     expect(memoryGb(undefined)).toBeNull();
     expect(memoryGb(0)).toBeNull();
+  });
+});
+
+describe("versionNumber", () => {
+  it("reads the release to one decimal, as the client names it", () => {
+    expect(versionNumber("12")).toBe(12);
+    expect(versionNumber("8.1.0")).toBe(8.1);
+    expect(versionNumber("17.2.1")).toBe(17.2);
+    expect(versionNumber("12L")).toBe(12);
+    expect(versionNumber("")).toBeNull();
+    expect(versionNumber(null)).toBeNull();
   });
 });
 
@@ -99,6 +119,8 @@ describe("cameraCaps", () => {
 describe("deviceFindings", () => {
   const GB = 1024 ** 3;
   const good = { os: "Android", osVersion: "14", apiLevel: 34, totalMemory: 6 * GB };
+  // an old, small phone: nothing is asked of it unless the task asks
+  const old = { os: "Android", osVersion: "8.1.0", apiLevel: 27, totalMemory: 1 * GB };
   const cam = (mp: number): CameraCaps => ({ maxPhotoMp: mp, sizes: [], probedAt: "t" });
   const photo12: CaptureSpec = { media: ["photo"], min_megapixels: 12 };
   const codes = (f: { code: string; severity: string }[]) => f.map((x) => `${x.code}:${x.severity}`);
@@ -107,26 +129,49 @@ describe("deviceFindings", () => {
     expect(deviceFindings(good, cam(48), photo12)).toEqual([]);
   });
 
-  it("refuses an Android under the floor, and only under it", () => {
-    expect(codes(deviceFindings({ ...good, osVersion: "9", apiLevel: 28 }, null, null))).toEqual(["device_os:block"]);
-    expect(deviceFindings({ ...good, osVersion: "10", apiLevel: 29 }, null, null)).toEqual([]);
-    expect(deviceFindings({ ...good, osVersion: "9", apiLevel: 28 }, null, null)[0].message).toContain("Android 10 or newer");
+  it("asks nothing of any phone when the task sets no device requirement", () => {
+    // there is no platform floor: the client's spec is the only rule
+    expect(deviceFindings(old, cam(2), { media: ["photo", "video"] })).toEqual([]);
+    expect(deviceFindings(old, cam(2), null)).toEqual([]);
+    expect(deviceFindings({ os: "iOS", osVersion: "12.5", totalMemory: 1 * GB }, null, {})).toEqual([]);
   });
 
-  it("reads iOS by its major version", () => {
-    expect(codes(deviceFindings({ os: "iOS", osVersion: "14.8.1", totalMemory: 4 * GB }, null, null))).toEqual(["device_os:block"]);
-    expect(deviceFindings({ os: "iOS", osVersion: "15.0", totalMemory: 4 * GB }, null, null)).toEqual([]);
+  it("refuses under the task's Android requirement, in the client's words", () => {
+    const task: CaptureSpec = { media: ["video"], min_android_version: 12 };
+    const f = deviceFindings({ ...good, osVersion: "11", apiLevel: 30 }, null, task);
+    expect(codes(f)).toEqual(["device_os:block"]);
+    expect(f[0].message).toBe("This task needs Android 12 or newer; this phone runs Android 11.");
+    expect(f[0].detail).toMatchObject({ source: "task", floor: 12 });
+    expect(deviceFindings({ ...good, osVersion: "12", apiLevel: 31 }, null, task)).toEqual([]);
+    // the client's figure may carry a decimal: 8.1 meets 8.1, 8.0 does not
+    const point: CaptureSpec = { media: ["video"], min_android_version: 8.1 };
+    expect(deviceFindings(old, null, point)).toEqual([]);
+    expect(codes(deviceFindings({ ...old, osVersion: "8.0.0", apiLevel: 26 }, null, point))).toEqual(["device_os:block"]);
   });
 
-  it("refuses under 2 GB, warns under 3, and is silent above", () => {
-    expect(codes(deviceFindings({ ...good, totalMemory: 1.9 * GB }, null, null))).toEqual(["device_memory:block"]);
-    expect(codes(deviceFindings({ ...good, totalMemory: 2.5 * GB }, null, null))).toEqual(["device_memory:warn"]);
-    expect(deviceFindings({ ...good, totalMemory: 3.1 * GB }, null, null)).toEqual([]);
+  it("reads iOS by its release number against the task's", () => {
+    const ios: CaptureSpec = { media: ["video"], min_ios_version: 16 };
+    expect(codes(deviceFindings({ os: "iOS", osVersion: "15.7", totalMemory: 4 * GB }, null, ios))).toEqual(["device_os:block"]);
+    expect(deviceFindings({ os: "iOS", osVersion: "16.0", totalMemory: 4 * GB }, null, ios)).toEqual([]);
+    // an Android floor says nothing about an iPhone, and the other way round
+    expect(deviceFindings({ os: "iOS", osVersion: "12.0", totalMemory: 4 * GB }, null, { media: ["video"], min_android_version: 14 })).toEqual([]);
+    expect(deviceFindings(old, null, ios)).toEqual([]);
   });
 
-  it("never holds a missing figure against the phone", () => {
-    expect(deviceFindings({}, null, photo12)).toEqual([]);
-    expect(deviceFindings({ os: "Android", osVersion: "14", apiLevel: null, totalMemory: null }, null, photo12)).toEqual([]);
+  it("refuses under the task's memory requirement, and names the task's figure", () => {
+    const task: CaptureSpec = { media: ["video"], min_ram_gb: 4 };
+    const f = deviceFindings({ ...good, totalMemory: 3.5 * GB }, null, task);
+    expect(codes(f)).toEqual(["device_memory:block"]);
+    expect(f[0].message).toBe("This task needs at least 4 GB of memory; this phone has 3.5 GB.");
+    expect(f[0].detail).toMatchObject({ source: "task", min_gb: 4 });
+    expect(deviceFindings({ ...good, totalMemory: 4 * GB }, null, task)).toEqual([]);
+  });
+
+  it("never holds a missing figure against the phone, whatever the task says", () => {
+    const strict: CaptureSpec = { media: ["photo"], min_android_version: 12, min_ram_gb: 4, min_megapixels: 12 };
+    expect(deviceFindings({}, null, strict)).toEqual([]);
+    expect(deviceFindings({ os: "Android" }, null, strict)).toEqual([]);
+    expect(deviceFindings({ os: "Android", osVersion: "14", apiLevel: null, totalMemory: null }, null, strict)).toEqual([]);
   });
 
   it("refuses a camera under the task's floor, with the same slack as rules.ts", () => {
@@ -147,5 +192,25 @@ describe("deviceFindings", () => {
     expect(deviceFindings(good, null, photo12)).toEqual([]);
     expect(deviceFindings(good, cam(2), { media: ["photo"] })).toEqual([]);
     expect(deviceFindings(good, cam(2), { media: ["video"], min_megapixels: 12 })).toEqual([]);
+  });
+});
+
+describe("deviceRefusals", () => {
+  const GB = 1024 ** 3;
+  const strict: CaptureSpec = { media: ["photo"], min_android_version: 12, min_ram_gb: 4, min_megapixels: 12 };
+
+  it("is what refuses a capture at the shutter: the OS and memory shortfalls, never the camera", () => {
+    // the camera is judged on the photo itself by rules.ts; here it would only repeat that
+    const short = { os: "Android", osVersion: "11", apiLevel: 30, totalMemory: 3 * GB };
+    expect(deviceRefusals(short, strict).map((f) => `${f.code}:${f.severity}`)).toEqual([
+      "device_os:block",
+      "device_memory:block",
+    ]);
+    expect(deviceRefusals({ os: "Android", osVersion: "14", apiLevel: 34, totalMemory: 6 * GB }, strict)).toEqual([]);
+  });
+
+  it("refuses nothing when the task asks nothing, or the phone would not say", () => {
+    expect(deviceRefusals({ os: "Android", osVersion: "8.1.0", totalMemory: 1 * GB }, { media: ["photo"] })).toEqual([]);
+    expect(deviceRefusals({ os: "Android" }, strict)).toEqual([]);
   });
 });

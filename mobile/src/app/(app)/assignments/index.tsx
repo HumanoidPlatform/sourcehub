@@ -5,12 +5,14 @@ import { Link, useRouter } from "expo-router";
 import { useMemo } from "react";
 import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import type { Assignment } from "@/api/types";
+import type { Assignment, OfferRow } from "@/api/types";
 import { boardStatus, summary, unitsOf } from "@/batches";
 import { useSession } from "@/auth/AuthProvider";
-import { useAssignments, useNotifications, useOutboxSummary } from "@/query/hooks";
+import { offerAmount, openOffers, placesText, respondBy } from "@/offers";
+import { useAssignments, useNotifications, useOffers, useOutboxSummary } from "@/query/hooks";
 import { SECTION_ORDER, assignmentStatus, meta } from "@/status";
 import { C, Callout, Empty, Meter, Pill, s } from "@/ui";
+import { uploadService } from "@/upload/service";
 
 const SECTION_TITLE: Record<string, string> = {
   rejected: "Needs rework",
@@ -27,6 +29,10 @@ export default function Board() {
   const q = useAssignments();
   const bell = useNotifications();
   const outbox = useOutboxSummary();
+  // Tasks offered and not yet answered come first: they are the one thing
+  // on the board with a clock running against the worker (offers.ts).
+  const offers = useOffers();
+  const offered = useMemo(() => openOffers(offers.data ?? []), [offers.data]);
 
   const sections = useMemo(() => {
     const rows = q.data ?? [];
@@ -60,16 +66,33 @@ export default function Board() {
 
       <ScrollView
         contentContainerStyle={{ padding: 16, paddingTop: 8 }}
-        refreshControl={<RefreshControl refreshing={q.isFetching && !q.isLoading} onRefresh={() => void q.refetch()} />}
+        refreshControl={
+          <RefreshControl
+            refreshing={q.isFetching && !q.isLoading}
+            onRefresh={() => void Promise.all([q.refetch(), offers.refetch()])}
+          />
+        }
       >
         {(queued > 0 || failed > 0) && (
           <Callout tone={failed ? "critical" : "active"} title={failed ? `${failed} upload${failed === 1 ? "" : "s"} failed` : `${queued} upload${queued === 1 ? "" : "s"} in progress`}>
-            {failed ? "Open the assignment to retry or discard them." : "Keep the app open on this Wi-Fi until they finish."}
+            {failed
+              ? "Open the assignment to retry or discard them."
+              : uploadService.available
+                ? "They carry on in the background, even with the screen off."
+                : "Keep the app open on this Wi-Fi until they finish."}
           </Callout>
         )}
         {q.isError && <Callout tone="critical" title="Could not reach the server">Pull down to try again.</Callout>}
-        {q.data && q.data.length === 0 && (
-          <Empty title="Nothing assigned yet" hint="When your aggregator assigns you work it appears here." />
+        {q.data && q.data.length === 0 && offered.length === 0 && (
+          <Empty title="Nothing assigned yet" hint="When your aggregator assigns or offers you work it appears here." />
+        )}
+        {offered.length > 0 && (
+          <View style={{ marginBottom: 18 }}>
+            <Text style={[s.label, { marginBottom: 8 }]}>Offered to you</Text>
+            {offered.map((o) => (
+              <OfferCard key={o.id} o={o} onPress={() => router.push(`/offers/${o.id}`)} />
+            ))}
+          </View>
         )}
         {sections.map((sec) => (
           <View key={sec.status} style={{ marginBottom: 18 }}>
@@ -81,6 +104,23 @@ export default function Board() {
         ))}
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+/** An offer not yet answered: what, how much, and how long there is to say.
+ *  The answer itself lives on the offer screen, behind the brief and the
+ *  device check — one tap here is a look, never an acceptance. */
+function OfferCard({ o, onPress }: { o: OfferRow; onPress: () => void }) {
+  return (
+    <Pressable onPress={onPress} accessibilityRole="button" style={({ pressed }) => [s.card, { borderColor: C.accent }, pressed && { opacity: 0.85 }]}>
+      <View style={[s.row, { justifyContent: "space-between", marginBottom: 6 }]}>
+        <Text style={[s.h2, { flex: 1, marginRight: 8 }]} numberOfLines={2}>{o.task.title}</Text>
+        <Pill tone="attention">Offer</Pill>
+      </View>
+      <Text style={[s.mono, { marginBottom: 8 }]}>{o.task.reference_code} · {o.org_name}</Text>
+      <Text style={s.body}>{offerAmount(o)}{o.due_on ? ` · due ${o.due_on}` : ""}</Text>
+      <Text style={[s.muted, { marginTop: 6 }]}>{respondBy(o)} · {placesText(o)}</Text>
+    </Pressable>
   );
 }
 

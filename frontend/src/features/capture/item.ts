@@ -42,6 +42,10 @@ export interface QueueItem {
    *  that answers 0 with no offline ever seen is more likely a storage bucket
    *  refusing the origin (CORS) than a dropped connection. */
   saw_offline: boolean;
+  /** PUTs answered by nothing at all, in a row; two of them while online is
+   *  read as the bucket refusing the origin (uploader.ts). Counted apart from
+   *  `attempts`, which a refused link also raises. */
+  empty_answers?: number;
   created_at: number;
 }
 

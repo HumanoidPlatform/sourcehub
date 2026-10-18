@@ -5,8 +5,22 @@
 // readings of an assignment's progress (the capture counts, and the same four
 // in the task's unit as *_units); these pick the one that measures the share.
 
-import type { Assignment } from "@api/types";
+import type { Assignment, CaptureSpec } from "@api/types";
 import { quantityWords } from "@shared/pricing";
+
+/** The phone a task demands, as the brief reads it: "Android 12+ · iOS 16+ ·
+ *  4 GB RAM or more". Null when the client set no device requirement, and
+ *  then nothing is asked of any phone. The worker's phone warns of a shortfall
+ *  before the task and refuses captures that fall short (mobile
+ *  qa_pipeline/device/device.ts); the free-text notes it cannot check. */
+export function deviceWords(spec: CaptureSpec | null | undefined): string | null {
+  if (!spec) return null;
+  const parts: string[] = [];
+  if (spec.min_android_version) parts.push(`Android ${spec.min_android_version}+`);
+  if (spec.min_ios_version) parts.push(`iOS ${spec.min_ios_version}+`);
+  if (spec.min_ram_gb) parts.push(`${spec.min_ram_gb} GB RAM or more`);
+  return parts.length ? parts.join(" · ") : null;
+}
 
 /** Whether a unit is measured by running time rather than counted. */
 export const byDuration = (unit: string | null | undefined): boolean => unit === "hours" || unit === "audio_hours";

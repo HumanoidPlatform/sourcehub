@@ -1,0 +1,40 @@
+# Generic "not the subject" phrases. Versioned with the tool: changing this list
+# changes every score, so a result names the list it was scored with
+# (out/<model>/negatives_used.json). No negations ("no shelf"): CLIP reads them
+# as the thing itself.
+a floor
+a ceiling
+a blank wall
+the sky
+a road
+grass
+the inside of a pocket
+a dark room
+a black screen
+a blurry photo
+an out of focus photo
+a photo of a finger over the lens
+a screenshot
+a computer screen
+a phone screen
+a selfie
+a person's face
+a group of people
+a hand
+feet
+a document
+a piece of paper
+a car interior
+a bedroom
+a bathroom
+a kitchen
+a door
+a window
+a dog
+a cat
+food on a plate
+a tree
+a building
+a street
+an empty room
+a table

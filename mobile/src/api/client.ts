@@ -91,6 +91,26 @@ export async function saveSession(s: Session | null): Promise<void> {
   onSessionChange?.(s);
 }
 
+// --- requests that give up ----------------------------------------------------
+
+/** No request waits longer than this. A connection that neither answered nor
+ *  closed used to hold the uploader's loop open until the app was restarted
+ *  (upload/uploader.ts): every kick found it still "running". */
+const REQUEST_TIMEOUT_MS = 30_000;
+
+/** fetch with a deadline; the error says which of the two things happened */
+async function timedFetch(url: string, init: RequestInit): Promise<Response> {
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), REQUEST_TIMEOUT_MS);
+  try {
+    return await fetch(url, { ...init, signal: ctl.signal });
+  } catch {
+    throw new ApiError(0, ctl.signal.aborted ? "The server did not answer in time." : "No connection to the server.");
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 // --- refresh, single-flight ------------------------------------------------
 
 let refreshing: Promise<Session | null> | null = null;
@@ -102,7 +122,7 @@ async function tryRefresh(): Promise<Session | null> {
     refreshing = (async () => {
       try {
         const base = await getBaseUrl();
-        const r = await fetch(`${base}/api/v1/auth/refresh`, {
+        const r = await timedFetch(`${base}/api/v1/auth/refresh`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ refresh_token: cur.refresh_token }),
@@ -139,19 +159,14 @@ export async function api<T = unknown>(
   const session = await loadSession();
   const base = await getBaseUrl();
 
-  let r: Response;
-  try {
-    r = await fetch(`${base}/api/v1${path}`, {
-      method,
-      headers: {
-        ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
-        ...(session ? { Authorization: `Bearer ${session.access_token}` } : {}),
-      },
-      body: body !== undefined ? JSON.stringify(body) : undefined,
-    });
-  } catch {
-    throw new ApiError(0, "No connection to the server.");
-  }
+  const r = await timedFetch(`${base}/api/v1${path}`, {
+    method,
+    headers: {
+      ...(body !== undefined ? { "Content-Type": "application/json" } : {}),
+      ...(session ? { Authorization: `Bearer ${session.access_token}` } : {}),
+    },
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  });
 
   if (r.status === 401 && !retried && !path.startsWith("/auth/")) {
     const renewed = await tryRefresh();

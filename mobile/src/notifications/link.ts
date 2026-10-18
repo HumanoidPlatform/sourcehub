@@ -12,5 +12,7 @@ export function target(n: NotificationLink): string {
   const raw = n.link_params?.id ?? n.link_params?.assignment_id;
   const id = typeof raw === "string" && raw ? raw : null;
   if (n.link_page === "assignment" && id) return `/assignments/${id}`;
+  // an offer's id is its recipient row; the screen reads the brief and answers
+  if (n.link_page === "offer" && id) return `/offers/${id}`;
   return "/assignments";
 }

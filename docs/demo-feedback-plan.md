@@ -364,7 +364,7 @@ every worker who captured data.
   - minimum megapixels and video resolution;
   - LiDAR required;
   - GPS required.
-- **Phone check before work starts:** the app compares the phone with the requirements. If they aren't met, the worker sees what's missing and cannot start.
+- **Phone check before work starts:** the app compares the phone with the requirements the client set. If they aren't met, the worker sees what's missing as a warning, can still accept and start, and every capture that falls short is refused on the phone.
 - **Every capture records the device.** The server cross-checks it against the photo's own metadata and flags mismatches for QA.
 - **Aggregators see each worker's device,** so they assign work only to eligible workers.
 - **Web uploads** on RFPs with device requirements are blocked or flagged.
@@ -374,7 +374,7 @@ every worker who captured data.
 - Device information is personal data, so the privacy notice must be updated.
 - Phone-reported values can be faked, so server cross-checks and QA review are the backstop.
 
-**Done when:** a phone that doesn't meet the rules cannot start work, every accepted capture shows its device, and
+**Done when:** a phone that doesn't meet the client's requirements is warned and has its captures refused, every accepted capture shows its device, and
 mismatches are flagged.
 
 **Decisions needed:**

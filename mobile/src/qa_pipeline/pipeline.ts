@@ -41,7 +41,7 @@ import {
   type UnscoredReason,
 } from "@/qa_pipeline/subject/subject";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
-import { deviceFinding, thisDevice } from "@/qa_pipeline/device/device";
+import { deviceFinding, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
 import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
 import { frameAt, greyImage, sampleFrames } from "@/qa_pipeline/clip/frames";
 import { blurFinding, framesBlurFinding, measureSharpness, type Sharpness } from "@/qa_pipeline/blur/blur";
@@ -184,6 +184,10 @@ export function useCapture(
         spec,
         targetUnit,
       );
+      // The phone itself, against the task's device requirements: a capture
+      // from a phone under them is refused here like any other, after the
+      // worker was warned on the assignment screen (device.ts).
+      findings.push(...deviceRefusals(thisDevice(), spec));
       const blocked = blocking(findings);
       if (blocked.length > 0) await refuse(session.user_id, assignmentId, moved.uri, blocked);
 

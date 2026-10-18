@@ -169,7 +169,8 @@ class _PresignSession:
     check; records the insert and any metadata update."""
 
     def __init__(self, existing: dict[str, Any] | None = None):
-        self.existing = existing
+        # a single PUT, as every row here: the chunked path (db/540) has its own tests
+        self.existing = {"upload_session": None, **existing} if existing else None
         self.inserts: list[dict[str, Any]] = []
         self.updates: list[dict[str, Any]] = []
 
@@ -177,7 +178,7 @@ class _PresignSession:
         sql, p = str(statement), dict(params or {})
         if sql.startswith("SELECT ta.id, ta.task_id"):
             return _Rows([_assignment()])
-        if sql.startswith("SELECT id, status, storage_key, metadata FROM asset"):
+        if sql.startswith("SELECT id, status, storage_key, metadata, upload_session FROM asset"):
             return _Rows([self.existing] if self.existing else [])
         if sql.startswith("SELECT count(*) AS n"):
             return _Rows([{"n": 0, "units": Decimal(0)}])
@@ -339,7 +340,7 @@ def _row(status: str = "pending", **meta: Any) -> dict[str, Any]:
     return {
         "id": uuid.uuid4(), "assignment_id": ASSIGNMENT, "storage_key": "acme/k.jpg",
         "filename": "k.jpg", "size_bytes": 1024, "status": status, "storage_target_id": TARGET,
-        "metadata": {"kind": "image", **meta},
+        "metadata": {"kind": "image", **meta}, "mime_type": "image/jpeg", "upload_session": None,
     }
 
 

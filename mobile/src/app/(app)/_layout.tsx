@@ -36,6 +36,7 @@ export default function AppLayout() {
         <Stack.Screen name="assignments/index" options={{ title: "My assignments" }} />
         <Stack.Screen name="assignments/[id]/index" options={{ title: "Assignment" }} />
         <Stack.Screen name="assignments/[id]/capture" options={{ title: "Capture", headerShown: false }} />
+        <Stack.Screen name="offers/[id]" options={{ title: "Task offer" }} />
         <Stack.Screen name="notifications" options={{ title: "Notifications", presentation: "modal" }} />
         <Stack.Screen name="settings" options={{ title: "Settings" }} />
         <Stack.Screen name="change-password" options={{ title: "Set a new password" }} />

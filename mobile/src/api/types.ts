@@ -86,6 +86,11 @@ export interface CaptureSpec {
   min_video_lines?: number | null;
   /** a clip may be picked from the phone's gallery rather than recorded */
   allow_library?: boolean | null;
+  /** the phone this task demands, checked before it starts
+   *  (qa_pipeline/device/device.ts): Android release, iOS major, GB of memory */
+  min_android_version?: number | null;
+  min_ios_version?: number | null;
+  min_ram_gb?: number | null;
   require_gps?: boolean;
   min_megapixels?: number | null;
   orientation?: string | null;
@@ -156,7 +161,37 @@ export interface Assignment {
   };
 }
 
-export type AssetStatus = "pending" | "uploaded" | "ready" | "quarantined" | "rejected" | "erased";
+/** A task offered to this worker (backend delivery.my_offers). `id` is the
+ *  recipient row — what the answer is posted to. `state` is the server's word
+ *  for whether it can still be answered: open, or one of offers.ts
+ *  OFFER_STATE_TEXT. */
+export interface OfferRow {
+  id: string;
+  state: string;
+  org_name: string;
+  /** what accepting commits to, in the task's unit: captures, or hours */
+  quantity: number;
+  worker_limit: number;
+  places_left: number;
+  respond_by: string;
+  due_on: string | null;
+  instructions: string | null;
+  response: "accepted" | "declined" | null;
+  responded_at: string | null;
+  /** the assignment an accept became */
+  assignment_id: string | null;
+  task: {
+    id: string;
+    reference_code: string;
+    title: string;
+    instructions: string | null;
+    due_on: string | null;
+    target_unit: string | null;
+    capture_spec: CaptureSpec;
+  };
+}
+
+export type AssetStatus ="pending" | "uploaded" | "ready" | "quarantined" | "rejected" | "erased";
 
 export interface AssetRow {
   id: string;
@@ -193,10 +228,18 @@ export interface Presign {
   asset_id: string;
   storage_key: string;
   url: string | null;
-  method: "PUT";
+  /** RESUMABLE: no PUT URL; the file goes up in chunks as `upload` says */
+  method: "PUT" | "RESUMABLE";
   headers: Record<string, string>;
   expires_in: number;
   status: AssetStatus;
+  upload?: {
+    protocol: "gcs" | "azure" | "s3";
+    chunk_size: number;
+    size: number;
+    /** Google's session URL, which every chunk goes to; null for the other two */
+    session_url: string | null;
+  } | null;
 }
 
 export interface AssetUrl {

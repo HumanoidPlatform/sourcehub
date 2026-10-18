@@ -2,7 +2,7 @@
   "expo": {
     "name": "DataMind360 Capture",
     "slug": "cosarathi-capture",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "cosarathi",
@@ -89,7 +89,8 @@
             "usesCleartextTraffic": true
           }
         }
-      ]
+      ],
+      "./plugins/withUploadService"
     ],
     "experiments": {
       "typedRoutes": false

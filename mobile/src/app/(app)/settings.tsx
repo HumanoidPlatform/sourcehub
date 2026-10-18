@@ -8,14 +8,15 @@ import { Alert, Linking, Text, TextInput, View } from "react-native";
 import { getBaseUrl, setBaseUrl } from "@/api/client";
 import { useAuth, useSession } from "@/auth/AuthProvider";
 import { APP_NAME, ROLE_LABEL } from "@/brand";
-import { deleteLocal } from "@/capture/files";
 import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { POLICY_URL } from "@/consent";
 import { useConsent } from "@/consentStore";
-import { discardFailed, onOutboxChange, retryFailed, summary, type OutboxSummary } from "@/db/outbox";
+import { discardFailed, onOutboxChange, retryFailed, retryNow, summary, type OutboxSummary } from "@/db/outbox";
 import { pushState, registerForPush, type PushState } from "@/notifications/push";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
+import { dropCaptures } from "@/upload/drop";
 import { useUploadLog } from "@/upload/log";
+import { uploadService } from "@/upload/service";
 import { uploader } from "@/upload/uploader";
 
 const PUSH_TEXT: Record<PushState, string> = {
@@ -67,9 +68,15 @@ export default function Settings() {
       <View style={s.card}>
         <Text style={[s.label, { marginBottom: 4 }]}>Uploads on this phone</Text>
         <Text style={s.body}>{box.queued} waiting · {box.failed} failed · {box.confirmed} done</Text>
-        <Text style={[s.muted, { marginTop: 4 }]}>Uploads run while the app is open and connected. Uninstalling deletes captures that have not been uploaded.</Text>
+        <Text style={[s.muted, { marginTop: 4 }]}>
+          {uploadService.available
+            ? "Uploads carry on in the background while there is something to send; a notification shows how far they are. A poor connection only delays them."
+            : "Uploads run while the app is open and connected. A poor connection only delays them."}{" "}
+          Uninstalling deletes captures that have not been uploaded.
+        </Text>
         <View style={[s.row, { marginTop: 10 }]}>
-          <Button title="Upload now" onPress={() => uploader.kick()} style={{ flex: 1 }} />
+          {/* "now" means now: a row waiting out a backoff goes at once */}
+          <Button title="Upload now" onPress={() => void retryNow().then(() => uploader.kick())} style={{ flex: 1 }} />
           <Button title="Retry failed" onPress={() => void retryFailed().then(() => uploader.kick())} disabled={!box.failed} style={{ flex: 1 }} />
         </View>
         {box.failed > 0 && (
@@ -80,7 +87,7 @@ export default function Settings() {
             onPress={() =>
               Alert.alert("Discard all failed captures?", "The files are deleted from this phone.", [
                 { text: "Keep", style: "cancel" },
-                { text: "Discard", style: "destructive", onPress: () => void discardFailed().then((rows) => Promise.all(rows.map((r) => deleteLocal(r.local_uri)))) },
+                { text: "Discard", style: "destructive", onPress: () => void discardFailed().then(dropCaptures) },
               ])
             }
           />
