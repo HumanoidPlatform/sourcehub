@@ -33,7 +33,7 @@
 // ML Kit decides as before. Nothing here ever blocks a capture.
 
 import type { SubjectSpec } from "@/api/types";
-import { CLIP_SUBJECT_MIN_MARGIN } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
 import type { Finding } from "@/qa_pipeline/rules/rules";
 import { words } from "@/qa_pipeline/subject/subject";
 
@@ -203,6 +203,87 @@ export function clipFinding(margin: number, subject: SubjectSpec, frames?: { fra
   };
 }
 
+// ---------------------------------------------------------------------------
+// The client's example photos, the CLIP way.
+//
+// The ML Kit version (qa_pipeline/examples) compares label lists; CLIP
+// compares the pictures themselves: each example is embedded once, whole
+// frame, and a capture's similarity is the best match between any of its six
+// views and any example. It rides beside the word check exactly as the ML Kit
+// one does — the keep-or-retake question is asked only when BOTH miss
+// (pipeline.ts prompted) — so the examples can rescue a shot the words got
+// wrong but never condemn one on their own.
+//
+// CLIP_EXAMPLE_MIN_SIMILARITY was set on the laptop test set with three
+// examples per subject: words alone warned on 11% of good photos and passed
+// 3% of wrong ones; words OR examples at 0.74 warned on 4% and passed 5%.
+// ---------------------------------------------------------------------------
+
+export interface ClipExample {
+  attachmentId: string;
+  filename: string;
+  /** the example's whole frame, as one unit vector */
+  vec: Float32Array;
+}
+
+/** What the phone holds for a task: `expected` from the assignment, `ready`
+ *  embedded. They differ while the models download or when an example could
+ *  not be fetched, and that gap is recorded, never read as a match. */
+export interface ClipExampleSet {
+  expected: number;
+  ready: ClipExample[];
+}
+
+export interface ExampleSimilarity {
+  /** the best cosine similarity between any view and any example */
+  score: number;
+  /** the example it looked most like */
+  best: string | null;
+}
+
+export function exampleSimilarity(viewVecs: Float32Array[], examples: ClipExample[]): ExampleSimilarity {
+  let score = -1;
+  let best: string | null = null;
+  for (const e of examples) {
+    for (const v of viewVecs) {
+      const s = dot(v, e.vec);
+      if (s > score) {
+        score = s;
+        best = e.filename;
+      }
+    }
+  }
+  return { score, best };
+}
+
+export function examplesMissed(score: number): boolean {
+  return score < CLIP_EXAMPLE_MIN_SIMILARITY;
+}
+
+/** How much the capture looks like the client's examples, recorded pass or
+ *  fail. Info: the worker is asked only when the words miss too. */
+export function clipExamplesFinding(score: number, examples: number, detail: Record<string, unknown>): Finding {
+  return {
+    code: "subject_clip_examples",
+    severity: "info",
+    message: `Looks ${Math.round(score * 100)}% like the client's examples (${
+      examplesMissed(score) ? "miss" : "match"
+    } at ${CLIP_EXAMPLE_MIN_SIMILARITY}).`,
+    score: Number(score.toFixed(4)),
+    detail: { model: "clip-vit-b32", threshold: CLIP_EXAMPLE_MIN_SIMILARITY, examples, ...detail },
+  };
+}
+
+/** The task has examples and CLIP could not compare against any of them. */
+export function clipExamplesUncheckedFinding(expected: number): Finding {
+  return {
+    code: "subject_clip_examples_unchecked",
+    severity: "info",
+    message: `CLIP did not compare this capture with the client's ${expected} example photo${expected === 1 ? "" : "s"}.`,
+    detail: { expected },
+  };
+}
+
 export type ClipUnscored = "loading" | "no_model" | "error";
 
 /** Why CLIP gave no answer. Info, not a warning: on trial, ML Kit decided. */
@@ -330,7 +411,28 @@ export function textVectors(subject: SubjectSpec): Promise<TextVectors> | null {
   return v;
 }
 
-export type ClipResult = { margins: ViewsMargin; ms: number } | { unscored: ClipUnscored; error?: string };
+export type ClipResult =
+  | {
+      margins: ViewsMargin;
+      ms: number;
+      /** the six views' vectors, kept so the examples cost no second pass */
+      vecs: Float32Array[];
+    }
+  | { unscored: ClipUnscored; error?: string };
+
+/** One image's whole frame, as one unit vector: what an example is stored as.
+ *  Null until the models are ready. */
+export async function embedWhole(rgba: { width: number; height: number; data: Uint8Array }): Promise<Float32Array | null> {
+  if (!ready) return null;
+  const r = views(rgba.width, rgba.height)[0];
+  return ready.image.embed({
+    data: cropRgb(rgba.data, rgba.width, r),
+    width: r.size,
+    height: r.size,
+    format: "rgb",
+    layout: "hwc",
+  });
+}
 
 /** Score one image (RGBA, already decoded) against the subject. */
 export async function scoreImage(
@@ -352,7 +454,7 @@ export async function scoreImage(
     const margins = marginOf(vecs, text);
     const ms = Date.now() - t0;
     console.log(`[clip] margin ${margins.margin.toFixed(4)} (${VIEW_NAME[margins.view]}) in ${ms} ms`);
-    return { margins, ms };
+    return { margins, ms, vecs };
   } catch (e) {
     return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
   }

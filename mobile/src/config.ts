@@ -67,6 +67,12 @@ export const CLIP_SUBJECT_MIN_MARGIN = -0.0013;
 /** The size photos are shrunk to before CLIP looks at them: wide enough that
  *  each quarter view is still the model's own 224 pixels. */
 export const CLIP_IMAGE_WIDTH = 448;
+/** How alike a capture and one of the client's example photos must look, to
+ *  CLIP, for the examples to count as a match (cosine similarity, 0..1). Like
+ *  the ML Kit example check it only rescues: the worker is asked when the
+ *  words AND the examples miss. Set on the laptop test set (three examples per
+ *  subject); provisional, like the margin above. */
+export const CLIP_EXAMPLE_MIN_SIMILARITY = 0.74;
 /** How much a capture must look like the client's own example photos
  *  (qa_pipeline/examples/examples.ts) before that stops counting against it.
  *

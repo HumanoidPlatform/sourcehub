@@ -47,11 +47,16 @@ import {
   type UnscoredReason,
 } from "@/qa_pipeline/subject/subject";
 import {
+  type ClipExampleSet,
+  clipExamplesFinding,
+  clipExamplesUncheckedFinding,
   clipFinding,
   clipMeasured,
   clipMode,
   type ClipResult,
   clipUnscoredFinding,
+  exampleSimilarity,
+  examplesMissed,
   framesMargin,
   photoDetail,
   scoreImage,
@@ -142,6 +147,9 @@ export function useCapture(
   /** the position the camera screen keeps warm (location.watchFix), read at
    *  the shutter; a stable getter, so a new reading does not rebuild this */
   warmFix?: () => Fix | null,
+  /** the client's example photos as CLIP embedded them (on trial; a stable
+   *  getter, read at the shutter, so a late download is still used) */
+  clipExamples?: () => ClipExampleSet | null,
 ) {
   return useCallback(
     // tilt is sampled by the caller, not read here: an async read after the
@@ -319,6 +327,9 @@ export function useCapture(
         const clipMargins: number[] = [];
         let clipMiss: Exclude<ClipResult, { margins: unknown }> | null = null;
         let clipMs = 0;
+        // and its likeness to the client's examples, from the same frame vectors
+        const clipEx = clipOn ? (clipExamples?.() ?? null) : null;
+        const clipExSims: number[] = [];
         const sampled = await sampleFrames(
           moved.uri,
           times,
@@ -332,6 +343,7 @@ export function useCapture(
               if ("margins" in r) {
                 clipMargins.push(r.margins.margin);
                 clipMs += r.ms;
+                if (clipEx && clipEx.ready.length > 0) clipExSims.push(exampleSimilarity(r.vecs, clipEx.ready).score);
               } else clipMiss = r;
             }
             if ((!subject && !usable) || noLabeller) return;
@@ -410,13 +422,27 @@ export function useCapture(
           const miss: { reason: UnscoredReason } = lastMiss ?? { reason: "timeout" };
           findings.push(examplesUncheckedFinding(examples.expected, miss.reason));
         }
+        // CLIP's examples, the same rule as ML Kit's; in "decide" mode, once
+        // CLIP has scored the words, its examples stand in for ML Kit's too
+        let usedExamples = usable !== null;
+        let examplesPassed = usable ? exampleScores.length > 0 && !exampleMiss : true;
+        const clipDecided = clipOn && clipMode() === "decide" && clipMargins.length > 0;
+        if (clipOn) {
+          const cx = clipExamplesCheck(clipEx, clipExSims.length > 0 ? framesMargin(clipExSims) : null, findings, {
+            frames: clipExSims.length,
+          });
+          if (clipDecided) {
+            exampleMiss = cx.miss;
+            usedExamples = cx.used;
+            examplesPassed = !cx.miss;
+          }
+        }
         if (wordMiss) findings.push(wordMiss);
-        finding = prompted(wordMiss, exampleMiss, usable !== null);
+        finding = prompted(wordMiss, exampleMiss, usedExamples);
         // "Looks like the subject" only where a check actually looked and
         // passed. A clip with no subject and no examples, or one whose frames
         // could not be labelled, was never judged and must not be praised.
-        const wordsPassed = subject ? scores.length > 0 && wordMiss === null : true;
-        const examplesPassed = usable ? exampleScores.length > 0 && !exampleMiss : true;
+        const wordsPassed = subject ? (clipDecided || scores.length > 0) && wordMiss === null : true;
         onSubject = (subject != null || usable != null) && wordsPassed && examplesPassed;
       } else if (subject || usable) {
         const seen = await labelImage(moved.uri);
@@ -429,6 +455,7 @@ export function useCapture(
           return { kept: true, findings: await queue(findings) };
         }
         let wordMiss: Finding | null = null;
+        let clipVecs: Float32Array[] | null = null;
         if (subject) {
           const scored = scoreSubject(seen.labels, subject);
           // Prohibition is its own question now, and its own warning: it rides
@@ -445,6 +472,7 @@ export function useCapture(
             const r = await clipScore(moved.uri, subject);
             if ("margins" in r) {
               findings.push(clipMeasured(r.margins.margin, photoDetail(r.margins, r.ms)));
+              clipVecs = r.vecs;
               if (clipMode() === "decide") wordMiss = clipFinding(r.margins.margin, subject);
             } else {
               findings.push(clipUnscoredFinding(r.unscored, r.error));
@@ -458,7 +486,18 @@ export function useCapture(
           findings.push(examplesFinding(ex));
           exampleMiss = missedExamples(ex);
         }
-        finding = prompted(wordMiss, exampleMiss, usable !== null);
+        // CLIP's examples, compared against the six views it already has
+        let usedExamples = usable !== null;
+        if (subject && clipMode() !== "off") {
+          const set = clipExamples?.() ?? null;
+          const sim = clipVecs && set && set.ready.length > 0 ? exampleSimilarity(clipVecs, set.ready) : null;
+          const cx = clipExamplesCheck(set, sim?.score ?? null, findings, { best: sim?.best ?? null });
+          if (clipMode() === "decide" && clipVecs) {
+            exampleMiss = cx.miss;
+            usedExamples = cx.used;
+          }
+        }
+        finding = prompted(wordMiss, exampleMiss, usedExamples);
         onSubject = wordMiss === null && !exampleMiss;
       }
 
@@ -480,7 +519,7 @@ export function useCapture(
 
       return { kept: true, findings: await queue(findings), onSubject };
     },
-    [assignmentId, taskRef, spec, targetUnit, examples, replacesAssetId, warmFix],
+    [assignmentId, taskRef, spec, targetUnit, examples, replacesAssetId, warmFix, clipExamples],
   );
 }
 
@@ -508,6 +547,24 @@ async function clipScore(uri: string, subject: SubjectSpec): Promise<ClipResult>
   } catch (e) {
     return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
   }
+}
+
+/** CLIP's example verdict, recorded either way: `used` when there were
+ *  examples to compare against and a score came back, `miss` when it fell
+ *  short. A task with examples that could not be compared says so. */
+function clipExamplesCheck(
+  set: ClipExampleSet | null,
+  score: number | null,
+  findings: Finding[],
+  detail: Record<string, unknown>,
+): { used: boolean; miss: boolean } {
+  if (!set || set.expected === 0) return { used: false, miss: false };
+  if (set.ready.length === 0 || score == null) {
+    findings.push(clipExamplesUncheckedFinding(set.expected));
+    return { used: false, miss: false };
+  }
+  findings.push(clipExamplesFinding(score, set.ready.length, detail));
+  return { used: true, miss: examplesMissed(score) };
 }
 
 function prompted(wordMiss: Finding | null, exampleMiss: boolean, usedExamples: boolean): Finding | null {

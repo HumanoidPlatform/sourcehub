@@ -131,6 +131,11 @@ download and the last shot's score on both checks, and Metro logs `[clip] …`.
 It needs a development build made after the library was added (a native
 module), and it is read under `__DEV__` only, so an `eas update` cannot turn
 it on for workers. `CLIP_SUBJECT_MIN_MARGIN` in `src/config.ts` is its cut.
+The client's example photos are used the same way the ML Kit version uses
+them: CLIP embeds each one (`src/qa_pipeline/subject/clipExamples.ts`), every
+capture records how alike it looks (`subject_clip_examples`), and in `decide`
+mode the worker is asked only when the subject words AND the examples miss
+(`CLIP_EXAMPLE_MIN_SIMILARITY`).
 
 A clip gets the same treatment through its frames (`src/validation/clip.ts`,
 `src/capture/frames.ts`): one frame every five seconds, three to forty of

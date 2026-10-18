@@ -1,8 +1,12 @@
 // The CLIP subject check's arithmetic, from canned vectors. No model runs here.
 
 import type { SubjectSpec } from "@/api/types";
-import { CLIP_SUBJECT_MIN_MARGIN } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
 import {
+  clipExamplesFinding,
+  clipExamplesUncheckedFinding,
+  exampleSimilarity,
+  examplesMissed,
   clipFinding,
   clipMeasured,
   clipMode,
@@ -97,6 +101,30 @@ describe("the findings", () => {
       expect(f.severity).toBe("info");
       expect(f.score).toBeCloseTo(m);
     }
+  });
+});
+
+describe("the client's examples", () => {
+  const shelf = { attachmentId: "a1", filename: "shelf.jpg", vec: unit(1, 0, 0) };
+  const aisle = { attachmentId: "a2", filename: "aisle.jpg", vec: unit(0, 1, 0) };
+
+  it("score the best match between any view and any example", () => {
+    const s = exampleSimilarity([unit(0, 0, 1), unit(1, 1, 0)], [shelf, aisle]);
+    expect(s.score).toBeCloseTo(Math.SQRT1_2);
+    expect(s.best).toBe("shelf.jpg");
+  });
+
+  it("miss under the pass mark and match at it", () => {
+    expect(examplesMissed(CLIP_EXAMPLE_MIN_SIMILARITY - 0.01)).toBe(true);
+    expect(examplesMissed(CLIP_EXAMPLE_MIN_SIMILARITY)).toBe(false);
+  });
+
+  it("are recorded as information, never as a complaint", () => {
+    const f = clipExamplesFinding(0.5, 3, { best: "shelf.jpg" });
+    expect(f.code).toBe("subject_clip_examples");
+    expect(f.severity).toBe("info");
+    expect(f.detail).toMatchObject({ examples: 3, best: "shelf.jpg" });
+    expect(clipExamplesUncheckedFinding(2).severity).toBe("info");
   });
 });
 

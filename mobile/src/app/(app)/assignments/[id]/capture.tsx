@@ -16,7 +16,8 @@ import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
-import { CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { clipExampleSet, warmClipExamples } from "@/qa_pipeline/subject/clipExamples";
 import {
   clipMode,
   type ClipStatus,
@@ -106,8 +107,15 @@ function trialLine(findings: Finding[]): string {
         typeof clip.detail?.ms === "number" ? ` (${clip.detail.ms} ms)` : ""
       }`
     : `CLIP not scored (${String(clipNot?.detail?.reason ?? "?")})`;
+  const ex = findings.find((f) => f.code === "subject_clip_examples");
+  const exNot = findings.find((f) => f.code === "subject_clip_examples_unchecked");
+  const exText = ex
+    ? ` · examples ${ex.score?.toFixed(2)} ${(ex.score ?? 0) >= CLIP_EXAMPLE_MIN_SIMILARITY ? "match" : "miss"}`
+    : exNot
+      ? " · examples not compared"
+      : "";
   const mkText = mk ? `ML Kit ${mk.message.replace(/^Subject scored /, "")}` : "ML Kit not scored";
-  return `${clipText} · ${mkText}`;
+  return `${clipText}${exText} · ${mkText}`;
 }
 
 export default function Capture() {
@@ -207,15 +215,11 @@ export default function Capture() {
   // has to wait on a new GPS lock (qa_pipeline/location/location.ts watchFix).
   const warmFix = useRef<Fix | null>(null);
   const readWarmFix = useCallback(() => warmFix.current, []);
-  const save = useCapture(
-    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
-  );
-
   // The CLIP subject check on trial (development builds only; clipSubject.ts).
-  // The models download when the camera opens, and the subject's phrases are
-  // embedded once they are in, so the first shot does not wait on either. A
-  // line on screen says where that stands and what the last shot scored on
-  // both checks, side by side.
+  // The models download when the camera opens; the subject's phrases and the
+  // client's example photos are embedded once they are in, so the first shot
+  // does not wait on any of it. A line on screen says where that stands and
+  // what the last shot scored on both checks, side by side.
   const clipOn = clipMode() !== "off";
   const [clip, setClip] = useState<ClipStatus>(clipStatus());
   const [trial, setTrial] = useState<string | null>(null);
@@ -226,9 +230,16 @@ export default function Capture() {
     const subject = spec?.subject;
     void warmClip()
       ?.then(() => (subject ? textVectors(subject) : null))
+      .then(() => warmClipExamples(docs))
       .catch(() => undefined);
     return off;
-  }, [clipOn, subjectKey]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [clipOn, subjectKey, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+  const readClipExamples = useCallback(() => (clipOn ? clipExampleSet(docs) : null), [clipOn, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const save = useCapture(
+    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
+    readClipExamples,
+  );
 
   // The server sends a list; a task made before capture-spec inheritance sends
   // a string. Reading it raw is what used to open a video-only task in photo
