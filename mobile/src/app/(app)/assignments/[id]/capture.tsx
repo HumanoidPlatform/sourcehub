@@ -22,7 +22,7 @@ import { useAssignments, useOutbox } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
 import type { ExampleSet } from "@/qa_pipeline/examples/examples";
-import { type Finding, mediaKinds, numeric, wantedOrientation } from "@/qa_pipeline/rules/rules";
+import { type Finding, mediaKinds, numeric, videoQualityFor, wantedOrientation } from "@/qa_pipeline/rules/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
  *
@@ -301,6 +301,28 @@ export default function Capture() {
     [navigation],
   );
 
+  // No assignment, no camera. Without it every capture was checked against no
+  // rules, the share-full stop was off, and each one was queued only for the
+  // server to refuse it: a deep link to a camera, or an assignment taken away
+  // while the camera was open. Never mid-recording, though: unmounting the
+  // camera then would lose the clip being filmed.
+  if (!a && !filming) {
+    return (
+      <SafeAreaView style={s.safe}>
+        <View style={s.pad}>
+          {list.isLoading ? (
+            <Text style={s.muted}>Loading…</Text>
+          ) : (
+            <Callout tone="attention" title="This assignment is not available">
+              {list.isError ? "Check the connection and try again." : "It may have been taken off you. Go back to your assignments."}
+            </Callout>
+          )}
+          <Button title="Back" variant="quiet" onPress={() => (router.canGoBack() ? router.back() : router.replace("/assignments"))} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   if (!camPerm) return null;
   if (!camPerm.granted) {
     return (
@@ -520,11 +542,20 @@ export default function Capture() {
 
   return (
     <View style={c.root}>
-      <CameraView ref={cam} style={c.camera} facing="back" mode={mode} mute={false} onCameraReady={onCameraReady} />
+      <CameraView
+        ref={cam}
+        style={c.camera}
+        facing="back"
+        mode={mode}
+        mute={false}
+        videoQuality={videoQualityFor(spec)}
+        onCameraReady={onCameraReady}
+      />
       <SafeAreaView style={c.overlay} pointerEvents="box-none">
         <View style={c.top}>
           <Pressable
-            onPress={() => router.back()}
+            // opened from a link there may be nothing to go back to
+            onPress={() => (router.canGoBack() ? router.back() : router.replace(`/assignments/${id}`))}
             disabled={filming}
             accessibilityRole="button"
             accessibilityState={{ disabled: filming }}

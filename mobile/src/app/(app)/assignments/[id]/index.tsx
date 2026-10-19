@@ -108,7 +108,20 @@ export default function AssignmentDetail() {
   if (!a) {
     return (
       <Screen>
-        {list.isLoading ? <Text style={s.muted}>Loading…</Text> : <Callout tone="critical" title="This assignment is no longer yours." />}
+        {list.isLoading ? (
+          <Text style={s.muted}>Loading…</Text>
+        ) : list.isError && !list.data ? (
+          // No list to look in is not the same as not being in it: a network
+          // failure used to tell the worker the assignment was taken away.
+          <>
+            <Callout tone="attention" title="Could not load your assignments.">
+              Check the connection and try again.
+            </Callout>
+            <Button title="Try again" onPress={() => void list.refetch()} />
+          </>
+        ) : (
+          <Callout tone="critical" title="This assignment is no longer yours." />
+        )}
       </Screen>
     );
   }

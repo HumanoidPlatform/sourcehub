@@ -57,7 +57,18 @@ export default function Offer() {
   if (!o) {
     return (
       <Screen>
-        {q.isLoading ? <Text style={s.muted}>Loading…</Text> : <Callout tone="neutral" title="This offer is no longer available." />}
+        {q.isLoading ? (
+          <Text style={s.muted}>Loading…</Text>
+        ) : q.isError && !q.data ? (
+          <>
+            <Callout tone="attention" title="Could not load your offers.">
+              Check the connection and try again.
+            </Callout>
+            <Button title="Try again" onPress={() => void q.refetch()} />
+          </>
+        ) : (
+          <Callout tone="neutral" title="This offer is no longer available." />
+        )}
         <Button title="Back" variant="quiet" onPress={() => router.back()} style={{ marginTop: 12 }} />
       </Screen>
     );
