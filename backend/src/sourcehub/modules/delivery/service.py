@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import datetime as dt
 import uuid
+from collections.abc import Mapping
 from decimal import ROUND_CEILING, Decimal
 from typing import Any
 
@@ -1663,12 +1664,22 @@ _STATE_MESSAGES = {
 }
 
 
-def offer_notice(org_name: str, task_ref: str, task_title: str, lead: str = "") -> str:
+def offer_notice(
+    org_name: str, task_ref: str, task_title: str, lead: str = "",
+    *, share: str | None = None, respond_by: dt.datetime | None = None,
+) -> str:
     """The bell row and the push for an offer, the first time and on every
-    reminder. It used to send the worker to their email; the phone answers an
-    offer itself now (mobile app/(app)/offers/[id].tsx), so it says to open it."""
+    reminder. Since db/550 it is the only notice the worker gets, so it carries
+    what they decide on — the share and when to answer by — and says to open
+    it: the phone answers an offer itself (mobile app/(app)/offers/[id].tsx)."""
     head = f"{lead} " if lead else ""
-    return f"{head}{org_name} is offering {task_ref} {task_title} — open it to accept or decline."
+    what = f" ({share})" if share else ""
+    # in UTC, as the offer mail gave it: the first notice and every reminder
+    # name the same day, whatever offset the console sent respond_by with
+    when = respond_by.astimezone(dt.UTC) if respond_by and respond_by.tzinfo else respond_by
+    by = f", answer by {when:%d %b}" if when else ""
+    return (f"{head}{org_name} is offering {task_ref} {task_title}{what}{by}"
+            " — open it to accept or decline.")
 
 
 def offer_context(
@@ -1814,7 +1825,62 @@ async def _offers(
             }
         )
     await _attach_reminders(session, out)
+    await _attach_notices(session, out)
     return list(out.values())
+
+
+def notice_state(n: Mapping[str, Any] | None) -> str:
+    """What reached one recipient, in the console's words. Pure.
+
+    seen        they opened it in the app (bell row read, or push tapped)
+    pushed      Expo took the latest notice for their phone
+    no_app      no phone registered: the notice waits in the bell, and is
+                pushed the moment one is, while the offer is open (db/550)
+    failed      settled unsent for another reason (Expo refused it, too old)
+    sending     waiting for the push clock, seconds at most
+    emailed     no offer notice in their bell: the bell row is written in the
+                transaction that makes the offer, so this is an offer from
+                before offers rang the bell, which went by e-mail alone
+    """
+    if n is None or not n["notices"]:
+        return "emailed"
+    if n["seen_at"] is not None:
+        return "seen"
+    if n["pushed_at"] is not None:
+        return "pushed"
+    if not n["app_connected"] or n["push_failure"] == "no push token":
+        return "no_app"
+    if n["push_failure"]:
+        return "failed"
+    return "sending"
+
+
+async def _attach_notices(session: AsyncSession, offers: dict[uuid.UUID, dict[str, Any]]) -> None:
+    """Whether each recipient can be reached by push and what reached them.
+    Through offer_notices() (db/550): the aggregator may not read a worker's
+    bell rows or push token, only these answers about its own offers."""
+    by_recipient = {r["id"]: r for o in offers.values() for r in o["recipients"]}
+    if not by_recipient:
+        return
+    rows = {
+        n["recipient_id"]: n
+        for n in (
+            await session.execute(
+                text("SELECT * FROM offer_notices(CAST(:ids AS uuid[]))"),
+                {"ids": list(by_recipient)},
+            )
+        ).mappings().all()
+    }
+    for rid, r in by_recipient.items():
+        n = rows.get(rid)
+        r["app_connected"] = bool(n and n["app_connected"])
+        r["notice"] = {
+            "state": notice_state(n),
+            "last_at": n["last_notice_at"] if n else None,
+            "pushed_at": n["pushed_at"] if n else None,
+            "failure": n["push_failure"] if n and n["push_failure"] != "no push token" else None,
+            "seen_at": n["seen_at"] if n else None,
+        }
 
 
 async def _attach_reminders(session: AsyncSession, offers: dict[uuid.UUID, dict[str, Any]]) -> None:
@@ -1955,52 +2021,41 @@ async def create_offer(
             text("SELECT name FROM organisation WHERE id = :o"), {"o": claims.org_id}
         )
     ).scalar_one()
-    unit = t.target_unit or "units"
     recipients: list[TaskOfferRecipient] = []
-    contexts: list[dict[str, Any]] = []
     for w in eligible:
-        raw, digest = new_opaque_token()
+        # The token still backs the answer-by-link routes, for offers mailed
+        # before db/550; a new offer is answered in the app, so nobody is sent
+        # this one.
+        _raw, digest = new_opaque_token()
         r = TaskOfferRecipient(
             offer_id=o.id,
             supplier_org_id=claims.org_id,
             worker_user_id=w["user_id"],
             email=w["email"],
             token_hash=digest,
+            # notified now: the bell row below is written in this transaction.
+            # engage reads sent_at as "the first notice went", so reminders
+            # follow it as they followed the mail.
+            sent_at=now,
         )
         session.add(r)
         recipients.append(r)
-        base = f"{settings.app_base_url}/offer?token={raw}"
-        contexts.append(offer_context(
-            worker_name=w["name"], org_name=org_name,
-            task_ref=t.reference_code, task_title=t.title, unit=unit,
-            quantity=quantity, worker_limit=worker_limit, due_on=due_on,
-            respond_by=respond_by, instructions=instructions,
-            accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
-        ))
     await session.flush()
 
     # The bell row, and through modules/push the phone, where the worker opens
     # the offer and answers it (mobile app/(app)/offers/[id].tsx). After the
-    # flush: the recipient row's id is the link. An offer used to reach the
-    # worker by email only, until the first reminder.
+    # flush: the recipient row's id is the link. This is the only notice: the
+    # offer is no longer mailed (db/550), to keep the mail quota for people
+    # with no app to be reached on. push_pending keeps it waiting while the
+    # offer is open, for a worker whose phone is not registered yet.
+    notice = offer_notice(
+        org_name, t.reference_code, t.title,
+        share=units_text(quantity, t.target_unit), respond_by=respond_by,
+    )
     for r in recipients:
         await notifier.notify(
-            session, claims.org_id, offer_notice(org_name, t.reference_code, t.title),
+            session, claims.org_id, notice,
             "offer", {"id": str(r.id)}, user_id=r.worker_user_id,
-        )
-
-    # The mails, queued in this transaction (db/490 mail_outbox), one row per
-    # recipient and keyed to it: when the clock sends, mail_mark() fills the
-    # recipient's sent_at or send_error, which the console shows. Nothing
-    # leaves from here, and an offer that rolls back mails nobody. After the
-    # flush, so the recipient rows have their ids.
-    from sourcehub.modules.outbox import service as outbox
-
-    for r, ctx in zip(recipients, contexts, strict=True):
-        await outbox.enqueue_to(
-            session, "task_offer", ctx, to_email=r.email, to_name=ctx["worker_name"],
-            entity=("task_offer_recipient", r.id),
-            label=f"Offer · {t.reference_code} {t.title}", scrub=True, resend_until=respond_by,
         )
 
     await audit.log(
@@ -2072,7 +2127,13 @@ _MY_OFFERS = text(
     "                        AND w.aggregator_org_id = o.supplier_org_id AND w.deleted_at IS NULL "
     "WHERE r.worker_user_id = :me AND r.supplier_org_id = :org "
     "  AND (CAST(:r AS uuid) IS NULL OR r.id = CAST(:r AS uuid)) "
-    "  AND (o.status = 'open' OR r.responded_at > now() - interval '7 days') "
+    # the board: the open offers and the week's answered. One recipient by id,
+    # the answer's lookup, whatever its state: a tap that loses the race or
+    # reaches a closed offer is told why (410 filled / closed), as the e-mail
+    # link was, not that there is no such offer. The app is the only way to
+    # answer since db/550.
+    "  AND (CAST(:r AS uuid) IS NOT NULL OR o.status = 'open' "
+    "       OR r.responded_at > now() - interval '7 days') "
     "ORDER BY o.respond_by, o.created_at"
 )
 

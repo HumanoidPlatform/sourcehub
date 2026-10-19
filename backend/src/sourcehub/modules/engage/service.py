@@ -2,12 +2,14 @@
 
 Business rules, and the ONLY public surface of this module.
 
-An offer is mailed once (delivery.create_offer) and an assignment is a row the
-worker may never open. This module is the clock the rest of the stack never
+An offer is announced once (delivery.create_offer) and an assignment is a row
+the worker may never open. This module is the clock the rest of the stack never
 had: run_pass() looks at every supplier's open offers and live assignments,
-decides in plan() — which is pure — who should hear from us now, and sends by
-email plus the in-app bell the phone already polls. remind_offer() and
-remind_assignment() are the same thing by hand, from the console.
+decides in plan() — which is pure — who should hear from us now, and rings the
+worker's in-app bell, which modules/push takes to their phone. Since db/550 no
+reminder is mailed: the mail quota is kept for people with no app.
+remind_offer() and remind_assignment() are the same thing by hand, from the
+console.
 
 The rules, all constants below (no per-organisation settings yet):
 
@@ -44,7 +46,7 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sourcehub.api.security import AccessClaims, new_opaque_token
+from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
 from sourcehub.db.session import anonymous_session, org_session
 from sourcehub.modules.audit import service as audit
@@ -202,6 +204,16 @@ def _due_phrase(due_on: dt.date, today: dt.date) -> str:
     return f"in {n} days"
 
 
+def _ago_phrase(days: int) -> str:
+    """The past side of _due_phrase. A reminder sent by hand can come the day
+    the work was taken, and "0 days ago" is the whole push since db/550."""
+    if days <= 0:
+        return "today"
+    if days == 1:
+        return "yesterday"
+    return f"{days} days ago"
+
+
 def offer_lead(
     kind: str, now: dt.datetime, respond_by: dt.datetime, places_left: int, worker_limit: int
 ) -> str:
@@ -250,13 +262,12 @@ def assignment_reminder_context(
         action = "finish and submit it"
     elif kind == "assignment_rework":
         subject = f"Reminder: {title} needs rework"
-        line = (f"The batch you submitted was sent back for rework {days} day"
-                f"{'s' if days != 1 else ''} ago and has not been restarted.")
+        line = (f"The batch you submitted was sent back for rework {_ago_phrase(days)} "
+                "and has not been restarted.")
         action = "see what must change and start again"
     else:  # assignment_start
         subject = f"Reminder: {title} is waiting for you to start"
-        line = (f"You accepted this task {days} day{'s' if days != 1 else ''} ago "
-                "and have not started it yet.")
+        line = f"You accepted this task {_ago_phrase(days)} and have not started it yet."
         action = "start it"
 
     # The wording lives in platform/mail/templates/assignment_reminder.{txt,html};
@@ -406,13 +417,14 @@ async def _send(
     dues: list[Due],
     manual_by: uuid.UUID | None,
 ) -> int:
-    """Queue every due reminder (db/490 mail_outbox), ring the bell, record
-    the rows. The reminder row is written first with no outcome; mail_mark()
-    fills its sent_at or send_error when the clock sends, and the console
-    shows it. Nothing leaves from here."""
+    """Ring the worker's bell for every due reminder, which modules/push
+    takes to their phone, and record the rows. No mail since db/550: a
+    reminder is a push, and the mail quota is kept for people with no app to
+    be reached on. The row is recorded as sent when it is written — the bell
+    row is in the same transaction — and the console shows that. Nothing
+    leaves from here."""
     if not dues:
         return 0
-    from sourcehub.modules.outbox import service as outbox
 
     org_name = (
         await session.execute(text("SELECT name FROM organisation WHERE id = :o"), {"o": org_id})
@@ -421,46 +433,27 @@ async def _send(
     for d in dues:
         if d.kind.startswith("offer_"):
             r = offers[d.subject_id]
-            # the link in the first mail may be in a folder nobody opens again;
-            # a fresh token, as "Resend invite" does, and the old link dies
-            raw, digest = new_opaque_token()
-            await session.execute(
-                text("UPDATE task_offer_recipient SET token_hash = :h WHERE id = :id"),
-                {"h": digest, "id": r["recipient_id"]},
-            )
-            base = f"{settings.app_base_url}/offer?token={raw}"
             places_left = r["worker_limit"] - r["accepted_count"]
             lead = offer_lead(d.kind, now, r["respond_by"], places_left, r["worker_limit"])
-            ctx = delivery.offer_context(
-                worker_name=r["worker_name"], org_name=org_name,
-                task_ref=r["task_ref"], task_title=r["task_title"],
-                unit=r["target_unit"] or "units", quantity=r["quantity"],
-                worker_limit=r["worker_limit"], due_on=r["due_on"],
-                respond_by=r["respond_by"], instructions=r["instructions"],
-                accept_url=base + "&intent=accept", decline_url=base + "&intent=decline",
-                lead=lead,
-            )
-            template, to, to_name = "task_offer", r["email"], r["worker_name"]
-            scrub, until = True, r["respond_by"]
-            task_ref, task_title = r["task_ref"], r["task_title"]
             # the row opens the offer on the phone, where it is answered
             await notifier.notify(
                 session, org_id,
-                delivery.offer_notice(org_name, r["task_ref"], r["task_title"], lead),
+                delivery.offer_notice(
+                    org_name, r["task_ref"], r["task_title"], lead,
+                    share=delivery.units_text(r["quantity"], r["target_unit"]),
+                    respond_by=r["respond_by"],
+                ),
                 "offer", {"id": str(r["recipient_id"])}, user_id=d.worker_user_id,
             )
         else:
             a = assignments[d.subject_id]
             since = a["decided_at"] if d.kind == "assignment_rework" else a["assigned_at"]
-            ctx, line = assignment_reminder_context(
+            _ctx, line = assignment_reminder_context(
                 kind=d.kind, worker_name=a["worker_name"], org_name=org_name,
                 task_ref=a["task_ref"], task_title=a["task_title"],
                 unit=a["target_unit"] or "units", quantity=a["quantity"],
                 due_on=a["due_on"], days=(now - (since or now)).days, today=today,
             )
-            template, to, to_name = "assignment_reminder", a["email"], a["worker_name"]
-            scrub, until = False, None
-            task_ref, task_title = a["task_ref"], a["task_title"]
             await notifier.notify(
                 session, org_id, f"{line} ({a['task_ref']})",
                 "assignment", {"id": str(a["assignment_id"])}, user_id=d.worker_user_id,
@@ -473,28 +466,21 @@ async def _send(
                     "tasks", {"id": str(a["task_id"])},
                 )
 
-        # The row first, with no outcome yet, then the mail keyed to it.
-        reminder_id = (
-            await session.execute(
-                text(
-                    "INSERT INTO engagement_reminder "
-                    "  (supplier_org_id, worker_user_id, kind, step, offer_recipient_id, "
-                    "   assignment_id, manual_by, email) "
-                    "VALUES (:org, :w, CAST(:kind AS reminder_kind), :step, :r, :a, :m, :email) "
-                    "RETURNING id"
-                ),
-                {
-                    "org": org_id, "w": d.worker_user_id, "kind": d.kind, "step": d.step,
-                    "r": d.subject_id if d.kind.startswith("offer_") else None,
-                    "a": None if d.kind.startswith("offer_") else d.subject_id,
-                    "m": manual_by, "email": to,
-                },
-            )
-        ).scalar_one()
-        await outbox.enqueue_to(
-            session, template, ctx, to_email=to, to_name=to_name,
-            entity=("engagement_reminder", reminder_id),
-            label=f"Reminder · {task_ref} {task_title}", scrub=scrub, resend_until=until,
+        # Sent as it is written: the bell row above is in this transaction, and
+        # no address is recorded because nothing was mailed.
+        await session.execute(
+            text(
+                "INSERT INTO engagement_reminder "
+                "  (supplier_org_id, worker_user_id, kind, step, offer_recipient_id, "
+                "   assignment_id, manual_by, sent_at) "
+                "VALUES (:org, :w, CAST(:kind AS reminder_kind), :step, :r, :a, :m, :now)"
+            ),
+            {
+                "org": org_id, "w": d.worker_user_id, "kind": d.kind, "step": d.step,
+                "r": d.subject_id if d.kind.startswith("offer_") else None,
+                "a": None if d.kind.startswith("offer_") else d.subject_id,
+                "m": manual_by, "now": now,
+            },
         )
 
     kinds = sorted({d.kind for d in dues})

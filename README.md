@@ -292,13 +292,17 @@ people. Since `db/120_workers_media.sql`:
   notifications; it cannot read a contract, a submission or the roster.
 - **`task_assignment`** is one worker's share of a task, with its own
   lifecycle: assigned → in progress → submitted → accepted | sent back.
-- **A task is offered to the crowd by email, first come first served**
-  (`db/130_task_offers.sql`). The aggregator says it once — N places, Q
-  units each, instructions, due date, an optional respond-by — and every
-  active roster worker gets a mail with Accept and Decline. The links carry a
-  one-time token bound to that worker (hash stored, like an invitation); they
-  open `/offer`, which previews without side effects and answers only on a
-  click (`POST /offers/{token}/respond`). The first N accepts each become an
+- **A task is offered to the crowd in the app, first come first served**
+  (`db/130_task_offers.sql`, `db/550_offer_push.sql`). The aggregator says it
+  once — N places, Q units each, instructions, due date, an optional
+  respond-by — and every chosen roster worker gets it in their in-app bell and
+  as a push to their phone; they answer on the phone's Offers screen
+  (`GET /me/offers`, `POST /me/offers/{id}/respond`). Nothing is mailed: the
+  mail quota is kept for people with no app. A worker with no phone registered
+  yet still has it in the bell, and `push_pending` holds its push until a
+  phone registers, while the offer is open; the console shows who has the
+  app and what reached each recipient. Offers mailed before db/550 keep their
+  one-time links (`/offer`, `POST /offers/{token}/respond`). The first N accepts each become an
   ordinary `task_assignment` — the phone and the console pick it up with no
   change — and every later click is told the task is closed. Accepts are
   serialised with a row lock on the offer and `accepted_count` carries a
@@ -309,14 +313,13 @@ people. Since `db/120_workers_media.sql`:
   every five minutes inside the API process (an advisory lock lets only one
   uvicorn worker run it) finds workers who have not answered an offer, not
   started, are due soon, overdue, or sitting on a rejection, and reminds
-  them by email and on the phone's bell. The rules are constants in
+  them on the phone's bell and by push, never by mail (db/550). The rules are constants in
   `engage/service.py`: an offer is nudged half-way through its respond-by
   window and again as a last call 24 h before it closes, with places left;
   an assignment is chased two days after it was accepted or sent back and
   every two days after, two days before `due_on`, and the day after, then
   every three days — one reminder per subject per pass, never within 20 h
-  of the last. Offer reminders carry a fresh link (the old one dies, as
-  "Resend invite" does). Every reminder is a row in `engagement_reminder`,
+  of the last. Every reminder is a row in `engagement_reminder`,
   which is also what the console shows: the Workers dialog has the
   campaign funnel (sent · answered · accepted · started · submitted), each
   recipient's history, **Remind the silent** on an open offer and

@@ -84,8 +84,6 @@ QUEUES = {
     "identity": ["request_password_reset", "_queue_member_invitation"],
     "onboarding": ["_approve", "resend_invitation"],
     "network": ["_queue_worker_invitation"],
-    "delivery": ["create_offer"],
-    "engage": ["_send"],
     "catalogue": ["_email_public_reply"],
 }
 
@@ -139,37 +137,40 @@ def test_token_mails_are_scrubbed_once_sent_and_cannot_be_resent_after_their_lin
         ("onboarding", "_approve"),
         ("onboarding", "resend_invitation"),
         ("network", "_queue_worker_invitation"),
-        ("delivery", "create_offer"),
     ):
         src = ast.get_source_segment(_text(module), _function(_tree(module), fn)) or ""
         assert "scrub=True" in src and "resend_until=" in src, (module, fn)
 
 
-def test_the_offer_lets_the_outbox_record_delivery():
-    tree = _tree("delivery")
-    fn = _function(tree, "create_offer")
-    assigned = {
-        t.attr
-        for n in ast.walk(fn)
-        if isinstance(n, ast.Assign)
-        for t in n.targets
-        if isinstance(t, ast.Attribute)
-    }
-    assert "sent_at" not in assigned and "send_error" not in assigned
-    with pytest.raises(AssertionError):
-        _function(tree, "_send_offer_emails")
-    assert "task_offer_recipient" in _strings(fn)
-    # the mail is rendered from the stored context later; the subject travels with it
-    ctx = _function(tree, "offer_context")
+@pytest.mark.parametrize(("module", "fn"), [("delivery", "create_offer"), ("engage", "_send")])
+def test_offers_and_reminders_reach_the_crowd_by_push_not_mail(module, fn):
+    # db/550: the bell row (which modules/push takes to the phone) is the only
+    # notice; nothing is queued for the mail clock
+    calls = _calls(_function(_tree(module), fn))
+    assert "notify" in calls, (module, fn)
+    assert "enqueue" not in calls and "enqueue_to" not in calls, (module, fn)
+
+
+def test_an_offer_records_its_recipients_as_notified_when_it_is_made():
+    # engage reads sent_at as "the first notice went"; with no mail to wait
+    # for, the bell row written in the same transaction is that notice
+    fn = _function(_tree("delivery"), "create_offer")
+    made = [
+        n for n in ast.walk(fn)
+        if isinstance(n, ast.Call) and getattr(n.func, "id", "") == "TaskOfferRecipient"
+    ]
+    assert made and any(k.arg == "sent_at" for k in made[0].keywords)
+    # the mail is still rendered from a stored context for offers queued before
+    # db/550 (an Ops resend); the subject travels with it
+    ctx = _function(_tree("delivery"), "offer_context")
     assert "subject" in " ".join(_strings(ctx))
 
 
-def test_reminders_are_recorded_before_they_are_queued():
+def test_reminders_are_recorded_as_sent_with_no_address():
     fn = _function(_tree("engage"), "_send")
     sql = " ".join(_strings(fn))
-    assert "INSERT INTO engagement_reminder" in sql and "RETURNING id" in sql
-    assert ":sent_at" not in sql and ":err" not in sql
-    assert "enqueue_to" in _calls(fn) and "engagement_reminder" in _strings(fn)
+    assert "INSERT INTO engagement_reminder" in sql and ":now" in sql
+    assert ":email" not in sql
 
 
 def test_a_public_reply_is_recorded_whether_or_not_the_mail_leaves():

@@ -95,7 +95,7 @@ SELECT relname AS table, n_live_tup AS rows FROM pg_stat_user_tables ORDER BY n_
 | `contract` | The award. Carries both parties, the value, a **snapshot of the rubric**, and the **storage destination copied from the request** — so the client editing the request later cannot move work already under way. |
 | `task` | A slice of a contract given to **one supplier organisation**. Never spans suppliers. `target_unit` is one of the request's eight units and cannot change once work on the task is handed out; `target_quantity` may be a fraction only for `hours` (see *Units* below). |
 | `task_offer` | "N places are open on this task" — sent to several workers at once. |
-| `task_offer_recipient` | One emailed offer link (hash), and that worker's answer. |
+| `task_offer_recipient` | One worker asked: notified in the app and by push (since db/550; before it, an emailed link whose hash is kept), and that worker's answer. |
 | `task_assignment` | One **worker's** share of a task: how much, in the task's unit (3 photos, or 1.5 hours of footage), and how far along. |
 | `engagement_reminder` | One reminder sent to a worker about an offer they have not answered or an assignment they have not moved — by the clock (`modules/engage`, every five minutes) or by the aggregator from the console. The clock's rows are unique per (subject, kind, step), which is what makes a repeated pass harmless. |
 | `asset` | **One captured photo or video**: storage key, sha256, size, status, who captured it, and for a video its running time (`duration_s`, as the capturing device measured it). The bytes are never in the database. Partitioned by `created_at` because it is expected to be the largest table by far. |

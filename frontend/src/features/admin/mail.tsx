@@ -186,7 +186,7 @@ export function MailPage() {
   return (
     <View
       title="Mail"
-      sub="Every e-mail the platform sent or tried to — invitations, resets, task offers, reminders, DataHub replies and the RFP mails to partners — a few seconds after the action that caused it."
+      sub="Every e-mail the platform sent or tried to — invitations, resets, DataHub replies and the RFP mails to partners — a few seconds after the action that caused it. Task offers and reminders reach crowd resources in the app, not by e-mail; older ones still show here."
     >
       <div className="g4">
         <Metric label="Sent today" value={s?.sent_today ?? 0} loading={stats.isLoading} foot="since 00:00 UTC" />

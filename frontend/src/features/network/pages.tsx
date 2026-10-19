@@ -145,6 +145,20 @@ function LoanDetailDialog({ l, onClose }: { l: LoanRow; onClose: () => void }) {
   );
 }
 
+/** Whether a crowd resource can be reached by push: "App" with a phone
+ *  connected, "No app" without one. Offers and reminders are never e-mailed
+ *  to the crowd (db/550), so someone with no app hears of new work only when
+ *  they next open it. Nothing for a person with no login yet, whose answer
+ *  the server does not know (null), or for one who has left the roster. */
+function AppReach({ w }: { w: WorkerRow }) {
+  if (w.app_connected == null || w.status === "offboarded") return null;
+  return (
+    <span title="Offers and reminders reach crowd resources only through the app." style={{ marginLeft: 6 }}>
+      <Pill tone={w.app_connected ? "success" : "attention"}>{w.app_connected ? "App" : "No app"}</Pill>
+    </span>
+  );
+}
+
 function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void }) {
   const m = statusMeta(workerStatus, w.status);
   const qc = useQueryClient();
@@ -190,7 +204,12 @@ function WorkerDetailDialog({ w, onClose }: { w: WorkerRow; onClose: () => void 
       <Dl rows={[
         ["Email", w.email ?? "—"],
         ["Phone", w.phone ?? "—"],
-        ["App access", <Pill key="i" tone={statusMeta(invitationStatus, w.invitation_status).tone}>{statusMeta(invitationStatus, w.invitation_status).label}</Pill>],
+        ["App access", (
+          <span key="i">
+            <Pill tone={statusMeta(invitationStatus, w.invitation_status).tone}>{statusMeta(invitationStatus, w.invitation_status).label}</Pill>
+            <AppReach w={w} />
+          </span>
+        )],
         ["Open assignments", <span key="o" className="num">{w.open_assignments}</span>],
         ...(editing ? [] : [["Skills", labelsOf(SKILLS, w.skills)] as [string, React.ReactNode]]),
         ["Trained", w.trained ? "Yes" : "No"],
@@ -1425,7 +1444,7 @@ export function RosterPage() {
                         <td className="small">{w.email ?? "—"}</td>
                         <td>{labelsOf(SKILLS, w.skills)}</td>
                         <td className="num">{stars(w.rating, w.rating_count)}</td>
-                        <td><Pill tone={inv.tone}>{inv.label}</Pill></td>
+                        <td><Pill tone={inv.tone}>{inv.label}</Pill><AppReach w={w} /></td>
                         <td><Pill tone={m.tone}>{m.label}</Pill></td>
                         <td className="right" onClick={(ev) => ev.stopPropagation()}><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(w)}>Details</Button>

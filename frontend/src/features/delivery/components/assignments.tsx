@@ -11,7 +11,7 @@ import { useMutation, useQuery, useQueryClient, type QueryClient } from "@tansta
 import { useMemo, useState } from "react";
 import { get, post } from "@api/client";
 import type {
-  AllRetake, AssetRow, Assignment, Batch, BatchDecisionIn, CaptureSpec, Task, TaskOffer, WorkerRow,
+  AllRetake, AssetRow, Assignment, Batch, BatchDecisionIn, CaptureSpec, Task, TaskOffer, TaskOfferRecipient, WorkerRow,
 } from "@api/types";
 import {
   Button, Callout, CheckGroup, Dialog, Empty, Field, inputCls, Meter, Metric, Pill, TableWrap,
@@ -23,7 +23,7 @@ import { useSession } from "@shared/auth";
 import { fmtDate, fmtDateTime } from "@shared/format";
 import { RateDialog } from "@shared/rating";
 import { can } from "@shared/rbac";
-import { assignmentStatus, offerStatus, statusMeta } from "@shared/status";
+import { assignmentStatus, offerStatus, statusMeta, type Tone } from "@shared/status";
 import { amountWords, byDuration, round2, unitPlural, unitsOf } from "@shared/units";
 import { RETAKE_REASONS, useAssignmentAssets, type Mark } from "./AssetGallery";
 import { Brief } from "./brief";
@@ -45,10 +45,13 @@ export function useTaskOffers(taskId: string | null | undefined) {
     queryKey: ["offers", taskId],
     queryFn: () => get<TaskOffer[]>(`/tasks/${taskId}/offers`),
     enabled: !!taskId,
-    // db/490: the offer mails are sent by a clock a few seconds after the offer
-    // is made; while any recipient is still "Queued", watch for the outcome.
+    // db/550: an offer reaches the crowd through the app alone, and the push
+    // clock sends it to their phones a few seconds after it is made. While any
+    // unanswered recipient is still "Sending…", watch for the outcome. Only a
+    // bell row waiting for the clock reads "sending", so this always ends.
     refetchInterval: (q) =>
-      (q.state.data ?? []).some((o) => o.recipients.some((r) => !r.sent_at && !r.send_error && !r.response))
+      (q.state.data ?? []).some((o) =>
+        o.recipients.some((r) => !r.response && r.notice?.state === "sending"))
         ? 5_000
         : false,
   });
@@ -458,6 +461,11 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
 
   const everyone = eligible.map((w) => w.user_id as string);
   const recipients = picked ?? everyone;
+  // Offers reach the crowd only through the app (db/550): someone with no
+  // phone registered gets no push and no e-mail, so say how many before the
+  // aggregator counts on them. Unknown (null) is not counted as no app.
+  const noApp = new Set(eligible.filter((w) => w.app_connected === false).map((w) => w.user_id as string));
+  const unreachable = recipients.filter((id) => noApp.has(id)).length;
   const n = Number(places) || 0;
   const q = Number(qty) || 0;
   const total = round2(n * q);
@@ -481,11 +489,11 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         recipient_user_ids: picked,
       }),
     onSuccess: (o) => {
-      // db/490: the mails leave a few seconds later; the offer panel shows each
-      // one go from Queued to Waiting, or to Not sent with the reason.
+      // db/550: the pushes leave a few seconds later; the offer panel shows
+      // each recipient go from Sending… to Pushed, or to No app or Push failed.
       toast(
         `Offer on its way to ${o.recipients.length} crowd resource${o.recipients.length === 1 ? "" : "s"}`,
-        "First to accept take the places. The offer panel shows each e-mail as it goes.",
+        "First to accept take the places. The offer panel shows whose phone it reached.",
         "success",
       );
       void qc.invalidateQueries({ queryKey: ["offers", task.id] });
@@ -509,14 +517,14 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         <>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="primary" disabled={!canSend} onClick={() => create.mutate()}>
-            {create.isPending ? "Sending…" : `Email ${recipients.length} crowd resource${recipients.length === 1 ? "" : "s"}`}
+            {create.isPending ? "Sending…" : `Notify ${recipients.length} crowd resource${recipients.length === 1 ? "" : "s"}`}
           </Button>
         </>
       }
     >
       <Callout tone="neutral" title="First come, first served">
-        Everyone below gets an email with Accept and Decline. The first {n || "N"} to accept each take {q || "Q"} {unit};
-        after that the link says the task is closed.
+        Everyone below gets the offer in the capture app, with a push to their phone, to accept or decline. The first{" "}
+        {n || "N"} to accept each take {q || "Q"} {unit}; after that the app says the task is closed.
       </Callout>
       {eligible.length === 0 && !workers.isLoading && !rows.isLoading && (
         <Callout tone="attention" title="Nobody can take this task right now">
@@ -538,10 +546,10 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         <Field label="Due">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
         </Field>
-        <Field label="Respond by" hint="Optional. After this the links say the offer has closed.">
+        <Field label="Respond by" hint="Optional. After this the app says the offer has closed.">
           {(id) => <input id={id} className={inputCls} type="datetime-local" value={respondBy} onChange={(e) => setRespondBy(e.target.value)} />}
         </Field>
-        <Field label="Instructions" span hint="Goes in the email and onto their phone with the task's own instructions.">
+        <Field label="Instructions" span hint="Shown on their phone with the offer and the task's own instructions.">
           {(id) => <textarea id={id} className={textareaCls} rows={3} value={instructions} onChange={(e) => setInstructions(e.target.value)} />}
         </Field>
         {eligible.length > 0 && (
@@ -556,6 +564,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
               hint: [
                 w.skills.length ? labelsOf(SKILLS, w.skills) : null,
                 w.open_assignments ? `${w.open_assignments} open` : null,
+                w.app_connected === false ? "no app" : null,
               ].filter(Boolean).join(" · ") || undefined,
             }))}
             value={recipients}
@@ -563,12 +572,64 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
           />
         )}
       </div>
+      {unreachable > 0 && (
+        <div style={{ marginTop: 12 }}>
+          <Callout
+            tone="attention"
+            title={`${unreachable} of ${recipients.length} ${unreachable === 1 ? "has" : "have"} no app connected`}
+          >
+            They get no push and no e-mail. They see the offer the next time they open the app, and it is pushed the
+            moment they connect a phone, while the offer is open.
+          </Callout>
+        </div>
+      )}
       {error && <Callout tone="critical" title={error} />}
     </Dialog>
   );
 }
 
 /* --- the latest offer, as the aggregator sees it ------------------------------ */
+
+/** One recipient's chip: their answer once they give it, and until then how
+ *  far the offer got to them. The app is the only channel (db/550; mobile
+ *  app/(app)/offers/[id].tsx): the offer lands in their in-app bell the
+ *  moment it is made and is pushed to their phone, if one is registered.
+ *  So "No app" is someone nothing has reached yet, and only opening the app
+ *  or connecting a phone changes that. The times go in the tooltip. */
+function recipientChip(r: TaskOfferRecipient): { text: string; tone: Tone; detail: string | null } {
+  if (r.response === "accepted" || r.response === "declined") {
+    return {
+      text: r.response === "accepted" ? "Accepted" : "Declined",
+      tone: r.response === "accepted" ? "success" : "neutral",
+      detail: r.responded_at ? `answered ${fmtDateTime(r.responded_at)}` : null,
+    };
+  }
+  // A recipient without a notice is one the API has not described yet: read
+  // it as the offers before db/550 read, rather than lose the whole panel.
+  const n = r.notice;
+  switch (n?.state) {
+    case "seen":
+      return {
+        text: "Seen · waiting", tone: "attention",
+        detail: [`seen ${fmtDateTime(n.seen_at)}`, n.pushed_at ? `pushed ${fmtDateTime(n.pushed_at)}` : null]
+          .filter(Boolean).join(" · "),
+      };
+    case "pushed":
+      return { text: "Pushed · waiting", tone: "attention", detail: `pushed ${fmtDateTime(n.pushed_at)}` };
+    case "no_app":
+      return {
+        text: "No app", tone: "critical",
+        detail: "no phone connected: it waits in the app, and is pushed when they connect one",
+      };
+    case "failed":
+      return { text: "Push failed", tone: "critical", detail: `push failed: ${n.failure ?? "no reason given"}` };
+    case "sending":
+      return { text: "Sending…", tone: "neutral", detail: "the push leaves in a few seconds" };
+    default:
+      // "emailed": no bell row, an offer from before offers rang the bell
+      return { text: "Waiting", tone: "attention", detail: r.sent_at ? `e-mailed ${fmtDateTime(r.sent_at)}` : null };
+  }
+}
 
 /** The campaign behind an offer: who was asked, how far each has come, and
  *  what has been sent to chase them. The clock (backend modules/engage)
@@ -577,13 +638,6 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
   offer: TaskOffer; assignments: Assignment[]; onClose: () => void; onRemind: () => void; busy: boolean;
 }) {
   const m = statusMeta(offerStatus, offer.effective_status);
-  // The phone is the channel (mobile app/(app)/offers/[id].tsx): every
-  // recipient is told the moment the offer is made, so until they answer
-  // they are waiting. Mail delivery, where mail is on, stays in the tooltip.
-  const label = (r: TaskOffer["recipients"][number]) =>
-    r.response === "accepted" ? { text: "Accepted", tone: "success" as const }
-    : r.response === "declined" ? { text: "Declined", tone: "neutral" as const }
-    : { text: "Waiting", tone: "attention" as const };
   const byId = new Map(assignments.map((a) => [a.id, a]));
   const notified = offer.recipients.length;
   const answered = offer.recipients.filter((r) => r.response).length;
@@ -610,7 +664,7 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
           </span>
           <span style={{ flex: 1 }} />
           {offer.effective_status === "open" && offer.pending_count > 0 && (
-            <Button size="sm" disabled={busy} title="Email everyone who has not answered, with a fresh link" onClick={onRemind}>
+            <Button size="sm" disabled={busy} title="Notify everyone who has not answered again, in the app and on their phone" onClick={onRemind}>
               Remind the silent ({offer.pending_count})
             </Button>
           )}
@@ -623,16 +677,18 @@ function OfferPanel({ offer, assignments, onClose, onRemind, busy }: {
         </div>
         <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
           {offer.recipients.map((r) => {
-            const l = label(r);
+            const l = recipientChip(r);
             const note = reminded(r);
             return (
-              <span key={r.id} className="chip" title={[r.send_error ?? (r.responded_at ? fmtDateTime(r.responded_at) : r.email), note].filter(Boolean).join(" · ")}>
+              <span key={r.id} className="chip" title={[r.send_error, l.detail, r.email, note].filter(Boolean).join(" · ")}>
                 {r.worker_name ?? r.email} · <Pill tone={l.tone}>{l.text}</Pill>
                 {r.reminders.length > 0 && <> · <Pill tone="neutral">reminded ×{r.reminders.length}</Pill></>}
               </span>
             );
           })}
         </div>
+        {/* Only an offer e-mailed before db/550 can carry a mail error: new
+            offers and reminders go to the app and are never mailed. */}
         {offer.recipients.some((r) => r.send_error) && (
           <Callout tone="attention" title="Some emails did not go out">
             {offer.recipients.filter((r) => r.send_error).map((r) => `${r.worker_name ?? r.email}: ${r.send_error}`).join(" · ")}
@@ -685,8 +741,17 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
     mutationFn: (id: string) => post<TaskOffer>(`/offers/${id}/remind`, {}),
     onSuccess: (o) => {
       void qc.invalidateQueries({ queryKey: ["offers", task.id] });
-      const failed = o.recipients.flatMap((r) => r.reminders.slice(-1)).filter((x) => x.send_error);
-      toast(failed.length ? `Reminded, but ${failed.length} email(s) did not go out` : "Reminders sent", undefined, failed.length ? "attention" : "success");
+      // A reminder goes where the offer went, the app (db/550), and is never
+      // mailed. Whoever has no phone connected sees it only when they next
+      // open the app, so say how many of the silent that is.
+      const unreachable = o.recipients.filter((r) => !r.response && r.app_connected === false).length;
+      toast(
+        "Reminders sent",
+        unreachable
+          ? `${unreachable} of them ${unreachable === 1 ? "has" : "have"} no app connected: they see it only when they next open the app.`
+          : undefined,
+        unreachable ? "attention" : "success",
+      );
     },
     onError: (e) => setError(e instanceof Error ? e.message : "Could not send the reminders"),
   });
@@ -852,7 +917,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
                         </Button>
                       )}
                       {live && state !== "submitted" && (
-                        <Button size="sm" disabled={remindWorker.isPending} title="Email and notify this worker about the assignment now" onClick={() => remindWorker.mutate(a.id)}>Remind</Button>
+                        <Button size="sm" disabled={remindWorker.isPending} title="Remind them about the assignment now, in the app and on their phone" onClick={() => remindWorker.mutate(a.id)}>Remind</Button>
                       )}
                       {live && (a.status === "assigned" || a.status === "in_progress") && (
                         <Button size="sm" title="Take this off them and give the rest to someone else" onClick={() => setReassigning(a)}>Reassign</Button>

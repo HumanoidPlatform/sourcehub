@@ -402,19 +402,53 @@ export interface TaskOfferRecipient {
   worker_name: string | null;
   worker_ref: string | null;
   email: string;
+  /** When they were notified: set as the offer is made. On an offer from
+   *  before db/550 it is when the mail left, and null while it had not. */
   sent_at: string | null;
+  /** Only an e-mailed offer from before db/550 can carry one; offers now go
+   *  to the app and the phone, never by mail. */
   send_error: string | null;
   response: "accepted" | "declined" | null;
   responded_at: string | null;
   assignment_id: string | null;
   /** what the clock, or the aggregator by hand, has sent this recipient (oldest first) */
   reminders: Reminder[];
+  /** whether the recipient has a phone registered for push right now */
+  app_connected: boolean;
+  /** how the offer reached them, through the app (db/550) */
+  notice: OfferNotice;
+}
+
+/** What reached one offer recipient, in the console's words (db/550):
+ *  - seen: they opened it in the app (read it in the bell, or tapped the push)
+ *  - pushed: Expo took the push for their phone
+ *  - no_app: no phone registered; it waits in their in-app bell and is pushed
+ *    the moment they register one, while the offer is open
+ *  - failed: not pushed for another reason, which `failure` gives
+ *  - sending: waiting for the push clock, seconds at most
+ *  - emailed: no offer notice in their bell, so an offer from before offers
+ *    rang the bell, which went by e-mail alone (offers made before db/550
+ *    rang it too, and read by their push like any other) */
+export type OfferNoticeState = "seen" | "pushed" | "no_app" | "failed" | "sending" | "emailed";
+
+export interface OfferNotice {
+  state: OfferNoticeState;
+  /** when the latest notice to them, the offer or a reminder of it, was written */
+  last_at: string | null;
+  /** when Expo took that latest notice for their phone */
+  pushed_at: string | null;
+  /** why it was not pushed, e.g. "too old" or "expo: …"; null otherwise */
+  failure: string | null;
+  /** when they first read one in the app, or tapped its push */
+  seen_at: string | null;
 }
 
 export interface Reminder {
   kind: "offer_nudge" | "offer_closing" | "assignment_start" | "assignment_due_soon" | "assignment_overdue" | "assignment_rework";
   step: number;
+  /** set as the reminder is made; it goes to the app and the phone */
   sent_at: string | null;
+  /** only a reminder e-mailed before db/550 can carry one */
   send_error: string | null;
   /** sent from the console rather than by the clock */
   manual: boolean;
@@ -867,6 +901,11 @@ export interface WorkerRow {
   user_id: string | null;
   invitation_status: "none" | "pending" | "accepted" | "expired";
   open_assignments: number;
+  // Whether they have a phone registered for push (db/550). Offers and
+  // reminders reach a crowd resource only through the app, so false means
+  // nothing reaches them until they open it. null when it cannot be known:
+  // no login yet, or the caller is not their supplier.
+  app_connected: boolean | null;
 }
 
 export interface ContractInvoicing {

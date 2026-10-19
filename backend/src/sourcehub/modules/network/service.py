@@ -495,7 +495,8 @@ _WORKER_ROWS = text(
     "SELECT w.id, w.reference_code, w.display_name, w.skills, w.status, w.trained, "
     "       w.email, w.phone, w.user_id, u.status AS user_status, "
     "       inv.accepted_at, inv.expires_at, coalesce(ta.open_count, 0) AS open_assignments, "
-    "       gr.rating_avg, coalesce(gr.rating_count, 0) AS rating_count "
+    "       gr.rating_avg, coalesce(gr.rating_count, 0) AS rating_count, "
+    "       ac.app_connected "
     "FROM crowd_worker w "
     "LEFT JOIN app_user u ON u.id = w.user_id "
     # the supplier's own ratings of this person, under the caller's RLS: the
@@ -511,6 +512,10 @@ _WORKER_ROWS = text(
     "                    WHERE a.worker_user_id = w.user_id "
     "                      AND a.status IN ('assigned','in_progress','submitted','rejected')) ta "
     "          ON true "
+    # whether offers and reminders can reach them: they reach the crowd by
+    # push alone since db/550. Through a definer read that answers only for the
+    # caller's own workers and never returns the token itself; NULL otherwise.
+    "LEFT JOIN LATERAL worker_app_connected(ARRAY[w.user_id]) ac ON w.user_id IS NOT NULL "
     "WHERE w.deleted_at IS NULL "
     "  AND (CAST(:wid AS uuid) IS NULL OR w.id = CAST(:wid AS uuid)) "
     "ORDER BY w.reference_code"
@@ -537,6 +542,8 @@ def _worker_dict(r: Any) -> dict[str, Any]:
         "email": r["email"], "phone": r["phone"], "user_id": r["user_id"],
         "invitation_status": _invitation_status(r),
         "open_assignments": int(r["open_assignments"]),
+        # a phone registered for push: offers and reminders reach them (db/550)
+        "app_connected": r["app_connected"],
     }
 
 

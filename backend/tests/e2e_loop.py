@@ -821,14 +821,18 @@ assert len(client.get(f"/tasks/{task2['id']}/assets").json()) == 3
 ok("client sees the captures but never the roster")
 
 
-# 6c — the offer path: the task put to the whole crowd by email, first come
-#      first served. Every accept must become an ordinary assignment; every
-#      accept past the limit must be REFUSED with "closed".
+# 6c — the offer path: the task put to the whole crowd through the app, first
+#      come first served. Every accept must become an ordinary assignment;
+#      every accept past the limit must be REFUSED with "closed". Offers and
+#      their reminders are never mailed (db/550): each worker answers from
+#      their own board, as the phone does, with their own session.
 from concurrent.futures import ThreadPoolExecutor
 
 w3_email = f"worker-{suffix}-c@bengaluru.example"
 w3, worker3 = invite_and_login("Arjun Rao", w3_email)
 crowd = [w1["user_id"], w2["user_id"], w3["user_id"]]
+workers = {w1["user_id"]: worker1, w2["user_id"]: worker2, w3["user_id"]: worker3}
+crowd_mail = {e: mail_ids(e) for e in (w1_email, w2_email, w3_email)}
 
 
 def new_task(title: str, target: int) -> dict:
@@ -841,21 +845,26 @@ def new_task(title: str, target: int) -> dict:
     return r.json()
 
 
-def offer_token(email: str, before: set[str] = frozenset()) -> str:
-    return mail_token(email, "offering you a task", before)
+def recipient_ids(offer: dict) -> dict[str, str]:
+    """Each worker's recipient row: the id their phone answers with."""
+    return {x["worker_user_id"]: x["id"] for x in offer["recipients"]}
 
 
-def before_offer(*emails: str) -> dict[str, set[str]]:
-    """The catcher's state per worker, taken before an offer is made."""
-    return {e: mail_ids(e) for e in emails}
+def board(worker: httpx.Client, task: dict) -> list[dict]:
+    """The worker's offers on this task, as the phone's Offers screen reads them."""
+    r = worker.get("/me/offers")
+    assert r.status_code == 200, r.text
+    return [o for o in r.json() if o["task"]["id"] == task["id"]]
 
 
-def preview(tok: str) -> httpx.Response:
-    return httpx.get(f"{B}/offers/{tok}", timeout=T)
+def respond(worker: httpx.Client, rid: str, action: str) -> httpx.Response:
+    return worker.post(f"/me/offers/{rid}/respond", json={"action": action})
 
 
-def respond(tok: str, action: str) -> httpx.Response:
-    return httpx.post(f"{B}/offers/{tok}/respond", json={"action": action}, timeout=T)
+def bell_links(worker: httpx.Client, page: str, link_id: str) -> int:
+    """How many of the worker's bell rows link to this offer or assignment."""
+    items = worker.get("/notifications", params={"limit": 100}).json()["items"]
+    return sum(1 for n in items if n["link_page"] == page and n["link_params"].get("id") == link_id)
 
 
 task3 = new_task("Metro shelf capture, wave 3", 6)
@@ -875,53 +884,48 @@ r = delhi.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantit
 assert r.status_code == 404, f"RIVAL AGGREGATOR COULD OFFER: {r.status_code} {r.text}"
 ok("rival aggregator cannot offer the task", f"HTTP {r.status_code}")
 
-seen = before_offer(w1_email, w2_email, w3_email)
 r = agg.post(f"/tasks/{task3['id']}/offers", json={
     "worker_limit": 2, "quantity": 2, "recipient_user_ids": crowd,
     "instructions": "Aisles 3-4, landscape."})
 assert r.status_code == 201, r.text
 offer = r.json()
 assert offer["status"] == "open" and offer["worker_limit"] == 2 and offer["accepted_count"] == 0, offer
-# db/490: the mails are queued in the offer's transaction and sent by the clock,
-# so right now every recipient is "queued" — no outcome yet, and no error
+# db/550: each recipient is notified in the offer's own transaction (a bell row,
+# pushed by the push clock), so sent_at is set at once and nothing is mailed.
+# None of these workers has registered a phone, so the console says so.
 assert len(offer["recipients"]) == 3, offer
-assert all(not x["send_error"] for x in offer["recipients"]), offer
+assert all(x["sent_at"] and not x["send_error"] for x in offer["recipients"]), offer
+assert all(x["app_connected"] is False and x["notice"]["state"] == "no_app"
+           for x in offer["recipients"]), [x.get("notice") for x in offer["recipients"]]
 assert "token" not in r.text, "TOKEN LEAKED IN THE RESPONSE"
 ok("task offered to 3 workers for 2 places",
-   f"{offer['worker_limit']} x {offer['quantity']} photos, queued")
+   f"{offer['worker_limit']} x {offer['quantity']} photos, notified in the app, no phones yet")
+rid3 = recipient_ids(offer)
 
 r = agg.post(f"/tasks/{task3['id']}/offers", json={"worker_limit": 1, "quantity": 1})
 assert r.status_code == 409, f"SECOND OPEN OFFER ALLOWED: {r.status_code} {r.text}"
 ok("a second open offer on the same task refused")
 
-t1, t2, t3 = (offer_token(e, seen[e]) for e in (w1_email, w2_email, w3_email))
+for uid, worker in workers.items():
+    mine = board(worker, task3)
+    assert len(mine) == 1 and mine[0]["id"] == rid3[uid] and mine[0]["state"] == "open", mine
+    assert mine[0]["quantity"] == 2, mine
+    assert mine[0]["task"]["reference_code"] == task3["reference_code"], mine
+    assert bell_links(worker, "offer", rid3[uid]) == 1, f"NO BELL ROW FOR THE OFFER: {uid}"
+ok("each worker finds the offer on their own board and in their bell")
 
-# ... and once the clock has sent them, mail_mark wrote sent_at onto each
-# recipient row (db/490), which is what the console's offer panel shows
-for _ in range(120):
-    sent = [x for o in agg.get(f"/tasks/{task3['id']}/offers").json() if o["id"] == offer["id"]
-            for x in o["recipients"]]
-    if sent and all(x["sent_at"] and not x["send_error"] for x in sent):
-        break
-    time.sleep(0.5)
-else:
-    raise AssertionError("the offer recipients were never marked sent")
-ok("every offer e-mail recorded as sent on its recipient")
+pv = board(worker2, task3)
+assert board(worker2, task3) == pv
+ok("worker 2 reads the offer twice, with no side effect", pv[0]["state"])
 
-pv = preview(t2)
-assert pv.status_code == 200 and pv.json()["state"] == "open", pv.text
-assert pv.json()["task"]["reference_code"] == task3["reference_code"] and pv.json()["quantity"] == 2, pv.text
-assert preview(t2).json() == pv.json()
-ok("worker's link previews the offer, twice, with no side effect", pv.json()["state"])
-
-r = respond(t2, "decline")
+r = respond(worker2, rid3[w2["user_id"]], "decline")
 assert r.status_code == 200 and r.json()["state"] == "declined", r.text
-r = respond(t2, "decline")
+r = respond(worker2, rid3[w2["user_id"]], "decline")
 assert r.status_code == 409, f"SECOND ANSWER ACCEPTED: {r.status_code} {r.text}"
-assert preview(t2).json()["state"] == "responded"
+assert board(worker2, task3)[0]["state"] == "responded"
 ok("worker 2 declines; a second answer refused")
 
-r = respond(t1, "accept")
+r = respond(worker1, rid3[w1["user_id"]], "accept")
 assert r.status_code == 200 and r.json()["state"] == "accepted" and r.json()["assignment_id"], r.text
 a3 = r.json()["assignment_id"]
 mine = worker1.get("/me/assignments").json()
@@ -934,32 +938,35 @@ o = agg.get(f"/tasks/{task3['id']}/offers").json()[0]
 assert o["accepted_count"] == 1 and o["declined_count"] == 1 and o["pending_count"] == 1 and o["status"] == "open", o
 ok("aggregator sees 1 accepted, 1 declined, 1 waiting")
 
-r = respond(t1, "accept")
+r = respond(worker1, rid3[w1["user_id"]], "accept")
 assert r.status_code == 409, f"DOUBLE ACCEPT: {r.status_code} {r.text}"
-ok("worker 1 clicking again refused")
+ok("worker 1 tapping again refused")
 
-r = respond(t3, "accept")
+r = respond(worker3, rid3[w3["user_id"]], "accept")
 assert r.status_code == 200, r.text
 o = agg.get(f"/tasks/{task3['id']}/offers").json()[0]
 assert o["status"] == "filled" and o["accepted_count"] == 2 and o["closed_at"], o
 assert len([a for a in agg.get(f"/tasks/{task3['id']}/assignments").json() if a["status"] != "cancelled"]) == 2
 ok("worker 3 takes the last place; the offer is filled")
 
-for tok in ("nonsense", t1[:-4] + "xxxx"):
-    assert preview(tok).status_code == 404 and respond(tok, "accept").status_code == 404
-r = httpx.post(f"{B}/offers/{t1}/respond", json={"action": "maybe"}, timeout=T)
-assert r.status_code == 422, r.status_code
-ok("unknown tokens 404, an unknown action 422")
+r = respond(worker1, rid3[w2["user_id"]], "accept")
+assert r.status_code == 404, f"ANSWERED ANOTHER WORKER'S OFFER: {r.status_code}"
+assert respond(worker1, str(uuid.uuid4()), "accept").status_code == 404
+assert respond(worker1, rid3[w1["user_id"]], "maybe").status_code == 422
+# the e-mailed links of offers made before db/550 still answer, and refuse a guess
+assert httpx.get(f"{B}/offers/nonsense", timeout=T).status_code == 404
+r = httpx.post(f"{B}/offers/nonsense/respond", json={"action": "accept"}, timeout=T)
+assert r.status_code == 404, r.status_code
+ok("another worker's offer and an unknown one 404, an unknown action 422")
 
 # the race: three accepts for one place, at once
 task4 = new_task("Metro shelf capture, wave 4", 2)
-seen = before_offer(w1_email, w2_email, w3_email)
 r = agg.post(f"/tasks/{task4['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": crowd})
 assert r.status_code == 201, r.text
-toks = [offer_token(e, seen[e]) for e in (w1_email, w2_email, w3_email)]
+rid4 = recipient_ids(r.json())
 with ThreadPoolExecutor(max_workers=3) as ex:
-    results = list(ex.map(lambda t: respond(t, "accept"), toks))
+    results = list(ex.map(lambda uid: respond(workers[uid], rid4[uid], "accept"), crowd))
 codes = sorted(x.status_code for x in results)
 assert codes == [200, 410, 410], f"RACE BROKE THE LIMIT: {codes} {[x.text for x in results]}"
 assert all("closed" in x.text for x in results if x.status_code == 410), [x.text for x in results]
@@ -970,39 +977,60 @@ ok("three simultaneous accepts for one place: exactly one wins", f"{codes}")
 
 # closing by hand
 task5 = new_task("Metro shelf capture, wave 5", 2)
-seen = before_offer(w2_email, w3_email)
 r = agg.post(f"/tasks/{task5['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w2["user_id"], w3["user_id"]]})
 assert r.status_code == 201, r.text
 o5 = r.json()
-t2b, t3b = (offer_token(e, seen[e]) for e in (w2_email, w3_email))
+rid5 = recipient_ids(o5)
 r = agg.post(f"/offers/{o5['id']}/close")
 assert r.status_code == 200 and r.json()["status"] == "closed", r.text
 r = agg.post(f"/offers/{o5['id']}/close")
 assert r.status_code == 409, r.text
-r = respond(t2b, "accept")
-assert r.status_code == 410 and "closed" in r.text, r.text
-assert preview(t2b).json()["state"] == "closed"
-ok("aggregator closes the offer; a late accept is told the task is closed")
+# the closed offer leaves their board; a tap from a screen still open on it
+# is told the task is closed, as the e-mail link was
+assert board(worker2, task5) == []
+r = respond(worker2, rid5[w2["user_id"]], "accept")
+assert r.status_code == 410 and "closed" in r.text, f"LATE ACCEPT: {r.status_code} {r.text}"
+assert agg.get(f"/tasks/{task5['id']}/assignments").json() == []
+ok("aggregator closes the offer; it leaves the board and a late accept is told it is closed")
 
-# a worker offboarded after the mail went out cannot take the place
-seen = before_offer(w3_email)
+# reminders go where the offer went: the bell and the phone, never the mailbox
 r = agg.post(f"/tasks/{task5['id']}/offers", json={
     "worker_limit": 1, "quantity": 2, "recipient_user_ids": [w3["user_id"]]})
 assert r.status_code == 201, r.text
-t3c = offer_token(w3_email, seen[w3_email])
+o6 = r.json()
+rid6 = recipient_ids(o6)[w3["user_id"]]
+r = agg.post(f"/offers/{o6['id']}/remind", json={})
+assert r.status_code == 200, r.text
+rem = next(x for x in r.json()["recipients"] if x["id"] == rid6)["reminders"]
+assert len(rem) == 1 and rem[0]["manual"] and rem[0]["sent_at"] and not rem[0]["send_error"], rem
+assert bell_links(worker3, "offer", rid6) == 2, "THE REMINDER DID NOT REACH THE BELL"
+r = agg.post(f"/assignments/{a3}/remind")
+assert r.status_code == 200, r.text
+assert bell_links(worker1, "assignment", a3) >= 1, "THE ASSIGNMENT REMINDER DID NOT REACH THE BELL"
+ok("an offer reminder and an assignment reminder reach the bell, recorded as sent")
+
+# a worker offboarded after the offer reached them cannot take the place
 r = agg.post(f"/network/workers/{w3['id']}/status", json={"status": "offboarded"})
 assert r.status_code == 204, r.text
-assert preview(t3c).json()["state"] == "not_a_worker"
-r = respond(t3c, "accept")
-assert r.status_code == 409, f"OFFBOARDED WORKER ACCEPTED: {r.status_code} {r.text}"
+r = respond(worker3, rid6, "accept")
+assert r.status_code in (401, 403, 409), f"OFFBOARDED WORKER ACCEPTED: {r.status_code} {r.text}"
 o = agg.get(f"/tasks/{task5['id']}/offers").json()[0]
 assert o["recipients"][0]["response"] is None and o["accepted_count"] == 0, o
-ok("offboarded worker's accept refused; the place stays open")
+ok("offboarded worker's accept refused; the place stays open", f"HTTP {r.status_code}")
 
 assert client.get(f"/tasks/{task3['id']}/offers").status_code in (403, 404)
 assert delhi.get(f"/tasks/{task3['id']}/offers").status_code == 404
 ok("neither the client nor a rival can see who was asked")
+
+# five offers, a manual reminder and an assignment reminder later, the crowd's
+# mailboxes hold nothing new: the outbox clock sends within seconds, so give
+# it the time it would have needed, then look
+time.sleep(8)
+for e, before in crowd_mail.items():
+    new = mail_ids(e) - before
+    assert not new, f"MAIL REACHED A WORKER FOR AN OFFER OR REMINDER: {e} {new}"
+ok("no offer or reminder was e-mailed to the crowd")
 
 
 # 7 — deliver; premature approval must fail first
