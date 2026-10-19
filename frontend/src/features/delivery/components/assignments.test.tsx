@@ -235,7 +235,7 @@ it("notifies rather than e-mails, and says who has no app before sending", async
     // not known is not "no app": nothing is said about them
     crowd({ id: "w5", user_id: "u5", display_name: "Lata Pillai", app_connected: null }),
   ]);
-  const send = await screen.findByRole("button", { name: "Notify 3 crowd resources" });
+  const send = await screen.findByRole("button", { name: "Send offer to 3 crowd resources" });
   expect(screen.queryByRole("button", { name: /^Email/ })).toBeNull();
   // the picker marks the one with no app, and only them
   expect(screen.getAllByText("no app")).toHaveLength(1);
@@ -247,7 +247,7 @@ it("notifies rather than e-mails, and says who has no app before sending", async
 
   // without them there is nothing to warn about
   fireEvent.click(screen.getByRole("checkbox", { name: /Kabir Shah/ }));
-  expect(await screen.findByRole("button", { name: "Notify 2 crowd resources" })).toBeTruthy();
+  expect(await screen.findByRole("button", { name: "Send offer to 2 crowd resources" })).toBeTruthy();
   expect(screen.queryByText(/has no app connected/)).toBeNull();
 });
 
@@ -256,7 +256,7 @@ it("says nothing about the app when everyone picked has one", async () => {
     crowd({ id: "w3", user_id: "u3", display_name: "Meera Iyer" }),
     crowd({ id: "w4", user_id: "u4", display_name: "Kabir Shah" }),
   ]);
-  expect(await screen.findByRole("button", { name: "Notify 2 crowd resources" })).toBeTruthy();
+  expect(await screen.findByRole("button", { name: "Send offer to 2 crowd resources" })).toBeTruthy();
   expect(screen.queryByText("no app")).toBeNull();
   expect(screen.queryByText(/no app connected/)).toBeNull();
 });
