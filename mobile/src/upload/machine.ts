@@ -95,7 +95,7 @@ export type Outcome =
   | { type: "confirmed" }
   | { type: "not_in_storage" } // confirm says the bytes are not there: PUT again
   | { type: "status_known"; bytes_done: number | null; parts_done: number[] }
-  | { type: "part_urls"; urls: Record<string, string>; expires_in: number }
+  | { type: "part_urls"; urls: Record<string, string>; expires_in: number; requested?: number[] }
   | { type: "chunk_ok"; bytes?: number; part?: number } // one chunk landed
   | { type: "part_rejected"; part: number } // its URL was refused: ask for a new one
   | { type: "session_lost" } // storage forgot the session: start this upload again
@@ -233,7 +233,8 @@ export function putOutcome(status: number | null | undefined, body?: string | nu
  * gone (they never expire inside a transfer), so the upload starts again.
  *
  * Azure and S3: a 2xx is the part staged; 403 is the part's signed URL
- * refused (expired), so a new one is asked for; a 400 naming the digest means
+ * refused (expired), so a new one is asked for; 404 is the upload itself gone,
+ * so it starts again; a 400 naming the digest means
  * the bytes were damaged in flight and the part is simply sent again. */
 export function chunkOutcome(
   protocol: "gcs" | "azure" | "s3",
@@ -251,6 +252,9 @@ export function chunkOutcome(
   } else {
     if (s >= 200 && s < 300) return { type: "chunk_ok", part };
     if (s === 403) return { type: "part_rejected", part };
+    // S3's NoSuchUpload: the multipart upload was aborted (a lifecycle rule,
+    // the server replacing it). The upload starts again, not fails.
+    if (s === 404) return { type: "session_lost" };
     if (s === 400 && /BadDigest|Md5Mismatch|InvalidDigest/i.test(body ?? "")) {
       return { type: "retryable", error: `chunk ${part}: storage read different bytes than were sent` };
     }
@@ -265,6 +269,14 @@ function header(headers: Record<string, string> | null | undefined, name: string
   if (!headers) return undefined;
   const key = Object.keys(headers).find((k) => k.toLowerCase() === name);
   return key ? headers[key] : undefined;
+}
+
+/** the server answered without what the next step needs: wait, and after
+ *  maxAttempts in a row give the worker a failed capture to see */
+function giveUpOrWait(row: RowLike, now: number, maxAttempts: number, why: string): Partial<CaptureRow> {
+  const attempts = row.attempts + 1;
+  if (attempts >= maxAttempts) return { status: "failed", attempts, last_error: `${why} Try again later.` };
+  return { attempts, next_attempt_at: now + delayFor(attempts), last_error: why };
 }
 
 function rollback(status: CaptureStatus): CaptureStatus {
@@ -298,7 +310,11 @@ export function applyResult(
         // A chunked upload. Storage is asked what it holds before the first
         // byte goes: on a fresh session that is nothing, on a resumed one it
         // is what landed before the cut — either way the truth, not a guess.
+        // What an earlier session gave is dropped first: part URLs signed for
+        // an upload the server may have just replaced were reused while they
+        // had time left, and refused as an upload that no longer exists.
         return {
+          ...NO_SESSION,
           status: "presigned",
           asset_id: ev.asset_id,
           put_url: null,
@@ -312,6 +328,12 @@ export function applyResult(
           restart: 0,
           last_error: null,
         };
+      }
+      // No link, or one that expires inside the safety margin: planNext would
+      // ask again at once, and the lane hammered the API. Waited on and
+      // capped like a refused link.
+      if (!ev.url || ev.expires_in * 1000 <= PRESIGN_SAFETY_MS) {
+        return giveUpOrWait(row, now, maxAttempts, "The server issued no usable upload link.");
       }
       // The attempt counter is NOT reset here: a presign is the cheap half of
       // every PUT retry, and resetting on it made the refused-link loop below
@@ -362,9 +384,17 @@ export function applyResult(
     }
     case "confirmed":
       return { status: "confirmed", last_error: null };
-    case "not_in_storage":
-      // one PUT: send it again; chunks: ask storage which parts it lacks
-      return { status: "presigned", needs_status: isChunked(row) ? 1 : 0, attempts: row.attempts + 1, next_attempt_at: now + delayFor(row.attempts + 1), last_error: "Storage has not received the file yet." };
+    case "not_in_storage": {
+      // one PUT: send it again; chunks: ask storage which parts it lacks.
+      // Capped: this is the server's word about storage, not the connection,
+      // and uncapped it looped upload → confirm for ever with the Android
+      // service and its notification held the whole time.
+      const attempts = row.attempts + 1;
+      if (attempts >= maxAttempts) {
+        return { status: "failed", attempts, last_error: `Storage still had not received the file after ${attempts} uploads. Try again later.` };
+      }
+      return { status: "presigned", needs_status: isChunked(row) ? 1 : 0, attempts, next_attempt_at: now + delayFor(attempts), last_error: "Storage has not received the file yet." };
+    }
     case "status_known": {
       const next: Partial<CaptureRow> = {
         needs_status: 0,
@@ -376,6 +406,12 @@ export function applyResult(
       return next;
     }
     case "part_urls": {
+      // Every part asked for, with time to use it — or planChunk asks again
+      // at once, which is the same hammering as a presign with no link.
+      const short = ev.requested?.some((n) => !(String(n) in ev.urls)) ?? false;
+      if (short || ev.expires_in * 1000 <= PRESIGN_SAFETY_MS) {
+        return giveUpOrWait(row, now, maxAttempts, "The server issued no usable upload links.");
+      }
       const urls = parseUrls(row.part_urls);
       for (const [n, url] of Object.entries(ev.urls)) urls[Number(n)] = { url, expires_at: now + ev.expires_in * 1000 };
       return { part_urls: JSON.stringify(urls), last_error: null };

@@ -19,7 +19,6 @@ import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
-import { deleteLocal } from "@/capture/files";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Pill, Screen, s } from "@/ui";
@@ -93,15 +92,36 @@ export default function AssignmentDetail() {
     const unsent = outbox.filter((r) => r.status !== "confirmed");
     if (unsent.length === 0) return;
     cleared.current = true;
-    void Promise.all(unsent.map((r) => discardCapture(r.id).then((row) => deleteLocal(row?.local_uri ?? null)))).then(
-      () => setDropped(unsent.length),
-    );
+    // deleteCapture, not discardCapture: that one only matches failed rows, so
+    // queued captures stayed — and kept being presigned until the server refused.
+    void Promise.all(unsent.map((r) => deleteCapture(r.id)))
+      .then((rows) => {
+        const gone = rows.filter((r): r is NonNullable<typeof r> => r !== null);
+        setDropped(gone.length);
+        return dropCaptures(gone);
+      })
+      .catch(() => {
+        cleared.current = false; // the next outbox change tries again
+      });
   }, [revokedAt, outbox]);
 
   if (!a) {
     return (
       <Screen>
-        {list.isLoading ? <Text style={s.muted}>Loading…</Text> : <Callout tone="critical" title="This assignment is no longer yours." />}
+        {list.isLoading ? (
+          <Text style={s.muted}>Loading…</Text>
+        ) : list.isError && !list.data ? (
+          // No list to look in is not the same as not being in it: a network
+          // failure used to tell the worker the assignment was taken away.
+          <>
+            <Callout tone="attention" title="Could not load your assignments.">
+              Check the connection and try again.
+            </Callout>
+            <Button title="Try again" onPress={() => void list.refetch()} />
+          </>
+        ) : (
+          <Callout tone="critical" title="This assignment is no longer yours." />
+        )}
       </Screen>
     );
   }
