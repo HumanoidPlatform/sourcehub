@@ -197,11 +197,18 @@ export async function retryNow(): Promise<number> {
   return r.changes;
 }
 
+/** A worker's Retry starts the upload afresh: nothing an old storage session
+ *  gave is reused (its part URLs were refused as an upload that no longer
+ *  exists), and a chunked one asks the server for a new session. */
+const RETRY_SET = `status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
+                   put_url = NULL, url_expires_at = NULL, needs_status = 1,
+                   session_url = NULL, bytes_done = 0, parts_done = NULL, part_urls = NULL,
+                   restart = CASE WHEN upload_mode = 'resumable' THEN 1 ELSE restart END`;
+
 export async function retryFailed(assignmentId?: string): Promise<number> {
   const db = await getDb();
   const r = await db.runAsync(
-    `UPDATE captures SET status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
-                         put_url = NULL, url_expires_at = NULL, needs_status = 1, updated_at = ?
+    `UPDATE captures SET ${RETRY_SET}, updated_at = ?
      WHERE status = 'failed' AND local_uri IS NOT NULL AND user_id = ? ${assignmentId ? "AND assignment_id = ?" : ""}`,
     assignmentId ? [Date.now(), owner(), assignmentId] : [Date.now(), owner()],
   );
@@ -245,8 +252,7 @@ export async function deleteCapture(id: string): Promise<CaptureRow | null> {
 export async function retryCapture(id: string): Promise<void> {
   const db = await getDb();
   await db.runAsync(
-    `UPDATE captures SET status = 'captured', attempts = 0, next_attempt_at = 0, last_error = NULL,
-                         put_url = NULL, url_expires_at = NULL, needs_status = 1, updated_at = ?
+    `UPDATE captures SET ${RETRY_SET}, updated_at = ?
      WHERE id = ? AND status = 'failed' AND local_uri IS NOT NULL`,
     [Date.now(), id],
   );
@@ -283,6 +289,18 @@ export async function othersWaiting(): Promise<number> {
 
 // --- reads ----------------------------------------------------------------
 
+export async function captureExists(id: string): Promise<boolean> {
+  const db = await getDb();
+  return (await db.getFirstAsync<{ id: string }>("SELECT id FROM captures WHERE id = ?", [id])) != null;
+}
+
+/** every file the outbox still points at, for the startup sweep (capture/sweep.ts) */
+export async function localUris(): Promise<Set<string>> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<{ local_uri: string }>("SELECT local_uri FROM captures WHERE local_uri IS NOT NULL");
+  return new Set(rows.map((r) => r.local_uri));
+}
+
 export async function listByAssignment(assignmentId: string): Promise<CaptureRow[]> {
   const db = await getDb();
   return db.getAllAsync<CaptureRow>(
@@ -312,19 +330,22 @@ export interface OutboxSummary {
   queued: number; // captured | presigned | uploading | uploaded
   failed: number;
   confirmed: number;
+  /** when the soonest queued row may move again (epoch ms); null with none queued */
+  nextDue?: number | null;
 }
 
 export async function summary(assignmentId?: string): Promise<OutboxSummary> {
   const db = await getDb();
-  const row = await db.getFirstAsync<{ queued: number; failed: number; confirmed: number }>(
+  const row = await db.getFirstAsync<{ queued: number; failed: number; confirmed: number; next_due: number | null }>(
     `SELECT
        sum(CASE WHEN status IN ('captured','presigned','uploading','uploaded') THEN 1 ELSE 0 END) AS queued,
        sum(CASE WHEN status = 'failed' THEN 1 ELSE 0 END) AS failed,
-       sum(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) AS confirmed
+       sum(CASE WHEN status = 'confirmed' THEN 1 ELSE 0 END) AS confirmed,
+       min(CASE WHEN status IN ('captured','presigned','uploading','uploaded') THEN next_attempt_at END) AS next_due
      FROM captures WHERE user_id = ? ${assignmentId ? "AND assignment_id = ?" : ""}`,
     assignmentId ? [owner(), assignmentId] : [owner()],
   );
-  return { queued: row?.queued ?? 0, failed: row?.failed ?? 0, confirmed: row?.confirmed ?? 0 };
+  return { queued: row?.queued ?? 0, failed: row?.failed ?? 0, confirmed: row?.confirmed ?? 0, nextDue: row?.next_due ?? null };
 }
 
 export async function summaryByAssignment(): Promise<Record<string, OutboxSummary>> {

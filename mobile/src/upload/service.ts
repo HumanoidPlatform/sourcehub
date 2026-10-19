@@ -31,6 +31,8 @@ const TASK = {
 
 /** how often the service checks whether the outbox has drained */
 const DRAIN_POLL_MS = 3_000;
+/** the service lets go when nothing queued may move for longer than this */
+const IDLE_RELEASE_MS = 2 * 60_000;
 /** the notification is redrawn at most this often */
 const REPORT_MS = 1_000;
 
@@ -94,6 +96,11 @@ class UploadService {
       while (this.held && this.gen === gen) {
         const box = await summary();
         if (box.queued === 0) break;
+        // Everything left is waiting out a long backoff — a server failing the
+        // same way again and again. Holding the service (and its notification,
+        // and the phone awake) for that spends the daily budget on nothing;
+        // the rows go when the app is next opened, or at once on "Upload now".
+        if (box.nextDue != null && box.nextDue - Date.now() > IDLE_RELEASE_MS) break;
         await new Promise((r) => setTimeout(r, DRAIN_POLL_MS));
       }
     } finally {
