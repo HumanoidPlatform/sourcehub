@@ -509,7 +509,7 @@ export function OfferTaskDialog({ task, onClose, onDone }: { task: Task; onClose
         <>
           <Button onClick={onClose}>Cancel</Button>
           <Button variant="primary" disabled={!canSend} onClick={() => create.mutate()}>
-            {create.isPending ? "Sending…" : `Email ${recipients.length} crowd resource${recipients.length === 1 ? "" : "s"}`}
+            {create.isPending ? "Sending…" : `Send offer to ${recipients.length} crowd resource${recipients.length === 1 ? "" : "s"}`}
           </Button>
         </>
       }
