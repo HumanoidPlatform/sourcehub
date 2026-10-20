@@ -99,8 +99,17 @@ describe("the findings", () => {
       const f = clipMeasured(m, {});
       expect(f.code).toBe("subject_clip_measured");
       expect(f.severity).toBe("info");
-      expect(f.score).toBeCloseTo(m);
+      expect(f.detail?.margin).toBeCloseTo(m);
     }
+  });
+
+  // A score is a 0..1 confidence and the server refuses anything else: a
+  // negative margin sent as one failed the whole presign, for good.
+  it("never put the margin in the score", () => {
+    expect(clipMeasured(-0.05, {}).score).toBeUndefined();
+    expect(clipFinding(-0.05, traffic)?.score).toBeUndefined();
+    expect(clipFinding(-0.05, traffic)?.detail?.margin).toBeCloseTo(-0.05);
+    expect(clipExamplesFinding(-0.2, 1, {}).score).toBe(0);
   });
 });
 

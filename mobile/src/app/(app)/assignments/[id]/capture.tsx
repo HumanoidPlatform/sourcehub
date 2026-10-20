@@ -105,8 +105,9 @@ function trialLine(findings: Finding[]): string {
   const clip = findings.find((f) => f.code === "subject_clip_measured");
   const clipNot = findings.find((f) => f.code === "subject_clip_unscored");
   const mk = findings.find((f) => f.code === "subject_measured");
+  const margin = typeof clip?.detail?.margin === "number" ? clip.detail.margin : null;
   const clipText = clip
-    ? `CLIP ${clip.score?.toFixed(4)} ${(clip.score ?? 0) >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn"}${
+    ? `CLIP ${margin?.toFixed(4)} ${(margin ?? 0) >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn"}${
         typeof clip.detail?.ms === "number" ? ` (${clip.detail.ms} ms)` : ""
       }`
     : `CLIP not scored (${String(clipNot?.detail?.reason ?? "?")})`;

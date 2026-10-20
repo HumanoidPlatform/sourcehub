@@ -34,6 +34,7 @@ import { deleteLocal } from "@/capture/files";
 import { sweepOrphans } from "@/capture/sweep";
 import { captureExists, type CaptureRow, flagResumableForStatus, nextRunnable, patchCapture, type QueueOrder, resetStuck } from "@/db/outbox";
 import { queryClient } from "@/query/queryClient";
+import { checksForServer } from "./checks";
 import { dropPart, partHeaders, readRange, sendPart, stagePart } from "./chunks";
 import { sha256Hex } from "./hash";
 import { logUpload } from "./log";
@@ -75,19 +76,6 @@ function parseHeaders(raw: string | null): Record<string, string> {
     return parsed && typeof parsed === "object" ? (parsed as Record<string, string>) : {};
   } catch {
     return {};
-  }
-}
-
-/** The device's own findings about this capture. A row that cannot be read
- *  must not cost the worker the upload, so an unparseable column reports
- *  nothing rather than failing the presign. */
-function parseChecks(raw: string | null): unknown[] {
-  if (!raw) return [];
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
   }
 }
 
@@ -319,7 +307,7 @@ class Uploader {
           lat: row.lat,
           lon: row.lon,
           // what the phone found before queueing; lands in asset.check_results
-          checks: parseChecks(row.checks),
+          checks: checksForServer(row.checks),
           // a retake names the capture it replaces (db/350)
           ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
           // a clip's running time: a share in hours is counted in it (db/510)

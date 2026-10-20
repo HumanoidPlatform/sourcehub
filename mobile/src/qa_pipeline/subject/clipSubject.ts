@@ -171,15 +171,19 @@ export function framesMargin(margins: number[]): number {
 
 const VIEW_NAME = ["whole frame", "top-left", "bottom-left", "top-right", "bottom-right", "centre"];
 
-/** What CLIP saw, recorded pass or fail. Never shown to the worker. */
+/** What CLIP saw, recorded pass or fail. Never shown to the worker.
+ *
+ *  The margin rides in detail, never in `score`: a finding's score is a
+ *  confidence from 0 to 1 (the server's DeviceCheck refuses anything else),
+ *  and a margin is negative whenever the photo looks more like a mistake than
+ *  the subject. Sent as the score, every such capture was refused at presign. */
 export function clipMeasured(margin: number, detail: Record<string, unknown>): Finding {
   const verdict = margin >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn";
   return {
     code: "subject_clip_measured",
     severity: "info",
     message: `CLIP margin ${margin.toFixed(4)} (${verdict} at ${CLIP_SUBJECT_MIN_MARGIN}).`,
-    score: Number(margin.toFixed(4)),
-    detail: { model: "clip-vit-b32", threshold: CLIP_SUBJECT_MIN_MARGIN, ...detail },
+    detail: { model: "clip-vit-b32", threshold: CLIP_SUBJECT_MIN_MARGIN, ...detail, margin: Number(margin.toFixed(4)) },
   };
 }
 
@@ -198,7 +202,6 @@ export function clipFinding(margin: number, subject: SubjectSpec, frames?: { fra
     message: frames
       ? `${subject.domain} doesn't seem to be in this clip.`
       : `Doesn't look like ${subject.domain}.`,
-    score: Number(margin.toFixed(4)),
     detail: { model: "clip-vit-b32", margin: Number(margin.toFixed(4)), ...(frames ?? {}) },
   };
 }
@@ -269,7 +272,8 @@ export function clipExamplesFinding(score: number, examples: number, detail: Rec
     message: `Looks ${Math.round(score * 100)}% like the client's examples (${
       examplesMissed(score) ? "miss" : "match"
     } at ${CLIP_EXAMPLE_MIN_SIMILARITY}).`,
-    score: Number(score.toFixed(4)),
+    // a cosine, so in principle down to -1; the score field takes 0..1
+    score: Number(Math.min(1, Math.max(0, score)).toFixed(4)),
     detail: { model: "clip-vit-b32", threshold: CLIP_EXAMPLE_MIN_SIMILARITY, examples, ...detail },
   };
 }
