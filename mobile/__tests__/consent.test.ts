@@ -1,5 +1,5 @@
 import {
-  CONSENT_DOCUMENT, NOTICE, POLICY_URL, PRIVACY_NOTICE_VERSION,
+  CONSENT_DOCUMENT, NOTICE, OPERATOR, POLICY_URL, PRIVACY_NOTICE_VERSION,
   consentKey, isCurrent, makeRecord, parseConsent,
 } from "../src/consent";
 import { PRODUCTION_API_URL } from "../src/config";
@@ -89,7 +89,12 @@ describe("the notice", () => {
     const text = NOTICE.sections.map((x) => `${x.heading} ${x.body}`).join(" ").toLowerCase();
     expect(text).not.toContain("resale");
     expect(text).not.toContain("catalogue");
-    expect(PRIVACY_NOTICE_VERSION).toBe("3");
+    expect(Number(PRIVACY_NOTICE_VERSION)).toBeGreaterThanOrEqual(3);
+  });
+
+  it("names the operator the Terms name, and asks again for it (version 4)", () => {
+    expect(OPERATOR.name).toBe("CoSarathi Group Private Limited");
+    expect(PRIVACY_NOTICE_VERSION).toBe("4");
   });
 
   it("links to the policy on the production HTTPS address", () => {

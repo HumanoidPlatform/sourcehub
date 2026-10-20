@@ -5,14 +5,16 @@
 // The record lives on this phone only. Version 2 added a resale section for
 // the dataset catalogue; version 3 takes it out again, because relisting no
 // longer asks the worker (db/400): their part ends when the captures are
-// handed on.
+// handed on. Version 4 names the operator CoSarathi Group Private Limited, as
+// the platform's Terms 1.1 do (db/560), so every worker sees the notice once
+// more.
 
 import { APP_NAME } from "@/brand";
 import { PRODUCTION_API_URL } from "@/config";
 
 /** Bump to ask everyone again. It travels over the air, so a corrected notice
  *  reaches every phone without a new build. */
-export const PRIVACY_NOTICE_VERSION = "3";
+export const PRIVACY_NOTICE_VERSION = "4";
 
 export const POLICY_URL = `${PRODUCTION_API_URL}/privacy`;
 
@@ -25,7 +27,7 @@ export const POLICY_URL = `${PRODUCTION_API_URL}/privacy`;
  *  anything after 90 days today. Until a clean-up job exists, someone has to do
  *  it by hand — see docs/mobile-pilot-build-plan.md. */
 export const OPERATOR = {
-  name: "Vaieon",
+  name: "CoSarathi Group Private Limited",
   contactEmail: "vaieoncosarathi@gmail.com",
   retention: "90 days",
 };

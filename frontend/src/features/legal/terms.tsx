@@ -110,7 +110,9 @@ export function TermsAcceptance({
       </div>
       <p className="small muted" style={{ margin: 0 }}>
         Version {terms.version}, effective {fmtDate(terms.effective_at)} ·{" "}
-        <Link to="/terms" target="_blank" rel="noreferrer">Open the full Terms</Link>
+        <Link to="/terms" target="_blank" rel="noreferrer">Open the full Terms</Link> ·{" "}
+        {/* the checkbox accepts the Privacy Policy too, so it is one click away */}
+        <Link to="/privacy" target="_blank" rel="noreferrer">Privacy Policy</Link>
       </p>
       <div className="small">
         <p style={{ margin: "0 0 4px" }}>By selecting "I Accept", I confirm that:</p>

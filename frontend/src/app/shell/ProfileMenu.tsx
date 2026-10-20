@@ -153,8 +153,9 @@ export function ProfileMenu({ theme, onTheme }: { theme: Theme; onTheme: (t: The
                   Privacy notice
                 </Link>
                 {/* Misuse of data, a consent failure or a breach (Terms §5, §6.4)
-                    goes to the Grievance Officer, whose contact is §14.9 */}
-                <Link to="/terms#s14" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
+                    goes to the contact the Privacy Policy gives: since Terms 1.1
+                    (db/560) the Terms name no grievance contact */}
+                <Link to="/privacy" role="menuitem" tabIndex={-1} className="acct-item" onClick={() => setOpen(false)}>
                   Report a concern
                 </Link>
               </>

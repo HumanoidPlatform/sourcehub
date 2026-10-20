@@ -4,7 +4,9 @@
 // in a browser that is not signed in, and Google Play will later require this
 // exact URL on the store listing.
 //
-// The OPERATOR values were supplied by the organisation on 19 September 2026.
+// The OPERATOR values were supplied by the organisation on 19 September 2026;
+// on 20 October 2026 the operator's name became CoSarathi Group Private
+// Limited, as Terms 1.1 names it (db/560).
 // The text still deserves a lawyer's eye against India's DPDP Act 2023. If a
 // value is ever reset to a [placeholder] the page says so at the top. The
 // short notice in the phone app (mobile/src/consent.ts) says the same things
@@ -19,12 +21,12 @@ import { Callout } from "@ds/primitives";
 import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";
 
 const OPERATOR = {
-  name: "Vaieon",
+  name: "CoSarathi Group Private Limited",
   address: "Sainik Puri, Hyderabad",
   contactEmail: "vaieoncosarathi@gmail.com",
   retention: "90 days",
 };
-const LAST_UPDATED = "19 September 2026";
+const LAST_UPDATED = "20 October 2026";
 // DataHub (db/390) resells captures from requests that were not
 // exclusive. What follows says only what the platform does; THE WORDING IS A
 // DRAFT for the organisation and its counsel to replace, and while it carries
