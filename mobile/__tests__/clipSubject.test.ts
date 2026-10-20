@@ -18,6 +18,7 @@ import {
   negativesFor,
   subjectPhrases,
   views,
+  withoutNearest,
 } from "@/qa_pipeline/subject/clipSubject";
 
 const traffic: SubjectSpec = { domain: "road traffic", must_show: ["vehicles", "road"], must_not_show: [] };
@@ -38,6 +39,31 @@ describe("the phrases", () => {
 
   it("match the laptop evaluation's list", () => {
     expect(NEGATIVES).toHaveLength(36);
+  });
+
+  // "grass" shares no word with "crop field, plants, soil" yet means nearly
+  // the same, and the margin is taken against the closest negative
+  it("ignore the negative nearest the subject in meaning", () => {
+    const text = {
+      subject: [unit(1, 0, 0), unit(0, 1, 0)],
+      negatives: [unit(0, 0, 1), unit(0.9, 0.1, 0.4), unit(0.1, 0.3, 1)],
+      negativePhrases: ["a ceiling", "grass", "a floor"],
+    };
+    const out = withoutNearest(text, 1);
+    expect(out.ignored).toEqual(["grass"]);
+    expect(out.negativePhrases).toEqual(["a ceiling", "a floor"]);
+    expect(out.negatives).toHaveLength(2);
+    expect(out.subject).toBe(text.subject);
+    // a photo of the subject that "grass" alone was beating now passes
+    const photo = [unit(1, 0.2, 0.3)];
+    expect(marginOf(photo, text).margin).toBeLessThan(CLIP_SUBJECT_MIN_MARGIN);
+    expect(marginOf(photo, out).margin).toBeGreaterThan(CLIP_SUBJECT_MIN_MARGIN);
+  });
+
+  it("never ignore every negative, and ignore none when told none", () => {
+    const one = { subject: [unit(1, 0)], negatives: [unit(0, 1)], negativePhrases: ["a floor"] };
+    expect(withoutNearest(one, 1)).toBe(one);
+    expect(withoutNearest(one, 0)).toBe(one);
   });
 });
 

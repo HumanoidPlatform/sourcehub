@@ -34,7 +34,15 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import data_dir  # noqa: E402
-from phone_rules import clip_passes, names_match, photo_passes, score_subject, vocabularies, words  # noqa: E402
+from phone_rules import (  # noqa: E402
+    CLIP_IGNORE_NEAREST_NEGATIVES,
+    clip_passes,
+    names_match,
+    photo_passes,
+    score_subject,
+    vocabularies,
+    words,
+)
 
 RNG_SEED = 20261017
 
@@ -105,6 +113,10 @@ class Model:
         # a negative that names part of the subject would argue with it
         vocab = vocabularies(subject)[0]
         keep = [i for i, w in enumerate(self.neg_words) if not (w & vocab)]
+        # and, as the phone does, the ones nearest it in meaning
+        if 0 < CLIP_IGNORE_NEAREST_NEGATIVES < len(keep):
+            near = sorted(keep, key=lambda i: -float((self.neg[i] @ sub.T).max()))[:CLIP_IGNORE_NEAREST_NEGATIVES]
+            keep = [i for i in keep if i not in near]
         neg = self.neg[keep]
         s = img @ sub.T  # (frames, views, phrases)
         sim = s.mean(-1)  # all of the subject's phrases, averaged

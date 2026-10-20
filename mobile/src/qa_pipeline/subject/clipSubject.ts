@@ -26,14 +26,15 @@
 //     similarity to any negative; the photo's margin is its best view's;
 //   - a clip's margin is the mean of its best three frames'.
 // A negative that shares a word with the subject is dropped, or it would
-// argue with it ("a road" against "road traffic").
+// argue with it ("a road" against "road traffic"); so is the one nearest it in
+// meaning ("grass" against "crop field, plants, soil": withoutNearest).
 //
 // The models are big (image ~350 MB, text ~250 MB, fp32) and download once on
 // first use; until they are ready a capture records subject_clip_unscored and
 // ML Kit decides as before. Nothing here ever blocks a capture.
 
 import type { SubjectSpec } from "@/api/types";
-import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_IGNORE_NEAREST_NEGATIVES, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
 import type { Finding } from "@/qa_pipeline/rules/rules";
 import { words } from "@/qa_pipeline/subject/subject";
 
@@ -139,6 +140,30 @@ export interface TextVectors {
   negatives: Float32Array[];
   /** the negatives kept, for the record */
   negativePhrases: string[];
+  /** the negatives ignored for being nearest the subject (withoutNearest) */
+  ignored?: string[];
+}
+
+/** The negatives less the `k` that mean most nearly what the subject does:
+ *  each negative's nearness is its similarity to the closest subject phrase,
+ *  and the nearest go. The word filter (negativesFor) has already dropped the
+ *  ones that share a word; this catches the ones that share a meaning. */
+export function withoutNearest(text: TextVectors, k: number): TextVectors {
+  if (k <= 0 || text.negatives.length <= k) return text;
+  const near = text.negatives.map((n, i) => ({ i, s: Math.max(...text.subject.map((t) => dot(n, t))) }));
+  const gone = new Set(
+    near
+      .sort((a, b) => b.s - a.s)
+      .slice(0, k)
+      .map((x) => x.i),
+  );
+  const keep = (_: unknown, i: number) => !gone.has(i);
+  return {
+    subject: text.subject,
+    negatives: text.negatives.filter(keep),
+    negativePhrases: text.negativePhrases.filter(keep),
+    ignored: text.negativePhrases.filter((_, i) => gone.has(i)),
+  };
 }
 
 export interface ViewsMargin {
@@ -406,8 +431,12 @@ export function textVectors(subject: SubjectSpec): Promise<TextVectors> | null {
       for (const p of phrases) sub.push(await embedPhrase(text, p));
       const neg: Float32Array[] = [];
       for (const p of negativePhrases) neg.push(await embedPhrase(text, p));
-      console.log(`[clip] ${phrases.length} subject + ${neg.length} negative phrases in ${Date.now() - t0} ms`);
-      return { subject: sub, negatives: neg, negativePhrases };
+      const out = withoutNearest({ subject: sub, negatives: neg, negativePhrases }, CLIP_IGNORE_NEAREST_NEGATIVES);
+      console.log(
+        `[clip] ${phrases.length} subject + ${out.negatives.length} negative phrases in ${Date.now() - t0} ms` +
+          (out.ignored?.length ? `; ignoring ${out.ignored.join(", ")}` : ""),
+      );
+      return out;
     })();
     v.catch(() => textCache.delete(key));
     textCache.set(key, v);

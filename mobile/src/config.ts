@@ -64,6 +64,17 @@ export const SUBJECT_DIALOG = true;
  *  evaluation (tools/subject_eval) warned on 10% of good photos and passed 2%
  *  of wrong ones; web photos, so provisional until set from phone captures. */
 export const CLIP_SUBJECT_MIN_MARGIN = -0.0013;
+/** How many of the typical-mistake phrases nearest the subject CLIP ignores
+ *  (clipSubject.ts withoutNearest). The word filter keeps a mistake that means
+ *  the subject without sharing a word with it — "grass" for a crop field of
+ *  "plants, soil" — and the margin is taken against the closest mistake, so
+ *  that one phrase pulled down every photo of the subject: it beat 5 of the 7
+ *  good crop-field photos that failed. Ignoring the single nearest, on the
+ *  same laptop set (tools/subject_eval/rigidity.py), warned on 5.0% of good
+ *  photos instead of 9.4%, with false passes unchanged at 2.2%. A fixed
+ *  similarity cut-off does not work: CLIP's text vectors all sit close
+ *  together, so a rank is used, not a value. */
+export const CLIP_IGNORE_NEAREST_NEGATIVES = 1;
 /** The size photos are shrunk to before CLIP looks at them: wide enough that
  *  each quarter view is still the model's own 224 pixels. */
 export const CLIP_IMAGE_WIDTH = 448;

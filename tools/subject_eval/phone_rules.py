@@ -21,6 +21,9 @@ MIN_SUBJECT_FRAMES = 2
 FRAME_EVERY_S = 5
 MIN_FRAMES = 3
 MAX_FRAMES = 40
+# CLIP: the negatives nearest the subject in meaning that the phone ignores
+# (config.ts CLIP_IGNORE_NEAREST_NEGATIVES, clipSubject.ts withoutNearest)
+CLIP_IGNORE_NEAREST_NEGATIVES = 1
 
 _STOP = {"a", "an", "the", "of", "with", "and", "or", "in", "on", "at", "no", "not"}
 
