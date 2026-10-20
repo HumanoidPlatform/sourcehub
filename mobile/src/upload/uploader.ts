@@ -27,12 +27,14 @@
 import NetInfo from "@react-native-community/netinfo";
 import * as Legacy from "expo-file-system/legacy";
 import { AppState, type AppStateStatus } from "react-native";
-import { ApiError, get, loadSession, post } from "@/api/client";
+import { ApiError, currentUserId, del, get, loadSession, post } from "@/api/client";
 import type { AssetRow, Presign } from "@/api/types";
 import { CHUNK_BYTES, PARTS_IN_FLIGHT_CELL, PARTS_IN_FLIGHT_WIFI, POLL_MS, PRESIGN_SAFETY_MS, PUT_STALL_MS } from "@/config";
 import { deleteLocal } from "@/capture/files";
-import { type CaptureRow, flagResumableForStatus, nextRunnable, patchCapture, type QueueOrder, resetStuck } from "@/db/outbox";
+import { sweepOrphans } from "@/capture/sweep";
+import { captureExists, type CaptureRow, flagResumableForStatus, nextRunnable, patchCapture, type QueueOrder, resetStuck } from "@/db/outbox";
 import { queryClient } from "@/query/queryClient";
+import { checksForServer } from "./checks";
 import { dropPart, partHeaders, readRange, sendPart, stagePart } from "./chunks";
 import { sha256Hex } from "./hash";
 import { logUpload } from "./log";
@@ -74,19 +76,6 @@ function parseHeaders(raw: string | null): Record<string, string> {
     return parsed && typeof parsed === "object" ? (parsed as Record<string, string>) : {};
   } catch {
     return {};
-  }
-}
-
-/** The device's own findings about this capture. A row that cannot be read
- *  must not cost the worker the upload, so an unparseable column reports
- *  nothing rather than failing the presign. */
-function parseChecks(raw: string | null): unknown[] {
-  if (!raw) return [];
-  try {
-    const parsed: unknown = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
   }
 }
 
@@ -137,6 +126,7 @@ class Uploader {
     this.unsubscribe.push(() => sub.remove());
     this.timer = setInterval(() => this.kick(), POLL_MS);
     void resetStuck().then(() => this.kick());
+    void sweepOrphans();
   }
 
   stop(): void {
@@ -255,8 +245,10 @@ class Uploader {
       });
     }
 
-    if (outcomes.some((o) => o.type === "halt")) {
-      // the session is gone, not the capture: nothing is written to the row
+    // The session is gone, not the capture: nothing is written to the row. Nor
+    // when someone else signed in while this step ran — what their token got
+    // back says nothing about this row, which waits for its owner.
+    if (outcomes.some((o) => o.type === "halt") || currentUserId() !== row.user_id) {
       this.halted = true;
       return false;
     }
@@ -272,6 +264,14 @@ class Uploader {
       const p = applyResult(merged, outcome, Date.now());
       Object.assign(patch, p);
       merged = { ...merged, ...p };
+    }
+    // Removed while this step ran. The removal could only free the server
+    // slot it knew of; a presign that answered meanwhile made one it did not,
+    // which held a place in the share for a day. Freed here instead.
+    if (!(await captureExists(row.id))) {
+      progress.clear(row.id);
+      if (merged.asset_id) await del(`/assets/${merged.asset_id}`).catch(() => undefined);
+      return true;
     }
     if (outcomes.some((o) => o.type === "confirmed")) {
       progress.clear(row.id);
@@ -307,7 +307,7 @@ class Uploader {
           lat: row.lat,
           lon: row.lon,
           // what the phone found before queueing; lands in asset.check_results
-          checks: parseChecks(row.checks),
+          checks: checksForServer(row.checks),
           // a retake names the capture it replaces (db/350)
           ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
           // a clip's running time: a share in hours is counted in it (db/510)
@@ -335,7 +335,7 @@ class Uploader {
         const r = await post<{ urls: Record<string, string>; expires_in: number }>(`/assets/${row.asset_id}/upload/urls`, {
           parts: action.parts,
         });
-        return [{ type: "part_urls", urls: r.urls, expires_in: r.expires_in }];
+        return [{ type: "part_urls", urls: r.urls ?? {}, expires_in: r.expires_in, requested: action.parts }];
       }
       case "chunk":
         return this.sendChunks(row, action.parts, action.from);
@@ -424,9 +424,13 @@ class Uploader {
       const url = protocol === "gcs" ? row.session_url : urls[n]?.url;
       if (!url) return protocol === "gcs" ? { type: "session_lost" } : { type: "part_rejected", part: n };
       const range = rangeOf(n);
-      const bytes = readRange(uri, range);
-      const staged = stagePart(row.id, n, bytes);
+      // Inside the try: a read or a stage that throws (a full cache) is this
+      // part's outcome, not a rejection that threw away the others' progress
+      // and left a half-written .part behind.
+      let staged: ReturnType<typeof stagePart> | null = null;
       try {
+        const bytes = readRange(uri, range);
+        staged = stagePart(row.id, n, bytes);
         const headers = await partHeaders(protocol, range, row.size, bytes, row.mime);
         const r = await sendPart(staged, url, headers, (f) => {
           inflight.set(n, f);
@@ -436,7 +440,7 @@ class Uploader {
       } catch (e) {
         return this.outcomeFromError(e, "chunk", row);
       } finally {
-        dropPart(staged);
+        if (staged) dropPart(staged);
       }
     };
     return Promise.all(parts.map(one));

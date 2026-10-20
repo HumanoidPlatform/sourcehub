@@ -118,7 +118,7 @@ export async function moveIntoPrivateDir(fromUri: string, assignmentId: string, 
  *
  *  The cache directory, not documents: this is a working copy that exists only
  *  long enough to be looked at, and the OS is welcome to reclaim it. Callers
- *  delete it themselves the moment they are done (qa_pipeline/examples/load.ts labels
+ *  delete it themselves the moment they are done (subject/clipExamples.ts embeds
  *  the image and throws it away), so nothing server-originated accumulates on
  *  a worker's phone.
  *

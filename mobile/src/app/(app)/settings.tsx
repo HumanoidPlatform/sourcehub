@@ -11,7 +11,17 @@ import { APP_NAME, ROLE_LABEL } from "@/brand";
 import { ALLOW_SERVER_OVERRIDE } from "@/config";
 import { POLICY_URL } from "@/consent";
 import { useConsent } from "@/consentStore";
-import { discardFailed, onOutboxChange, retryFailed, retryNow, summary, type OutboxSummary } from "@/db/outbox";
+import { deleteLocal } from "@/capture/files";
+import {
+  discardFailed,
+  discardOthers,
+  onOutboxChange,
+  othersWaiting,
+  retryFailed,
+  retryNow,
+  summary,
+  type OutboxSummary,
+} from "@/db/outbox";
 import { pushState, registerForPush, type PushState } from "@/notifications/push";
 import { Button, Callout, Field, Screen, inputStyle, s } from "@/ui";
 import { dropCaptures } from "@/upload/drop";
@@ -36,11 +46,15 @@ export default function Settings() {
   const log = useUploadLog();
   const consent = useConsent(session.user_id);
   const [push, setPush] = useState<PushState | null>(null);
+  const [others, setOthers] = useState(0);
 
   useEffect(() => {
     void getBaseUrl().then(setUrl);
     void pushState().then(setPush);
-    const load = () => void summary().then(setBox);
+    const load = () => {
+      void summary().then(setBox);
+      void othersWaiting().then(setOthers);
+    };
     load();
     return onOutboxChange(load);
   }, []);
@@ -49,7 +63,7 @@ export default function Settings() {
     const warn = box.queued + box.failed;
     Alert.alert(
       "Sign out?",
-      warn ? `${warn} capture${warn === 1 ? "" : "s"} on this phone ${warn === 1 ? "has" : "have"} not been uploaded yet. They stay here until you sign back in.` : "You can sign back in any time.",
+      warn ? `${warn} capture${warn === 1 ? "" : "s"} on this phone ${warn === 1 ? "has" : "have"} not been uploaded yet. They stay on this phone and upload when you sign back in.` :"You can sign back in any time.",
       [
         { text: "Stay", style: "cancel" },
         { text: "Sign out", style: "destructive", onPress: () => void logout().then(() => router.replace("/sign-in")) },
@@ -91,6 +105,35 @@ export default function Settings() {
               ])
             }
           />
+        )}
+        {/* A shared phone: a colleague's unsent work waits for them, and goes
+            only when the person holding the phone says so. */}
+        {others > 0 && (
+          <>
+            <Text style={[s.muted, { marginTop: 10 }]}>
+              {others} capture{others === 1 ? "" : "s"} from another account on this phone {others === 1 ? "is" : "are"} waiting
+              for that person to sign back in.
+            </Text>
+            <Button
+              title="Discard other accounts' captures"
+              variant="danger"
+              style={{ marginTop: 8 }}
+              onPress={() =>
+                Alert.alert(
+                  "Discard another person's captures?",
+                  "They have not been uploaded. The files are deleted from this phone and cannot be recovered.",
+                  [
+                    { text: "Keep", style: "cancel" },
+                    {
+                      text: "Discard",
+                      style: "destructive",
+                      onPress: () => void discardOthers().then((rows) => Promise.all(rows.map((r) => deleteLocal(r.local_uri)))),
+                    },
+                  ],
+                )
+              }
+            />
+          </>
         )}
       </View>
 

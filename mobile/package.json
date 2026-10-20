@@ -6,7 +6,6 @@
     "@expo/ui": "~57.0.16",
     "@react-native-community/netinfo": "12.0.1",
     "@react-native-ml-kit/face-detection": "^2.0.1",
-    "@react-native-ml-kit/image-labeling": "^2.0.0",
     "@react-native-ml-kit/text-recognition": "^2.0.0",
     "@tanstack/react-query": "^5.102.8",
     "expo": "~57.0.20",
@@ -43,6 +42,8 @@
     "react-dom": "19.2.3",
     "react-native": "0.86.3",
     "react-native-background-actions": "^4.1.0",
+    "react-native-blob-util": "^0.24.12",
+    "react-native-executorch": "0.10.5",
     "react-native-gesture-handler": "~2.32.0",
     "react-native-reanimated": "4.5.1",
     "react-native-safe-area-context": "~5.7.0",
@@ -74,6 +75,15 @@
     "preset": "jest-expo",
     "testMatch": [
       "**/__tests__/**/*.test.ts"
+    ]
+  },
+  "allowScripts": {
+    "react-native-executorch@0.10.5": true
+  },
+  "react-native-executorch": {
+    "features": [
+      "imageEmbeddings",
+      "textEmbeddings"
     ]
   }
 }

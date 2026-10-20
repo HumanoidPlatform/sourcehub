@@ -14,4 +14,6 @@ pillow-heif==0.21.0
 av==14.2.0
 numpy==2.2.3
 scikit-learn==1.6.1
+# runs ML Kit's own labeller model on the laptop (mlkit_local.py)
+ai-edge-litert==2.3.0
 pytest==8.3.4

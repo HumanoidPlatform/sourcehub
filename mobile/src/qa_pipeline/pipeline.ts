@@ -9,41 +9,35 @@
 import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
-import type { CaptureSpec } from "@/api/types";
-import { FRAMES_BUDGET_MS, MIN_SUBJECT_FRAMES, SUBJECT_DIALOG, SUBJECT_FRAMES_MIN_SHARE } from "@/config";
+import type { CaptureSpec, SubjectSpec } from "@/api/types";
+import { CLIP_IMAGE_WIDTH, FRAMES_BUDGET_MS, SUBJECT_DIALOG } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/qa_pipeline/clip/clip";
-import {
-  exampleFramesFinding,
-  type ExampleScore,
-  examplesFinding,
-  type ExampleSet,
-  examplesUncheckedFinding,
-  missedExamples,
-  scoreExampleFrames,
-  scoreExamples,
-} from "@/qa_pipeline/examples/examples";
 import { detectFaces, facesFinding, facesUncheckedFinding, scoreFaces } from "@/qa_pipeline/faces/faces";
 import { blocking, checkCapture, displayedSize, type Finding } from "@/qa_pipeline/rules/rules";
 import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/qa_pipeline/text/text";
 import {
+  type ClipExampleSet,
+  clipExamplesFinding,
+  clipExamplesUncheckedFinding,
+  clipFinding,
+  clipMeasured,
+  type ClipResult,
+  clipUnscoredFinding,
+  exampleSimilarity,
+  examplesMissed,
   forbiddenFinding,
-  framesFinding,
-  framesForbiddenFinding,
-  labelImage,
-  scoreFrames,
-  scoreSubject,
-  subjectFinding,
-  subjectMeasured,
-  type SubjectScore,
-  unscoredFinding,
-  type UnscoredReason,
-} from "@/qa_pipeline/subject/subject";
+  type ForbiddenMargin,
+  framesForbidden,
+  framesMargin,
+  photoDetail,
+  scoreImage,
+} from "@/qa_pipeline/subject/clipSubject";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { deviceFinding, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
 import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
-import { frameAt, greyImage, sampleFrames } from "@/qa_pipeline/clip/frames";
+import { frameAt, greyImage, rgbaImage, sampleFrames } from "@/qa_pipeline/clip/frames";
 import { blurFinding, framesBlurFinding, measureSharpness, type Sharpness } from "@/qa_pipeline/blur/blur";
 import {
   type Exposure,
@@ -117,15 +111,15 @@ export function useCapture(
   taskRef: string,
   spec?: CaptureSpec | null,
   targetUnit?: string | null,
-  /** the client's example photos as the phone labelled them, loaded by the
-   *  assignment screen. Absent on a task with none, and on a phone that never
-   *  managed to fetch them — the two are told apart inside. */
-  examples?: ExampleSet | null,
   /** a retake: the server's id of the capture sent back that this replaces */
   replacesAssetId?: string | null,
   /** the position the camera screen keeps warm (location.watchFix), read at
    *  the shutter; a stable getter, so a new reading does not rebuild this */
   warmFix?: () => Fix | null,
+  /** the client's example photos as CLIP embedded them (a stable getter, read
+   *  at the shutter, so a late download is still used). Absent or empty on a
+   *  task with none; `expected` tells that apart from examples not yet fetched. */
+  clipExamples?: () => ClipExampleSet | null,
 ) {
   return useCallback(
     // tilt is sampled by the caller, not read here: an async read after the
@@ -263,26 +257,23 @@ export function useCapture(
         }
       }
 
-      // The subject check. A task without a subject skips it. A phone that
-      // could not look says so with a warning of its own and the capture is
-      // kept; a low score hands the decision to the worker.
+      // The subject check (CLIP, subject/clipSubject.ts). A task without a
+      // subject or example photos skips it. A phone that could not look says
+      // so with a warning of its own and the capture is kept; a miss hands the
+      // decision to the worker.
       //
       // A clip is looked at through its sampled frames, and those frames
       // answer two questions at once: is the picture there at all (black,
       // frozen — clip.ts, and a block like any other), and does it show the
-      // subject (subject.ts, a warning like a photo's).
-      const subject = spec?.subject;
+      // subject (a warning like a photo's).
+      const subject = spec?.subject ?? null;
 
-      // The client's own photos, when they sent any AND the phone managed to
-      // read them beforehand (qa_pipeline/examples/load.ts, on the assignment screen).
-      // `usable` is what matters below: examples the task carries but this
-      // phone never fetched are worse than none at all, because comparing
-      // against an empty set would score every capture zero and refuse
-      // everything. The gap is recorded instead.
-      const usable = examples && examples.ready.length > 0 ? examples.ready : null;
-      if (examples && examples.expected > 0 && !usable) {
-        findings.push(examplesUncheckedFinding(examples.expected));
-      }
+      // The client's own photos, as CLIP embedded them on the camera screen
+      // (subject/clipExamples.ts). Examples the task carries but this phone
+      // has not embedded are recorded as not compared, never read as a match.
+      const exSet = clipExamples?.() ?? null;
+      const withExamples = exSet != null && exSet.expected > 0;
+      const looks = subject != null || withExamples;
 
       let onSubject = false;
       let finding: Finding | null = null;
@@ -291,13 +282,13 @@ export function useCapture(
         const greys: Uint8Array[] = [];
         const sharps: Sharpness[] = [];
         const expos: Exposure[] = [];
-        const scores: SubjectScore[] = [];
-        const exampleScores: ExampleScore[] = [];
-        // One frame the labeller could not answer is skipped, not the clip:
-        // a slow frame among thirty says nothing about the other twenty-nine.
-        // Only a build with no labeller at all stops asking.
-        let noLabeller = false;
-        let lastMiss: { reason: UnscoredReason; error?: string } | null = null;
+        // one CLIP look per frame: the subject's margin, each banned phrase's,
+        // and the likeness to the examples, all from the same six views
+        const margins: number[] = [];
+        const banned: ForbiddenMargin[][] = [];
+        const exSims: number[] = [];
+        let miss: Exclude<ClipResult, { vecs: unknown }> | null = null;
+        let ms = 0;
         const sampled = await sampleFrames(
           moved.uri,
           times,
@@ -306,18 +297,18 @@ export function useCapture(
             greys.push(frame.grey);
             sharps.push(measureSharpness(frame.image));
             expos.push(measureExposure(frame.image));
-            if ((!subject && !usable) || noLabeller) return;
-            const seen = await labelImage(frame.uri);
-            if ("unscored" in seen) {
-              lastMiss = { reason: seen.unscored, error: seen.error };
-              if (seen.unscored === "no_labeller") noLabeller = true;
-            } else {
-              // One set of labels, two questions. Comparing against the
-              // examples is arithmetic on labels this frame already cost us,
-              // so a clip pays nothing extra for the second check.
-              if (subject) scores.push(scoreSubject(seen.labels, subject));
-              if (usable) exampleScores.push(scoreExamples(seen.labels, usable));
+            // A frame CLIP could not answer is skipped, not the clip: a slow
+            // frame among thirty says nothing about the other twenty-nine.
+            if (!looks || (miss && miss.unscored !== "error")) return;
+            const r = await clipScore(frame.uri, subject);
+            if ("unscored" in r) {
+              miss = r;
+              return;
             }
+            ms += r.ms;
+            if (r.margins) margins.push(r.margins.margin);
+            banned.push(r.forbidden);
+            if (exSet && exSet.ready.length > 0) exSims.push(exampleSimilarity(r.vecs, exSet.ready).score);
           },
           onProgress,
         );
@@ -336,74 +327,61 @@ export function useCapture(
 
         let wordMiss: Finding | null = null;
         if (subject) {
-          if (scores.length > 0) {
-            const across = scoreFrames(scores);
-            // Recorded whether it passed or not. Without this a clip that was
-            // accepted filed no score and no labels, and the only way to find
-            // out why was to shoot it again.
-            findings.push(subjectMeasured(scores[0], across));
-            wordMiss = framesFinding(across, subject);
-            const banned = framesForbiddenFinding(scores, subject);
-            if (banned) findings.push(banned);
+          if (margins.length > 0) {
+            const m = framesMargin(margins);
+            // Recorded whether it passed or not, so a clip that was accepted
+            // still says what CLIP made of it.
+            findings.push(
+              clipMeasured(m, {
+                frames: margins.length,
+                per_frame: margins.map((x) => Number(x.toFixed(4))),
+                ms,
+              }),
+            );
+            const ban = forbiddenFinding(framesForbidden(banned), true);
+            if (ban) findings.push(ban);
+            wordMiss = clipFinding(m, subject, { frames: margins.length });
+            if (wordMiss) findings.push(wordMiss);
           } else {
-            const miss: { reason: UnscoredReason; error?: string } = lastMiss ?? { reason: "timeout" };
-            findings.push(unscoredFinding(miss.reason, miss.error));
+            const why: Exclude<ClipResult, { vecs: unknown }> = miss ?? { unscored: "error", error: "no frame scored" };
+            findings.push(clipUnscoredFinding(why.unscored, why.error));
           }
         }
-        let exampleMiss = false;
-        if (usable && exampleScores.length > 0) {
-          const shot = scoreExampleFrames(exampleScores);
-          findings.push(exampleFramesFinding(shot));
-          // The same rule as the word check, for the same reason: at three
-          // samples a 0.3 share is one frame, and one frame is an accident.
-          exampleMiss =
-            shot.hits < Math.min(MIN_SUBJECT_FRAMES, shot.frames) || shot.share < SUBJECT_FRAMES_MIN_SHARE;
-        } else if (usable && examples) {
-          // The examples were ready and not one frame could be labelled to
-          // compare with them. Said, so a reviewer does not read the silence
-          // as a match.
-          const miss: { reason: UnscoredReason } = lastMiss ?? { reason: "timeout" };
-          findings.push(examplesUncheckedFinding(examples.expected, miss.reason));
-        }
-        if (wordMiss) findings.push(wordMiss);
-        finding = prompted(wordMiss, exampleMiss, usable !== null);
+        const cx = clipExamplesCheck(exSet, exSims.length > 0 ? framesMargin(exSims) : null, findings, {
+          frames: exSims.length,
+        });
+        finding = prompted(wordMiss, cx.miss, cx.used);
         // "Looks like the subject" only where a check actually looked and
-        // passed. A clip with no subject and no examples, or one whose frames
-        // could not be labelled, was never judged and must not be praised.
-        const wordsPassed = subject ? scores.length > 0 && wordMiss === null : true;
-        const examplesPassed = usable ? exampleScores.length > 0 && !exampleMiss : true;
-        onSubject = (subject != null || usable != null) && wordsPassed && examplesPassed;
-      } else if (subject || usable) {
-        const seen = await labelImage(moved.uri);
-        if ("unscored" in seen) {
-          if (subject) findings.push(unscoredFinding(seen.unscored, seen.error));
-          // The same missing labels cost the example comparison; say so
-          // rather than leave a capture that was never compared looking like
-          // one that matched.
-          if (usable && examples) findings.push(examplesUncheckedFinding(examples.expected, seen.unscored));
+        // passed. A clip with nothing to check against, or whose frames could
+        // not be scored, was never judged and must not be praised.
+        const wordsPassed = subject ? margins.length > 0 && wordMiss === null : cx.used;
+        onSubject = looks && wordsPassed && !cx.miss;
+      } else if (looks) {
+        const r = await clipScore(moved.uri, subject);
+        if ("unscored" in r) {
+          if (subject) findings.push(clipUnscoredFinding(r.unscored, r.error));
+          // The same missing look costs the example comparison; say so rather
+          // than leave a capture that was never compared looking like a match.
+          if (exSet && withExamples) findings.push(clipExamplesUncheckedFinding(exSet.expected));
           return { kept: true, findings: await queue(findings) };
         }
         let wordMiss: Finding | null = null;
-        if (subject) {
-          const scored = scoreSubject(seen.labels, subject);
-          // Prohibition is its own question now, and its own warning: it rides
-          // with the upload for the reviewer but never puts the keep-or-retake
+        if (subject && r.margins) {
+          findings.push(clipMeasured(r.margins.margin, photoDetail(r.margins, r.ms)));
+          // Prohibition is its own question and its own warning: it rides with
+          // the upload for the reviewer but never puts the keep-or-retake
           // question to the worker, who often cannot prevent it — a passer-by
           // walks into shot and the shelf is still the shelf.
-          const banned = forbiddenFinding(scored, subject);
-          if (banned) findings.push(banned);
-          findings.push(subjectMeasured(scored));
-          wordMiss = subjectFinding(scored, subject);
+          const ban = forbiddenFinding(r.forbidden);
+          if (ban) findings.push(ban);
+          wordMiss = clipFinding(r.margins.margin, subject);
           if (wordMiss) findings.push(wordMiss);
         }
-        let exampleMiss = false;
-        if (usable) {
-          const ex = scoreExamples(seen.labels, usable);
-          findings.push(examplesFinding(ex));
-          exampleMiss = missedExamples(ex);
-        }
-        finding = prompted(wordMiss, exampleMiss, usable !== null);
-        onSubject = wordMiss === null && !exampleMiss;
+        // the examples, compared against the six views CLIP already has
+        const sim = exSet && exSet.ready.length > 0 ? exampleSimilarity(r.vecs, exSet.ready) : null;
+        const cx = clipExamplesCheck(exSet, sim?.score ?? null, findings, { best: sim?.best ?? null });
+        finding = prompted(wordMiss, cx.miss, cx.used);
+        onSubject = (subject != null || cx.used) && wordMiss === null && !cx.miss;
       }
 
       if (finding) {
@@ -424,17 +402,45 @@ export function useCapture(
 
       return { kept: true, findings: await queue(findings), onSubject };
     },
-    [assignmentId, taskRef, spec, targetUnit, examples, replacesAssetId, warmFix],
+    [assignmentId, taskRef, spec, targetUnit, replacesAssetId, warmFix, clipExamples],
   );
+}
+
+/** CLIP's look at one image file — the subject's margin when there is a
+ *  subject, the banned phrases' and the six views' vectors — or why there is
+ *  none. Never throws. */
+async function clipScore(uri: string, subject: SubjectSpec | null): Promise<ClipResult> {
+  try {
+    return await scoreImage(await rgbaImage(uri, CLIP_IMAGE_WIDTH), subject);
+  } catch (e) {
+    return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
+  }
+}
+
+/** CLIP's example verdict, recorded either way: `used` when there were
+ *  examples to compare against and a score came back, `miss` when it fell
+ *  short. A task with examples that could not be compared says so. */
+function clipExamplesCheck(
+  set: ClipExampleSet | null,
+  score: number | null,
+  findings: Finding[],
+  detail: Record<string, unknown>,
+): { used: boolean; miss: boolean } {
+  if (!set || set.expected === 0) return { used: false, miss: false };
+  if (set.ready.length === 0 || score == null) {
+    findings.push(clipExamplesUncheckedFinding(set.expected));
+    return { used: false, miss: false };
+  }
+  findings.push(clipExamplesFinding(score, set.ready.length, detail));
+  return { used: true, miss: examplesMissed(score) };
 }
 
 // Which miss, if any, is put to the worker.
 //
 // BOTH CHECKS MUST AGREE before anyone is asked. The word check alone decides
-// when the client sent no examples — today's behaviour, unchanged. The example
-// check never decides alone, not even when it is the only one that ran: a
-// brand-new comparison with no field data behind it does not get to throw away
-// a worker's shot, which is precisely how the original complaint happened.
+// when the client sent no examples. The example check never decides alone,
+// not even when it is the only one that ran: a comparison with no field data
+// behind it does not get to throw away a worker's shot.
 //
 // Both scores are recorded either way, so the rule can be moved on evidence.
 // The number that decides whether to move it is how often this function
@@ -443,7 +449,7 @@ export function useCapture(
 // those, the weak check is vetoing the strong one.
 //
 // The finding handed back is the word check's, because it carries the sentence
-// a worker can act on ("Doesn't look like retail shelf. Saw: floor…"). The
+// a worker can act on ("Doesn't look like retail shelf."). The
 // example score reaches the reviewer as its own measurement.
 function prompted(wordMiss: Finding | null, exampleMiss: boolean, usedExamples: boolean): Finding | null {
   if (!usedExamples) return wordMiss;

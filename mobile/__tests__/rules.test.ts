@@ -1,5 +1,5 @@
 import type { CaptureSpec } from "@/api/types";
-import { blocking, checkCapture, displayedSize, mediaKinds, type Facts } from "@/qa_pipeline/rules/rules";
+import { blocking, checkCapture, displayedSize, mediaKinds, type Facts, videoQualityFor } from "@/qa_pipeline/rules/rules";
 
 const MB = 1024 * 1024;
 
@@ -344,5 +344,16 @@ describe("blocking", () => {
     );
     expect(codes(f)).toEqual(["orientation", "gps_stale"]);
     expect(codes(blocking(f))).toEqual(["orientation"]);
+  });
+});
+
+describe("videoQualityFor", () => {
+  it("leaves the camera's 1080p default for any floor it already meets", () => {
+    expect(videoQualityFor(null)).toBeUndefined();
+    expect(videoQualityFor({ min_video_lines: 720 })).toBeUndefined();
+    expect(videoQualityFor({ min_video_lines: "1080" })).toBeUndefined();
+  });
+  it("asks for 2160p when the task needs more than 1080 lines", () => {
+    expect(videoQualityFor({ min_video_lines: 2160 })).toBe("2160p");
   });
 });

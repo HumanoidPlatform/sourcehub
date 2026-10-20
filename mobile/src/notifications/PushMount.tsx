@@ -55,6 +55,11 @@ export function PushMount() {
       const key = data.notification_id ?? response.notification.request.identifier;
       if (opened.current.has(key)) return;
       opened.current.add(key);
+      // Handled: forget it natively too. `opened` lives only as long as this
+      // mount, and this component mounts again after a sign-out and sign-in in
+      // the same process — where the launch tap used to be replayed for the
+      // next worker, opening the previous one's assignment.
+      Notifications.clearLastNotificationResponse();
       if (data.notification_id) {
         void post(`/notifications/${data.notification_id}/read`)
           .then(() => qc.invalidateQueries({ queryKey: ["notifications"] }))
@@ -64,7 +69,7 @@ export function PushMount() {
     };
     const tapped = Notifications.addNotificationResponseReceivedListener(open);
     // The tap that launched the app from closed.
-    void Notifications.getLastNotificationResponseAsync().then(open);
+    open(Notifications.getLastNotificationResponse());
 
     return () => {
       renewed.remove();

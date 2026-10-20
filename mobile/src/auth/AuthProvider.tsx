@@ -4,8 +4,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { bindSessionListener, loadSession, login as apiLogin, logout as apiLogout } from "@/api/client";
 import type { OrgChoice, Session } from "@/api/types";
-import { deleteLocal } from "@/capture/files";
-import { purgeOtherUsers } from "@/db/outbox";
+import { endSession } from "./endSession";
 import { unregisterPush } from "@/notifications/push";
 import { queryClient } from "@/query/queryClient";
 import { uploader } from "@/upload/uploader";
@@ -24,34 +23,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    bindSessionListener(setSession);
-    void loadSession().then((s) => {
+    bindSessionListener((s) => {
       setSession(s);
-      setReady(true);
+      // however it ended — Sign out, or a refresh the server refused
+      if (!s) void endSession();
     });
+    // a store that cannot be read is a signed-out phone, not a spinner for ever
+    void loadSession()
+      .catch(() => null)
+      .then((s) => {
+        setSession(s);
+        setReady(true);
+      });
   }, []);
 
   const login = useCallback(async (email: string, password: string, orgId?: string) => {
     const choice = await apiLogin(email, password, orgId);
     if (choice) return choice;
-    const s = await loadSession();
-    if (s) {
-      // Their files go with their rows. The rows are what the uploader reads;
-      // the files are what fills the phone — and what a shared phone would
-      // otherwise keep of a colleague's unsent work until the app was removed.
-      const left = await purgeOtherUsers(s.user_id);
-      await Promise.all(left.map((r) => deleteLocal(r.local_uri)));
-      queryClient.clear();
-      uploader.kick();
-    }
+    // A colleague's unsent captures on a shared phone stay for when they sign
+    // back in: the outbox reads only the signed-in worker's rows (db/outbox.ts),
+    // and Settings offers to discard the rest.
+    queryClient.clear();
+    uploader.kick();
     return null;
   }, []);
 
   const logout = useCallback(async () => {
     // Before the session goes: the server needs it to know whose token to clear.
     await unregisterPush();
-    await apiLogout();
-    queryClient.clear();
+    await apiLogout(); // the session listener above runs endSession
   }, []);
 
   const value = useMemo(() => ({ session, ready, login, logout }), [session, ready, login, logout]);

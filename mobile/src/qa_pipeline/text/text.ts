@@ -25,7 +25,7 @@
 // would buy clip_unchecked rather than an answer.
 
 import type { Finding } from "@/qa_pipeline/rules/rules";
-import type { UnscoredReason } from "@/qa_pipeline/subject/subject";
+import type { ModuleUnscored as UnscoredReason } from "@/qa_pipeline/subject/subject";
 
 /** A bounding box as ML Kit reports it, in the image's own pixels. */
 export interface TextBox {

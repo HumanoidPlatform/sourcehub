@@ -318,3 +318,43 @@ describe("chunkOutcome", () => {
     expect(chunkOutcome("s3", 3, SIZE, 503).type).toBe("retryable");
   });
 });
+
+describe("no endless loops (production hardening)", () => {
+  it("drops an old session's part URLs and progress on a fresh presign", () => {
+    const p = applyResult(
+      big({ part_urls: JSON.stringify(fresh(2)), parts_done: "[1]", bytes_done: 5 }),
+      { type: "presigned", asset_id: "a", url: null, headers: {}, expires_in: 900, status: "pending", upload: { protocol: "s3", chunk_size: CHUNK, size: 3 * CHUNK + 5, session_url: null } },
+      NOW,
+    );
+    expect(p).toMatchObject({ part_urls: null, parts_done: null, bytes_done: 0, needs_status: 1 });
+  });
+
+  it("waits, then fails, on a presign with no usable link instead of asking again at once", () => {
+    const noUrl = { type: "presigned" as const, asset_id: "a", url: null, headers: {}, expires_in: 900, status: "pending" };
+    const p = applyResult({ ...base, sha256: "ab" }, noUrl, NOW);
+    expect(p.next_attempt_at).toBeGreaterThan(NOW);
+    expect(p.status).toBeUndefined();
+    const short = applyResult({ ...base, sha256: "ab" }, { ...noUrl, url: "u", expires_in: 30 }, NOW);
+    expect(short.next_attempt_at).toBeGreaterThan(NOW);
+    expect(applyResult({ ...base, attempts: 7 }, noUrl, NOW, 8).status).toBe("failed");
+  });
+
+  it("waits when part links come back short or about to expire", () => {
+    const missing = applyResult(big(), { type: "part_urls", urls: { "2": "u2" }, expires_in: 900, requested: [2, 3] }, NOW);
+    expect(missing.next_attempt_at).toBeGreaterThan(NOW);
+    expect(missing.part_urls).toBeUndefined();
+    const expiring = applyResult(big(), { type: "part_urls", urls: { "2": "u2" }, expires_in: 10, requested: [2] }, NOW);
+    expect(expiring.next_attempt_at).toBeGreaterThan(NOW);
+    const ok = applyResult(big(), { type: "part_urls", urls: { "2": "u2" }, expires_in: 900, requested: [2] }, NOW);
+    expect(ok.part_urls).toContain("u2");
+  });
+
+  it("caps 'storage has not received the file'", () => {
+    expect(applyResult({ ...base, status: "uploaded", attempts: 7 }, { type: "not_in_storage" }, NOW, 8).status).toBe("failed");
+  });
+
+  it("restarts an S3 or Azure upload whose session is gone (404)", () => {
+    expect(chunkOutcome("s3", 3, 3 * CHUNK + 5, 404)).toEqual({ type: "session_lost" });
+    expect(chunkOutcome("azure", 3, 3 * CHUNK + 5, 404)).toEqual({ type: "session_lost" });
+  });
+});

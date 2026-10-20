@@ -73,6 +73,11 @@ CREATE INDEX IF NOT EXISTS rejections_assignment_idx ON rejections (assignment_i
 
 // What the labeller saw in the client's own example photos.
 //
+// NO LONGER READ OR WRITTEN: the subject check moved from ML Kit's labeller to
+// CLIP, which keeps example vectors in memory (subject/clipExamples.ts). The
+// table stays because migrations only ever add; it is empty on new installs
+// and stale on old ones, and nothing looks.
+//
 // The first thing this store holds that did not originate on the phone, and
 // the exception is deliberate: the examples are downloaded, labelled once, and
 // the IMAGE IS DELETED. Only the label list stays — a few hundred bytes per

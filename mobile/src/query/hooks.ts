@@ -1,14 +1,38 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { get } from "@/api/client";
+import { ApiError, currentUserId, get } from "@/api/client";
+import { getKv, setKv } from "@/db/kv";
 import type { Assignment, AssetRow, AssetUrl, NotificationRow, OfferRow } from "@/api/types";
 import { POLL_MS } from "@/config";
 import { listByAssignment, onOutboxChange, summaryByAssignment, type CaptureRow, type OutboxSummary, rejectionsByAssignment, type RejectionCount } from "@/db/outbox";
 
+/** The list as last fetched, kept per worker on the phone. A restart with no
+ *  signal — a basement, a warehouse — used to leave no list at all, so no
+ *  assignment could be opened and the camera with it, while the banner said
+ *  captures would wait for the connection. Served only when the server cannot
+ *  be reached; the server still decides what any capture is accepted for. */
+async function fetchAssignments(): Promise<Assignment[]> {
+  const key = `assignments:${currentUserId() ?? ""}`;
+  try {
+    const list = await get<Assignment[]>("/me/assignments");
+    void setKv(key, JSON.stringify(list)).catch(() => undefined);
+    return list;
+  } catch (e) {
+    if (e instanceof ApiError && e.status === 0) {
+      const saved = await getKv(key).catch(() => null);
+      if (saved) return JSON.parse(saved) as Assignment[];
+    }
+    throw e;
+  }
+}
+
 export function useAssignments() {
   return useQuery({
     queryKey: ["assignments"],
-    queryFn: () => get<Assignment[]>("/me/assignments"),
+    queryFn: fetchAssignments,
+    // "always": offline, react-query would otherwise pause the fetch and never
+    // reach the copy on the phone
+    networkMode: "always",
     refetchInterval: POLL_MS,
     refetchIntervalInBackground: false,
   });

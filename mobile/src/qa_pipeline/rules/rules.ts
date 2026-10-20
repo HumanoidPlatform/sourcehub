@@ -341,3 +341,13 @@ export function checkCapture(
 export function blocking(findings: Finding[]): Finding[] {
   return findings.filter((f) => f.severity === "block");
 }
+
+/** What the camera is asked to record at, so a clip meets the task's
+ *  min_video_lines rather than being refused for it after the worker filmed
+ *  it. Android records 1080p unless told otherwise, which covers any floor up
+ *  to 1080; above that it is asked for 2160p, and a phone that cannot falls
+ *  back to its best (expo-camera) — the check then says so honestly. */
+export function videoQualityFor(spec: CaptureSpec | null | undefined): "2160p" | undefined {
+  const lines = numeric(spec?.min_video_lines);
+  return lines != null && lines > 1080 ? "2160p" : undefined;
+}

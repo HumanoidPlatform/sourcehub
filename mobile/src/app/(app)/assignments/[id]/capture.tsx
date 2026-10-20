@@ -3,7 +3,8 @@
 
 import { CameraView, useCameraPermissions, useMicrophonePermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { activateKeepAwakeAsync, deactivateKeepAwake } from "expo-keep-awake";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Alert, Linking, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -12,16 +13,16 @@ import { clockTone, formatClock } from "@/capture/clock";
 import { freeSpace } from "@/capture/files";
 import { probeCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
-import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
-import { LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import { clipExampleSet, exampleImages, warmClipExamples } from "@/qa_pipeline/subject/clipExamples";
+import { type ClipStatus, clipStatus, onClipStatus, textVectors, warmClip } from "@/qa_pipeline/subject/clipSubject";
 import { useAssignments, useOutbox } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
-import type { ExampleSet } from "@/qa_pipeline/examples/examples";
-import { type Finding, mediaKinds, numeric, wantedOrientation } from "@/qa_pipeline/rules/rules";
+import { type Finding, mediaKinds, numeric, videoQualityFor, wantedOrientation } from "@/qa_pipeline/rules/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
  *
@@ -75,11 +76,52 @@ const HOW: Record<"rotate" | "tip", string> = {
   tip: "tip it upright",
 };
 
+const KEEP_AWAKE_TAG = "capture";
+
+/** Where the subject check stands, while it is not ready: said in every
+ *  build, so a worker knows why their shots are not being checked yet. */
+function clipStatusText(s: ClipStatus): string | null {
+  switch (s.state) {
+    case "downloading":
+      return `Preparing the subject check… ${Math.round(s.progress * 100)}%`;
+    case "loading":
+      return "Preparing the subject check…";
+    case "failed":
+      return "The subject check is unavailable; captures are kept and marked unchecked.";
+    default:
+      return null;
+  }
+}
+
+/** What the last shot scored, for development builds:
+ *  "CLIP -0.0123 warn (1400 ms) · examples 0.81 match". */
+function trialLine(findings: Finding[]): string {
+  const clip = findings.find((f) => f.code === "subject_clip_measured");
+  const clipNot = findings.find((f) => f.code === "subject_unscored");
+  const banned = findings.find((f) => f.code === "forbidden_subject");
+  const margin = typeof clip?.detail?.margin === "number" ? clip.detail.margin : null;
+  const clipText = clip
+    ? `CLIP ${margin?.toFixed(4)} ${(margin ?? 0) >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn"}${
+        typeof clip.detail?.ms === "number" ? ` (${clip.detail.ms} ms)` : ""
+      }`
+    : `CLIP not scored (${String(clipNot?.detail?.reason ?? "?")})`;
+  const ex = findings.find((f) => f.code === "subject_clip_examples");
+  const exNot = findings.find((f) => f.code === "subject_clip_examples_unchecked");
+  const exText = ex
+    ? ` · examples ${ex.score?.toFixed(2)} ${(ex.score ?? 0) >= CLIP_EXAMPLE_MIN_SIMILARITY ? "match" : "miss"}`
+    : exNot
+      ? " · examples not compared"
+      : "";
+  const banText = banned ? ` · shows ${String(banned.detail?.phrase)} ${Number(banned.detail?.margin).toFixed(4)}` : "";
+  return `${clipText}${exText}${banText}`;
+}
+
 export default function Capture() {
   // replaces: a retake of one capture the aggregator sent back. One shot, then
   // back to the assignment, where the replaced capture has left the rework list.
   const { id, replaces } = useLocalSearchParams<{ id: string; replaces?: string }>();
   const router = useRouter();
+  const navigation = useNavigation();
   const list = useAssignments();
   const a = (list.data ?? []).find((x) => x.id === id);
   const cam = useRef<CameraView>(null);
@@ -92,6 +134,7 @@ export default function Capture() {
   const startedAt = useRef<number | null>(null);
   const [elapsed, setElapsed] = useState(0);
   const [busy, setBusy] = useState(false);
+  const shutterHeld = useRef(false);
   const [count, setCount] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<{ text: string; tone: "warn" | "ok" } | null>(null);
@@ -142,29 +185,18 @@ export default function Capture() {
       ? `Phone storage is low: ${Math.round(free / (1024 * 1024))} MB free. Uploads free space as they finish.`
       : null;
 
-  // The client's example photos, as the assignment screen labelled them. Read
-  // from the device store, never fetched here: the camera must not wait on a
-  // download. A task with none, or a phone that never managed to fetch them,
-  // both arrive as an ExampleSet — useCapture tells the two apart, because a
-  // capture compared against nothing is not a capture that matched.
-  const [examples, setExamples] = useState<ExampleSet | null>(null);
   const docs = a?.task.client_documents;
   const exampleIds = exampleImages(docs).map((d) => d.id).join(",");
-  useEffect(() => {
-    let alive = true;
-    void loadExamples(docs).then((e) => {
-      if (alive) setExamples(e);
-    });
-    return () => {
-      alive = false;
-    };
-  }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // What this camera can take. The assignment screen has no camera to ask, so
   // a phone opening the camera for the first time is asked here, before the
   // first shot (qa_pipeline/device/camera.ts keeps the answer).
   const [camCaps, setCamCaps] = useState<CameraCaps | null>(null);
+  // false from the moment the camera is closed for a clip's check until it
+  // has opened again: a shutter pressed in between has no camera to ask
+  const [camOpen, setCamOpen] = useState(true);
   const onCameraReady = useCallback(() => {
+    setCamOpen(true);
     if (cam.current) void probeCamera(cam.current).then(setCamCaps);
   }, []);
 
@@ -172,8 +204,28 @@ export default function Capture() {
   // has to wait on a new GPS lock (qa_pipeline/location/location.ts watchFix).
   const warmFix = useRef<Fix | null>(null);
   const readWarmFix = useCallback(() => warmFix.current, []);
+  // The subject check (CLIP, clipSubject.ts). The model download starts on
+  // the assignment screen and is picked up here; the subject's phrases and the
+  // client's example photos are embedded once it is in, so the first shot
+  // does not wait on any of it. While it is not ready a line says so; a
+  // development build also shows what the last shot scored.
+  const [clip, setClip] = useState<ClipStatus>(clipStatus());
+  const [trial, setTrial] = useState<string | null>(null);
+  const subjectKey = JSON.stringify(spec?.subject ?? null);
+  useEffect(() => {
+    const off = onClipStatus(setClip);
+    const subject = spec?.subject;
+    void warmClip()
+      .then(() => (subject ? textVectors(subject) : null))
+      .then(() => warmClipExamples(docs))
+      .catch(() => undefined);
+    return off;
+  }, [subjectKey, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+  const readClipExamples = useCallback(() => clipExampleSet(docs), [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+
   const save = useCapture(
-    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
+    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, replaces ?? null, readWarmFix,
+    readClipExamples,
   );
 
   // The server sends a list; a task made before capture-spec inheritance sends
@@ -270,6 +322,54 @@ export default function Capture() {
     return stop;
   }, [camPerm?.granted, wantOrientation]);
 
+  // The screen stays on while a clip is being recorded or checked. A worker
+  // filming a shelf run does not touch the phone, and a screen that times out
+  // pauses the activity and ends the recording early.
+  const filming = recording || checking != null;
+  useEffect(() => {
+    if (!filming) return;
+    void activateKeepAwakeAsync(KEEP_AWAKE_TAG);
+    return () => {
+      void deactivateKeepAwake(KEEP_AWAKE_TAG);
+    };
+  }, [filming]);
+
+  // Leaving now would cut the recording off or drop the check's answer onto
+  // whatever screen came next: Done, the hardware back and the swipe all wait.
+  const filmingRef = useRef(false);
+  useEffect(() => {
+    filmingRef.current = filming;
+  }, [filming]);
+  useEffect(
+    () =>
+      navigation.addListener("beforeRemove", (e) => {
+        if (filmingRef.current) e.preventDefault();
+      }),
+    [navigation],
+  );
+
+  // No assignment, no camera. Without it every capture was checked against no
+  // rules, the share-full stop was off, and each one was queued only for the
+  // server to refuse it: a deep link to a camera, or an assignment taken away
+  // while the camera was open. Never mid-recording, though: unmounting the
+  // camera then would lose the clip being filmed.
+  if (!a && !filming) {
+    return (
+      <SafeAreaView style={s.safe}>
+        <View style={s.pad}>
+          {list.isLoading ? (
+            <Text style={s.muted}>Loading…</Text>
+          ) : (
+            <Callout tone="attention" title="This assignment is not available">
+              {list.isError ? "Check the connection and try again." : "It may have been taken off you. Go back to your assignments."}
+            </Callout>
+          )}
+          <Button title="Back" variant="quiet" onPress={() => (router.canGoBack() ? router.back() : router.replace("/assignments"))} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   if (!camPerm) return null;
   if (!camPerm.granted) {
     return (
@@ -301,6 +401,9 @@ export default function Capture() {
   const kept = (findings: Finding[], onSubject = false) => {
     setCount((n) => n + 1);
     if (replaces) {
+      // the clip's check is still "running" until saveClip's finally, and this
+      // back is the end of it, not the worker walking out mid-check
+      filmingRef.current = false;
       router.back();
       return;
     }
@@ -318,10 +421,18 @@ export default function Capture() {
     }
   };
 
+  // Keep or Retake that could not finish (the disk is full, the database is
+  // locked) says so, rather than leaving a counter that did not move.
+  const failed = (e: unknown) => {
+    setNotice(null);
+    setError(e instanceof Error ? e.message : "The capture could not be saved.");
+  };
+
   // The subject check is the one verdict the worker answers themselves: the
   // file waits on disk until they do. Keep queues it, warning attached, for
   // the reviewer to see; Retake throws it away and counts the refusal.
   const settle = (o: CaptureOutcome) => {
+    if (__DEV__) setTrial(trialLine(o.findings));
     if (o.kept) {
       kept(o.findings, o.onSubject);
       return;
@@ -331,8 +442,8 @@ export default function Capture() {
     const others = o.findings.filter((f) => f !== o.finding);
     warn(others.length > 0 ? others : [o.finding]);
     Alert.alert(`Doesn't look like ${spec?.subject?.domain ?? "the subject"}`, `${o.finding.message} Keep it anyway, or shoot it again?`, [
-      { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null)) },
-      { text: "Keep", onPress: () => void o.keep().then(kept) },
+      { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null), failed) },
+      { text: "Keep", onPress: () => void o.keep().then(kept, failed) },
     ]);
   };
 
@@ -343,6 +454,10 @@ export default function Capture() {
     // Said before the first frame is pulled: checking a clip takes seconds, and
     // a screen that shows nothing looks like a phone that has hung.
     setChecking({ done: 0, total: 0 });
+    // The camera is closed while the clip is checked (see the render): the
+    // check runs the frame decoder and CLIP frame after frame, and with the
+    // camera's session held as well an 8 GB phone ran out of memory.
+    setCamOpen(false);
     setNotice(null);
     try {
       settle(
@@ -350,6 +465,8 @@ export default function Capture() {
       );
     } finally {
       setChecking(null);
+      // onCameraReady says when it is back; this is only in case it never does
+      setTimeout(() => setCamOpen(true), 3000);
     }
   };
 
@@ -397,12 +514,15 @@ export default function Capture() {
   const deviceShort = deviceRefusals(thisDevice(), spec);
 
   const shoot = async () => {
-    if (!cam.current || busy) return;
+    if (!cam.current || !camOpen || busy || shutterHeld.current) return;
     // the reason is already on screen (below); the shutter stays put
     if (cameraShort || shareFull) return;
     setError(null);
     try {
       if (mode === "picture") {
+        // `busy` is the last render's value: two quick taps both read false
+        // and took two photos. The ref is set before the first await.
+        shutterHeld.current = true;
         setBusy(true);
         const photo = await cam.current.takePictureAsync({ quality: 0.9, exif: true, skipProcessing: false });
         if (photo?.uri) {
@@ -450,28 +570,55 @@ export default function Capture() {
         // How square the clip was held over its length, not at its first frame.
         const middle = medianOff(offs);
         const heldAs = middle != null ? { ...(tilt.current ?? attitude ?? { roll: 0, pitch: 0, held: null }), off: middle } : attitude;
-        if (video?.uri) await saveClip({ uri: video.uri, duration }, heldAs, shotAs);
+        // A recording that came back with no file (stopped by the OS, a camera
+        // error) used to vanish without a word.
+        if (!video?.uri) throw new Error("The recording was not saved. Try again.");
+        await saveClip({ uri: video.uri, duration }, heldAs, shotAs);
       } else {
         cam.current.stopRecording();
       }
     } catch (e) {
       setRecording(false);
       startedAt.current = null;
+      // a failed recording stops the sampling too, or it grows for as long as
+      // the screen stays open and the level shows stale readings
+      holdTally.current = null;
+      tiltSamples.current = null;
       // A rejection has already deleted the file and left the queue untouched,
       // so the counter not advancing is the correct outcome, not a failure.
       if (e instanceof CaptureRejected) setNotice(null);
       setError(e instanceof Error ? e.message : "Capture failed.");
     } finally {
+      shutterHeld.current = false;
       setBusy(false);
     }
   };
 
   return (
     <View style={c.root}>
-      <CameraView ref={cam} style={c.camera} facing="back" mode={mode} mute={false} onCameraReady={onCameraReady} />
+      {checking ? (
+        <View style={[c.camera, c.closed]} />
+      ) : (
+        <CameraView
+          ref={cam}
+          style={c.camera}
+          facing="back"
+          mode={mode}
+          mute={false}
+          videoQuality={videoQualityFor(spec)}
+          onCameraReady={onCameraReady}
+        />
+      )}
       <SafeAreaView style={c.overlay} pointerEvents="box-none">
         <View style={c.top}>
-          <Pressable onPress={() => router.back()} accessibilityRole="button" style={c.chip}>
+          <Pressable
+            // opened from a link there may be nothing to go back to
+            onPress={() => (router.canGoBack() ? router.back() : router.replace(`/assignments/${id}`))}
+            disabled={filming}
+            accessibilityRole="button"
+            accessibilityState={{ disabled: filming }}
+            style={[c.chip, filming && { opacity: 0.4 }]}
+          >
             <Text style={c.chipText}>Done</Text>
           </Pressable>
           <Text style={c.counter}>{replaces ? "Retake" : `${count} saved`}</Text>
@@ -522,6 +669,8 @@ export default function Capture() {
             {checking.total > 0 ? `Checking clip… ${checking.done}/${checking.total}` : "Checking clip…"}
           </Text>
         ) : null}
+        {clipStatusText(clip) ? <Text style={c.trial}>{clipStatusText(clip)}</Text> : null}
+        {__DEV__ && trial ? <Text style={c.trial}>{trial}</Text> : null}
         <Level tilt={level} tolerance={maxTilt} />
         <View style={c.bottom}>
           {recording ? (
@@ -565,6 +714,7 @@ export default function Capture() {
 const c = StyleSheet.create({
   root: { flex: 1, backgroundColor: "#000" },
   camera: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 },
+  closed: { backgroundColor: "#000" },
   overlay: { flex: 1, justifyContent: "space-between" },
   top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 12 },
   chip: { backgroundColor: "rgba(0,0,0,0.55)", paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20 },
@@ -577,6 +727,7 @@ const c = StyleSheet.create({
   checking: { color: "#fff", backgroundColor: "rgba(0,0,0,0.55)", padding: 8, marginHorizontal: 12, marginTop: 6, borderRadius: 8, textAlign: "center" },
   level: { alignItems: "center", justifyContent: "center", flex: 1 },
   levelBar: { width: 120, height: 2, borderRadius: 1 },
+  trial: { color: "#fff", backgroundColor: "rgba(0,0,0,0.6)", fontSize: 11, padding: 6, marginHorizontal: 12, marginTop: 6, borderRadius: 6 },
   levelText: { color: "rgba(255,255,255,0.9)", marginTop: 10, fontSize: 13, fontWeight: "600", textShadowColor: "#000", textShadowRadius: 4 },
   bottom: { alignItems: "center", paddingBottom: 28 },
   shutter: { width: 76, height: 76, borderRadius: 38, backgroundColor: "#fff", borderWidth: 5, borderColor: "rgba(255,255,255,0.4)" },

@@ -50,6 +50,11 @@ let current: Session | null = null;
 let loaded = false;
 let onSessionChange: ((s: Session | null) => void) | null = null;
 
+/** whose session this is, as last loaded or saved; null when signed out */
+export function currentUserId(): string | null {
+  return current?.user_id ?? null;
+}
+
 export function bindSessionListener(fn: (s: Session | null) => void): void {
   onSessionChange = fn;
 }

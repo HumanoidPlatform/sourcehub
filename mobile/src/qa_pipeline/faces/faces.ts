@@ -24,7 +24,7 @@
 
 import type { SubjectSpec } from "@/api/types";
 import type { Finding } from "@/qa_pipeline/rules/rules";
-import { type UnscoredReason, words } from "@/qa_pipeline/subject/subject";
+import { type ModuleUnscored as UnscoredReason, words } from "@/qa_pipeline/subject/subject";
 
 /** A face's bounding box as ML Kit reports it, in the image's own pixels. */
 export interface FaceBox {

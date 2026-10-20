@@ -34,7 +34,15 @@ import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import data_dir  # noqa: E402
-from phone_rules import clip_passes, names_match, photo_passes, vocabularies, words  # noqa: E402
+from phone_rules import (  # noqa: E402
+    CLIP_IGNORE_NEAREST_NEGATIVES,
+    clip_passes,
+    names_match,
+    photo_passes,
+    score_subject,
+    vocabularies,
+    words,
+)
 
 RNG_SEED = 20261017
 
@@ -66,6 +74,11 @@ def mlkit(pair: dict, subjects: dict) -> tuple[float | None, int | None]:
     meas = m.get("measured")
     if m.get("unscored"):
         return None, None
+    if meas and meas.get("all") is not None:
+        # every label kept (mlkit_local.py): score against whichever subject
+        # this pair asks about, exactly as subject.ts would
+        s = score_subject([(n, c) for n, c in meas["all"]], subjects[pair["pair_task"]]).score
+        return s, int(photo_passes(s))
     if pair["made_up"]:
         if not meas:
             return None, None
@@ -100,6 +113,10 @@ class Model:
         # a negative that names part of the subject would argue with it
         vocab = vocabularies(subject)[0]
         keep = [i for i, w in enumerate(self.neg_words) if not (w & vocab)]
+        # and, as the phone does, the ones nearest it in meaning
+        if 0 < CLIP_IGNORE_NEAREST_NEGATIVES < len(keep):
+            near = sorted(keep, key=lambda i: -float((self.neg[i] @ sub.T).max()))[:CLIP_IGNORE_NEAREST_NEGATIVES]
+            keep = [i for i in keep if i not in near]
         neg = self.neg[keep]
         s = img @ sub.T  # (frames, views, phrases)
         sim = s.mean(-1)  # all of the subject's phrases, averaged
@@ -270,7 +287,15 @@ def breakdown(pairs: list[dict], m: str, fw: float = 0.10) -> tuple[list[str], f
     s = np.array([p[m]["margin"] for p in mp])
     t = threshold_for_fw(y, s, fw)
     out = [f"### {m}: what passes at margin ≥ {t:.4f} (flags {fw:.0%} of good captures)", "",
-           "| image | truth | pairs | passed |", "|---|---|---|---|"]
+           "| image | truth | pairs | CLIP passed | ML Kit passed |", "|---|---|---|---|---|"]
+
+    def mk(ps: list[dict]) -> str:
+        known = [p for p in ps if p["mk_pass"] is not None]
+        if not known:
+            return "–"
+        n = sum(p["mk_pass"] for p in known)
+        return f"{n} ({n / len(known):.0%})"
+
     groups: dict[str, list[dict]] = {}
     for p in mp:
         g = "other scenario's subject" if p["made_up"] else p.get("group", "?")
@@ -278,15 +303,17 @@ def breakdown(pairs: list[dict], m: str, fw: float = 0.10) -> tuple[list[str], f
     for g, ps in sorted(groups.items(), key=lambda kv: (-kv[1][0]["label"], kv[0])):
         passed = sum(p[m]["margin"] >= t for p in ps)
         truth = "good" if ps[0]["label"] else "wrong"
-        out.append(f"| {g} | {truth} | {len(ps)} | {passed} ({passed / len(ps):.0%}) |")
-    out += ["", "| scenario | ROC-AUC | good passed | wrong passed |", "|---|---|---|---|"]
+        out.append(f"| {g} | {truth} | {len(ps)} | {passed} ({passed / len(ps):.0%}) | {mk(ps)} |")
+    out += ["", "| scenario | ROC-AUC | CLIP good passed | CLIP wrong passed | ML Kit good passed "
+            "| ML Kit wrong passed |", "|---|---|---|---|---|---|"]
     for task in sorted({p["pair_task"] for p in mp}):
         ps = [p for p in mp if p["pair_task"] == task]
         yt = np.array([p["label"] for p in ps])
         st = np.array([p[m]["margin"] for p in ps])
         good, bad = st[yt == 1], st[yt == 0]
         out.append(f"| {task} | {fmt(auc(yt, st)[0])} | {int((good >= t).sum())}/{len(good)} "
-                   f"| {int((bad >= t).sum())}/{len(bad)} |")
+                   f"| {int((bad >= t).sum())}/{len(bad)} | {mk([p for p in ps if p['label']])} "
+                   f"| {mk([p for p in ps if not p['label']])} |")
     return out + [""], t
 
 
@@ -298,6 +325,11 @@ def verdict_sheet(pairs: list[dict], models: list[str], thresholds: dict[str, fl
     cells = []
     for p in sorted(own, key=lambda p: (p["pair_task"], -p["label"], p.get("group", ""))):
         verdicts = []
+        if p["mk_pass"] is not None:
+            right = p["mk_pass"] == p["label"]
+            seen = ", ".join((p["mlkit"]["measured"] or {}).get("labels") or [])
+            verdicts.append(f'<span class="{"r" if right else "w"}">ML Kit: {"pass" if p["mk_pass"] else "warn"}'
+                            f' ({html.escape(seen.lower())})</span>')
         for m in models:
             f = p.get(m)
             if not f or m not in thresholds:

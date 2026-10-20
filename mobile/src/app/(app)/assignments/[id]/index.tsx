@@ -18,8 +18,7 @@ import {
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed } from "@/db/outbox";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
-import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
-import { deleteLocal } from "@/capture/files";
+import { warmClip } from "@/qa_pipeline/subject/clipSubject";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Pill, Screen, s } from "@/ui";
@@ -43,19 +42,14 @@ export default function AssignmentDetail() {
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch and label the client's example photos while the worker is reading
-  // the brief, so the camera never waits on a download. Each one is labelled
-  // once and the image is thrown away; a second visit to this screen costs
-  // nothing. Best-effort and silent — offline, the capture screen falls back
-  // to the word check and records that it did.
-  const taskId = a?.task.id;
-  const exampleIds = exampleImages(a?.task.client_documents).map((d) => d.id).join(",");
+  // Start fetching the subject check's model while the worker is reading the
+  // brief, so the camera is less likely to open before it is ready. Once per
+  // app run (clipSubject.ts warmClip); a failed download is retried here or
+  // by the camera next time. Until it is ready captures are kept, marked
+  // subject_unscored.
   useEffect(() => {
-    if (!taskId || !exampleIds) return;
-    void refreshExamples(taskId, a?.task.client_documents);
-    // a.task.client_documents is re-read on every render; the ids are what
-    // actually change, and they are what decides whether there is work to do.
-  }, [taskId, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+    void warmClip().catch(() => undefined);
+  }, []);
 
   // What the camera can take, as the capture screen last probed it. Re-read
   // on focus: the first visit to the camera is what answers it, and the
@@ -93,15 +87,36 @@ export default function AssignmentDetail() {
     const unsent = outbox.filter((r) => r.status !== "confirmed");
     if (unsent.length === 0) return;
     cleared.current = true;
-    void Promise.all(unsent.map((r) => discardCapture(r.id).then((row) => deleteLocal(row?.local_uri ?? null)))).then(
-      () => setDropped(unsent.length),
-    );
+    // deleteCapture, not discardCapture: that one only matches failed rows, so
+    // queued captures stayed — and kept being presigned until the server refused.
+    void Promise.all(unsent.map((r) => deleteCapture(r.id)))
+      .then((rows) => {
+        const gone = rows.filter((r): r is NonNullable<typeof r> => r !== null);
+        setDropped(gone.length);
+        return dropCaptures(gone);
+      })
+      .catch(() => {
+        cleared.current = false; // the next outbox change tries again
+      });
   }, [revokedAt, outbox]);
 
   if (!a) {
     return (
       <Screen>
-        {list.isLoading ? <Text style={s.muted}>Loading…</Text> : <Callout tone="critical" title="This assignment is no longer yours." />}
+        {list.isLoading ? (
+          <Text style={s.muted}>Loading…</Text>
+        ) : list.isError && !list.data ? (
+          // No list to look in is not the same as not being in it: a network
+          // failure used to tell the worker the assignment was taken away.
+          <>
+            <Callout tone="attention" title="Could not load your assignments.">
+              Check the connection and try again.
+            </Callout>
+            <Button title="Try again" onPress={() => void list.refetch()} />
+          </>
+        ) : (
+          <Callout tone="critical" title="This assignment is no longer yours." />
+        )}
       </Screen>
     );
   }
