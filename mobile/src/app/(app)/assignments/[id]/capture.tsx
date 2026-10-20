@@ -13,24 +13,15 @@ import { clockTone, formatClock } from "@/capture/clock";
 import { freeSpace } from "@/capture/files";
 import { probeCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
-import { exampleImages, loadExamples } from "@/qa_pipeline/examples/load";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
 import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
-import { clipExampleSet, warmClipExamples } from "@/qa_pipeline/subject/clipExamples";
-import {
-  clipMode,
-  type ClipStatus,
-  clipStatus,
-  onClipStatus,
-  textVectors,
-  warmClip,
-} from "@/qa_pipeline/subject/clipSubject";
+import { clipExampleSet, exampleImages, warmClipExamples } from "@/qa_pipeline/subject/clipExamples";
+import { type ClipStatus, clipStatus, onClipStatus, textVectors, warmClip } from "@/qa_pipeline/subject/clipSubject";
 import { useAssignments, useOutbox } from "@/query/hooks";
 import { TONE_COLOR } from "@/status";
 import { Button, C, Callout, s } from "@/ui";
-import type { ExampleSet } from "@/qa_pipeline/examples/examples";
 import { type Finding, mediaKinds, numeric, videoQualityFor, wantedOrientation } from "@/qa_pipeline/rules/rules";
 
 /** A level, shown on every task the phone can read a sensor for.
@@ -87,24 +78,27 @@ const HOW: Record<"rotate" | "tip", string> = {
 
 const KEEP_AWAKE_TAG = "capture";
 
-function clipStatusText(s: ClipStatus): string {
+/** Where the subject check stands, while it is not ready: said in every
+ *  build, so a worker knows why their shots are not being checked yet. */
+function clipStatusText(s: ClipStatus): string | null {
   switch (s.state) {
     case "downloading":
-      return `downloading models ${Math.round(s.progress * 100)}%`;
+      return `Preparing the subject check… ${Math.round(s.progress * 100)}%`;
     case "loading":
-      return "loading models";
+      return "Preparing the subject check…";
     case "failed":
-      return `unavailable (${s.error})`;
+      return "The subject check is unavailable; captures are kept and marked unchecked.";
     default:
-      return s.state;
+      return null;
   }
 }
 
-/** The last shot on both checks: "CLIP -0.0123 warn · ML Kit 0.62 pass". */
+/** What the last shot scored, for development builds:
+ *  "CLIP -0.0123 warn (1400 ms) · examples 0.81 match". */
 function trialLine(findings: Finding[]): string {
   const clip = findings.find((f) => f.code === "subject_clip_measured");
-  const clipNot = findings.find((f) => f.code === "subject_clip_unscored");
-  const mk = findings.find((f) => f.code === "subject_measured");
+  const clipNot = findings.find((f) => f.code === "subject_unscored");
+  const banned = findings.find((f) => f.code === "forbidden_subject");
   const margin = typeof clip?.detail?.margin === "number" ? clip.detail.margin : null;
   const clipText = clip
     ? `CLIP ${margin?.toFixed(4)} ${(margin ?? 0) >= CLIP_SUBJECT_MIN_MARGIN ? "pass" : "warn"}${
@@ -118,8 +112,8 @@ function trialLine(findings: Finding[]): string {
     : exNot
       ? " · examples not compared"
       : "";
-  const mkText = mk ? `ML Kit ${mk.message.replace(/^Subject scored /, "")}` : "ML Kit not scored";
-  return `${clipText}${exText} · ${mkText}`;
+  const banText = banned ? ` · shows ${String(banned.detail?.phrase)} ${Number(banned.detail?.margin).toFixed(4)}` : "";
+  return `${clipText}${exText}${banText}`;
 }
 
 export default function Capture() {
@@ -191,29 +185,18 @@ export default function Capture() {
       ? `Phone storage is low: ${Math.round(free / (1024 * 1024))} MB free. Uploads free space as they finish.`
       : null;
 
-  // The client's example photos, as the assignment screen labelled them. Read
-  // from the device store, never fetched here: the camera must not wait on a
-  // download. A task with none, or a phone that never managed to fetch them,
-  // both arrive as an ExampleSet — useCapture tells the two apart, because a
-  // capture compared against nothing is not a capture that matched.
-  const [examples, setExamples] = useState<ExampleSet | null>(null);
   const docs = a?.task.client_documents;
   const exampleIds = exampleImages(docs).map((d) => d.id).join(",");
-  useEffect(() => {
-    let alive = true;
-    void loadExamples(docs).then((e) => {
-      if (alive) setExamples(e);
-    });
-    return () => {
-      alive = false;
-    };
-  }, [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // What this camera can take. The assignment screen has no camera to ask, so
   // a phone opening the camera for the first time is asked here, before the
   // first shot (qa_pipeline/device/camera.ts keeps the answer).
   const [camCaps, setCamCaps] = useState<CameraCaps | null>(null);
+  // false from the moment the camera is closed for a clip's check until it
+  // has opened again: a shutter pressed in between has no camera to ask
+  const [camOpen, setCamOpen] = useState(true);
   const onCameraReady = useCallback(() => {
+    setCamOpen(true);
     if (cam.current) void probeCamera(cam.current).then(setCamCaps);
   }, []);
 
@@ -221,29 +204,27 @@ export default function Capture() {
   // has to wait on a new GPS lock (qa_pipeline/location/location.ts watchFix).
   const warmFix = useRef<Fix | null>(null);
   const readWarmFix = useCallback(() => warmFix.current, []);
-  // The CLIP subject check on trial (development builds only; clipSubject.ts).
-  // The models download when the camera opens; the subject's phrases and the
-  // client's example photos are embedded once they are in, so the first shot
-  // does not wait on any of it. A line on screen says where that stands and
-  // what the last shot scored on both checks, side by side.
-  const clipOn = clipMode() !== "off";
+  // The subject check (CLIP, clipSubject.ts). The model download starts on
+  // the assignment screen and is picked up here; the subject's phrases and the
+  // client's example photos are embedded once it is in, so the first shot
+  // does not wait on any of it. While it is not ready a line says so; a
+  // development build also shows what the last shot scored.
   const [clip, setClip] = useState<ClipStatus>(clipStatus());
   const [trial, setTrial] = useState<string | null>(null);
   const subjectKey = JSON.stringify(spec?.subject ?? null);
   useEffect(() => {
-    if (!clipOn) return;
     const off = onClipStatus(setClip);
     const subject = spec?.subject;
     void warmClip()
-      ?.then(() => (subject ? textVectors(subject) : null))
+      .then(() => (subject ? textVectors(subject) : null))
       .then(() => warmClipExamples(docs))
       .catch(() => undefined);
     return off;
-  }, [clipOn, subjectKey, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
-  const readClipExamples = useCallback(() => (clipOn ? clipExampleSet(docs) : null), [clipOn, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [subjectKey, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+  const readClipExamples = useCallback(() => clipExampleSet(docs), [exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const save = useCapture(
-    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, examples, replaces ?? null, readWarmFix,
+    id ?? "", a?.task.reference_code ?? "capture", spec, a?.task.target_unit, replaces ?? null, readWarmFix,
     readClipExamples,
   );
 
@@ -451,7 +432,7 @@ export default function Capture() {
   // file waits on disk until they do. Keep queues it, warning attached, for
   // the reviewer to see; Retake throws it away and counts the refusal.
   const settle = (o: CaptureOutcome) => {
-    if (clipOn) setTrial(trialLine(o.findings));
+    if (__DEV__) setTrial(trialLine(o.findings));
     if (o.kept) {
       kept(o.findings, o.onSubject);
       return;
@@ -473,6 +454,10 @@ export default function Capture() {
     // Said before the first frame is pulled: checking a clip takes seconds, and
     // a screen that shows nothing looks like a phone that has hung.
     setChecking({ done: 0, total: 0 });
+    // The camera is closed while the clip is checked (see the render): the
+    // check runs the frame decoder and CLIP frame after frame, and with the
+    // camera's session held as well an 8 GB phone ran out of memory.
+    setCamOpen(false);
     setNotice(null);
     try {
       settle(
@@ -480,6 +465,8 @@ export default function Capture() {
       );
     } finally {
       setChecking(null);
+      // onCameraReady says when it is back; this is only in case it never does
+      setTimeout(() => setCamOpen(true), 3000);
     }
   };
 
@@ -527,7 +514,7 @@ export default function Capture() {
   const deviceShort = deviceRefusals(thisDevice(), spec);
 
   const shoot = async () => {
-    if (!cam.current || busy || shutterHeld.current) return;
+    if (!cam.current || !camOpen || busy || shutterHeld.current) return;
     // the reason is already on screen (below); the shutter stays put
     if (cameraShort || shareFull) return;
     setError(null);
@@ -609,15 +596,19 @@ export default function Capture() {
 
   return (
     <View style={c.root}>
-      <CameraView
-        ref={cam}
-        style={c.camera}
-        facing="back"
-        mode={mode}
-        mute={false}
-        videoQuality={videoQualityFor(spec)}
-        onCameraReady={onCameraReady}
-      />
+      {checking ? (
+        <View style={[c.camera, c.closed]} />
+      ) : (
+        <CameraView
+          ref={cam}
+          style={c.camera}
+          facing="back"
+          mode={mode}
+          mute={false}
+          videoQuality={videoQualityFor(spec)}
+          onCameraReady={onCameraReady}
+        />
+      )}
       <SafeAreaView style={c.overlay} pointerEvents="box-none">
         <View style={c.top}>
           <Pressable
@@ -678,12 +669,8 @@ export default function Capture() {
             {checking.total > 0 ? `Checking clip… ${checking.done}/${checking.total}` : "Checking clip…"}
           </Text>
         ) : null}
-        {clipOn ? (
-          <Text style={c.trial}>
-            {`CLIP ${clipMode()}: ${clipStatusText(clip)}`}
-            {trial ? `\n${trial}` : ""}
-          </Text>
-        ) : null}
+        {clipStatusText(clip) ? <Text style={c.trial}>{clipStatusText(clip)}</Text> : null}
+        {__DEV__ && trial ? <Text style={c.trial}>{trial}</Text> : null}
         <Level tilt={level} tolerance={maxTilt} />
         <View style={c.bottom}>
           {recording ? (
@@ -727,6 +714,7 @@ export default function Capture() {
 const c = StyleSheet.create({
   root: { flex: 1, backgroundColor: "#000" },
   camera: { position: "absolute", top: 0, left: 0, right: 0, bottom: 0 },
+  closed: { backgroundColor: "#000" },
   overlay: { flex: 1, justifyContent: "space-between" },
   top: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 12 },
   chip: { backgroundColor: "rgba(0,0,0,0.55)", paddingHorizontal: 14, paddingVertical: 8, borderRadius: 20 },

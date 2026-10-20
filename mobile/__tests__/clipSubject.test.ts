@@ -1,7 +1,7 @@
 // The CLIP subject check's arithmetic, from canned vectors. No model runs here.
 
 import type { SubjectSpec } from "@/api/types";
-import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
+import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_FORBIDDEN_MIN_MARGIN, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
 import {
   clipExamplesFinding,
   clipExamplesUncheckedFinding,
@@ -9,7 +9,12 @@ import {
   examplesMissed,
   clipFinding,
   clipMeasured,
-  clipMode,
+  clipUnscoredFinding,
+  forbiddenFinding,
+  forbiddenMargins,
+  forbiddenPhrases,
+  framesForbidden,
+  negativesAgainst,
   cropRgb,
   framesMargin,
   marginOf,
@@ -112,7 +117,7 @@ describe("the margin", () => {
 });
 
 describe("the findings", () => {
-  it("warn under the pass mark, in ML Kit's code, and say nothing above it", () => {
+  it("warn under the pass mark as wrong_subject, and say nothing above it", () => {
     const miss = clipFinding(CLIP_SUBJECT_MIN_MARGIN - 0.01, traffic);
     expect(miss?.code).toBe("wrong_subject");
     expect(miss?.severity).toBe("warn");
@@ -163,18 +168,44 @@ describe("the client's examples", () => {
   });
 });
 
-describe("the trial switch", () => {
-  const before = process.env.EXPO_PUBLIC_SUBJECT_CLIP;
-  afterEach(() => {
-    process.env.EXPO_PUBLIC_SUBJECT_CLIP = before;
+
+describe("must not show", () => {
+  it("measures each banned phrase against negatives that do not name it", () => {
+    expect(negativesAgainst(["selfie"])).not.toContain("a selfie");
+    expect(negativesAgainst(["selfie"])).toContain("a person's face");
+    expect(forbiddenPhrases({ ...traffic, must_not_show: ["person", " ", ""] })).toEqual(["person"]);
   });
 
-  it("is off unless set to shadow or decide", () => {
-    process.env.EXPO_PUBLIC_SUBJECT_CLIP = "";
-    expect(clipMode()).toBe("off");
-    process.env.EXPO_PUBLIC_SUBJECT_CLIP = "yes";
-    expect(clipMode()).toBe("off");
-    process.env.EXPO_PUBLIC_SUBJECT_CLIP = "decide";
-    expect(clipMode()).toBe("decide");
+  it("scores a phrase by its best view over its own negatives", () => {
+    const banned = [{ phrase: "selfie", vec: unit(1, 0, 0), negatives: [unit(0, 1, 0)] }];
+    const [m] = forbiddenMargins([unit(0, 1, 0), unit(1, 0, 0)], banned);
+    expect(m.phrase).toBe("selfie");
+    expect(m.margin).toBeCloseTo(1);
+  });
+
+  it("warns the reviewer about the clearest one, and only past the mark", () => {
+    const f = forbiddenFinding([
+      { phrase: "pet", margin: CLIP_FORBIDDEN_MIN_MARGIN + 0.01 },
+      { phrase: "selfie", margin: CLIP_FORBIDDEN_MIN_MARGIN + 0.03 },
+    ]);
+    expect(f).toMatchObject({ code: "forbidden_subject", severity: "warn", detail: { phrase: "selfie" } });
+    expect(f?.message).toBe("This capture seems to show selfie, which the task asked to keep out.");
+    expect(f?.score).toBeUndefined();
+    expect(forbiddenFinding([{ phrase: "pet", margin: CLIP_FORBIDDEN_MIN_MARGIN - 0.001 }])).toBeNull();
+    expect(forbiddenFinding([])).toBeNull();
+    expect(forbiddenFinding([{ phrase: "pet", margin: 0.5 }], true)?.message).toMatch(/^This clip/);
+  });
+
+  it("judges a clip by each phrase's best three frames", () => {
+    const frame = (pet: number) => [{ phrase: "pet", margin: pet }];
+    expect(framesForbidden([frame(0.1), frame(0.04), frame(0.01), frame(-0.5)])[0].margin).toBeCloseTo(0.05);
+    expect(framesForbidden([])).toEqual([]);
+  });
+});
+
+describe("a capture CLIP could not look at", () => {
+  it("is the subject_unscored warning the server and console already count", () => {
+    expect(clipUnscoredFinding("loading")).toMatchObject({ code: "subject_unscored", severity: "warn", detail: { reason: "loading" } });
+    expect(clipUnscoredFinding("error", "boom").detail).toEqual({ reason: "error", error: "boom" });
   });
 });

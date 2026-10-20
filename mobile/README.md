@@ -106,42 +106,37 @@ npm test
 A task can carry a *subject* (`capture_spec.subject`, typed by the aggregator
 when assigning: "retail shelf — must show shelf, products, price tags — must
 not show person, selfie, screenshot"). The worker reads it on the assignment
-screen; after each photo the phone asks Google ML Kit's on-device image
-labeller what it sees and scores the labels against those words
-(`src/validation/subject.ts`). A low score asks the worker to keep or retake.
-It never deletes anything by itself, and the finding (`wrong_subject`, with
-score and labels) travels with the upload for the reviewer.
+screen; after each photo the phone compares it with those words using CLIP
+(ViT-B/32, on the device through react-native-executorch;
+`src/qa_pipeline/subject/clipSubject.ts`). It replaced ML Kit's image labeller,
+whose fixed vocabulary could not name most subjects; ML Kit still runs the face
+and text checks. A miss asks the worker to keep or retake. It never deletes
+anything by itself, and the finding (`wrong_subject`, with the margin)
+travels with the upload for the reviewer, as does `subject_clip_measured`
+whether it passed or not. A must-not-show phrase that clearly shows is a
+`forbidden_subject` warning for the reviewer only. A photo that passes shows a
+green *Looks like …* line in the viewfinder.
 
-The labeller is a native module, so it works in a **development build**, not
-in Expo Go. Wherever it cannot answer — Expo Go, an APK built without it, a
-native error, or a first run slower than six seconds — the capture is kept
-with a `subject_unscored` warning that names the reason, so the reviewer at
-gate 1 sees *unchecked* rather than a silent pass. A photo that passes shows a
-green *Looks like …* line in the viewfinder. `EXPO_PUBLIC_SUBJECT_STUB` in
-`.env` fakes the labels for trying the dialog in Expo Go. `SUBJECT_OFF` and
-`SUBJECT_DIALOG` in `src/config.ts` are the cut and the shadow switch.
-
-**CLIP subject check (on trial, development builds only).** `EXPO_PUBLIC_SUBJECT_CLIP`
-in `.env` turns on a second subject check (`src/qa_pipeline/subject/clipSubject.ts`,
-react-native-executorch, CLIP ViT-B/32): `shadow` scores every capture and
-records `subject_clip_measured` while ML Kit still decides; `decide` puts
-CLIP's verdict to the worker instead. Unset, nothing loads. The models
-(~600 MB) download when the camera opens; a line in the viewfinder shows the
-download and the last shot's score on both checks, and Metro logs `[clip] …`.
-It needs a development build made after the library was added (a native
-module), and it is read under `__DEV__` only, so an `eas update` cannot turn
-it on for workers. `CLIP_SUBJECT_MIN_MARGIN` in `src/config.ts` is its cut.
-The client's example photos are used the same way the ML Kit version uses
-them: CLIP embeds each one (`src/qa_pipeline/subject/clipExamples.ts`), every
-capture records how alike it looks (`subject_clip_examples`), and in `decide`
-mode the worker is asked only when the subject words AND the examples miss
-(`CLIP_EXAMPLE_MIN_SIMILARITY`).
+The models (~600 MB, fp32) download once, starting when the worker opens an
+assignment; a line in the viewfinder says how far along that is. Until they
+are ready — or in a build without the native module, or after a native error —
+the capture is kept with a `subject_unscored` warning that names the reason,
+so the reviewer at gate 1 sees *unchecked* rather than a silent pass. A
+failed download is retried the next time an assignment or the camera opens.
+`CLIP_SUBJECT_MIN_MARGIN`, `CLIP_IGNORE_NEAREST_NEGATIVES` and
+`CLIP_FORBIDDEN_MIN_MARGIN` in `src/config.ts` are its cuts, each documented
+with the evaluation that set it (`tools/subject_eval`); `SUBJECT_DIALOG` is the
+shadow switch. The client's example photos are embedded too
+(`src/qa_pipeline/subject/clipExamples.ts`): every capture records how alike it
+looks (`subject_clip_examples`), and the worker is asked only when the subject
+words AND the examples miss (`CLIP_EXAMPLE_MIN_SIMILARITY`). Development builds
+also show the last shot's scores in the viewfinder, and Metro logs `[clip] …`.
 
 A clip gets the same treatment through its frames (`src/validation/clip.ts`,
 `src/capture/frames.ts`): one frame every five seconds, three to forty of
-them, inside a 45-second budget. Each frame is labelled and scored like a
-photo, and the clip passes when most of them do (`SUBJECT_FRAMES_MIN_SHARE`);
-the same frames, shrunk to 16×16, tell a dark clip (refused past half its
+them, inside a 45-second budget. CLIP scores each frame like a photo, and the
+clip's margin is the mean of its best three frames; the camera is closed while
+it runs, to keep the memory for the check. The same frames, shrunk to 16×16, tell a dark clip (refused past half its
 frames) from a still one (a warning — a tripod shot looks the same as a
 stalled encoder). Before any of that, `rules.ts` refuses a clip outside the
 task's `min_duration_s`–`max_duration_s`, below its `min_video_lines`, or the

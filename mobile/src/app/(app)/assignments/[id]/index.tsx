@@ -18,7 +18,7 @@ import {
 import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed } from "@/db/outbox";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
-import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
+import { warmClip } from "@/qa_pipeline/subject/clipSubject";
 import { useAssignmentAssets, useAssignments, useOutbox, useRejections } from "@/query/hooks";
 import { assignmentStatus, meta, rejectionLabel } from "@/status";
 import { Button, C, Callout, Pill, Screen, s } from "@/ui";
@@ -42,19 +42,14 @@ export default function AssignmentDetail() {
   const [note, setNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch and label the client's example photos while the worker is reading
-  // the brief, so the camera never waits on a download. Each one is labelled
-  // once and the image is thrown away; a second visit to this screen costs
-  // nothing. Best-effort and silent — offline, the capture screen falls back
-  // to the word check and records that it did.
-  const taskId = a?.task.id;
-  const exampleIds = exampleImages(a?.task.client_documents).map((d) => d.id).join(",");
+  // Start fetching the subject check's model while the worker is reading the
+  // brief, so the camera is less likely to open before it is ready. Once per
+  // app run (clipSubject.ts warmClip); a failed download is retried here or
+  // by the camera next time. Until it is ready captures are kept, marked
+  // subject_unscored.
   useEffect(() => {
-    if (!taskId || !exampleIds) return;
-    void refreshExamples(taskId, a?.task.client_documents);
-    // a.task.client_documents is re-read on every render; the ids are what
-    // actually change, and they are what decides whether there is work to do.
-  }, [taskId, exampleIds]); // eslint-disable-line react-hooks/exhaustive-deps
+    void warmClip().catch(() => undefined);
+  }, []);
 
   // What the camera can take, as the capture screen last probed it. Re-read
   // on focus: the first visit to the camera is what answers it, and the

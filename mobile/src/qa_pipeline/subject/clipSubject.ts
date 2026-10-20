@@ -1,19 +1,18 @@
-// The subject check, the CLIP way: does this photo look more like the task's
-// subject than like any of the things a wrong capture usually shows?
+// The subject check: does this photo look more like the task's subject than
+// like any of the things a wrong capture usually shows?
 //
-// ML Kit (subject.ts) can only answer from its fixed list of ~430 labels, so a
-// subject whose words are not on it — "shop fronts", "laptop being operated" —
-// can never pass, and a common label ("Building", "Plant") passes almost
-// anything. CLIP compares the photo with the subject's own words instead. On
-// the laptop test set (tools/subject_eval) it warned on 9% of good photos and
-// let 2% of wrong ones through, against ML Kit's 28% and 15%.
+// It replaced ML Kit's image labeller, which could only answer from a fixed
+// list of ~430 labels: a subject whose words were not on it — "shop fronts",
+// "laptop being operated", a ceiling fan — could never pass, and a common
+// label ("Building", "Plant") passed almost anything. CLIP compares the photo
+// with the subject's own words instead. On the laptop test set
+// (tools/subject_eval) it warns on 5% of good photos and lets 2% of wrong ones
+// through, where ML Kit managed 28% and 15%.
 //
-// THIS IS ON TRIAL, IN DEVELOPMENT BUILDS ONLY. EXPO_PUBLIC_SUBJECT_CLIP picks
-// what it does: unset/"off" nothing at all, "shadow" scores and records
-// (subject_clip_measured) while ML Kit still decides, "decide" lets CLIP's
-// verdict put the keep-or-retake question in ML Kit's place. Read under
-// __DEV__ for the reason labelImage's stub is: `eas update` bundles the
-// publishing machine's .env, and a trial must not reach workers' phones.
+// It only ever WARNS. A miss puts the keep-or-retake question to the worker
+// (pipeline.ts); the verdict rides with the upload for the reviewer either way.
+// The device is not trusted to judge its own work, and a false refusal is
+// invisible and unpaid while a false pass is caught at gate 1.
 //
 // The score is the one tools/subject_eval/evaluate.py computes ("margin"), so a
 // threshold set there means the same here:
@@ -29,21 +28,24 @@
 // argue with it ("a road" against "road traffic"); so is the one nearest it in
 // meaning ("grass" against "crop field, plants, soil": withoutNearest).
 //
-// The models are big (image ~350 MB, text ~250 MB, fp32) and download once on
-// first use; until they are ready a capture records subject_clip_unscored and
-// ML Kit decides as before. Nothing here ever blocks a capture.
+// The task's must_not_show phrases are scored the same way, each against the
+// negatives that share no word with it (forbiddenMargins), and one that
+// clearly shows is a warning for the reviewer that never asks the worker:
+// a passer-by walks into shot and the shelf is still the shelf.
+//
+// The models are big (image ~350 MB, text ~250 MB, fp32) and download once,
+// when the worker first opens an assignment; until they are ready a capture
+// records subject_unscored and is kept unasked. Nothing here blocks a capture.
 
 import type { SubjectSpec } from "@/api/types";
-import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_IGNORE_NEAREST_NEGATIVES, CLIP_SUBJECT_MIN_MARGIN } from "@/config";
+import {
+  CLIP_EXAMPLE_MIN_SIMILARITY,
+  CLIP_FORBIDDEN_MIN_MARGIN,
+  CLIP_IGNORE_NEAREST_NEGATIVES,
+  CLIP_SUBJECT_MIN_MARGIN,
+} from "@/config";
 import type { Finding } from "@/qa_pipeline/rules/rules";
-import { words } from "@/qa_pipeline/subject/subject";
-
-export type ClipMode = "off" | "shadow" | "decide";
-
-export function clipMode(): ClipMode {
-  const v = __DEV__ ? process.env.EXPO_PUBLIC_SUBJECT_CLIP : undefined;
-  return v === "shadow" || v === "decide" ? v : "off";
-}
+import { type UnscoredReason, unscoredFinding, words } from "@/qa_pipeline/subject/subject";
 
 /** tools/subject_eval/score_clip.py TEMPLATES, in the same order */
 export const TEMPLATES = [
@@ -67,17 +69,28 @@ export const NEGATIVES = [
   "an empty room", "a table",
 ];
 
-/** The phrases the subject is, exactly the ones the ML Kit check matches. */
+/** The phrases the subject is: its labels when the task lists them, else its
+ *  domain and must_show. */
 export function subjectPhrases(subject: SubjectSpec): string[] {
   const labels = (subject.labels ?? []).filter((p) => p.trim());
   if (labels.length > 0) return labels;
   return [subject.domain, ...subject.must_show].filter((p) => p && p.trim());
 }
 
+/** The negatives that do not name part of these phrases. */
+export function negativesAgainst(phrases: string[]): string[] {
+  const wanted = new Set(phrases.flatMap(words));
+  return NEGATIVES.filter((n) => !words(n).some((w) => wanted.has(w)));
+}
+
 /** The negatives that do not name part of the subject. */
 export function negativesFor(subject: SubjectSpec): string[] {
-  const wanted = new Set(subjectPhrases(subject).flatMap(words));
-  return NEGATIVES.filter((n) => !words(n).some((w) => wanted.has(w)));
+  return negativesAgainst(subjectPhrases(subject));
+}
+
+/** The must_not_show phrases, as the task lists them. */
+export function forbiddenPhrases(subject: SubjectSpec): string[] {
+  return (subject.must_not_show ?? []).filter((p) => p && p.trim());
 }
 
 export interface Rect {
@@ -142,6 +155,56 @@ export interface TextVectors {
   negativePhrases: string[];
   /** the negatives ignored for being nearest the subject (withoutNearest) */
   ignored?: string[];
+  /** the must_not_show phrases, each with the negatives it is measured against */
+  forbidden?: ForbiddenVectors[];
+}
+
+/** One must_not_show phrase, ready to score. Its negatives are its own:
+ *  "selfie" measured against the negative "a selfie" could never show. */
+export interface ForbiddenVectors {
+  phrase: string;
+  vec: Float32Array;
+  negatives: Float32Array[];
+}
+
+export interface ForbiddenMargin {
+  phrase: string;
+  margin: number;
+}
+
+/** Each must_not_show phrase's margin over its negatives, at its best view. */
+export function forbiddenMargins(viewVecs: Float32Array[], forbidden: ForbiddenVectors[]): ForbiddenMargin[] {
+  return forbidden.map((f) => ({
+    phrase: f.phrase,
+    margin: Math.max(
+      ...viewVecs.map((v) => dot(v, f.vec) - (f.negatives.length > 0 ? Math.max(...f.negatives.map((n) => dot(v, n))) : -1)),
+    ),
+  }));
+}
+
+/** A clip's per-phrase margins: each phrase's mean over its best three frames,
+ *  as the subject's is (framesMargin). */
+export function framesForbidden(perFrame: ForbiddenMargin[][]): ForbiddenMargin[] {
+  if (perFrame.length === 0) return [];
+  return perFrame[0].map((f, i) => ({ phrase: f.phrase, margin: framesMargin(perFrame.map((fr) => fr[i].margin)) }));
+}
+
+/** The warning a clearly shown must_not_show thing becomes; null when none
+ *  is. For the reviewer only — the worker is never asked about it. */
+export function forbiddenFinding(margins: ForbiddenMargin[], clip = false): Finding | null {
+  const worst = margins.reduce<ForbiddenMargin | null>((w, m) => (w && w.margin >= m.margin ? w : m), null);
+  if (!worst || worst.margin < CLIP_FORBIDDEN_MIN_MARGIN) return null;
+  return {
+    code: "forbidden_subject",
+    severity: "warn",
+    message: `This ${clip ? "clip" : "capture"} seems to show ${worst.phrase}, which the task asked to keep out.`,
+    detail: {
+      model: "clip-vit-b32",
+      phrase: worst.phrase,
+      margin: Number(worst.margin.toFixed(4)),
+      threshold: CLIP_FORBIDDEN_MIN_MARGIN,
+    },
+  };
 }
 
 /** The negatives less the `k` that mean most nearly what the subject does:
@@ -217,8 +280,8 @@ export function photoDetail(m: ViewsMargin, ms: number): Record<string, unknown>
 }
 
 /** CLIP's verdict as the warning the keep-or-retake question is asked about;
- *  null when the subject looks present. The same code as ML Kit's, so the
- *  dialog and gate 1's ordering need nothing new. */
+ *  null when the subject looks present. wrong_subject is the code the
+ *  dialog, gate 1's ordering and the console's badge all read. */
 export function clipFinding(margin: number, subject: SubjectSpec, frames?: { frames: number }): Finding | null {
   if (margin >= CLIP_SUBJECT_MIN_MARGIN) return null;
   return {
@@ -232,15 +295,14 @@ export function clipFinding(margin: number, subject: SubjectSpec, frames?: { fra
 }
 
 // ---------------------------------------------------------------------------
-// The client's example photos, the CLIP way.
+// The client's example photos.
 //
-// The ML Kit version (qa_pipeline/examples) compares label lists; CLIP
-// compares the pictures themselves: each example is embedded once, whole
+// CLIP compares the pictures themselves: each example is embedded once, whole
 // frame, and a capture's similarity is the best match between any of its six
-// views and any example. It rides beside the word check exactly as the ML Kit
-// one does — the keep-or-retake question is asked only when BOTH miss
-// (pipeline.ts prompted) — so the examples can rescue a shot the words got
-// wrong but never condemn one on their own.
+// views and any example. It rides beside the word check — the keep-or-retake
+// question is asked only when BOTH miss (pipeline.ts prompted) — so the
+// examples can rescue a shot the words got wrong but never condemn one on
+// their own.
 //
 // CLIP_EXAMPLE_MIN_SIMILARITY was set on the laptop test set with three
 // examples per subject: words alone warned on 11% of good photos and passed
@@ -313,16 +375,12 @@ export function clipExamplesUncheckedFinding(expected: number): Finding {
   };
 }
 
-export type ClipUnscored = "loading" | "no_model" | "error";
+export type ClipUnscored = Extract<UnscoredReason, "loading" | "no_model" | "error">;
 
-/** Why CLIP gave no answer. Info, not a warning: on trial, ML Kit decided. */
+/** Why CLIP gave no answer, as the subject_unscored warning the reviewer and
+ *  gate 1's ordering already know: the capture is kept and nobody is asked. */
 export function clipUnscoredFinding(reason: ClipUnscored, error?: string): Finding {
-  return {
-    code: "subject_clip_unscored",
-    severity: "info",
-    message: `CLIP did not score this capture (${reason}).`,
-    detail: error ? { reason, error } : { reason },
-  };
+  return unscoredFinding(reason, error);
 }
 
 // ---------------------------------------------------------------------------
@@ -359,12 +417,18 @@ export function onClipStatus(l: (s: ClipStatus) => void): () => void {
   return () => listeners.delete(l);
 }
 
-let models: Promise<{ image: Embedder<ImageBuffer>; text: Embedder<string> }> | null = null;
-let ready: { image: Embedder<ImageBuffer>; text: Embedder<string> } | null = null;
+// Only the image model stays in memory. The text model (~250 MB) is needed
+// just long enough to embed a subject's phrases — a few seconds, once per
+// subject — so it is loaded for that and disposed after (withText): holding
+// both is what a phone with 8 GB ran out of while checking a clip.
+type TextModel = Embedder<string> & { dispose(): void };
+let models: Promise<{ image: Embedder<ImageBuffer> }> | null = null;
+let ready: { image: Embedder<ImageBuffer>; loadText: () => Promise<TextModel> } | null = null;
 
-/** Start the download and load, once. Resolves when both models are ready. */
-export function warmClip(): Promise<unknown> | null {
-  if (clipMode() === "off") return null;
+/** Start the download and load, once. Resolves when the image model is ready
+ *  and the text model is on disk. A failure (no signal halfway through the
+ *  download) is retried by the next call, from the next screen that asks. */
+export function warmClip(): Promise<unknown> {
   if (models) return models;
   models = (async () => {
     let lib: typeof import("react-native-executorch");
@@ -393,9 +457,9 @@ export function warmClip(): Promise<unknown> | null {
     ]);
     setStatus({ state: "loading" });
     const t0 = Date.now();
-    const [image, text] = await Promise.all([createImageEmbedder(imgModel), createTextEmbedder(txtModel)]);
-    console.log(`[clip] models loaded in ${Date.now() - t0} ms`);
-    ready = { image, text };
+    const image = await createImageEmbedder(imgModel);
+    console.log(`[clip] image model loaded in ${Date.now() - t0} ms`);
+    ready = { image, loadText: () => createTextEmbedder(txtModel) };
     setStatus({ state: "ready" });
     return ready;
   })();
@@ -403,41 +467,82 @@ export function warmClip(): Promise<unknown> | null {
     const error = e instanceof Error ? e.message : String(e);
     console.warn(`[clip] unavailable: ${error}`);
     setStatus({ state: "failed", error });
+    models = null;
   });
   return models;
 }
 
 const textCache = new Map<string, Promise<TextVectors>>();
+/** a phrase's vector, whichever subject asked first: the negatives are the
+ *  same for every subject, so a second subject embeds only its own words */
+const phraseCache = new Map<string, Float32Array>();
 
 async function embedPhrase(text: Embedder<string>, phrase: string): Promise<Float32Array> {
+  const hit = phraseCache.get(phrase);
+  if (hit) return hit;
   const vs: Float32Array[] = [];
   // one at a time: the runner refuses a second call while one is running
   for (const t of TEMPLATES) vs.push(await text.embed(t.replace("{}", phrase)));
-  return meanUnit(vs);
+  const v = meanUnit(vs);
+  phraseCache.set(phrase, v);
+  return v;
 }
 
-/** The subject's and the negatives' vectors, computed once per subject. */
+/** Text work, one job at a time, with the text model loaded for the job and
+ *  disposed after it. */
+let textQueue: Promise<unknown> = Promise.resolve();
+function withText<T>(job: (text: Embedder<string>) => Promise<T>): Promise<T> {
+  const run = textQueue.then(async () => {
+    const text = await ready!.loadText();
+    try {
+      return await job(text);
+    } finally {
+      text.dispose();
+    }
+  });
+  textQueue = run.catch(() => undefined);
+  return run;
+}
+
+/** The subject's, the negatives' and the must_not_show phrases' vectors,
+ *  computed once per subject. */
 export function textVectors(subject: SubjectSpec): Promise<TextVectors> | null {
   if (!ready) return null;
-  const { text } = ready;
   const phrases = subjectPhrases(subject);
-  const key = JSON.stringify(phrases);
+  const banned = forbiddenPhrases(subject);
+  const key = JSON.stringify([phrases, banned]);
   let v = textCache.get(key);
   if (!v) {
-    v = (async () => {
+    v = withText(async (text) => {
       const t0 = Date.now();
+      const embedAll = async (ps: string[]) => {
+        const out: Float32Array[] = [];
+        for (const p of ps) out.push(await embedPhrase(text, p));
+        return out;
+      };
       const negativePhrases = negativesFor(subject);
-      const sub: Float32Array[] = [];
-      for (const p of phrases) sub.push(await embedPhrase(text, p));
-      const neg: Float32Array[] = [];
-      for (const p of negativePhrases) neg.push(await embedPhrase(text, p));
-      const out = withoutNearest({ subject: sub, negatives: neg, negativePhrases }, CLIP_IGNORE_NEAREST_NEGATIVES);
+      const out = withoutNearest(
+        { subject: await embedAll(phrases), negatives: await embedAll(negativePhrases), negativePhrases },
+        CLIP_IGNORE_NEAREST_NEGATIVES,
+      );
+      // each banned phrase against its own negatives, by the subject's rule
+      const forbidden: ForbiddenVectors[] = [];
+      for (const phrase of banned) {
+        const own = negativesAgainst([phrase]);
+        const vec = await embedPhrase(text, phrase);
+        const kept = withoutNearest(
+          { subject: [vec], negatives: await embedAll(own), negativePhrases: own },
+          CLIP_IGNORE_NEAREST_NEGATIVES,
+        );
+        forbidden.push({ phrase, vec, negatives: kept.negatives });
+      }
       console.log(
-        `[clip] ${phrases.length} subject + ${out.negatives.length} negative phrases in ${Date.now() - t0} ms` +
+        `[clip] ${phrases.length} subject + ${out.negatives.length} negative + ${banned.length} banned phrases in ` +
+          `${Date.now() - t0} ms` +
           (out.ignored?.length ? `; ignoring ${out.ignored.join(", ")}` : ""),
       );
-      return out;
-    })();
+      return { ...out, forbidden };
+    });
     v.catch(() => textCache.delete(key));
     textCache.set(key, v);
   }
@@ -446,10 +551,13 @@ export function textVectors(subject: SubjectSpec): Promise<TextVectors> | null {
 
 export type ClipResult =
   | {
-      margins: ViewsMargin;
+      /** null on a task with example photos but no subject */
+      margins: ViewsMargin | null;
       ms: number;
       /** the six views' vectors, kept so the examples cost no second pass */
       vecs: Float32Array[];
+      /** each must_not_show phrase's margin, from the same views */
+      forbidden: ForbiddenMargin[];
     }
   | { unscored: ClipUnscored; error?: string };
 
@@ -467,10 +575,11 @@ export async function embedWhole(rgba: { width: number; height: number; data: Ui
   });
 }
 
-/** Score one image (RGBA, already decoded) against the subject. */
+/** Look at one image (RGBA, already decoded): its six views' vectors, and,
+ *  when the task has a subject, the subject's and banned phrases' margins. */
 export async function scoreImage(
   rgba: { width: number; height: number; data: Uint8Array },
-  subject: SubjectSpec,
+  subject: SubjectSpec | null,
 ): Promise<ClipResult> {
   if (status.state === "failed") {
     return { unscored: status.error.startsWith("no_model") ? "no_model" : "error", error: status.error };
@@ -478,16 +587,17 @@ export async function scoreImage(
   if (!ready) return { unscored: "loading" };
   try {
     const t0 = Date.now();
-    const text = await textVectors(subject)!;
+    const text = subject ? await textVectors(subject)! : null;
     const vecs: Float32Array[] = [];
     for (const r of views(rgba.width, rgba.height)) {
       const data = cropRgb(rgba.data, rgba.width, r);
       vecs.push(await ready.image.embed({ data, width: r.size, height: r.size, format: "rgb", layout: "hwc" }));
     }
-    const margins = marginOf(vecs, text);
+    const margins = text ? marginOf(vecs, text) : null;
+    const forbidden = forbiddenMargins(vecs, text?.forbidden ?? []);
     const ms = Date.now() - t0;
-    console.log(`[clip] margin ${margins.margin.toFixed(4)} (${VIEW_NAME[margins.view]}) in ${ms} ms`);
-    return { margins, ms, vecs };
+    if (margins) console.log(`[clip] margin ${margins.margin.toFixed(4)} (${VIEW_NAME[margins.view]}) in ${ms} ms`);
+    return { margins, ms, vecs, forbidden };
   } catch (e) {
     return { unscored: "error", error: e instanceof Error ? e.message : String(e) };
   }
