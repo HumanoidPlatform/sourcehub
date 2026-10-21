@@ -212,8 +212,8 @@ def _verify_sync(t: StorageTarget) -> None:
     # The probe writes and reads for real, so it uses the address the API can
     # reach — not the one a phone would.
     c = _client(t, signing=False)
-    key = t.key(f".sourcehub-probe/{uuid.uuid4()}")
-    body = b"sourcehub destination check"
+    key = t.key(f".datamind360-probe/{uuid.uuid4()}")
+    body = b"DataMind360 destination check"
     try:
         c.put_object(t.bucket, key, io.BytesIO(body), len(body), content_type="text/plain")
     except S3Error as e:

@@ -20,6 +20,7 @@ import {
   REWORK_BEARERS, TARGET_UNITS, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
+import { PRODUCT } from "@shared/brand";
 import {
   fmtDate, fmtDateTime, fmtDateTimeZone, fmtUntil, isoToLocalInput, localInputToIso, mediaList,
   money, titleCase, utcDateOf,
@@ -1621,7 +1622,7 @@ function DestinationStep({ value, onChange }: { value: string; onChange: (v: str
   return (
     <div className="col">
       <p className="muted">
-        Captured data is written straight to your own storage. SourceHub signs each upload
+        Captured data is written straight to your own storage. {PRODUCT} signs each upload
         and keeps no copy.
       </p>
 
@@ -1837,7 +1838,7 @@ function NewDestination({
         )}
 
         <Field label="Folder" span>
-          {(id) => <input id={id} className={inputCls} value={f.key_prefix} onChange={set("key_prefix")} placeholder="Optional — captures are written under this prefix, e.g. sourcehub/" />}
+          {(id) => <input id={id} className={inputCls} value={f.key_prefix} onChange={set("key_prefix")} placeholder="Optional — captures are written under this prefix, e.g. captures/" />}
         </Field>
       </div>
 

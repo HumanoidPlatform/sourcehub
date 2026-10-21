@@ -178,10 +178,11 @@ WHERE r.code = 'platform_admin' AND p.code IN (
 -- ---------------------------------------------------------------------------
 -- The name is what a platform administrator sees as their workspace in the
 -- console, so it is the COMPANY that runs the platform, not the product they
--- operate. legal_name is still a placeholder awaiting the registered entity.
+-- operate. legal_name is the registered entity, the operator Terms 1.1 names
+-- (db/560); migration 0061 moved existing databases off the old placeholder.
 INSERT INTO organisation (reference_code, kind, name, legal_name, status, onboarded_at)
 VALUES (org_reference_code('platform'), 'platform', 'Cosarathi Operations',
-        'SourceHub Ltd', 'active', now());
+        'CoSarathi Group Private Limited', 'active', now());
 
 
 -- ---------------------------------------------------------------------------

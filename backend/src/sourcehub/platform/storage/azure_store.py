@@ -281,8 +281,8 @@ async def delete(t: StorageTarget, key: str) -> None:
 
 
 def _verify_sync(t: StorageTarget) -> None:
-    key = t.key(f".sourcehub-probe/{uuid.uuid4()}")
-    body = b"sourcehub destination check"
+    key = t.key(f".datamind360-probe/{uuid.uuid4()}")
+    body = b"DataMind360 destination check"
     try:
         blob = _service(t).get_blob_client(t.bucket, key)
     except StorageError:
