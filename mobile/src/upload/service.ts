@@ -15,7 +15,7 @@
 // and the next waits for the foreground (UploaderMount keeps the screen on).
 
 import { Platform } from "react-native";
-import BackgroundService from "react-native-background-actions";
+import type BackgroundActions from "react-native-background-actions";
 import { summary } from "@/db/outbox";
 import { uploadsLine } from "./words";
 
@@ -27,6 +27,18 @@ const TASK = {
   color: "#091CFF",
   linkingURI: "cosarathi://assignments",
   foregroundServiceType: ["dataSync" as const],
+};
+
+/** The package, loaded on first use rather than imported. Importing it builds
+ *  its event emitter at once, and on iOS, where the service is never used and
+ *  Expo Go has no native half for it, that throws ("Your JavaScript code tried
+ *  to access a native module that doesn't exist"): the import stopped the app
+ *  at launch on an iPhone. Every use below is Android-only. */
+let actions: typeof BackgroundActions | undefined;
+const background = (): typeof BackgroundActions => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  actions ??= require("react-native-background-actions").default as typeof BackgroundActions;
+  return actions;
 };
 
 /** how often the service checks whether the outbox has drained */
@@ -63,7 +75,7 @@ class UploadService {
     this.op = this.op.then(async () => {
       if (this.gen !== gen) return; // released again before the start could run
       try {
-        await BackgroundService.start(() => this.untilDrained(gen), {
+        await background().start(() => this.untilDrained(gen), {
           ...TASK,
           taskDesc: "Starting…",
           progressBar: { max: 100, value: 0, indeterminate: true },
@@ -86,7 +98,7 @@ class UploadService {
     if (!this.available || !this.held) return;
     this.held = false;
     this.gen++;
-    this.op = this.op.then(() => BackgroundService.stop().catch(() => undefined));
+    this.op = this.op.then(() => background().stop().catch(() => undefined));
     await this.op;
   }
 
@@ -118,7 +130,7 @@ class UploadService {
     if (line === this.lastLine || now - this.lastReport < REPORT_MS) return;
     this.lastReport = now;
     this.lastLine = line;
-    void BackgroundService.updateNotification({
+    void background().updateNotification({
       taskDesc: line,
       progressBar: { max: 100, value: Math.round(fraction * 100) },
     }).catch(() => undefined);
