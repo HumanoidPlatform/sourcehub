@@ -25,9 +25,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 SEED = (ROOT / "db" / "900_seed.sql").read_text(encoding="utf-8")
 TERMS_11 = (ROOT / "db" / "560_terms_1_1.sql").read_text(encoding="utf-8")
-MIGRATION_TEXT = (ROOT / "backend" / "migrations" / "versions" / "0061_operator_legal_name.py").read_text(
-    encoding="utf-8"
-)
+MIGRATION_TEXT = (
+    ROOT / "backend" / "migrations" / "versions" / "0061_operator_legal_name.py"
+).read_text(encoding="utf-8")
 OPERATOR = "CoSarathi Group Private Limited"
 PLACEHOLDER = "SourceHub Ltd"
 
@@ -103,13 +103,15 @@ def test_no_console_or_phone_screen_says_sourcehub():
 
 
 def test_the_storage_form_names_the_product():
-    text = (ROOT / "frontend" / "src" / "features" / "marketplace" / "pages.tsx").read_text(encoding="utf-8")
+    pages = ROOT / "frontend" / "src" / "features" / "marketplace" / "pages.tsx"
+    text = pages.read_text(encoding="utf-8")
     assert "{PRODUCT} signs each upload" in text
     assert "e.g. sourcehub/" not in text
 
 
 def test_no_email_template_says_sourcehub():
-    templates = list((ROOT / "backend" / "src" / "sourcehub" / "platform" / "mail" / "templates").glob("*"))
+    folder = ROOT / "backend" / "src" / "sourcehub" / "platform" / "mail" / "templates"
+    templates = list(folder.glob("*"))
     assert templates, "no mail templates found"
     offenders = [p.name for p in templates if "sourcehub" in p.read_text(encoding="utf-8").lower()]
     assert not offenders, f"an e-mail names SourceHub: {offenders}"
