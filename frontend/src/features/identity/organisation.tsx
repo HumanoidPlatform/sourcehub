@@ -5,6 +5,9 @@
 // manager can edit the company's details and logo. The account's terms with
 // the platform (legal name, country, plan, residency, DPA) are shown but are
 // Ops' to change, and the edit dialog says so beside each one.
+//
+// A client's delivery storage sits below the profile (db/590): where its
+// captured data is written, and private to it. See features/storage/section.
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -12,13 +15,14 @@ import { Link } from "react-router-dom";
 import { get } from "@api/client";
 import type { Org } from "@api/types";
 import { Button, Callout, Dl, Panel, Skeleton, View } from "@ds/primitives";
+import { DeliveryStorage } from "@features/storage/section";
 import { useSession } from "@shared/auth";
 import { fmtDate } from "@shared/format";
 import { OrgLogo } from "@shared/org-logo";
 import { kindRows } from "@shared/org-profile";
 import { EditProfileDialog } from "@shared/org-profile-edit";
 import { companyRows, draftFromOrg, expertiseRows, hasExpertise } from "@shared/org-profile-form";
-import { canEditOrgProfile } from "@shared/rbac";
+import { can, canEditOrgProfile } from "@shared/rbac";
 
 export function OrganisationProfilePage() {
   const session = useSession();
@@ -86,6 +90,9 @@ export function OrganisationProfilePage() {
           </p>
         )}
       </Panel>
+
+      {/* The API's own rule: storage.manage, held by every member of a client */}
+      {can(session, "storage.manage") && <DeliveryStorage orgName={o.name} />}
 
       {editing && <EditProfileDialog org={o} ops={false} onClose={() => setEditing(false)} />}
     </View>

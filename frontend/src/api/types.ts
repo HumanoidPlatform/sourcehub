@@ -1095,11 +1095,26 @@ export interface StorageTarget {
   endpoint: string | null;
   bucket: string;
   key_prefix: string;
-  /** null until a write-read-delete probe has actually succeeded */
+  /** null until a write-read-delete probe has actually succeeded, and again
+   *  after one fails; verify_error then says why */
   verified_at: string | null;
   verify_error: string | null;
   created_at: string;
   updated_at: string;
+  /** GET /storage-targets only: what names it. A request with a contract is
+   *  listed as the contract. Newest first. */
+  used_by?: { requests: StorageUse[]; contracts: StorageUse[] };
+  /** GET /storage-targets only: nothing uses it, so it may be deleted (db/590) */
+  can_delete?: boolean;
+}
+
+/** An RFP that is neither cancelled nor deleted, or a contract, that names a
+ *  destination. */
+export interface StorageUse {
+  id: string;
+  reference_code: string;
+  title: string | null;
+  status: string;
 }
 
 /** A file hung off a field — a request's compliance notes, a bid's

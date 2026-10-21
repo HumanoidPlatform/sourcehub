@@ -12,6 +12,9 @@ import { ToastProvider } from "@ds/primitives";
 
 const api = vi.hoisted(() => ({
   get: vi.fn((_path: string): Promise<unknown> => Promise.resolve(null)),
+  post: vi.fn((_path: string, _body?: unknown): Promise<unknown> => Promise.resolve()),
+  patch: vi.fn((_path: string, _body?: unknown): Promise<unknown> => Promise.resolve()),
+  del: vi.fn((_path: string): Promise<unknown> => Promise.resolve()),
 }));
 vi.mock("@api/client", () => api);
 
@@ -60,7 +63,7 @@ beforeEach(() => {
     role: "tenant", scope: "owner", capabilities: ["profile.manage"],
   };
   api.get.mockReset().mockImplementation((path: string) =>
-    Promise.resolve(path === "/organisations/me" ? org : null));
+    Promise.resolve(path === "/organisations/me" ? org : path === "/storage-targets" ? [] : null));
 });
 
 describe("a delivery partner's own profile", () => {
@@ -119,5 +122,48 @@ describe("a client's own profile", () => {
     expect(screen.queryByRole("link", { name: "See how clients see you" })).toBeNull();
     expect(screen.queryByText("Your expertise is not listed yet")).toBeNull();
     expect(screen.queryByText("Track record")).toBeNull();
+  });
+});
+
+// db/590: a client's delivery storage sits below its profile. Private to it,
+// and shown by the API's own rule, storage.manage, which every member of a
+// client holds: the profile's owner-or-manager rule does not apply to it.
+describe("delivery storage on the profile", () => {
+  const CLIENT: Org = {
+    ...PARTNER, id: "c1", reference_code: "CL-01", kind: "client", name: "Acme", rating: null,
+    profile: { industry: "Retail", plan: "Enterprise", dpa_signed: true, since: "2024-01-01" },
+    public_profile: { website: "https://acme.example" }, performance: undefined,
+  };
+  const clientSession = (scope: string) => ({
+    full_name: "Priya Shah", org_id: "c1", org_name: "Acme", org_kind: "client",
+    role: "client", scope, capabilities: ["profile.manage", "storage.manage"],
+  });
+
+  it("is below a client's profile, and says it is private", async () => {
+    session.current = clientSession("owner");
+    org = CLIENT;
+    show();
+    const storage = await screen.findByRole("heading", { name: "Delivery storage" });
+    const profile = screen.getByText("Acme", { selector: ".orghead b" });
+    // below the profile, not above it
+    expect(profile.compareDocumentPosition(storage) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(await screen.findByText("No destinations yet")).toBeTruthy();
+    expect(screen.getByText(/Only people in Acme see this/)).toBeTruthy();
+    expect(api.get).toHaveBeenCalledWith("/storage-targets");
+  });
+
+  it("is there for a member who cannot edit the profile", async () => {
+    session.current = clientSession("member");
+    org = CLIENT;
+    show();
+    expect(await screen.findByRole("button", { name: "Add a destination" })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Edit profile" })).toBeNull();
+  });
+
+  it("is not on a partner's profile, which never asks for it", async () => {
+    show();
+    await screen.findByRole("link", { name: "See how clients see you" });
+    expect(screen.queryByRole("heading", { name: "Delivery storage" })).toBeNull();
+    expect(api.get).not.toHaveBeenCalledWith("/storage-targets");
   });
 });

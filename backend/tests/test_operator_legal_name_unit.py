@@ -103,8 +103,10 @@ def test_no_console_or_phone_screen_says_sourcehub():
 
 
 def test_the_storage_form_names_the_product():
-    pages = ROOT / "frontend" / "src" / "features" / "marketplace" / "pages.tsx"
-    text = pages.read_text(encoding="utf-8")
+    # The destination forms moved out of the RFP builder when they got a section
+    # of their own on the Organisation profile (db/590); the two share them.
+    forms = ROOT / "frontend" / "src" / "features" / "storage" / "destinations.tsx"
+    text = forms.read_text(encoding="utf-8")
     assert "{PRODUCT} signs each upload" in text
     assert "e.g. sourcehub/" not in text
 

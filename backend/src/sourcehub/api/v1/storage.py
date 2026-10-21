@@ -42,7 +42,7 @@ class TargetIn(BaseModel):
 
 
 class TargetPatchIn(BaseModel):
-    """Rename, or rotate the credential. Location is fixed once work exists."""
+    """Rename, or replace the key. Location is fixed once work exists."""
 
     label: str | None = Field(default=None, min_length=1, max_length=120)
     secret: dict[str, Any] | None = None
@@ -51,6 +51,8 @@ class TargetPatchIn(BaseModel):
 def _map(e: Exception) -> HTTPException:
     if isinstance(e, LookupError):
         return HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
+    if isinstance(e, storage.StorageTargetInUseError):
+        return HTTPException(status.HTTP_409_CONFLICT, str(e))
     return HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e))
 
 
@@ -59,6 +61,8 @@ async def list_targets(
     principal: Principal = Depends(require_capability("storage.manage")),
     session: AsyncSession = Depends(get_session),
 ):
+    """Each destination with `used_by` (the live RFPs and the contracts that
+    name it) and `can_delete`."""
     return await storage.list_targets(session, principal)
 
 
@@ -109,13 +113,30 @@ async def update_target(
         raise _map(e) from None
 
 
+@router.delete("/storage-targets/{target_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_target(
+    target_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("storage.manage")),
+    session: AsyncSession = Depends(get_session),
+) -> None:
+    """Delete a destination that nothing uses, wiping its key. 409, saying
+    what uses it, for one a contract or a live RFP names."""
+    try:
+        await storage.delete_target(session, principal, target_id)
+    except (LookupError, storage.StorageTargetError) as e:
+        raise _map(e) from None
+
+
 @router.post("/storage-targets/{target_id}/verify")
 async def verify_target(
     target_id: uuid.UUID,
     principal: Principal = Depends(require_capability("storage.manage")),
     session: AsyncSession = Depends(get_session),
 ):
-    """Write, read back and clean up a probe object."""
+    """Write, read back and clean up a probe object, and record how it went.
+
+    200 either way: a failed test is the destination with verified_at null
+    and verify_error saying why, kept so every page shows it."""
     try:
         return await storage.verify_target(session, principal, target_id)
     except (LookupError, storage.StorageTargetError) as e:

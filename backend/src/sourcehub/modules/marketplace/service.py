@@ -385,6 +385,8 @@ async def create_request(
     samples: list[dict[str, Any]] | None = None,
     attachments: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    if data.get("storage_target_id"):
+        await _hold_destination(session, data["storage_target_id"])
     ref = (
         await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
     ).scalar_one()
@@ -463,7 +465,10 @@ async def update_request(
     r.proposals_close_at = data.get("proposals_close_at")
     r.people_requirements = _people_requirements(data)
     r.pilot = _pilot_terms(data)
-    r.storage_target_id = data.get("storage_target_id")
+    target = data.get("storage_target_id")
+    if target and target != r.storage_target_id:
+        await _hold_destination(session, target)
+    r.storage_target_id = target
     for k, v in _requirements(data).items():
         setattr(r, k, v)
     r.updated_by = claims.user_id
@@ -784,6 +789,19 @@ async def delete_draft(
         session, "request.deleted", f"Deleted the draft {r.reference_code}, {r.title}",
         [r.id, claims.org_id],
     )
+
+
+async def _hold_destination(session: AsyncSession, target_id: uuid.UUID) -> None:
+    """The destination a request is about to name: live and the client's own,
+    and share-locked until the request is saved, so a delete of it in flight
+    finishes first and this one is refused rather than both going through
+    (db/590)."""
+    from sourcehub.modules.storage import service as storage_svc
+
+    try:
+        await storage_svc.hold_for_request(session, target_id)
+    except storage_svc.StorageTargetError as e:
+        raise MarketplaceError(str(e)) from None
 
 
 async def _assert_destination(session: AsyncSession, r: Request) -> None:
