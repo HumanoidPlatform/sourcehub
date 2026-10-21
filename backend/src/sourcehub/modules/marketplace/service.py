@@ -181,10 +181,6 @@ def _row(
             "location_type": r.location_type,
         },
         "acceptance": qb.get("acceptance"),
-        "quality": {
-            "thresholds": qb.get("quality_thresholds") or {},
-            "rejection_policy": qb.get("rejection_policy") or {},
-        },
         "compliance": {
             "people_in_frame": cc.get("people_in_frame"),
             "minors_policy": cc.get("minors_policy"),
@@ -288,18 +284,14 @@ def _pilot_terms(data: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def _quality_bar(data: dict[str, Any]) -> dict[str, Any]:
-    """db/360 quality_bar: {acceptance, quality_thresholds, rejection_policy}.
+    """db/360 quality_bar, now {acceptance} alone.
 
-    Every key is written, and the whole value is assigned on create and on every
-    draft edit, so a client who clears the pass rate or the rejection policy
-    clears it (the flat columns kept the old value). acceptance keeps its honest
-    default.
+    The pass rate (quality_thresholds) and the rejection policy were dropped
+    from the RFP: nothing acted on either. The whole value is assigned on
+    create and on every draft edit, so an older draft that still holds them
+    loses them the next time it is saved. acceptance keeps its honest default.
     """
-    return {
-        "acceptance": data.get("acceptance") or _DEFAULTS["acceptance"],
-        "quality_thresholds": dict(data.get("quality_thresholds") or {}),
-        "rejection_policy": dict(data.get("rejection_policy") or {}),
-    }
+    return {"acceptance": data.get("acceptance") or _DEFAULTS["acceptance"]}
 
 
 def _consent_and_compliance(data: dict[str, Any]) -> dict[str, Any]:

@@ -147,7 +147,6 @@ export interface Rfp {
     location_type: LocationType | null;
   };
   acceptance: string | null;
-  quality: { thresholds: QualityThresholds; rejection_policy: RejectionPolicy };
   compliance: {
     people_in_frame: PeopleInFrame | null;
     minors_policy: MinorsPolicy | null;
@@ -266,17 +265,6 @@ export interface PeopleRequirements {
   training?: string;
   experience?: string;
   certification?: string;
-}
-export interface QualityThresholds {
-  min_pass_rate_pct?: number | null;
-  qa_sample_pct_gate1?: number | null;
-  qa_sample_pct_gate2?: number | null;
-}
-export interface RejectionPolicy {
-  max_retakes?: number | null;
-  retake_window_days?: number | null;
-  rework_cost_bearer?: "partner" | "client" | "shared" | null;
-  partial_acceptance_allowed?: boolean | null;
 }
 export interface Proposal {
   id: string;

@@ -133,12 +133,6 @@ export const CAPTURE_MEDIA: Choice<string>[] = [
   { value: "video", label: "Video", hint: "MP4 or MOV · up to 100 MB each" },
 ];
 
-export const REWORK_BEARERS: Choice<"partner" | "client" | "shared">[] = [
-  { value: "partner", label: "The partner" },
-  { value: "client", label: "Us" },
-  { value: "shared", label: "Shared" },
-];
-
 /** The label for a stored value, falling back to the value so an older row
  *  whose vocabulary has since changed still renders as something readable. */
 export function labelOf<T extends string>(choices: Choice<T>[], value: T | null | undefined): string {

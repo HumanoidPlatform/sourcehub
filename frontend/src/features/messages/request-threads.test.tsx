@@ -63,7 +63,6 @@ const RFP = {
     capture: {}, countries: ["IN"], location_type: "public_outdoor",
   },
   acceptance: null,
-  quality: { thresholds: {}, rejection_policy: {} },
   compliance: {
     people_in_frame: "none", minors_policy: "prohibited", deidentification: [],
     regulations: [], lawful_basis: "legitimate_interest", permitted_uses: ["audit"],

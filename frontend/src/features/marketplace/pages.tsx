@@ -17,7 +17,7 @@ import {
 import {
   CAPTURE_MEDIA, CATEGORY_MEDIA, DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES,
   LOCATION_TYPES, MINORS_POLICIES, PEOPLE_IN_FRAME, PERMITTED_USES, PRICING_BASES,
-  REWORK_BEARERS, TARGET_UNITS, USE_CASES,
+  TARGET_UNITS, USE_CASES,
 } from "./vocabularies";
 import { useSession } from "@shared/auth";
 import {
@@ -411,9 +411,7 @@ interface Draft {
   capture_min_duration_s: string; capture_max_duration_s: string; capture_min_video_lines: string;
   capture_allow_library: boolean;
   capture_min_android_version: string; capture_min_ios_version: string; capture_min_ram_gb: string;
-  acceptance: string; qt_min_pass_rate_pct: string;
-  rp_max_retakes: string; rp_retake_window_days: string;
-  rp_rework_cost_bearer: string; rp_partial_acceptance_allowed: boolean;
+  acceptance: string;
   people_in_frame: string; minors_policy: string;
   deidentification: Deidentification[]; regulations: string[];
   lawful_basis: string; permitted_uses: PermittedUse[];
@@ -442,9 +440,7 @@ const BLANK: Draft = {
   capture_min_duration_s: "", capture_max_duration_s: "", capture_min_video_lines: "",
   capture_allow_library: false,
   capture_min_android_version: "", capture_min_ios_version: "", capture_min_ram_gb: "",
-  acceptance: "", qt_min_pass_rate_pct: "",
-  rp_max_retakes: "", rp_retake_window_days: "",
-  rp_rework_cost_bearer: "", rp_partial_acceptance_allowed: false,
+  acceptance: "",
   people_in_frame: "", minors_policy: "",
   deidentification: [], regulations: [],
   lawful_basis: "", permitted_uses: [],
@@ -550,7 +546,6 @@ export function RequestNewPage() {
   // the values that were actually saved.
   const [showCapture, setShowCapture] = useState(false);
   const [showCrew, setShowCrew] = useState(false);
-  const [showRejection, setShowRejection] = useState(false);
   const targets = useTargets();
   const targetIsVerified = (tid: string) =>
     !!(targets.data ?? []).find((t) => t.id === tid)?.verified_at;
@@ -568,8 +563,6 @@ export function RequestNewPage() {
   if (id && existing.data && !loaded) {
     const r = existing.data;
     const cap = r.spec?.capture ?? {};
-    const qt = r.quality?.thresholds ?? {};
-    const rp = r.quality?.rejection_policy ?? {};
     const co = r.compliance;
     setD({
       title: r.title ?? "", category: r.category ?? "image",
@@ -592,11 +585,6 @@ export function RequestNewPage() {
       capture_min_android_version: String(cap.min_android_version ?? ""),
       capture_min_ios_version: String(cap.min_ios_version ?? ""),
       capture_min_ram_gb: String(cap.min_ram_gb ?? ""),
-      qt_min_pass_rate_pct: String(qt.min_pass_rate_pct ?? ""),
-      rp_max_retakes: String(rp.max_retakes ?? ""),
-      rp_retake_window_days: String(rp.retake_window_days ?? ""),
-      rp_rework_cost_bearer: rp.rework_cost_bearer ?? "",
-      rp_partial_acceptance_allowed: !!rp.partial_acceptance_allowed,
       people_in_frame: co?.people_in_frame ?? "", minors_policy: co?.minors_policy ?? "",
       deidentification: co?.deidentification ?? [], regulations: co?.regulations ?? [],
       lawful_basis: co?.lawful_basis ?? "", permitted_uses: co?.permitted_uses ?? [],
@@ -626,7 +614,6 @@ export function RequestNewPage() {
     // anything. Collapsing a section that has content in it reads as data loss.
     setShowCapture(!!(cap.min_megapixels || cap.orientation || cap.max_tilt_deg || cap.require_gps || cap.notes
       || cap.min_duration_s || cap.max_duration_s || cap.min_video_lines || cap.allow_library));
-    setShowRejection(Object.values(rp).some((v) => v !== null && v !== undefined && v !== false));
     const pr = r.people_requirements;
     setShowCrew(!!(pr && (pr.training || pr.experience || pr.certification)));
     setLoaded(true);
@@ -727,15 +714,6 @@ export function RequestNewPage() {
         }),
 
         acceptance: str(d.acceptance),
-        quality_thresholds: compact({
-          min_pass_rate_pct: num(d.qt_min_pass_rate_pct),
-        }),
-        rejection_policy: compact({
-          max_retakes: num(d.rp_max_retakes),
-          retake_window_days: num(d.rp_retake_window_days),
-          rework_cost_bearer: str(d.rp_rework_cost_bearer),
-          partial_acceptance_allowed: d.rp_partial_acceptance_allowed || null,
-        }),
 
         people_in_frame: str(d.people_in_frame),
         minors_policy: str(d.minors_policy),
@@ -1210,9 +1188,6 @@ export function RequestNewPage() {
             <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against exactly these words.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
             </Field>
-            <Field label="Pass rate required (%)" hint="Below this the batch is rejected rather than part-accepted.">
-              {(id) => <input id={id} className={inputCls} type="number" min={0} max={100} step="0.1" value={d.qt_min_pass_rate_pct} onChange={set("qt_min_pass_rate_pct")} placeholder="95" />}
-            </Field>
             <Field label="Compliance notes" span hint="Also copied onto the contract. Site permissions, anything a crew must be told.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.compliance_notes} onChange={set("compliance_notes")} placeholder="No shoppers or faces in frame. Store permission letter attached." />}
             </Field>
@@ -1311,39 +1286,6 @@ export function RequestNewPage() {
                 </span>
               </label>
             </fieldset>
-
-            <label className="checkline span">
-              <input type="checkbox" checked={showRejection} onChange={(e) => setShowRejection(e.target.checked)} />
-              <span>
-                Set a rejection policy
-                <span className="cl-sub">Retakes, who bears rework, whether a partial batch is acceptable.</span>
-              </span>
-            </label>
-            {showRejection && (
-              <>
-                <Field label="Retakes allowed" hint="Per rejected capture.">
-                  {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.rp_max_retakes} onChange={set("rp_max_retakes")} placeholder="2" />}
-                </Field>
-                <Field label="Retake window (days)">
-                  {(id) => <input id={id} className={inputCls} type="number" min={0} value={d.rp_retake_window_days} onChange={set("rp_retake_window_days")} placeholder="7" />}
-                </Field>
-                <Field label="Who bears rework cost">
-                  {(id) => (
-                    <select id={id} className={selectCls} value={d.rp_rework_cost_bearer} onChange={set("rp_rework_cost_bearer")}>
-                      <option value="">To be agreed</option>
-                      {REWORK_BEARERS.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                    </select>
-                  )}
-                </Field>
-                <label className="checkline span">
-                  <input type="checkbox" checked={d.rp_partial_acceptance_allowed} onChange={(e) => setD((x) => ({ ...x, rp_partial_acceptance_allowed: e.target.checked }))} />
-                  <span>
-                    Accept a partial batch
-                    <span className="cl-sub">Take and pay for what passed instead of returning the lot.</span>
-                  </span>
-                </label>
-              </>
-            )}
 
             <AttachmentsField
               label="Compliance documents"
@@ -1469,8 +1411,6 @@ export function RequestNewPage() {
             ...(d.capture_notes ? [["Hardware notes", d.capture_notes] as Row] : []),
             ...(crewOf(d) ? [["Crew requirements", crewText(crewOf(d))] as Row] : []),
             ["Acceptance", d.acceptance || "Client review on delivery"],
-            ...(d.qt_min_pass_rate_pct
-              ? [["Pass rate", `${d.qt_min_pass_rate_pct}%`] as Row] : []),
             ...(d.compliance_notes ? [["Compliance", d.compliance_notes] as Row] : []),
             ["People in frame", labelOf(PEOPLE_IN_FRAME, d.people_in_frame as PeopleInFrame)],
             ...(d.people_in_frame && d.people_in_frame !== "none" ? [
@@ -2124,9 +2064,6 @@ export function RequestDetailPage() {
               : []),
             ...(guidelineDocs.length
               ? [["Guidelines", <AttachmentList key="gl" items={guidelineDocs} />] as [string, React.ReactNode]]
-              : []),
-            ...(r.quality.thresholds.min_pass_rate_pct
-              ? [["Pass rate required", `${r.quality.thresholds.min_pass_rate_pct}%`] as [string, React.ReactNode]]
               : []),
             ["Acceptance", r.acceptance ?? "—"],
             // Shown under the prose they belong to rather than in a panel of

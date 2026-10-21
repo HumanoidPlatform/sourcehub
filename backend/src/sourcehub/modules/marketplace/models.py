@@ -88,7 +88,9 @@ class Request(Base):
     pilot: Mapped[dict[str, Any] | None] = mapped_column(JSONB(none_as_null=True))
 
     # --- folded into json (db/360) ---------------------------------------------
-    # quality_bar: {acceptance, quality_thresholds, rejection_policy}.
+    # quality_bar: {acceptance}. db/360 also gave it quality_thresholds and
+    # rejection_policy; the RFP no longer asks for either and the backend no
+    # longer writes them, but rows saved before may still hold them.
     # consent_and_compliance: {compliance_notes, people_in_frame, minors_policy,
     # deidentification, regulations, lawful_basis, permitted_uses,
     # partner_reuse_allowed, biometric_processing}. The keys are the old column

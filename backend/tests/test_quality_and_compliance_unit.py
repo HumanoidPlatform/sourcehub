@@ -3,7 +3,8 @@
 The two files stay one change (verbatim); the json columns exist before the copy and the
 twelve columns go only after it; the 040 vocabularies move into the json checks and agree
 with the API's; the downgrade brings the twelve back; and the backend writes each json
-value whole and returns exactly the shape the flat columns gave.
+value whole and returns the shape the flat columns gave — less the pass rate and the
+rejection policy, which the RFP no longer asks for.
 """
 
 from __future__ import annotations
@@ -30,8 +31,11 @@ SERVICE = ROOT / "backend" / "src" / "sourcehub" / "modules" / "marketplace" / "
 
 SQL_TEXT = SQL.read_text(encoding="utf-8")
 MIGRATION_TEXT = MIGRATION.read_text(encoding="utf-8")
+# what db/360 folded, which its migration tests check as it was written
 QUALITY = ("acceptance", "quality_thresholds", "rejection_policy")
-CONSENT = ("compliance_notes", "people_in_frame", "minors_policy", "deidentification",
+# what the backend writes now: the pass rate and the rejection policy are gone
+WRITTEN_QUALITY = ("acceptance",)
+CONSENT =("compliance_notes", "people_in_frame", "minors_policy", "deidentification",
            "regulations", "lawful_basis", "permitted_uses", "partner_reuse_allowed",
            "biometric_processing")
 FOLDED = QUALITY + CONSENT
@@ -180,8 +184,6 @@ def _body(**over: Any) -> dict[str, Any]:
 
 FULL = dict(
     acceptance="Sharp, no glare", compliance_notes="Signed releases on file",
-    quality_thresholds={"min_pass_rate_pct": 90.4},
-    rejection_policy={"max_retakes": 2, "rework_cost_bearer": "partner"},
     people_in_frame="incidental", minors_policy="prohibited", deidentification=["blur_faces"],
     regulations=["GDPR"], lawful_basis="public_task",
     permitted_uses=["model_training", "audit"], partner_reuse_allowed=True,
@@ -192,24 +194,28 @@ FULL = dict(
 def test_the_builders_write_every_key():
     qb = service._quality_bar(_body(**FULL))
     cc = service._consent_and_compliance(_body(**FULL))
-    assert tuple(qb) == QUALITY and tuple(cc) == CONSENT
+    assert tuple(qb) == WRITTEN_QUALITY and tuple(cc) == CONSENT
     assert qb["acceptance"] == "Sharp, no glare"
-    assert qb["quality_thresholds"]["min_pass_rate_pct"] == 90.4
-    assert qb["rejection_policy"]["max_retakes"] == 2
     assert cc["people_in_frame"] == "incidental"
     assert cc["permitted_uses"] == ["model_training", "audit"]
     assert cc["partner_reuse_allowed"] is True and cc["biometric_processing"] is True
 
 
+def test_a_pass_rate_or_rejection_policy_sent_by_an_older_console_is_dropped():
+    # not refused (a 422 would stop an open tab saving its draft), and not kept
+    body = _body(quality_thresholds={"min_pass_rate_pct": 90.4},
+                 rejection_policy={"max_retakes": 2, "rework_cost_bearer": "partner"})
+    assert "quality_thresholds" not in body and "rejection_policy" not in body
+    assert service._quality_bar(body) == {"acceptance": "Client review on delivery"}
+
+
 def test_empty_answers_take_the_defaults_and_clear_the_rest():
     # an edit that empties the form clears what an earlier save set: the flat
-    # columns skipped None and kept the old people in frame, lawful basis,
-    # pass rate and rejection policy
+    # columns skipped None and kept the old people in frame and lawful basis
     qb = service._quality_bar(_body())
     cc = service._consent_and_compliance(_body())
-    assert qb == {"acceptance": "Client review on delivery", "quality_thresholds": {},
-                  "rejection_policy": {}}
-    assert cc == {"compliance_notes": "None specified", "people_in_frame": None,
+    assert qb == {"acceptance": "Client review on delivery"}
+    assert cc =={"compliance_notes": "None specified", "people_in_frame": None,
                   "minors_policy": None, "deidentification": [], "regulations": [],
                   "lawful_basis": None, "permitted_uses": [], "partner_reuse_allowed": False,
                   "biometric_processing": False}
@@ -233,9 +239,7 @@ def test_the_response_keeps_the_shape_the_flat_columns_gave():
     row = service._row(r, "published", 0, now=NOW)
     assert row["acceptance"] == "Sharp, no glare"
     assert row["compliance_notes"] == "Signed releases on file"
-    assert set(row["quality"]) == {"thresholds", "rejection_policy"}
-    assert row["quality"]["thresholds"]["min_pass_rate_pct"] == 90.4
-    assert row["quality"]["rejection_policy"]["rework_cost_bearer"] == "partner"
+    assert "quality" not in row
     assert row["compliance"] == {
         "people_in_frame": "incidental", "minors_policy": "prohibited",
         "deidentification": ["blur_faces"], "regulations": ["GDPR"], "lawful_basis": "public_task",
@@ -249,9 +253,20 @@ def test_the_response_keeps_the_shape_the_flat_columns_gave():
 def test_an_empty_json_value_reads_as_the_old_empty_columns():
     row = service._row(_request(quality_bar={}, consent_and_compliance={}), "published", 0, now=NOW)
     assert row["acceptance"] is None and row["compliance_notes"] is None
-    assert row["quality"] == {"thresholds": {}, "rejection_policy": {}}
+    assert "quality" not in row
     assert row["compliance"] == {
         "people_in_frame": None, "minors_policy": None, "deidentification": [], "regulations": [],
         "lawful_basis": None, "permitted_uses": [], "partner_reuse_allowed": False,
         "biometric_processing": False,
     }
+
+
+def test_a_row_saved_with_a_pass_rate_and_rejection_policy_returns_neither():
+    # requests saved before the removal still hold both in quality_bar
+    old = {"acceptance": "Sharp, no glare", "quality_thresholds": {"min_pass_rate_pct": 90},
+           "rejection_policy": {"max_retakes": 2}}
+    r = _request(quality_bar=old, consent_and_compliance={})
+    row = service._row(r, "published", 0, now=NOW)
+    assert row["acceptance"] == "Sharp, no glare"
+    assert "quality" not in row
+    assert "min_pass_rate_pct" not in repr(row) and "max_retakes" not in repr(row)

@@ -170,8 +170,6 @@ req = must(client.post("/requests", json={
         "allow_library": False,
         "notes": "Hands on the keyboard, screen visible, desk around it.",
     },
-    "quality_thresholds": {"min_pass_rate_pct": 90},
-    "rejection_policy": {"max_retakes": 2, "rework_cost_bearer": "partner"},
     "objective": "Footage of a person operating a laptop, for an activity-recognition set.",
     "use_case": "ai_training",
     "countries": ["IN"],

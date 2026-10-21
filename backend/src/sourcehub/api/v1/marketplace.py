@@ -96,23 +96,6 @@ class PilotTerms(BaseModel):
     due_on: dt.date | None = None
 
 
-class QualityThresholds(BaseModel):
-    model_config = {"extra": "allow"}
-
-    min_pass_rate_pct: float | None = Field(default=None, ge=0, le=100)
-    qa_sample_pct_gate1: float | None = Field(default=None, ge=0, le=100)
-    qa_sample_pct_gate2: float | None = Field(default=None, ge=0, le=100)
-
-
-class RejectionPolicy(BaseModel):
-    model_config = {"extra": "allow"}
-
-    max_retakes: int | None = Field(default=None, ge=0)
-    retake_window_days: int | None = Field(default=None, ge=0)
-    rework_cost_bearer: Literal["partner", "client", "shared"] | None = None
-    partial_acceptance_allowed: bool | None = None
-
-
 class RequestIn(BaseModel):
     title: str = Field(min_length=3)
     category: Literal["image", "video", "structured_data", "unstructured_data", "people_deliverable"]
@@ -131,10 +114,9 @@ class RequestIn(BaseModel):
     capture_spec: CaptureSpec | None = None
     countries: list[str] = Field(default_factory=list, max_length=60)
     location_type: LocationType | None = None
-
-    # --- the quality bar ---
-    quality_thresholds: QualityThresholds | None = None
-    rejection_policy: RejectionPolicy | None = None
+    # The pass rate and the rejection policy were asked here once; nothing ever
+    # acted on either, so they are gone. A console still sending them is not
+    # refused: fields this model does not declare are dropped.
 
     # --- privacy and lawfulness ---
     people_in_frame: PeopleInFrame | None = None

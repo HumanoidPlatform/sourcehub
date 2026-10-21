@@ -53,7 +53,7 @@ const MY_BID = {
 
 // Shape taken from a live GET /requests/{id}, trimmed to the keys this page
 // reads. The nested objects are not optional: the page dereferences
-// spec.capture and quality.thresholds without a guard.
+// spec.capture and compliance without a guard.
 const RFP = {
   id: "r1", reference_code: "RFP-1011", title: "Storefront photos, Pune",
   category: "image", status: "published", stored_status: "published",
@@ -65,7 +65,6 @@ const RFP = {
     capture: {}, countries: ["IN"], location_type: "public_outdoor",
   },
   acceptance: null,
-  quality: { thresholds: {}, rejection_policy: {} },
   compliance: {
     people_in_frame: "none", minors_policy: "prohibited", deidentification: [],
     regulations: [], lawful_basis: "legitimate_interest", permitted_uses: ["audit"],
