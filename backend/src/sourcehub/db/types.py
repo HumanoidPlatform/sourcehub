@@ -44,7 +44,10 @@ RequestStatus = db_enum(
     "draft", "published", "proposals_received", "accepted",
     "in_progress", "delivered", "completed", "cancelled",
 )
-ProposalStatus = db_enum("proposal_status", "submitted", "accepted", "rejected", "withdrawn")
+# 'cancelled' (db/580): the bid on a request its client cancelled
+ProposalStatus = db_enum(
+    "proposal_status", "submitted", "accepted", "rejected", "withdrawn", "cancelled"
+)
 
 ContractStatus = db_enum(
     "contract_status", "active", "in_qa", "delivered", "completed", "disputed", "cancelled"

@@ -181,6 +181,10 @@ export interface Rfp {
   delivery_due_on: string | null;
   storage_target_id: string | null;
   created_at: string;
+  /** db/580: set when the client cancelled it; the reason is what every
+   *  bidder was told. */
+  cancelled_at?: string | null;
+  cancel_reason?: string | null;
   proposals?: Proposal[];
   attachments?: Attachment[];
 }
@@ -312,6 +316,10 @@ export interface Proposal {
   request_ref?: string;
   client_org_id?: string;
   client_name?: string | null;
+  /** From /proposals/mine only (db/580): the RFP's stored status, and why its
+   *  client cancelled it. */
+  request_status?: string;
+  request_cancel_reason?: string | null;
 }
 
 export interface Progress {

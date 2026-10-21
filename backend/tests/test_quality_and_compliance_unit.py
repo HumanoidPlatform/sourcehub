@@ -154,7 +154,9 @@ def test_the_model_has_the_two_json_columns_and_none_of_the_folded():
     cols = Request.__table__.columns
     names = set(cols.keys())
     assert not names & set(FOLDED)
-    assert len(names) == 37
+    # 37 after the fold, plus db/580's cancelled_at, cancelled_by, cancel_reason
+    assert len(names) == 37 + 3
+    assert {"cancelled_at", "cancelled_by", "cancel_reason"} <= names
     for col in ("quality_bar", "consent_and_compliance"):
         assert not cols[col].nullable, col
         assert cols[col].server_default is not None, col

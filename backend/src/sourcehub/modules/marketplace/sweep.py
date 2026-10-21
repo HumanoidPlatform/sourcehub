@@ -193,9 +193,11 @@ async def _close(
         org_id,
         f"Bidding on {row['title']} has closed with {what}. "
         + (
-            "Extend the deadline to reopen it, or let it lapse."
+            # db/580: the client can cancel now, so the notice offers it;
+            # leaving the request alone kept it reading Published for ever
+            "Extend the deadline to reopen it, or cancel the RFP."
             if n == 0
-            else "Review them and award."
+            else "Review them and award, or cancel the RFP."
         ),
         "requestDetail",
         {"id": str(request_id)},

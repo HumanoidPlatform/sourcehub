@@ -79,6 +79,50 @@ def deadline_problem(
 
 
 # ---------------------------------------------------------------------------
+# Cancelling and deleting (db/580)
+#
+# A published request the client no longer wants is cancelled, with a reason
+# every bidder reads; a draft, which nobody else has seen, is deleted. Bids are
+# binding on partners once bidding closes, but the client may still walk away
+# until it awards: giving the reason is the price of doing so.
+# ---------------------------------------------------------------------------
+
+MIN_CANCEL_REASON = 3  # "a few words", as ReasonDialog asks in the console
+MAX_CANCEL_REASON = 2000  # request_cancel_shape (db/580)
+
+
+def cancel_reason_problem(reason: str) -> str | None:
+    """Why this reason will not do, or None. Every bidder reads it."""
+    if len(reason.strip()) < MIN_CANCEL_REASON:
+        return "Give a reason of a few words: every partner that bid is told it."
+    if len(reason.strip()) > MAX_CANCEL_REASON:
+        return f"Keep the reason under {MAX_CANCEL_REASON} characters."
+    return None
+
+
+def cancel_problem(stored_status: str, has_contract: bool) -> str | None:
+    """Why this request cannot be cancelled, or None: only a published one
+    with no contract. request_cancel_guard (db/580) holds the same line."""
+    if stored_status == "cancelled":
+        return "This RFP is already cancelled."
+    if stored_status == "draft":
+        return "A draft was never published: delete it instead."
+    if has_contract:
+        return "An awarded RFP cannot be cancelled: it has a contract."
+    if stored_status != "published":
+        return f"A request that is {stored_status.replace('_', ' ')} cannot be cancelled."
+    return None
+
+
+def delete_problem(stored_status: str) -> str | None:
+    """Why this request cannot be deleted, or None: only a draft. Partners
+    have read anything published, so that is cancelled, with a reason."""
+    if stored_status != "draft":
+        return "Only a draft can be deleted. Cancel a published RFP instead, with a reason."
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Derived status
 # ---------------------------------------------------------------------------
 
@@ -222,6 +266,10 @@ def _row(
         "storage_target_id": r.storage_target_id,
         "published_at": r.published_at,
         "created_at": r.created_at,
+        # db/580: set when the client cancelled it; the reason is what every
+        # bidder was told
+        "cancelled_at": r.cancelled_at,
+        "cancel_reason": r.cancel_reason,
     }
 
 
@@ -389,7 +437,11 @@ async def update_request(
     """
     r = (
         await session.execute(
-            select(Request).where(Request.id == request_id, Request.deleted_at.is_(None))
+            # Locked, as delete_draft locks: an edit racing a delete finds the
+            # draft gone rather than writing to a deleted row (db/580).
+            select(Request)
+            .where(Request.id == request_id, Request.deleted_at.is_(None))
+            .with_for_update()
         )
     ).scalar_one_or_none()
     if r is None:
@@ -578,6 +630,8 @@ async def change_bidding_deadline(
         raise MarketplaceError("Only the client that raised a request may change its deadline.")
     if r.status == "draft":
         raise MarketplaceError("A draft carries its deadline; edit the draft.")
+    if r.status == "cancelled":
+        raise MarketplaceError("This RFP was cancelled.")
     if r.status != "published":
         raise MarketplaceError("The deadline is fixed once the request is awarded.")
     now = dt.datetime.now(dt.timezone.utc)
@@ -617,6 +671,121 @@ async def change_bidding_deadline(
     return _row(r, eff, counts.get(r.id, 0), claims.org_id, now=now)
 
 
+async def cancel_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID, reason: str
+) -> dict[str, Any]:
+    """Withdraw a published request the client no longer wants (db/580).
+
+    Every submitted bid becomes 'cancelled', which is not a rejection: the
+    partner did nothing wrong. Each bidder is told why, every open
+    conversation on the request closes, and the partners who only asked
+    questions are told by threads.close_for_cancel. The request keeps its
+    reason, so its page says why to everyone who can still read it.
+    """
+    from sourcehub.modules.threads import service as threads
+
+    reason = (reason or "").strip()
+    problem = cancel_reason_problem(reason)
+    if problem:
+        raise MarketplaceError(problem)
+
+    # A bid or a deadline change in flight finishes first (the same window
+    # lock), and the row lock orders this against award(), which takes it too.
+    await _lock_window(session, request_id)
+    r = (
+        await session.execute(
+            select(Request)
+            .where(Request.id == request_id, Request.deleted_at.is_(None))
+            .with_for_update()
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the client that raised a request may cancel it.")
+    cmap, counts = await _status_maps(session, [r.id])
+    problem = cancel_problem(r.status, bool(cmap.get(r.id)))
+    if problem:
+        raise MarketplaceError(problem)
+
+    now = dt.datetime.now(dt.timezone.utc)
+    r.status = "cancelled"
+    r.cancelled_at = now
+    r.cancelled_by = claims.user_id
+    r.cancel_reason = reason
+    r.updated_by = claims.user_id
+    await session.flush()
+
+    bids = (
+        await session.execute(
+            select(Proposal).where(
+                Proposal.request_id == r.id,
+                Proposal.status == "submitted",
+                Proposal.deleted_at.is_(None),
+            )
+        )
+    ).scalars().all()
+    for p in bids:
+        p.status = "cancelled"
+        p.decided_at = now
+        p.updated_by = claims.user_id
+    # A partner that withdrew may still mean to respond again, so it is told
+    # too; its bid stays withdrawn, which is what it chose.
+    withdrawn = (
+        await session.execute(
+            select(Proposal.partner_org_id).where(
+                Proposal.request_id == r.id,
+                Proposal.status == "withdrawn",
+                Proposal.deleted_at.is_(None),
+            )
+        )
+    ).scalars().all()
+    bidders = {p.partner_org_id for p in bids} | set(withdrawn)
+    for org in bidders:
+        await notifier.notify(
+            session, org, f"{r.title} was cancelled by the client: {reason}", "proposals", {},
+        )
+    await threads.close_for_cancel(
+        session, claims, request_id=r.id, request_ref=r.reference_code,
+        request_title=r.title, already_told=bidders,
+    )
+    await audit.log(
+        session, "request.cancelled",
+        f"Cancelled {r.reference_code}, {r.title}: {reason}",
+        [r.id, claims.org_id, *bidders],
+        {"reason": reason, "bids_cancelled": len(bids)},
+    )
+    return _row(r, "cancelled", counts.get(r.id, 0), claims.org_id, now=now)
+
+
+async def delete_draft(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> None:
+    """A draft goes away through deleted_at, which every read filters. Nobody
+    else ever saw it, so nobody is told; its files stay with the audit trail."""
+    r = (
+        await session.execute(
+            select(Request)
+            .where(Request.id == request_id, Request.deleted_at.is_(None))
+            .with_for_update()
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the client that raised a request may delete it.")
+    problem = delete_problem(r.status)
+    if problem:
+        raise MarketplaceError(problem)
+    r.deleted_at = dt.datetime.now(dt.timezone.utc)
+    r.updated_by = claims.user_id
+    await session.flush()
+    await audit.log(
+        session, "request.deleted", f"Deleted the draft {r.reference_code}, {r.title}",
+        [r.id, claims.org_id],
+    )
+
+
 async def _assert_destination(session: AsyncSession, r: Request) -> None:
     """A published request must name a destination that has actually worked.
 
@@ -633,9 +802,14 @@ async def _assert_destination(session: AsyncSession, r: Request) -> None:
 
 
 async def _get_owned(session: AsyncSession, request_id: uuid.UUID) -> Request:
+    """The request, row-locked for the change about to be made. Locked since
+    db/580: a publish racing delete_draft in another tab waits, and then finds
+    no undeleted row rather than announcing a deleted draft to every partner."""
     r = (
         await session.execute(
-            select(Request).where(Request.id == request_id, Request.deleted_at.is_(None))
+            select(Request)
+            .where(Request.id == request_id, Request.deleted_at.is_(None))
+            .with_for_update()
         )
     ).scalar_one_or_none()
     if r is None:
@@ -935,6 +1109,12 @@ async def _lock_window(session: AsyncSession, request_id: uuid.UUID) -> None:
     )
 
 
+# The same lock for threads.open_thread, so a first question and a cancel never
+# interleave: the question either lands before the cancel closes every thread,
+# or sees the request cancelled (db/580).
+lock_bidding_window = _lock_window
+
+
 def _closed_message(r: Request) -> str:
     when = f" on {fmt_utc(r.proposals_close_at)}" if r.proposals_close_at else ""
     return f"Bidding on this request closed{when}."
@@ -948,6 +1128,12 @@ async def withdraw_proposal(
     ).scalar_one_or_none()
     if p is None:
         raise LookupError("proposal not found")
+    # One writer per bidding window: a cancel in flight finishes first, and
+    # the status read below is the one it left (db/580).
+    await _lock_window(session, p.request_id)
+    await session.refresh(p)
+    if p.status == "cancelled":
+        raise MarketplaceError("The client cancelled this RFP; there is nothing left to withdraw.")
     if p.status != "submitted":
         raise MarketplaceError(f"A {p.status} proposal cannot be withdrawn.")
     now = dt.datetime.now(dt.timezone.utc)
@@ -993,6 +1179,13 @@ async def reject_proposal(
     ).scalar_one_or_none()
     if p is None:
         raise LookupError("proposal not found")
+    # One writer per bidding window, as cancel and award take it: a cancel in
+    # flight finishes first, and the status read below is the one it left
+    # (db/580), so a bid it released is not also "rejected".
+    await _lock_window(session, p.request_id)
+    await session.refresh(p)
+    if p.status == "cancelled":
+        raise MarketplaceError("The client cancelled this RFP; its bids are already released.")
     if p.status != "submitted":
         raise MarketplaceError(f"A {p.status} proposal cannot be rejected.")
 
@@ -1086,6 +1279,8 @@ async def my_proposals(session: AsyncSession, claims: AccessClaims) -> list[dict
                 # change can never silently drop a partner's own proposals.
                 "SELECT p.*, r.title AS request_title, r.reference_code AS request_ref, "
                 "       r.client_org_id, r.proposals_close_at, o.name AS client_name, "
+                # db/580: what the partner's own list shows for a cancelled RFP
+                "       r.status AS request_status, r.cancel_reason AS request_cancel_reason, "
                 "       r.pricing_basis, r.pricing_unit, r.pricing_block, r.pricing_quantity "
                 "FROM proposal p JOIN request r ON r.id = p.request_id "
                 "LEFT JOIN organisation o ON o.id = r.client_org_id "
@@ -1120,12 +1315,30 @@ async def award(
     if p.status != "submitted":
         raise MarketplaceError(f"A {p.status} proposal cannot be awarded.")
 
-    r = await _get_owned(session, p.request_id)
+    # Locked, as cancel_request locks: a cancel, a late bid or a second award
+    # from another tab waits here, and is then seen as it left the request.
+    await _lock_window(session, p.request_id)
+    r = (
+        await session.execute(
+            select(Request)
+            .where(Request.id == p.request_id, Request.deleted_at.is_(None))
+            .with_for_update()
+        )
+    ).scalar_one_or_none()
+    if r is None:
+        raise LookupError("request not found")
     if r.client_org_id != claims.org_id:
         raise MarketplaceError("Only the requesting client can award.")
     cmap, _ = await _status_maps(session, [r.id])
     if cmap.get(r.id):
         raise MarketplaceError("This request already has a contract.")
+    if r.status == "cancelled":
+        raise MarketplaceError("This RFP was cancelled; its bids can no longer be awarded.")
+    if r.status != "published":
+        raise MarketplaceError(f"A {r.status} request cannot be awarded.")
+    await session.refresh(p)  # the bid as whoever held the lock left it
+    if p.status != "submitted":
+        raise MarketplaceError(f"A {p.status} proposal cannot be awarded.")
     # Re-probed here, not just at publish: a credential can be revoked while
     # bids are open, and awarding is the last moment before a worker relies
     # on the destination existing.

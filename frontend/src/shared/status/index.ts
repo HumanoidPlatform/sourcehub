@@ -33,6 +33,8 @@ export const proposalStatus: StatusMap = {
   accepted: { label: "Accepted", tone: "success", owner: null },
   rejected: { label: "Rejected", tone: "critical", owner: null },
   withdrawn: { label: "Withdrawn", tone: "neutral", owner: null },
+  // db/580: the client cancelled the RFP. Not a rejection: the bid was fine.
+  cancelled: { label: "RFP cancelled", tone: "neutral", owner: null },
 };
 
 export const contractStatus: StatusMap = {

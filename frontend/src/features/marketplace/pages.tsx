@@ -4,7 +4,7 @@
 import { useMutation, useQuery, useQueryClient, type UseQueryResult } from "@tanstack/react-query";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { get, patch, post } from "@api/client";
+import { del, get, patch, post } from "@api/client";
 import type {
   ClientProfile, Deidentification, LawfulBasis, LocationType, MinorsPolicy, Org,
   PeopleInFrame, PeopleRequirements, PermittedUse, Pricing, Proposal, Rfp,
@@ -32,7 +32,7 @@ import {
 } from "@shared/attachments";
 import { useLeaveGuard } from "@shared/leave-guard";
 import { useNow } from "@shared/now";
-import { useThreads } from "@features/messages/hooks";
+import { threadKeys, useThreads } from "@features/messages/hooks";
 import { RequestThreadsPanel } from "@features/messages/request-threads";
 import { threadFor } from "@features/messages/state";
 import { OrgLogo } from "@shared/org-logo";
@@ -1536,8 +1536,9 @@ export function RequestNewPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this RFP. There is no way to
-            unpublish it; after publishing, only the bidding deadline can be changed.
+            Partners start pricing against the words in this RFP, so they cannot change after
+            publishing. Only the bidding deadline can be moved, or the RFP cancelled with a reason
+            every bidder reads.
           </Callout>
         </Dialog>
       )}
@@ -1923,6 +1924,10 @@ export function RequestDetailPage() {
   const [publishError, setPublishError] = useState<string | null>(null);
   const [awardError, setAwardError] = useState<string | null>(null);
   const [changingDeadline, setChangingDeadline] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const navigate = useNavigate();
   // The conversation the client is reading; a bid row's Messages button and
   // a bell deep link both choose it, so the page owns it, not the panel.
   const [selectedThread, setSelectedThread] = useState<string | null>(null);
@@ -1989,6 +1994,32 @@ export function RequestDetailPage() {
     // what the dialog reads.
   });
 
+  // db/580: withdraw a published RFP with the reason every bidder reads. As
+  // with rejecting, ReasonDialog shows a refusal inline, so no onError toast.
+  const cancelRfp = useMutation({
+    mutationFn: (reason: string) => post<Rfp>(`/requests/${id}/cancel`, { reason }),
+    onSuccess: () => {
+      toast("RFP cancelled", "Every partner that bid has been told why.", "success");
+      void qc.invalidateQueries({ queryKey: ["request", id] });
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+      void qc.invalidateQueries({ queryKey: ["opportunities"] });
+      // the server closed every conversation: no composer may linger open
+      void qc.invalidateQueries({ queryKey: threadKeys.list(id ?? "") });
+      void qc.invalidateQueries({ queryKey: ["thread-messages"] });
+    },
+  });
+
+  // A draft nobody else has seen simply goes; the list is where it lived.
+  const deleteDraft = useMutation({
+    mutationFn: () => del(`/requests/${id}`),
+    onSuccess: () => {
+      void qc.invalidateQueries({ queryKey: ["requests"] });
+      toast("Draft deleted", "It is no longer in your RFPs.", "success");
+      navigate("/requests");
+    },
+    onError: (e) => setDeleteError(e instanceof Error ? e.message : "Could not delete the draft"),
+  });
+
   const r = request.data;
   if (!r) return <View title="RFP">{request.isError ? <Callout tone="critical" title="Not found or not yours to see" /> : <p className="muted">Loading…</p>}</View>;
 
@@ -2026,6 +2057,9 @@ export function RequestDetailPage() {
   // The one edit a live request allows (change_bidding_deadline). Its own
   // stored status: proposals_received is the same row with bids in.
   const canChangeDeadline = isClient && r.stored_status === "published";
+  // db/580: until it is awarded. A contract makes the derived status move on
+  // from these two, and the server refuses the rest (cancel_problem).
+  const canCancel = isClient && r.stored_status === "published" && open;
 
   return (
     <View
@@ -2035,6 +2069,9 @@ export function RequestDetailPage() {
         <>
           {isClient && r.status === "draft" && (
             <>
+              <Button variant="danger" onClick={() => { setDeleteError(null); setDeleting(true); }}>
+                Delete draft
+              </Button>
               <Link to={`/requests/${r.id}/edit`} className="btn">Edit</Link>
               {/* The server refuses a draft with no deadline; say so before
                   the dialog, not after it. */}
@@ -2051,6 +2088,9 @@ export function RequestDetailPage() {
           {canChangeDeadline && (
             <Button onClick={() => setChangingDeadline(true)}>Change deadline</Button>
           )}
+          {canCancel && (
+            <Button variant="danger" onClick={() => setCancelling(true)}>Cancel RFP</Button>
+          )}
           {/* Once awarded this page becomes a read-only record with nothing
               pointing at the work it produced — the only way through was the
               rail. */}
@@ -2063,15 +2103,26 @@ export function RequestDetailPage() {
         </>
       }
     >
-      {/* Labelled, not raw: the rail used to read "accepted" while the pill
-          beside it read "Awarded" — two names for one state on one screen. */}
-      <Panel>
-        <StageRail
-          stages={LIFECYCLE}
-          current={r.status}
-          label={(s) => requestStatus[s]?.label ?? s.replace(/_/g, " ")}
-        />
-      </Panel>
+      {/* db/580: a cancelled RFP is off the rail, which has no such stage;
+          what the client and every bidder need is when, and why. */}
+      {r.status === "cancelled" ? (
+        <Callout
+          tone="neutral"
+          title={r.cancelled_at ? `Cancelled ${fmtDateTime(r.cancelled_at)}` : "Cancelled"}
+        >
+          {r.cancel_reason ?? "The client cancelled this RFP."}
+        </Callout>
+      ) : (
+        /* Labelled, not raw: the rail used to read "accepted" while the pill
+           beside it read "Awarded" — two names for one state on one screen. */
+        <Panel>
+          <StageRail
+            stages={LIFECYCLE}
+            current={r.status}
+            label={(s) => requestStatus[s]?.label ?? s.replace(/_/g, " ")}
+          />
+        </Panel>
+      )}
 
       <div className="g2">
         {!isClient && <ClientPanel name={r.client_name} q={buyer} />}
@@ -2331,8 +2382,9 @@ export function RequestDetailPage() {
           }
         >
           <Callout tone="attention" title="Every delivery partner is notified, and this cannot be undone">
-            Partners start pricing against the words in this RFP. There is no way to
-            unpublish it; after publishing, only the bidding deadline can be changed.
+            Partners start pricing against the words in this RFP, so they cannot change after
+            publishing. Only the bidding deadline can be moved, or the RFP cancelled with a reason
+            every bidder reads.
           </Callout>
           {publishError && <Callout tone="critical" title="Could not publish">{publishError}</Callout>}
         </Dialog>
@@ -2368,6 +2420,48 @@ export function RequestDetailPage() {
               stayed open with room to say it — every sibling dialog reports
               inline. */}
           {awardError && <Callout tone="critical" title="Could not award">{awardError}</Callout>}
+        </Dialog>
+      )}
+
+      {cancelling && (
+        <ReasonDialog
+          title={`Cancel ${r.reference_code}?`}
+          warning={
+            <>
+              Every partner that bid is told, with your reason, and their bids are released.
+              Conversations on this RFP close. This cannot be undone.
+            </>
+          }
+          confirmLabel="Cancel RFP"
+          dismissLabel="Keep it open"
+          onConfirm={(reason) => cancelRfp.mutateAsync(reason)}
+          onClose={() => setCancelling(false)}
+        />
+      )}
+
+      {deleting && (
+        <Dialog
+          title="Delete this draft?"
+          sub={r.reference_code}
+          busy={deleteDraft.isPending}
+          onClose={() => setDeleting(false)}
+          foot={
+            <>
+              <Button onClick={() => setDeleting(false)} disabled={deleteDraft.isPending}>Keep it</Button>
+              <Button
+                variant="danger"
+                onClick={() => { setDeleteError(null); deleteDraft.mutate(); }}
+                disabled={deleteDraft.isPending}
+              >
+                {deleteDraft.isPending ? "Deleting…" : "Delete draft"}
+              </Button>
+            </>
+          }
+        >
+          <Callout tone="attention" title="Nobody else has seen a draft">
+            It is removed from your RFPs. This cannot be undone.
+          </Callout>
+          {deleteError && <Callout tone="critical" title="Could not delete">{deleteError}</Callout>}
         </Dialog>
       )}
 
@@ -2669,6 +2763,10 @@ function ProposalDetailDialog({ p, onClose }: { p: Proposal; onClose: () => void
           : []),
         ["Notes", p.notes ?? "—"],
         ["Status", <Pill key="s" tone={pm.tone}>{pm.label}</Pill>],
+        // db/580: the client's reason, which the bell carried once
+        ...(p.status === "cancelled"
+          ? [["Why the RFP was cancelled", p.request_cancel_reason ?? "—"] as [string, React.ReactNode]]
+          : []),
         ["Submitted", fmtDateTime(p.submitted_at)],
       ]} />
     </Dialog>
@@ -2721,7 +2819,8 @@ export function MyProposalsPage() {
                             { label: "View client & RFP", onSelect: () => setViewingBrief(p) },
                             // the RFP page scrolls to the partner's own thread for any ?thread=
                             { label: "Messages", onSelect: () => navigate(`/requests/${p.request_id}?thread=mine`) },
-                            ...(p.status === "withdrawn"
+                            // not on an RFP its client cancelled (db/580)
+                            ...(p.status === "withdrawn" && p.request_status !== "cancelled"
                               ? [{ label: "Respond again", onSelect: () => navigate(`/requests/${p.request_id}`) }]
                               : []),
                             ...(canWithdraw(p)

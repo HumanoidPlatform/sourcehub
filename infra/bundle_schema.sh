@@ -42,7 +42,8 @@ STRUCTURE="000_extensions 001_conventions 010_identity 020_rbac 030_onboarding
            440_catalogue_public_requests_as_deals 450_dataset_deal_invoices
            460_datahub_name 470_platform_terms 480_mail_outbox 490_mail_log 500_mail_retry
            510_measured_units 520_equipment_details 530_gallery_paging
-           540_resumable_uploads 550_offer_push 560_terms_1_1 570_login_lock_status"
+           540_resumable_uploads 550_offer_push 560_terms_1_1 570_login_lock_status
+           580_request_cancel"
 
 # Required, and not demo data: without these there is no capability
 # vocabulary, no role to grant, and nobody who can approve anything.

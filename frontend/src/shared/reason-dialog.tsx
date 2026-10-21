@@ -17,6 +17,7 @@ export function ReasonDialog({
   title,
   warning,
   confirmLabel,
+  dismissLabel = "Cancel",
   tone = "danger",
   minLength = 3,
   onConfirm,
@@ -26,6 +27,9 @@ export function ReasonDialog({
   /** What happens if they go ahead. Shown above the reason. */
   warning?: ReactNode;
   confirmLabel: string;
+  /** The button that closes without acting. "Cancel" beside "Cancel RFP"
+   *  reads as the same action, so a caller can name it. */
+  dismissLabel?: string;
   tone?: "danger" | "primary";
   /** Mirror the server's rule so the form refuses what the server would. */
   minLength?: number;
@@ -58,7 +62,7 @@ export function ReasonDialog({
       busy={busy}
       foot={
         <>
-          <Button onClick={onClose} disabled={busy}>Cancel</Button>
+          <Button onClick={onClose} disabled={busy}>{dismissLabel}</Button>
           <Button variant={tone} onClick={confirm} disabled={busy}>
             {confirmLabel}
           </Button>

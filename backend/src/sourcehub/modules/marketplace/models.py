@@ -41,6 +41,10 @@ class Request(Base):
     closed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     # db/240: the sweep's stamp for the closes-in-24-hours notice
     bidding_reminder_sent_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # db/580: set exactly when the client cancels the published request
+    cancelled_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    cancelled_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    cancel_reason: Mapped[str | None] = mapped_column(Text)
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))

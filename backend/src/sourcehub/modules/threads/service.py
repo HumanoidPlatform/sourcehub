@@ -39,11 +39,13 @@ MAX_MESSAGES_PER_THREAD = 500
 
 AWARDED_ELSEWHERE = "awarded_elsewhere"
 CONTRACT_COMPLETED = "contract_completed"
+REQUEST_CANCELLED = "request_cancelled"  # db/580
 CLOSED_MESSAGES = {
     AWARDED_ELSEWHERE: (
         "This conversation is read-only: the request was awarded to another partner."
     ),
     CONTRACT_COMPLETED: "This conversation is read-only: the contract was completed.",
+    REQUEST_CANCELLED: "This conversation is read-only: the client cancelled the request.",
 }
 
 _WS = re.compile(r"\s+")
@@ -436,7 +438,12 @@ async def open_thread(
 ) -> dict[str, Any]:
     """The partner's first question opens its conversation on the request.
     Idempotent: a second call posts into the thread that already exists."""
+    from sourcehub.modules.marketplace import service as marketplace
+
     body = clean_body(body)
+    # The bidding window's lock, which cancel_request holds: a cancel in flight
+    # finishes first, and the status read below is the one it left (db/580).
+    await marketplace.lock_bidding_window(session, request_id)
     req = (
         await session.execute(
             text(
@@ -579,6 +586,38 @@ async def close_for_award(
             f"Questions on {request_title} are now read-only: it was awarded to another partner.",
             "thread", {"id": str(t["id"]), "request": str(request_id)},
         )
+    return [t["id"] for t in closed]
+
+
+async def close_for_cancel(
+    session: AsyncSession,
+    claims: AccessClaims,
+    *,
+    request_id: uuid.UUID,
+    request_ref: str,
+    request_title: str,
+    already_told: set[uuid.UUID],
+) -> list[uuid.UUID]:
+    """Every conversation on a request its client cancelled becomes history
+    (db/580). A partner that bid has already been told why, by
+    marketplace.cancel_request; one that only asked questions hears it here."""
+    closed = await _close_threads(
+        session, claims, request_id=request_id, reason=REQUEST_CANCELLED,
+        keep_partner=None, only_partner=None,
+    )
+    for t in closed:
+        await audit.log(
+            session, "thread.closed",
+            f"Closed the conversation on {request_ref}: the client cancelled the request",
+            [t["id"], request_id, t["client_org_id"], t["partner_org_id"]],
+            {"reason": REQUEST_CANCELLED},
+        )
+        if t["partner_org_id"] not in already_told:
+            await notifier.notify(
+                session, t["partner_org_id"],
+                f"Questions on {request_title} are now read-only: the client cancelled it.",
+                "thread", {"id": str(t["id"]), "request": str(request_id)},
+            )
     return [t["id"] for t in closed]
 
 

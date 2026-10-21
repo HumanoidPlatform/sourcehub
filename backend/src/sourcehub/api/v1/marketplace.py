@@ -8,7 +8,7 @@ from decimal import Decimal
 from typing import Literal
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import AwareDatetime, BaseModel, Field, model_validator
+from pydantic import AwareDatetime, BaseModel, Field, field_validator, model_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
@@ -349,6 +349,56 @@ async def change_bidding_deadline(
         return await marketplace.change_bidding_deadline(
             session, principal, request_id, body.proposals_close_at
         )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
+    except marketplace.MarketplaceError as e:
+        raise _conflict(e) from None
+
+
+class CancelIn(BaseModel):
+    # The service checks it too (cancel_reason_problem); this makes a blank,
+    # whitespace-only, too-short or over-long reason a 422 naming the field.
+    # The console's ReasonDialog asks for the same three characters.
+    reason: str
+
+    @field_validator("reason")
+    @classmethod
+    def _a_reason(cls, v: str) -> str:
+        problem = marketplace.cancel_reason_problem(v)
+        if problem:
+            raise ValueError(problem)
+        return v.strip()
+
+
+@router.post("/requests/{request_id}/cancel")
+async def cancel_request(
+    request_id: uuid.UUID,
+    body: CancelIn,
+    principal: Principal = Depends(require_capability("rfp.publish")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Withdraw a published request, with a reason every bidder is told
+    (db/580). Guarded as publishing is: it changes what every partner was
+    told. 409 for a draft (delete it), an awarded request, or one already
+    cancelled."""
+    try:
+        return await marketplace.cancel_request(session, principal, request_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
+    except marketplace.MarketplaceError as e:
+        raise _conflict(e) from None
+
+
+@router.delete("/requests/{request_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_draft(
+    request_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("rfp.create")),
+    session: AsyncSession = Depends(get_session),
+) -> None:
+    """Delete a draft. Guarded as drafting is; 409 for anything published,
+    which is cancelled instead."""
+    try:
+        await marketplace.delete_draft(session, principal, request_id)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
     except marketplace.MarketplaceError as e:
