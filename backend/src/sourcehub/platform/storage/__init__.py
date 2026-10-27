@@ -43,6 +43,7 @@ __all__ = [
     "platform_target",
     "presign_get",
     "presign_put",
+    "read_range",
     "resumable_abort",
     "resumable_complete",
     "resumable_part_urls",
@@ -127,6 +128,12 @@ async def presign_get(t: StorageTarget, key: str, filename: str, inline: bool = 
 
 async def head(t: StorageTarget, key: str) -> ObjectStat:
     return await _adapter(t.provider).head(t, key)
+
+
+async def read_range(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    """Up to length bytes of a stored object from offset start; LookupError if
+    absent. Enough to read a file's headers without fetching the whole file."""
+    return await _adapter(t.provider).read_range(t, key, start, length)
 
 
 async def stat(t: StorageTarget, key: str) -> tuple[int, str | None]:

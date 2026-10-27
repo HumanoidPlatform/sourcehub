@@ -172,6 +172,29 @@ async def head(t: StorageTarget, key: str) -> ObjectStat:
     return await asyncio.to_thread(_head_sync, t, key)
 
 
+def _read_range_sync(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    try:
+        r = _client(t, signing=False).get_object(t.bucket, key, offset=start, length=length)
+    except S3Error as e:
+        if e.code in ("NoSuchKey", "NoSuchObject"):
+            raise LookupError(key) from None
+        raise StorageError(f"Storage refused the request: {e.code}") from None
+    except Exception as e:  # noqa: BLE001
+        raise _unreachable(t.endpoint, e) from None
+    try:
+        return r.read()
+    except Exception as e:  # noqa: BLE001
+        raise _unreachable(t.endpoint, e) from None
+    finally:
+        r.close()
+        r.release_conn()
+
+
+async def read_range(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    """Up to length bytes from offset start; LookupError if absent."""
+    return await asyncio.to_thread(_read_range_sync, t, key, start, length)
+
+
 def _copy_sync(t: StorageTarget, src: str, dst: str) -> None:
     from minio.commonconfig import CopySource
 

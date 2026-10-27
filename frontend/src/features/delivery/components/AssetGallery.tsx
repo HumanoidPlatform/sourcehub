@@ -105,7 +105,13 @@ export function detailText(d: Record<string, unknown> | undefined): string {
   if (typeof d.roll === "number" && typeof d.pitch === "number") {
     parts.push(`roll ${d.roll}°, pitch ${d.pitch}°`);
   }
-  const known = new Set(["veto", "hit", "labels", "hits", "frames", "share", "off", "roll", "pitch"]);
+  // A clip's length as the server read it from the file, beside the phone's.
+  if (typeof d.claimed === "number" && typeof d.measured === "number") {
+    parts.push(`phone said ${d.claimed} s`);
+  }
+  const known = new Set([
+    "veto", "hit", "labels", "hits", "frames", "share", "off", "roll", "pitch", "claimed", "measured",
+  ]);
   for (const [k, v] of Object.entries(d)) {
     if (known.has(k) || v == null || typeof v === "object") continue;
     parts.push(`${k.replace(/_/g, " ")} ${String(v)}`);
@@ -265,10 +271,14 @@ const BADGE: Record<string, { text: string; tone: "amber" | "grey" }> = {
   frozen: { text: "still", tone: "amber" },
   subject_unscored: { text: "unchecked", tone: "grey" },
   clip_unchecked: { text: "unchecked", tone: "grey" },
+  // The server could not read a clip's length or a frame's size from the
+  // file (a WebM, a HEIC), so the phone's word is all there is for it.
+  duration_unverified: { text: "length?", tone: "grey" },
+  resolution_unverified: { text: "size?", tone: "grey" },
 };
 
 function subjectCheck(asset: AssetRow) {
-  const checks = asset.device_checks ?? [];
+  const checks = [...(asset.device_checks ?? []), ...(asset.server_checks ?? [])];
   for (const code of Object.keys(BADGE)) {
     const c = checks.find((x) => x.code === code);
     if (c) return c;
@@ -284,7 +294,10 @@ function subjectCheck(asset: AssetRow) {
  *  handset took it. Those are worth having in front of a reviewer, but a
  *  warning listed fifth among them is a warning nobody reads. Complaints keep
  *  the "Phone check" heading they always had; measurements get their own. */
-function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode][] {
+function checkRows(
+  checks: DeviceCheck[] | undefined,
+  who: "phone" | "server" = "phone",
+): [string, React.ReactNode][] {
   const all = checks ?? [];
   const lines = (list: DeviceCheck[], key: string) => (
     <span key={key}>
@@ -305,8 +318,10 @@ function checkRows(checks: DeviceCheck[] | undefined): [string, React.ReactNode]
   const complaints = all.filter((c) => c.severity !== "info");
   const measured = all.filter((c) => c.severity === "info");
   const rows: [string, React.ReactNode][] = [];
-  if (complaints.length) rows.push(["Phone check", lines(complaints, "dc")]);
-  if (measured.length) rows.push(["Measured", lines(measured, "dm")]);
+  // The server's findings come from the stored file itself (media/probe.py)
+  const [check, read] = who === "phone" ? ["Phone check", "Measured"] : ["Server check", "Read from file"];
+  if (complaints.length) rows.push([check, lines(complaints, `${who}c`)]);
+  if (measured.length) rows.push([read, lines(measured, `${who}m`)]);
   return rows;
 }
 
@@ -354,6 +369,9 @@ function AssetPreview({
           ["By", asset.captured_by_name ?? "—"],
           ["Location", where],
           ["Size", fmtBytes(asset.size_bytes)],
+          ...(asset.width && asset.height
+            ? ([["Frame", `${asset.width} × ${asset.height}`]] as [string, React.ReactNode][])
+            : []),
           ["Checksum", <code key="sha" className="id">{asset.sha256.slice(0, 16)}…</code>],
           ...(asset.review_reason
             ? ([["Sent back", <span key="rv">
@@ -362,6 +380,7 @@ function AssetPreview({
               </span>]] as [string, React.ReactNode][])
             : []),
           ...checkRows(asset.device_checks),
+          ...checkRows(asset.server_checks, "server"),
         ]} />
         {onMark && (
           // A verdict on one capture, taken beside the picture it is about.

@@ -232,6 +232,27 @@ async def head(t: StorageTarget, key: str) -> ObjectStat:
     return await asyncio.to_thread(_head_sync, t, key)
 
 
+def _read_range_sync(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    client, _ = _client(t)
+    blob = client.bucket(t.bucket).blob(key)
+    try:
+        # end is inclusive; a partial read has no whole-object checksum to match
+        return blob.download_as_bytes(
+            start=start, end=start + length - 1, timeout=_TIMEOUT, retry=None, checksum=None
+        )
+    except NotFound as e:
+        if _bucket_missing(e):
+            raise StorageError(f"The bucket {t.bucket!r} does not exist.") from None
+        raise LookupError(key) from None
+    except Exception as e:
+        raise _wrap(e, t) from None
+
+
+async def read_range(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    _check_bucket(t)
+    return await asyncio.to_thread(_read_range_sync, t, key, start, length)
+
+
 def _copy_sync(t: StorageTarget, src: str, dst: str) -> None:
     """Server-side copy within the bucket. The bytes never pass through the API."""
     client, _ = _client(t)

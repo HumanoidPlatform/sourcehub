@@ -303,3 +303,39 @@ describe("the evidence behind a flag", () => {
     expect(screen.getByText(/roll 6.3\u00b0, pitch -1.2\u00b0/)).toBeTruthy();
   });
 });
+
+// What confirm read from the stored file (media/probe.py), shown beside the
+// phone's own findings: a clip billed on its real length says so.
+describe("what the server read from the file", () => {
+  beforeEach(() => {
+    api.get.mockImplementation((path: string) => {
+      if (path === "/assignments/a1/assets") {
+        return Promise.resolve([
+          asset({
+            id: "as1", width: 4032, height: 3024,
+            server_checks: [
+              { code: "duration_measured", severity: "info", message: "The file runs 42 s.",
+                detail: { claimed: 30, measured: 42 } },
+              { code: "resolution_unverified", severity: "warn",
+                message: "The frame size could not be read from the file." },
+            ],
+          }),
+        ]);
+      }
+      if (path.startsWith("/assets/")) {
+        return Promise.resolve({ url: "blob:x", filename: "x", mime_type: "image/jpeg", expires_in: 900 });
+      }
+      return Promise.resolve([]);
+    });
+  });
+
+  it("lists the server's checks under their own headings, with the frame size", async () => {
+    show();
+    await open("shelf-1.jpg");
+    expect(await screen.findByText("Server check")).toBeTruthy();
+    expect(screen.getByText("Read from file")).toBeTruthy();
+    expect(screen.getByText(/The file runs 42 s/)).toBeTruthy();
+    expect(screen.getByText(/phone said 30 s/)).toBeTruthy();
+    expect(screen.getByText("4032 × 3024")).toBeTruthy();
+  });
+});

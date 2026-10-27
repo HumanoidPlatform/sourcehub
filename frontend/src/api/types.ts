@@ -618,6 +618,12 @@ export interface AssetRow {
   /** what the phone noticed before queueing the file; recorded, not trusted.
    *  Optional: test fixtures and older rows may lack it. */
   device_checks?: DeviceCheck[];
+  /** what confirm read from the stored file itself: the clip's real length,
+   *  a frame it could not size. Same shape as device_checks. */
+  server_checks?: DeviceCheck[];
+  /** the frame size read from the file; null where it could not be read */
+  width?: number | null;
+  height?: number | null;
   /** the aggregator's verdict on THIS capture at gate 1. Set only on one sent
    *  back to be shot again, where status is "rejected". review_label is the
    *  defect code as a person reads it. */

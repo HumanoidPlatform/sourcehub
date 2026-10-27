@@ -5,8 +5,10 @@ Business rules, and the ONLY public surface of this module.
 The bytes never traverse the API. A crowd resource asks for a presigned PUT, uploads
 straight to object storage, then confirms; the API HEADs the object and
 records what storage actually holds (size, etag, content type) rather than
-what the client claimed. That is the whole of the pilot's ingest: nobody
-pool, no thumbnails, no automated checks yet. The asset_status value
+what the client claimed. It then reads the file's own headers (probe.py) for
+the facts a client specifies and is billed on — kind, frame size, running
+time — and holds them to the task; every judgement of the picture itself
+stays with the phone. No worker pool, no thumbnails. The asset_status value
 'uploaded' is reserved for the day verification becomes asynchronous.
 
 No ORM model, on purpose. asset is partitioned with a composite primary key
@@ -44,6 +46,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sourcehub.api.security import AccessClaims
 from sourcehub.config import settings
 from sourcehub.modules.marketplace import pricing
+from sourcehub.modules.media.probe import Probe, probe
 from sourcehub.platform.storage.types import CHUNK_BYTES, UploadSession
 
 
@@ -139,7 +142,7 @@ _ASSET_COLUMNS = (
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
     "a.filename, a.mime_type, a.size_bytes, a.duration_s, a.sha256, a.etag, a.status, a.quarantine_reason, "
     "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
-    "a.check_results, a.review_reason, a.review_note, a.reviewed_at, "
+    "a.check_results, a.metadata, a.review_reason, a.review_note, a.reviewed_at, "
     "d.label AS review_label, a.batch_id, cb.batch_no, cb.status AS batch_status, "
     "a.replaces_asset_id, "
     # a retake that is still alive answers this capture's rework mark
@@ -234,6 +237,7 @@ def _capture_name(
 
 
 def _asset_dict(r: Any) -> dict[str, Any]:
+    probed = (r.get("metadata") or {}).get("probe") or {}
     return {
         "id": r["id"],
         "task_id": r["task_id"],
@@ -258,6 +262,11 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         # what the phone noticed before it queued the file (presign_asset);
         # recorded, not trusted — the reviewer reads it, nothing acts on it
         "device_checks": (r["check_results"] or {}).get("device") or [],
+        # what confirm read from the stored file itself (probe.py), and the
+        # frame size it found there
+        "server_checks": (r["check_results"] or {}).get("server") or [],
+        "width": probed.get("width"),
+        "height": probed.get("height"),
         # the aggregator's verdict on THIS capture at gate 1. Set only on one
         # sent back to be shot again, where status is 'rejected'.
         "review_reason": r["review_reason"],
@@ -362,6 +371,89 @@ def checked_duration(
     if duration_s > hi + _DURATION_SLACK_S:
         raise MediaInvalid(f"This task takes clips of at most {hi:g} seconds.")
     return Decimal(str(round(min(max(duration_s, 0.01), MAX_CLIP_SECONDS), 2)))
+
+
+# The phone's own allowance under a megapixel floor (mobile rules.ts): a
+# "12 MP" sensor writes a hair under twelve million pixels.
+_MEGAPIXEL_SLACK = 0.05
+
+
+def judge_capture(
+    declared: str,
+    p: Probe,
+    capture_spec: dict[str, Any] | None,
+    target_unit: str | None,
+    claimed_s: float | None,
+) -> tuple[str | None, Decimal | None, list[dict[str, Any]]]:
+    """What confirm makes of the stored file, against the task. Pure.
+
+    (quarantine reason or None, the running time to store or None to keep the
+    claimed one, the server's checks in the device's shape). Only facts read
+    from the file are judged here — kind, running time, frame size. Blur, tilt,
+    GPS, the subject and the rest stay with the phone, gate 0.
+
+    The file's running time replaces the claimed one: an hours task is billed
+    on it. One that cannot be read is refused only where it is billed on.
+    """
+    checks: list[dict[str, Any]] = []
+    if p.kind is None:
+        return "The file is not a photo or video this platform can read.", None, checks
+    if p.kind != declared:
+        return (
+            f"The file is a {_KIND_WORD[p.kind]}, not the {_KIND_WORD[declared]} its name says.",
+            None, checks,
+        )
+    allowed = _allowed_kinds(capture_spec, target_unit)
+    if p.kind not in allowed:
+        want = " or ".join(sorted(allowed))
+        return f"This task takes {want} captures; that file is a {p.kind}.", None, checks
+
+    reason: str | None = None
+    duration: Decimal | None = None
+    if p.kind == "video":
+        if p.duration_s is not None:
+            checks.append({
+                "code": "duration_measured", "severity": "info",
+                "message": f"The file runs {p.duration_s:g} s.",
+                "detail": {"claimed": claimed_s, "measured": p.duration_s},
+            })
+            try:
+                duration = checked_duration("video", p.duration_s, capture_spec, target_unit)
+            except MediaInvalid as e:
+                reason = str(e)
+        elif pricing.measured_by_duration(target_unit):
+            reason = (
+                "This task is counted in hours of footage, and the clip's length could not be "
+                "read from the file. Record it again with the app's camera."
+            )
+        else:
+            checks.append({
+                "code": "duration_unverified", "severity": "warn",
+                "message": "The clip's length could not be read from the file.",
+            })
+
+    spec = capture_spec or {}
+    short = min(p.width, p.height) if p.width and p.height else None
+    # a clip's floor is its short side in lines, a photo's its megapixels
+    floor = spec.get("min_video_lines" if p.kind == "video" else "min_megapixels")
+    if floor:
+        if short is None:
+            checks.append({
+                "code": "resolution_unverified", "severity": "warn",
+                "message": "The frame size could not be read from the file.",
+            })
+        elif p.kind == "video" and short < int(floor):
+            reason = reason or f"This task asks for {float(floor):g}p video; that clip is {short}p."
+        elif p.kind == "image":
+            mp = (p.width or 0) * (p.height or 0) / 1_000_000
+            if mp < float(floor) - _MEGAPIXEL_SLACK:
+                reason = reason or (
+                    f"This task asks for {float(floor):g} megapixels; that capture is {mp:.1f}."
+                )
+    return reason, duration, checks
+
+
+_KIND_WORD = {"image": "photo", "video": "video"}
 
 
 def hours_text(hours: Any) -> str:
@@ -618,15 +710,7 @@ async def presign_capture(
         if old["replaced"]:
             raise MediaError("That capture has already been retaken.")
 
-    held = (
-        await session.execute(
-            text(
-                "SELECT count(*) AS n, round(coalesce(sum(capture_units(:unit, duration_s)), 0), 4) AS units "
-                "FROM asset WHERE assignment_id = :a AND deleted_at IS NULL AND " + HELD_SQL
-            ),
-            {"a": assignment_id, "unit": a.get("target_unit")},
-        )
-    ).mappings().one()
+    held = await _held(session, assignment_id, a.get("target_unit"))
     n = int(held["n"])
     # The aggregator asked for a number of units and reviews every one of them.
     # Refusing here rather than at submit costs the worker a message instead of
@@ -710,6 +794,26 @@ async def presign_capture(
         "headers": {"Content-Type": content_type, **extra},
         "expires_in": settings.storage_presign_ttl_seconds, "status": "pending",
     }
+
+
+async def _held(
+    session: AsyncSession,
+    assignment_id: uuid.UUID,
+    unit: str | None,
+    exclude: uuid.UUID | None = None,
+) -> Any:
+    """(n, units) the assignment's share already holds (HELD_SQL), less one
+    capture where confirm is weighing that one against the rest."""
+    return (
+        await session.execute(
+            text(
+                "SELECT count(*) AS n, round(coalesce(sum(capture_units(:unit, duration_s)), 0), 4) AS units "
+                "FROM asset WHERE assignment_id = :a AND deleted_at IS NULL AND " + HELD_SQL + " "
+                "  AND id IS DISTINCT FROM CAST(:x AS uuid)"
+            ),
+            {"a": assignment_id, "unit": unit, "x": exclude},
+        )
+    ).mappings().one()
 
 
 async def _own_pending_upload(
@@ -799,7 +903,9 @@ async def confirm_asset(
 
     A size mismatch quarantines the row and RETURNS it (HTTP 200) rather than
     raising: TxRoute skips the commit on an exception, and the quarantine
-    marker is exactly the thing that must persist.
+    marker is exactly the thing that must persist. So does a file whose own
+    headers break the task (judge_capture): the wrong kind, too small a frame,
+    a clip outside the task's length or past a met share.
     """
     from sourcehub.modules.storage import service as storage_svc
     from sourcehub.platform import storage
@@ -808,7 +914,7 @@ async def confirm_asset(
         await session.execute(
             text(
                 "SELECT id, assignment_id, storage_key, filename, size_bytes, status, "
-                "       storage_target_id, mime_type, upload_session "
+                "       storage_target_id, mime_type, upload_session, duration_s, metadata "
                 "FROM asset WHERE id = :id AND deleted_at IS NULL"
             ),
             {"id": asset_id},
@@ -822,16 +928,17 @@ async def confirm_asset(
         raise MediaError(f"A {row['status']} asset cannot be confirmed.")
     us = upload_session_from(row["upload_session"])
 
-    a_status = (
+    a = (
         await session.execute(
             text(
-                "SELECT CASE WHEN revoked_at IS NULL THEN status::text ELSE 'revoked' END "
-                "FROM task_assignment WHERE id = :a"
+                "SELECT CASE WHEN ta.revoked_at IS NULL THEN ta.status::text ELSE 'revoked' END "
+                "       AS status, ta.quantity, t.target_unit, t.capture_spec "
+                "FROM task_assignment ta JOIN task t ON t.id = ta.task_id WHERE ta.id = :a"
             ),
             {"a": row["assignment_id"]},
         )
-    ).scalar_one_or_none()
-    if a_status != "in_progress":
+    ).mappings().one_or_none()
+    if a is None or a["status"] != "in_progress":
         raise MediaError("The assignment is no longer taking uploads.")
 
     try:
@@ -857,6 +964,55 @@ async def confirm_asset(
                 "why": f"size mismatch: manifest says {row['size_bytes']} bytes, storage holds {s.size}",
             },
         )
+        return (await _get_asset(session, asset_id)) or {}
+
+    # The sizes agree; now what the bytes are. A few range reads of the
+    # headers (probe.py), never the whole file. The kind, frame size and
+    # running time come from there, not from the manifest: the running time
+    # is what an hours task is billed on.
+    async def read(start: int, length: int) -> bytes:
+        return await storage.read_range(target, row["storage_key"], start, length)
+
+    try:
+        p = await probe(read, s.size)
+    except LookupError:
+        raise MediaError("File not uploaded yet.") from None
+    meta = row["metadata"] or {}
+    if isinstance(meta, str):
+        meta = json.loads(meta)
+    declared = meta.get("kind") or _safe_filename(row["filename"])[1]
+    claimed = None if row["duration_s"] is None else float(row["duration_s"])
+    why, duration, checks = judge_capture(
+        declared, p, a["capture_spec"], a["target_unit"], claimed
+    )
+    unit = a["target_unit"]
+    if why is None and duration is not None and a["quantity"] and pricing.measured_by_duration(unit):
+        # The share is counted again with this clip's real length, and the
+        # others': presign counted claimed lengths. As at presign, the clip
+        # that crosses the line is taken; one after a share already met is not.
+        held = await _held(session, row["assignment_id"], unit, exclude=asset_id)
+        if Decimal(held["units"]) >= Decimal(a["quantity"]):
+            why = (
+                f"This assignment is for {pricing.quantity_text(a['quantity'], unit)} and already "
+                f"has {hours_text(held['units'])} of footage. Remove a clip before adding another."
+            )
+    extra: dict[str, Any] = {"probe": p.facts()}
+    if s.checksum:
+        extra["storage_checksum"] = s.checksum
+    found = json.dumps({"server": checks})
+
+    if why is not None:
+        await session.execute(
+            text(
+                "UPDATE asset SET status = 'quarantined', etag = :etag, updated_at = now(), "
+                "       upload_session = NULL, quarantine_reason = :why, "
+                "       metadata = metadata || CAST(:extra AS jsonb), "
+                "       check_results = coalesce(check_results, '{}'::jsonb) || CAST(:found AS jsonb) "
+                "WHERE id = :id"
+            ),
+            {"etag": s.etag, "id": asset_id, "why": why,
+             "extra": json.dumps(extra), "found": found},
+        )
     else:
         # The provider's own digest of what it holds, recorded beside the
         # phone's claims; the session is spent and goes.
@@ -865,12 +1021,14 @@ async def confirm_asset(
                 "UPDATE asset SET status = 'ready', etag = :etag, "
                 "       mime_type = coalesce(:ct, mime_type), uploaded_at = now(), "
                 "       updated_at = now(), upload_session = NULL, "
-                "       metadata = metadata || CAST(:extra AS jsonb) "
+                "       duration_s = coalesce(:dur, duration_s), "
+                "       metadata = metadata || CAST(:extra AS jsonb), "
+                "       check_results = coalesce(check_results, '{}'::jsonb) || CAST(:found AS jsonb) "
                 "WHERE id = :id"
             ),
             {
-                "etag": s.etag, "ct": s.content_type, "id": asset_id,
-                "extra": json.dumps({"storage_checksum": s.checksum} if s.checksum else {}),
+                "etag": s.etag, "ct": s.content_type, "id": asset_id, "dur": duration,
+                "extra": json.dumps(extra), "found": found,
             },
         )
     return (await _get_asset(session, asset_id)) or {}

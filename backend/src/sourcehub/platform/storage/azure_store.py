@@ -209,6 +209,25 @@ async def head(t: StorageTarget, key: str) -> ObjectStat:
     return await asyncio.to_thread(_head_sync, t, key)
 
 
+def _read_range_sync(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    try:
+        blob = _service(t).get_blob_client(t.bucket, key)
+        return blob.download_blob(offset=start, length=length).readall()
+    except ResourceNotFoundError as e:
+        if "ContainerNotFound" in str(e):
+            raise StorageError(f"The container {t.bucket!r} does not exist.") from None
+        raise LookupError(key) from None
+    except StorageError:
+        raise
+    except Exception as e:  # noqa: BLE001
+        raise _wrap(t.endpoint, e) from None
+
+
+async def read_range(t: StorageTarget, key: str, start: int, length: int) -> bytes:
+    _check_container(t)
+    return await asyncio.to_thread(_read_range_sync, t, key, start, length)
+
+
 def _copy_sync(t: StorageTarget, src: str, dst: str) -> None:
     """Server-side copy. The bytes never pass through the API.
 
