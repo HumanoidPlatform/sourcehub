@@ -209,6 +209,29 @@ export function handedOver(a: Assignment): string {
   return `Your ${what} ${n === 1 ? "was" : "were"} handed over for review: ${parts.join(", ")}.`;
 }
 
+/** What a worker is told on an assignment no longer on their list: its task
+ *  ended (db/600) or their share was cancelled. unsent is how many captures
+ *  for it are still on the phone; they can never be sent, and the worker
+ *  removes them (the phone never deletes them on its own: a list fetched for
+ *  another organisation the worker belongs to would look the same). */
+export function takenOff(unsent: number): string {
+  const head = "This work was taken off you: the task ended or your share was cancelled. Nothing more is needed from you on it.";
+  if (!unsent) return head;
+  return `${head} ${unsent} capture${unsent === 1 ? "" : "s"} still on this phone can never be sent.`;
+}
+
+/** Assignments with captures queued on this phone that are no longer on the
+ *  worker's list: work taken off them, whose captures can never be sent. */
+export function strandedAssignments(
+  outbox: Record<string, { queued: number; failed: number }>,
+  listed: readonly { id: string }[],
+): string[] {
+  const held = new Set(listed.map((a) => a.id));
+  return Object.entries(outbox)
+    .filter(([id, n]) => !held.has(id) && n.queued + n.failed > 0)
+    .map(([id]) => id);
+}
+
 /** The one thing to do next on an assignment, and the quieter second one.
  *  primary null means there is nothing for the worker to do right now. */
 export type Action = "retake" | "send" | "capture" | "start";

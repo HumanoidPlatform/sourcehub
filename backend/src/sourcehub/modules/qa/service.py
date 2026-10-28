@@ -72,12 +72,22 @@ async def decide(
     if outcome == "fail" and not (note and note.strip()):
         raise QaError("Say what must change — the supplier cannot act on a blank rejection.")
 
+    # The task first, locked, as task_end() takes it (db/600): a verdict and
+    # a withdrawal of the same task then run one after the other, and the
+    # later one reads what the earlier wrote.
+    await session.execute(
+        text(
+            "SELECT t.id FROM task t JOIN submission s ON s.task_id = t.id "
+            "WHERE s.id = :sid FOR NO KEY UPDATE OF t"
+        ),
+        {"sid": submission_id},
+    )
     sub = (
         await session.execute(
             text(
                 "SELECT s.id, s.status, s.supplier_org_id, s.asset_count, s.attempt_no, "
                 "       t.id AS task_id, t.reference_code AS task_ref, t.title, "
-                "       c.id AS contract_id, c.partner_org_id "
+                "       t.status AS task_status, c.id AS contract_id, c.partner_org_id "
                 "FROM submission s JOIN task t ON t.id = s.task_id "
                 "JOIN contract c ON c.id = t.contract_id WHERE s.id = :sid"
             ),
@@ -88,6 +98,8 @@ async def decide(
         raise LookupError("submission not found")
     if sub["partner_org_id"] != claims.org_id:
         raise QaError("Only the delivering partner reviews at gate 2.")
+    if sub["task_status"] == "cancelled":
+        raise QaError(f"{sub['task_ref']} has ended; there is nothing left to review.")
     if sub["status"] not in ("submitted", "under_review"):
         raise QaError(f"A {sub['status']} submission has already been decided.")
 
@@ -217,6 +229,8 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "                   WHERE s.batch_id = b.id AND s.status = 'ready' "
                 "                     AND s.deleted_at IS NULL) x ON true "
                 "WHERE b.status = 'in_review' AND b.supplier_org_id = :me "
+                # a task that ended (db/600) takes its batches out of the queue
+                "  AND t.status <> 'cancelled' "
                 "ORDER BY (coalesce(x.off_subject, 0) > 0) DESC, b.submitted_at"
             ),
             {"me": claims.org_id},
@@ -464,12 +478,21 @@ async def decide_batch(
         raise QaError("Marking every capture to be shot again sends the batch back: reject it.")
     note = (note or "").strip() or None
 
+    # the task first, as task_end() takes it (db/600): a verdict and an ending
+    # run one after the other, and the later one sees what the earlier wrote
+    await session.execute(
+        text(
+            "SELECT t.id FROM task t JOIN capture_batch b ON b.task_id = t.id "
+            "WHERE b.id = :b FOR NO KEY UPDATE OF t"
+        ),
+        {"b": batch_id},
+    )
     b = (
         await session.execute(
             text(
                 "SELECT b.id, b.batch_no, b.status, b.assignment_id, a.task_id, a.contract_id, "
                 "       a.supplier_org_id, a.worker_user_id, a.revoked_at, "
-                "       t.reference_code AS task_ref, t.title "
+                "       t.reference_code AS task_ref, t.title, t.status AS task_status "
                 "FROM capture_batch b "
                 "JOIN task_assignment a ON a.id = b.assignment_id "
                 "JOIN task t ON t.id = a.task_id WHERE b.id = :b"
@@ -481,6 +504,8 @@ async def decide_batch(
         raise LookupError("batch not found")
     if b["supplier_org_id"] != claims.org_id:
         raise QaError("Only the supplier reviews at gate 1.")
+    if b["task_status"] == "cancelled":
+        raise QaError(f"{b['task_ref']} has ended; its batches are no longer reviewed.")
     if b["status"] != "in_review":
         raise QaError(f"Batch {b['batch_no']} has already been answered.")
     assignment_id = b["assignment_id"]

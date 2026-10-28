@@ -54,7 +54,7 @@ function daysUntil(iso: string | null): number | null {
 }
 
 function atRisk(d: OverviewDelivery): boolean {
-  if (d.pct >= 100 || d.status === "completed") return false;
+  if (d.pct >= 100 || d.status === "completed" || d.status === "cancelled") return false;
   const left = daysUntil(d.delivery_due_on);
   return left !== null && left <= AT_RISK_DAYS;
 }
@@ -68,7 +68,8 @@ export function ClientOverview() {
   });
 
   const d = overview.data;
-  const live = (d?.deliveries ?? []).filter((x) => x.status !== "completed");
+  // an ended contract (db/610) is no more live than a completed one
+  const live = (d?.deliveries ?? []).filter((x) => !["completed", "cancelled"].includes(x.status));
   const needs = d?.attention.length ?? 0;
 
   return (

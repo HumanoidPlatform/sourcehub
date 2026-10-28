@@ -52,6 +52,27 @@ CASES: dict[str, dict[str, object]] = {
         "price_text": "USD 2,900 per 1,000 photos",
         "contract_id": "22222222-2222-2222-2222-222222222222",
     },
+    "task_ended": {
+        "recipient_name": HOSTILE,
+        "recipient_org": "NorthStar & Co",
+        "headline": "Acme <Field> declined TSK-07 Shelf & price tags",
+        "task_ref": "TSK-07",
+        "title": "Shelf & price tags",
+        "contract_ref": "CTR-0003",
+        "what": "was declined",
+        "reason": "No crowd in <Pune> this month",
+        "path": "/contracts/22222222-2222-2222-2222-222222222222",
+    },
+    "contract_ended": {
+        "recipient_name": HOSTILE,
+        "recipient_org": "NorthStar & Co",
+        "headline": "Acme <Retail> (the client) ended CTR-0003 Shelf & price tags",
+        "contract_ref": "CTR-0003",
+        "title": "Shelf & price tags",
+        "reason": "Budget <withdrawn>",
+        "detail": "Work that passed QA stays accepted & payable.",
+        "path": "/contracts/22222222-2222-2222-2222-222222222222",
+    },
     "password_reset": {"full_name": HOSTILE, "link": LINK},
     "member_invitation": {
         "full_name": "Asha",
@@ -75,6 +96,8 @@ CASES: dict[str, dict[str, object]] = {
 SUBJECTS = {
     "rfp_published": "New RFP: RFP-0007 Shelf & price tags",
     "rfp_awarded": "You won RFP-0007 Shelf & price tags",
+    "task_ended": "TSK-07 Shelf & price tags was declined",
+    "contract_ended": "CTR-0003 Shelf & price tags was ended",
     "password_reset": "Reset your DataMind360 password",
     "member_invitation": f"You're invited to DataMind360 — {HOSTILE}",
     "onboarding_approved": f"You're invited to DataMind360 — {HOSTILE}",
@@ -145,6 +168,26 @@ def test_the_rfp_mails_link_the_console_pages():
     assert "Break the contract into tasks" in text
 
 
+def test_the_task_ended_mail_says_who_why_and_links_the_page():
+    base = settings.app_base_url.rstrip("/")
+    _, text, html = _mail("task_ended")
+    url = f"{base}/contracts/22222222-2222-2222-2222-222222222222"
+    assert url in [ln.strip() for ln in text.splitlines()] and f'href="{url}"' in html
+    assert "Acme <Field> declined TSK-07 Shelf & price tags." in text
+    assert "No crowd in <Pune> this month" in text and "CTR-0003" in text
+    assert "No crowd in &lt;Pune&gt; this month" in html
+
+
+def test_the_contract_ended_mail_says_who_why_what_it_means_and_links_the_page():
+    base = settings.app_base_url.rstrip("/")
+    _, text, html = _mail("contract_ended")
+    url = f"{base}/contracts/22222222-2222-2222-2222-222222222222"
+    assert url in [ln.strip() for ln in text.splitlines()] and f'href="{url}"' in html
+    assert "Acme <Retail> (the client) ended CTR-0003 Shelf & price tags." in text
+    assert "Budget <withdrawn>" in text and "Budget &lt;withdrawn&gt;" in html
+    assert "Work that passed QA stays accepted & payable." in text
+
+
 @pytest.mark.parametrize("name", sorted(CASES))
 def test_subjects_are_verbatim(name):
     assert _mail(name)[0] == SUBJECTS[name]
@@ -169,6 +212,7 @@ def test_every_template_has_a_text_sibling_and_a_builder():
     assert names == sorted(
         [
             "assignment_reminder",
+            "contract_ended",
             "member_invitation",
             "onboarding_approved",
             "onboarding_reminder",
@@ -176,6 +220,7 @@ def test_every_template_has_a_text_sibling_and_a_builder():
             "public_reply",
             "rfp_awarded",
             "rfp_published",
+            "task_ended",
             "task_offer",
             "worker_invitation",
         ]

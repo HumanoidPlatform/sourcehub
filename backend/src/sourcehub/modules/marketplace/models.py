@@ -45,6 +45,8 @@ class Request(Base):
     cancelled_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     cancelled_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     cancel_reason: Mapped[str | None] = mapped_column(Text)
+    # db/610: on a draft copied from an RFP whose contract ended, that RFP
+    retender_of: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))

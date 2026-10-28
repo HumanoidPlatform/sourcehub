@@ -49,6 +49,12 @@ class Contract(Base):
     delivered_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     completed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     disputed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # db/610: written only by contract_end(), when the contract is ended early
+    ended_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    ended_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    ended_by_org_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    ended_by_party: Mapped[str | None] = mapped_column(Text)  # client | partner | ops
+    end_reason: Mapped[str | None] = mapped_column(Text)
     acceptance_due_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
@@ -82,6 +88,14 @@ class Task(Base):
     due_on: Mapped[dt.date | None] = mapped_column(Date)
     started_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
     completed_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    # db/600: written only by task_end(), when the task ends before passing QA
+    ended_at: Mapped[dt.datetime | None] = mapped_column(DateTime(timezone=True))
+    ended_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    ended_by_org_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
+    end_kind: Mapped[str | None] = mapped_column(Text)
+    end_reason: Mapped[str | None] = mapped_column(Text)
+    # on the copy a moved task became: the task it replaces
+    replaces_task_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))
     created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     updated_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), server_default=UTCNOW)
     created_by: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True))

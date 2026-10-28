@@ -35,6 +35,7 @@ import { threadKeys, useThreads } from "@features/messages/hooks";
 import { RequestThreadsPanel } from "@features/messages/request-threads";
 import { threadFor } from "@features/messages/state";
 import { DestinationStep, DestinationSummary, useTargets } from "@features/storage/destinations";
+import { RetenderButton } from "@features/delivery/components/contract-end";
 import { OrgLogo } from "@shared/org-logo";
 import { OrgProfileDialog } from "@shared/org-profile";
 import { companyRows, draftFromOrg } from "@shared/org-profile-form";
@@ -1783,8 +1784,14 @@ export function RequestDetailPage() {
           {/* Once awarded this page becomes a read-only record with nothing
               pointing at the work it produced — the only way through was the
               rail. */}
-          {isClient && ["accepted", "in_progress", "delivered", "completed"].includes(r.status) && (
-            <Link to="/deliveries" className="btn" data-variant="primary">Review deliverables</Link>
+          {isClient && ["accepted", "in_progress", "delivered", "completed", "contract_ended"].includes(r.status) && (
+            <Link to="/deliveries" className="btn" data-variant={r.status === "contract_ended" ? undefined : "primary"}>Review deliverables</Link>
+          )}
+          {/* db/610: its contract ended; tender it again as a new draft, or open the one made */}
+          {isClient && r.status === "contract_ended" && (
+            r.retendered_as
+              ? <Link to={`/requests/${r.retendered_as.id}`} className="btn" data-variant="primary">Open {r.retendered_as.reference_code}</Link>
+              : <RetenderButton requestId={r.id} />
           )}
           {session.org_kind === "tenant" && open && r.bidding_open && !alreadyMine && (
             <Button variant="primary" onClick={() => setProposing(true)}>Respond</Button>
@@ -1800,6 +1807,16 @@ export function RequestDetailPage() {
           title={r.cancelled_at ? `Cancelled ${fmtDateTime(r.cancelled_at)}` : "Cancelled"}
         >
           {r.cancel_reason ?? "The client cancelled this RFP."}
+        </Callout>
+      ) : r.status === "contract_ended" ? (
+        // db/610: off the rail too; the contract page says who ended it and why
+        <Callout tone="neutral" title="The contract for this RFP was ended">
+          Work that passed QA before the end stays delivered.{" "}
+          {isClient
+            ? r.retendered_as
+              ? `It is being tendered again as ${r.retendered_as.reference_code}.`
+              : "You can tender it again: a new draft copied from this RFP, files and all, to edit and publish."
+            : "The client may tender it again."}
         </Callout>
       ) : (
         /* Labelled, not raw: the rail used to read "accepted" while the pill

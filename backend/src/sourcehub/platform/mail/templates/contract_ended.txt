@@ -1,0 +1,10 @@
+Hello {{ recipient_name }},
+
+{{ headline }}.
+
+  Contract:      {{ contract_ref }}
+  Why:           {{ reason }}
+
+{{ detail }}
+  {{ app_base_url }}{{ path }}
+{% include "_footer.txt" %}

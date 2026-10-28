@@ -1,0 +1,10 @@
+Hello {{ recipient_name }},
+
+{{ headline }}.
+
+  Contract:      {{ contract_ref }}
+  Why:           {{ reason }}
+
+The work on it has stopped: its open offer is closed and anyone capturing for it has been told.
+  {{ app_base_url }}{{ path }}
+{% include "_footer.txt" %}

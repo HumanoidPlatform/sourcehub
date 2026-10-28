@@ -66,7 +66,7 @@ _EFFECTIVE_REQUEST_STATUS = """
            ELSE r.status::text END
     WHEN c.status = 'active' AND tc.n = 0 THEN 'accepted'
     WHEN c.status IN ('active', 'in_qa', 'disputed') THEN 'in_progress'
-    WHEN c.status = 'cancelled' THEN 'accepted'
+    WHEN c.status = 'cancelled' THEN 'contract_ended'
     ELSE c.status::text
   END
 """
@@ -91,6 +91,7 @@ _REQUESTS_SQL = text(
     CROSS  JOIN LATERAL (
              SELECT count(*) AS n FROM task t
              WHERE  t.contract_id = c.id AND t.deleted_at IS NULL
+               AND  t.status <> 'cancelled'
            ) tc
     WHERE  r.deleted_at IS NULL
     ORDER  BY r.created_at DESC
@@ -112,7 +113,8 @@ _CONTRACTS_SQL = text(
                 ELSE c.value END   AS estimated_total,
            o.name                  AS partner_name,
            req.delivery_due_on,
-           count(t.id)                                            AS total,
+           -- a task that ended before passing QA (db/600) is not work owed
+           count(t.id) FILTER (WHERE t.status <> 'cancelled')      AS total,
            count(t.id) FILTER (WHERE t.status = 'qa_passed')       AS done,
            CASE WHEN c.status = 'active' AND EXISTS (
                   SELECT 1 FROM submission s

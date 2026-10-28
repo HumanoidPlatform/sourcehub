@@ -106,6 +106,28 @@ async def create_contract_from_award(
     return await _contract_row(session, c)
 
 
+async def _lock_contract(
+    session: AsyncSession, contract_id: uuid.UUID, *, share: bool = False
+) -> Contract:
+    """The contract read afresh under a row lock, as contract_end() (db/610)
+    takes it: a delivery, a dispute, an approval or a new task then lands
+    before an ending or waits and sees it. share=True for a task being added,
+    which only needs the contract not to end under it."""
+    c = (
+        await session.execute(
+            select(Contract)
+            .where(Contract.id == contract_id)
+            # NO KEY UPDATE, never FOR UPDATE: rows that only reference the
+            # contract (a batch, an assignment) still check their keys
+            .with_for_update(read=share, key_share=not share)
+            .execution_options(populate_existing=True)
+        )
+    ).scalar_one_or_none()
+    if c is None:
+        raise LookupError("contract not found")
+    return c
+
+
 async def _derived_status(session: AsyncSession, c: Contract) -> str:
     if c.status != "active":
         return c.status
@@ -160,10 +182,15 @@ def _check_crowd_quantity(t: Task, quantity: Any) -> Decimal:
 
 
 async def progress_of(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
+    """How far the contract's work has come. A task that ended before passing
+    QA (db/600) is not work still owed: it counts in neither total nor done, so
+    a withdrawn task no longer holds up delivery. At least one task must have
+    passed for the contract to be deliverable."""
     row = (
         await session.execute(
             text(
-                "SELECT count(*) AS total, "
+                "SELECT count(*) FILTER (WHERE status <> 'cancelled') AS total, "
+                "count(*) FILTER (WHERE status = 'cancelled') AS ended, "
                 "count(*) FILTER (WHERE status = 'qa_passed') AS done, "
                 "coalesce(sum((SELECT coalesce(sum(s.asset_count),0) FROM submission s "
                 "  WHERE s.task_id = task.id AND s.status = 'accepted')),0) AS assets, "
@@ -178,6 +205,7 @@ async def progress_of(session: AsyncSession, contract_id: uuid.UUID) -> dict[str
     return {
         "total": total,
         "done": done,
+        "ended": int(row["ended"]),
         "pct": round(100 * done / total) if total else 0,
         "assets_accepted": int(row["assets"]),
         # the same, in each task's own unit (db/510); unmeasured hours count 0
@@ -196,10 +224,13 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
                 "  (SELECT name FROM organisation WHERE id = :cl) AS client_name, "
                 "  (SELECT name FROM organisation WHERE id = :pt) AS partner_name, "
                 # the partner's listing of it, once listed (RLS hides it from others)
-                "  (SELECT id FROM datahub_dataset WHERE contract_id = :cid) AS catalogue_dataset_id "
+                "  (SELECT id FROM datahub_dataset WHERE contract_id = :cid) AS catalogue_dataset_id, "
+                # db/610: who ended it, by name; Ops by its own organisation's
+                "  (SELECT name FROM organisation WHERE id = :by) AS ended_by_name "
                 "FROM request r WHERE r.id = :rid"
             ),
-            {"rid": c.request_id, "cl": c.client_org_id, "pt": c.partner_org_id, "cid": c.id},
+            {"rid": c.request_id, "cl": c.client_org_id, "pt": c.partner_org_id, "cid": c.id,
+             "by": c.ended_by_org_id},
         )
     ).mappings().one_or_none() or {}
     return {
@@ -230,6 +261,16 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
         # partner may list the captures in the dataset catalogue.
         "partner_reuse_allowed": bool(names.get("partner_reuse_allowed")),
         "catalogue_dataset_id": names.get("catalogue_dataset_id"),
+        # db/610: set once the contract was ended early (status cancelled)
+        "ended": (
+            None if c.ended_at is None
+            else {
+                "at": c.ended_at,
+                "by_party": c.ended_by_party,
+                "by_org_name": names.get("ended_by_name"),
+                "reason": c.end_reason,
+            }
+        ),
     }
 
 
@@ -257,6 +298,10 @@ async def get_contract(
     # What has been claimed, paid and is still open — on the detail page only;
     # the list already spends three queries a row.
     out["invoicing"] = await invoices.contract_totals(session, c.id)
+    party = claims.org_id in (c.client_org_id, c.partner_org_id) or claims.role == "platform_admin"
+    if c.status == "cancelled" and party:
+        # a fixed price ended early: the share of the value it may still claim (db/610)
+        out["invoicing"]["after_end"] = await invoices.after_end(session, c.id)
     return out
 
 
@@ -374,7 +419,17 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
                 "  (SELECT row_to_json(v) FROM ("
                 "     SELECT g.id, g.score, g.comment, g.created_at "
                 "     FROM rating g WHERE g.task_id = :tid AND g.kind = 'partner_supplier') v) "
-                "    AS supplier_rating "
+                "    AS supplier_rating, "
+                # db/600: who ended it, and the copy a moved task became or the
+                # task this one replaces. The copy's supplier is not named: the
+                # supplier the work was taken from has no need to know.
+                "  (SELECT name FROM organisation WHERE id = tk.ended_by_org_id) AS ended_by_name, "
+                "  (SELECT row_to_json(m) FROM ("
+                "     SELECT n.id, n.reference_code FROM task n "
+                "     WHERE n.replaces_task_id = tk.id AND n.deleted_at IS NULL) m) AS moved_to, "
+                "  (SELECT row_to_json(p) FROM ("
+                "     SELECT r.id, r.reference_code FROM task r "
+                "     WHERE r.id = tk.replaces_task_id) p) AS replaces "
                 "FROM task tk "
                 "JOIN organisation o ON o.id = tk.assignee_org_id "
                 "JOIN contract c ON c.id = tk.contract_id "
@@ -401,12 +456,27 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "capture_spec": t.capture_spec or {},
         "status": t.status,
         "due_on": t.due_on,
+        # set by the first start; until then the supplier may still decline
+        "started_at": t.started_at,
         "attachments": (await _task_files(session, t.id)),
         "client_documents": (await _client_documents(session, [t.id])).get(t.id, []),
         "last_submission": extra.get("last_submission"),
         "assignment_summary": extra.get("assignment_summary"),
         "asset_summary": extra.get("asset_summary"),
         "supplier_rating": extra.get("supplier_rating"),
+        # db/600: set once the task ended before passing QA (status cancelled)
+        "ended": (
+            None if t.ended_at is None
+            else {
+                "at": t.ended_at,
+                "kind": t.end_kind,
+                "reason": t.end_reason,
+                "by_org_id": t.ended_by_org_id,
+                "by_org_name": extra.get("ended_by_name"),
+            }
+        ),
+        "moved_to": extra.get("moved_to"),
+        "replaces": extra.get("replaces"),
         "created_at": t.created_at,
     }
 
@@ -457,6 +527,78 @@ async def list_tasks(
     return [await _task_row(session, t) for t in rows]
 
 
+async def supplier_stats(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
+    """What a partner needs to choose a supplier for a task, per supplier it
+    has given work to: its open tasks, how often its submissions passed the
+    partner's own QA, and how many tasks it declined or handed back (db/600).
+    Only this partner's contracts count: the figures are its own experience,
+    not a rating."""
+    rows = (
+        await session.execute(
+            text(
+                "WITH mine AS ("
+                "  SELECT t.* FROM task t JOIN contract c ON c.id = t.contract_id "
+                "  WHERE c.partner_org_id = :me AND t.deleted_at IS NULL AND c.deleted_at IS NULL), "
+                "work AS ("
+                "  SELECT assignee_org_id AS org_id, "
+                "         count(*) FILTER (WHERE status IN "
+                "           ('assigned','in_progress','submitted','qa_failed')) AS open_tasks, "
+                "         count(*) FILTER (WHERE status = 'qa_passed') AS passed_tasks, "
+                "         count(*) FILTER (WHERE end_kind IN ('declined','returned')) AS handed_back "
+                "  FROM mine GROUP BY assignee_org_id), "
+                "gate AS ("
+                "  SELECT s.supplier_org_id AS org_id, "
+                "         count(*) FILTER (WHERE q.outcome = 'pass') AS qa_passed, "
+                "         count(*) AS qa_decided "
+                "  FROM qa_review q JOIN submission s ON s.id = q.submission_id "
+                "  JOIN mine t ON t.id = s.task_id "
+                "  WHERE q.gate = 'gate2_partner' AND q.outcome IN ('pass','fail') "
+                "  GROUP BY s.supplier_org_id) "
+                "SELECT coalesce(w.org_id, g.org_id) AS org_id, "
+                "       coalesce(w.open_tasks, 0) AS open_tasks, "
+                "       coalesce(w.passed_tasks, 0) AS passed_tasks, "
+                "       coalesce(w.handed_back, 0) AS handed_back, "
+                "       coalesce(g.qa_passed, 0) AS qa_passed, coalesce(g.qa_decided, 0) AS qa_decided "
+                "FROM work w FULL JOIN gate g ON g.org_id = w.org_id"
+            ),
+            {"me": claims.org_id},
+        )
+    ).mappings().all()
+    return [
+        {
+            "org_id": r["org_id"],
+            "open_tasks": int(r["open_tasks"]),
+            "passed_tasks": int(r["passed_tasks"]),
+            "handed_back": int(r["handed_back"]),
+            "qa_decided": int(r["qa_decided"]),
+            # a share of decisions, so one failed attempt in three reads 67
+            "qa_pass_rate": (
+                round(100 * int(r["qa_passed"]) / int(r["qa_decided"]))
+                if r["qa_decided"] else None
+            ),
+        }
+        for r in rows
+    ]
+
+
+async def _check_assignee(
+    session: AsyncSession, claims: AccessClaims, assignee_org_id: uuid.UUID
+) -> None:
+    # "Only partners in your own network appear here" — enforced, not hinted.
+    ok = (
+        await session.execute(
+            text(
+                "SELECT EXISTS (SELECT 1 FROM organisation WHERE id = :aid "
+                "AND parent_org_id = :me AND status = 'active' "
+                "AND kind IN ('aggregator','business'))"
+            ),
+            {"aid": assignee_org_id, "me": claims.org_id},
+        )
+    ).scalar_one()
+    if not ok:
+        raise DeliveryError("The assignee must be an active aggregator or business in your network.")
+
+
 async def create_task(
     session: AsyncSession,
     claims: AccessClaims,
@@ -472,14 +614,15 @@ async def create_task(
     capture_spec: dict[str, Any] | None = None,
     subject: dict[str, Any] | None = None,
     attachments: list[dict[str, Any]] | None = None,
+    replaces_task_id: uuid.UUID | None = None,
 ) -> dict[str, Any]:
-    c = (
-        await session.execute(select(Contract).where(Contract.id == contract_id))
-    ).scalar_one_or_none()
-    if c is None:
-        raise LookupError("contract not found")
+    # share-locked: an ending in flight (db/610) finishes first, and the
+    # status read here is the one it left
+    c = await _lock_contract(session, contract_id, share=True)
     if c.partner_org_id != claims.org_id:
         raise DeliveryError("Only the delivering partner assigns tasks.")
+    if c.status == "cancelled":
+        raise DeliveryError(f"{c.reference_code} has ended; it takes no new tasks.")
     if c.status not in ("active",):
         raise DeliveryError(f"A {c.status} contract cannot take new tasks.")
 
@@ -501,19 +644,7 @@ async def create_task(
                 f"({contract_due.isoformat()})."
             )
 
-    # "Only partners in your own network appear here" — enforced, not hinted.
-    ok = (
-        await session.execute(
-            text(
-                "SELECT EXISTS (SELECT 1 FROM organisation WHERE id = :aid "
-                "AND parent_org_id = :me AND status = 'active' "
-                "AND kind IN ('aggregator','business'))"
-            ),
-            {"aid": assignee_org_id, "me": claims.org_id},
-        )
-    ).scalar_one()
-    if not ok:
-        raise DeliveryError("The assignee must be an active aggregator or business in your network.")
+    await _check_assignee(session, claims, assignee_org_id)
 
     # What the CLIENT asked for, inherited where the partner did not override.
     #
@@ -572,6 +703,7 @@ async def create_task(
         instructions=instructions,
         capture_spec=capture_spec or {},
         due_on=due_on,
+        replaces_task_id=replaces_task_id,
         created_by=claims.user_id,
     )
     session.add(t)
@@ -579,7 +711,8 @@ async def create_task(
     await _attach_instructions(session, claims, t.id, attachments)
     await notifier.notify(
         session, assignee_org_id,
-        f"New task: {title}. Due {due_on.isoformat() if due_on else 'as agreed'}.",
+        f"New task: {title}. Due {due_on.isoformat() if due_on else 'as agreed'}."
+        + (" Moved to you from another supplier." if replaces_task_id else ""),
         "tasks", {"id": str(t.id)},
     )
     await audit.log(
@@ -593,9 +726,11 @@ async def create_task(
 async def start_task(
     session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID
 ) -> dict[str, Any]:
-    t = await _get_task(session, task_id)
+    t = await _get_task(session, task_id, lock=True)
     if t.assignee_org_id != claims.org_id:
         raise DeliveryError("Only the assignee starts a task.")
+    if t.status == "cancelled":
+        raise _ended(t)
     if t.status not in ("assigned", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot be started.")
     t.status = "in_progress"
@@ -624,9 +759,11 @@ async def submit_task(
         count is derived, never typed. A resubmission after a gate-2 failure
         re-bundles the accepted material as it stands at that moment.
     """
-    t = await _get_task(session, task_id)
+    t = await _get_task(session, task_id, lock=True)
     if t.assignee_org_id != claims.org_id:
         raise DeliveryError("Only the assignee submits a task.")
+    if t.status == "cancelled":
+        raise _ended(t)
     if t.status not in ("in_progress", "assigned", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot be submitted.")
 
@@ -714,15 +851,325 @@ async def submit_task(
     return await _task_row(session, t)
 
 
-async def _get_task(session: AsyncSession, task_id: uuid.UUID) -> Task:
-    t = (
-        await session.execute(
-            select(Task).where(Task.id == task_id, Task.deleted_at.is_(None))
-        )
-    ).scalar_one_or_none()
+async def _get_task(session: AsyncSession, task_id: uuid.UUID, *, lock: bool = False) -> Task:
+    """lock=True takes the task row FOR NO KEY UPDATE and reads it afresh. Every
+    path that adds work to a task or moves its status takes it first, the
+    way task_end() does (db/600): a start, a submission or a new assignment
+    then either lands before an ending or waits and sees the task ended,
+    and the task is always the first row locked, so no two of them deadlock."""
+    stmt = select(Task).where(Task.id == task_id, Task.deleted_at.is_(None))
+    if lock:
+        stmt = stmt.with_for_update(key_share=True).execution_options(populate_existing=True)
+    t = (await session.execute(stmt)).scalar_one_or_none()
     if t is None:
         raise LookupError("task not found")
     return t
+
+
+def _ended(t: Task) -> DeliveryError:
+    return DeliveryError(f"{t.reference_code} has ended; nothing more can be done on it.")
+
+
+# ---------------------------------------------------------------------------
+# Ending a task before it passes QA (db/600)
+#
+#   the supplier:  decline, before anyone has started on it
+#                  return (hand back), before it is with the partner for QA
+#   the partner:   withdraw, any time before it passes QA
+#                  move: withdraw, and give a copy to another supplier
+#
+# task_end() does the work, in this transaction: the open offer closes, live
+# crowd assignments are cancelled, a submission waiting for partner QA is
+# superseded. This side checks first, so a refusal is said in words, and then
+# tells everyone the ending reaches: the other organisation by bell and
+# e-mail, each person taken off the work by push.
+# ---------------------------------------------------------------------------
+
+MIN_END_REASON = 3  # "a few words", as ReasonDialog asks in the console
+MAX_END_REASON = 2000  # task_end_shape (db/600)
+
+# What the other side reads: "<org> declined TSK-07 Shelf photos: <reason>".
+_END_VERB = {
+    "declined": "declined",
+    "returned": "handed back",
+    "withdrawn": "withdrew",
+    "moved": "moved",
+    "contract_ended": "ended",
+}
+# The mail's subject: "TSK-07 Shelf photos was declined".
+_END_PASSIVE = {
+    "declined": "was declined",
+    "returned": "was handed back",
+    "withdrawn": "was withdrawn",
+    "moved": "was moved to another supplier",
+    "contract_ended": "ended with its contract",
+}
+# What a worker taken off it is told was the cause.
+_END_CAUSE = {
+    "declined": "your organisation handed it back",
+    "returned": "your organisation handed it back",
+    "withdrawn": "the partner withdrew it",
+    "moved": "the partner withdrew it",
+    "contract_ended": "the contract ended",
+}
+
+
+def end_reason_problem(reason: str | None) -> str | None:
+    """Why this reason will not do, or None. The other side reads it."""
+    r = (reason or "").strip()
+    if len(r) < MIN_END_REASON:
+        return "Give a reason of a few words: the other side is told it."
+    if len(r) > MAX_END_REASON:
+        return f"Keep the reason under {MAX_END_REASON} characters."
+    return None
+
+
+def end_problem(kind: str, ref: str, status: str, started: bool) -> str | None:
+    """Why a task in this state cannot end this way, or None. task_end()
+    (db/600) holds the same lines; these say them in words first."""
+    if status == "cancelled":
+        return f"{ref} has already ended."
+    if status == "qa_passed":
+        return f"{ref} passed QA; work that passed stays delivered."
+    if kind == "declined" and (status != "assigned" or started):
+        return f"Work on {ref} has started, so it can no longer be declined. Hand it back instead."
+    if kind == "returned" and status == "submitted":
+        return (f"{ref} is with the partner for QA. Wait for the verdict, then hand it back if "
+                "it is sent back to you.")
+    return None
+
+
+def _end_reason(reason: str | None) -> str:
+    problem = end_reason_problem(reason)
+    if problem:
+        raise DeliveryError(problem)
+    return (reason or "").strip()
+
+
+async def _partner_of(session: AsyncSession, t: Task) -> uuid.UUID:
+    return (
+        await session.execute(select(Contract.partner_org_id).where(Contract.id == t.contract_id))
+    ).scalar_one()
+
+
+async def _end_task(
+    session: AsyncSession, claims: AccessClaims, t: Task, kind: str, reason: str
+) -> list[tuple[uuid.UUID, uuid.UUID]]:
+    """task_end() on a task already locked and checked; the task row is read
+    back afterwards. Returns (assignment, worker) for each share it cancelled.
+    The function's own refusals are its backstop: one reaching here means
+    the checks above it were wrong, and it is said in its own words."""
+    try:
+        taken = (
+            await session.execute(
+                text("SELECT ended_assignment, ended_worker FROM task_end(:t, :k, :r)"),
+                {"t": t.id, "k": kind, "r": reason},
+            )
+        ).all()
+    except DBAPIError as e:
+        said = _task_refusal(e)
+        if said is None:
+            raise
+        raise DeliveryError(said) from None
+    await session.refresh(t)
+    return [(a, w) for a, w in taken]
+
+
+# check_violation and insufficient_privilege, the two task_end() refuses with
+_TASK_REFUSAL_STATES = ("23514", "42501")
+
+
+def _task_refusal(e: DBAPIError) -> str | None:
+    """task_end()'s own sentence ("TSK-07: it has already ended"), without the
+    driver's framing; None for any other error, which is a fault to surface."""
+    orig = getattr(e, "orig", None)
+    if getattr(orig, "sqlstate", None) not in _TASK_REFUSAL_STATES:
+        return None
+    msg = str(orig)
+    at = msg.find("task ")
+    return msg[at + len("task "):].splitlines()[0].strip() if at >= 0 else None
+
+
+async def _announce_end(
+    session: AsyncSession,
+    claims: AccessClaims,
+    t: Task,
+    taken: list[tuple[uuid.UUID, uuid.UUID]],
+    *,
+    tell_org: uuid.UUID | None,
+    link: tuple[str, str],
+) -> None:
+    """The bell and the e-mail for the organisation on the other side of an
+    ending (none when it ends with its contract: that one is announced once,
+    for the whole contract), the push to each person taken off the work, and
+    the audit row."""
+    from sourcehub.modules.outbox import service as outbox
+
+    kind, reason = t.end_kind or "", t.end_reason or ""
+    names = (
+        await session.execute(
+            text(
+                "SELECT (SELECT name FROM organisation WHERE id = :by) AS by_name, "
+                "       c.reference_code AS contract_ref, c.partner_org_id "
+                "FROM contract c WHERE c.id = :cid"
+            ),
+            {"by": claims.org_id, "cid": t.contract_id},
+        )
+    ).mappings().one()
+    if tell_org is not None:
+        headline = f"{names['by_name']} {_END_VERB[kind]} {t.reference_code} {t.title}"
+        await notifier.notify(
+            session, tell_org, f"{headline}: {reason}", link[0], {"id": link[1]},
+        )
+        await outbox.enqueue(
+            session, "task_ended",
+            {
+                "headline": headline,
+                "task_ref": t.reference_code,
+                "title": t.title,
+                "contract_ref": names["contract_ref"],
+                "what": _END_PASSIVE[kind],
+                "reason": reason,
+                "path": f"/{link[0]}/{link[1]}" if link[0] == "contracts" else f"/tasks?task={link[1]}",
+            },
+            [tell_org],
+            entity=("task", t.id), label=f"{t.reference_code} {t.title}",
+        )
+    for assignment_id, worker in taken:
+        await notifier.notify(
+            session, t.assignee_org_id,
+            f"{t.reference_code} {t.title} has ended: {_END_CAUSE[kind]}. Stop capturing for it; "
+            "anything you have not sent will not be used.",
+            "assignment", {"id": str(assignment_id)},
+            user_id=worker,
+        )
+    await audit.log(
+        session, f"task.{kind}",
+        f"{_END_VERB[kind].capitalize()} {t.reference_code}, {t.title}: {reason}",
+        [t.id, t.contract_id, names["partner_org_id"], t.assignee_org_id,
+         *(a for a, _ in taken)],
+        {"kind": kind, "assignments_cancelled": len(taken)},
+    )
+
+
+async def decline_task(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID, reason: str | None
+) -> dict[str, Any]:
+    """The supplier turns a new task down, before anyone has started on it."""
+    why = _end_reason(reason)
+    t = await _get_task(session, task_id, lock=True)
+    if t.assignee_org_id != claims.org_id:
+        raise DeliveryError("Only the supplier the task was given to can decline it.")
+    problem = end_problem("declined", t.reference_code, t.status, t.started_at is not None)
+    if problem:
+        raise DeliveryError(problem)
+    taken = await _end_task(session, claims, t, "declined", why)
+    await _announce_end(
+        session, claims, t, taken,
+        tell_org=await _partner_of(session, t), link=("contracts", str(t.contract_id)),
+    )
+    return await _task_row(session, t)
+
+
+async def return_task(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID, reason: str | None
+) -> dict[str, Any]:
+    """The supplier hands a task back that it cannot finish: short of people,
+    devices or time. Any time before it is with the partner for QA."""
+    why = _end_reason(reason)
+    t = await _get_task(session, task_id, lock=True)
+    if t.assignee_org_id != claims.org_id:
+        raise DeliveryError("Only the supplier the task was given to can hand it back.")
+    problem = end_problem("returned", t.reference_code, t.status, t.started_at is not None)
+    if problem:
+        raise DeliveryError(problem)
+    taken = await _end_task(session, claims, t, "returned", why)
+    await _announce_end(
+        session, claims, t, taken,
+        tell_org=await _partner_of(session, t), link=("contracts", str(t.contract_id)),
+    )
+    return await _task_row(session, t)
+
+
+async def _partner_end_check(t: Task, claims: AccessClaims, partner: uuid.UUID, kind: str) -> None:
+    if partner != claims.org_id:
+        what = "withdraw" if kind == "withdrawn" else "move"
+        raise DeliveryError(f"Only the delivering partner can {what} a task.")
+    problem = end_problem(kind, t.reference_code, t.status, t.started_at is not None)
+    if problem:
+        raise DeliveryError(problem)
+
+
+async def withdraw_task(
+    session: AsyncSession, claims: AccessClaims, task_id: uuid.UUID, reason: str | None
+) -> dict[str, Any]:
+    """The partner takes a task back from its supplier. A submission waiting
+    for the partner's own QA is set aside with it: review it first to have
+    that work count."""
+    why = _end_reason(reason)
+    t = await _get_task(session, task_id, lock=True)
+    await _partner_end_check(t, claims, await _partner_of(session, t), "withdrawn")
+    taken = await _end_task(session, claims, t, "withdrawn", why)
+    await _announce_end(
+        session, claims, t, taken, tell_org=t.assignee_org_id, link=("tasks", str(t.id)),
+    )
+    return await _task_row(session, t)
+
+
+async def move_task(
+    session: AsyncSession,
+    claims: AccessClaims,
+    task_id: uuid.UUID,
+    *,
+    assignee_org_id: uuid.UUID,
+    reason: str | None,
+    target_quantity: Decimal | int | None = None,
+    due_on: dt.date | None = None,
+) -> dict[str, Any]:
+    """Withdraw a task and give the work to another supplier, as a copy: the
+    same brief, capture rules and files, the quantity and due date as given or
+    as they were. The old task keeps its history (its crowd, captures and
+    reviews stay the old supplier's), and the copy names it in
+    replaces_task_id. Moving the row itself would hand the new supplier
+    another organisation's crowd assignments and captures.
+
+    Returns {"ended": the old task, "task": the copy}."""
+    from sourcehub.modules.attachments import service as attachments
+
+    why = _end_reason(reason)
+    await _lock_contract(session, (await _get_task(session, task_id)).contract_id, share=True)
+    t = await _get_task(session, task_id, lock=True)
+    await _partner_end_check(t, claims, await _partner_of(session, t), "moved")
+    if assignee_org_id == t.assignee_org_id:
+        raise DeliveryError("Choose a different supplier: the task is already with this one.")
+    # create_task checks this again; asked first, so a refusal copies nothing
+    await _check_assignee(session, claims, assignee_org_id)
+
+    # The files behind the instructions, staged again as the partner's own
+    # uploads, before anything is written: a storage failure ends nothing.
+    try:
+        staged = await attachments.stage_copies(
+            session, claims, entity_type="task", entity_id=t.id, slot="instructions"
+        )
+    except attachments.AttachmentError as e:
+        raise DeliveryError(str(e)) from None
+
+    taken = await _end_task(session, claims, t, "moved", why)
+    copy = await create_task(
+        session, claims, t.contract_id, assignee_org_id, t.title, t.target,
+        due_on if due_on is not None else t.due_on,
+        target_quantity=target_quantity if target_quantity is not None else t.target_quantity,
+        target_unit=t.target_unit,
+        instructions=t.instructions,
+        # the spec as the task had it, subject included: nothing to inherit
+        capture_spec=dict(t.capture_spec or {}) or None,
+        attachments=staged,
+        replaces_task_id=t.id,
+    )
+    await _announce_end(
+        session, claims, t, taken, tell_org=t.assignee_org_id, link=("tasks", str(t.id)),
+    )
+    return {"ended": await _task_row(session, t), "task": copy}
 
 
 # ---------------------------------------------------------------------------
@@ -910,6 +1357,25 @@ async def _get_assignment(session: AsyncSession, assignment_id: uuid.UUID) -> Ta
     return a
 
 
+async def _lock_assignment(session: AsyncSession, assignment_id: uuid.UUID) -> TaskAssignment:
+    """The assignment read afresh with its task locked first, in the order
+    task_end() takes them (db/600): task, then assignment. Taking the
+    assignment first would let a worker's start and a partner's withdrawal
+    each hold the row the other waits for."""
+    a = await _get_assignment(session, assignment_id)
+    await session.execute(
+        text("SELECT id FROM task WHERE id = :t FOR NO KEY UPDATE"), {"t": a.task_id}
+    )
+    return (
+        await session.execute(
+            select(TaskAssignment)
+            .where(TaskAssignment.id == assignment_id)
+            .with_for_update(key_share=True)
+            .execution_options(populate_existing=True)
+        )
+    ).scalar_one()
+
+
 async def create_assignment(
     session: AsyncSession,
     claims: AccessClaims,
@@ -950,8 +1416,9 @@ async def _assign_worker(
     both end here. The caller has already established that org_id is the
     task's supplier; everything else the row needs is checked here, under a
     lock on the task so two assignments cannot both fit the same remainder."""
-    t = task
-    await session.execute(text("SELECT id FROM task WHERE id = :t FOR UPDATE"), {"t": t.id})
+    t = await _get_task(session, task.id, lock=True)
+    if t.status == "cancelled":
+        raise _ended(t)
     if t.status not in ("assigned", "in_progress", "qa_failed"):
         raise DeliveryError(f"A {t.status} task cannot take new assignments.")
     quantity = _check_crowd_quantity(t, quantity)
@@ -1060,9 +1527,11 @@ async def start_assignment(
 ) -> dict[str, Any]:
     """The worker's first move, and the rework move after a rejection. The
     first start on a task moves the task itself to in_progress."""
-    a = await _get_assignment(session, assignment_id)
+    a = await _lock_assignment(session, assignment_id)
     if a.worker_user_id != claims.user_id:
         raise DeliveryError("Only the assigned crowd resource starts an assignment.")
+    if a.status == "cancelled":
+        raise DeliveryError("This assignment was cancelled; the work was taken off you.")
     if a.status not in ("assigned", "rejected"):
         raise DeliveryError(f"A {a.status.replace('_', ' ')} assignment cannot be started.")
     a.status = "in_progress"
@@ -1142,11 +1611,13 @@ async def submit_assignment(
     Any number will do: the worker no longer has to finish the whole share
     first, and keeps capturing while the aggregator looks at this one. The
     quantity still caps how much can be captured (media.presign_capture)."""
-    a = await _get_assignment(session, assignment_id)
+    a = await _lock_assignment(session, assignment_id)
     if a.worker_user_id != claims.user_id:
         raise DeliveryError("Only the assigned crowd resource submits an assignment.")
     if a.revoked_at is not None:
         raise DeliveryError("This task was given to someone else.")
+    if a.status == "cancelled":
+        raise DeliveryError("This assignment was cancelled; the work was taken off you.")
     if a.status in ("assigned", "rejected"):
         raise DeliveryError("Start the assignment before submitting.")
     if a.status != "in_progress":
@@ -1276,7 +1747,7 @@ async def reassign_assignment(
     sent back earlier that was never retaken. Captures still on the first
     worker's phone, not yet uploaded, are not recoverable from here.
     """
-    a = await _get_assignment(session, assignment_id)
+    a = await _lock_assignment(session, assignment_id)
     if a.supplier_org_id != claims.org_id:
         raise DeliveryError("Only the supplier reassigns an assignment.")
     if a.revoked_at is not None:
@@ -1285,8 +1756,9 @@ async def reassign_assignment(
         raise DeliveryError(f"A {a.status.replace('_', ' ')} assignment cannot be reassigned.")
     if worker_user_id == a.worker_user_id:
         raise DeliveryError("Choose a different crowd resource.")
-    t = await _get_task(session, a.task_id)
-    await session.execute(text("SELECT id FROM task WHERE id = :t FOR UPDATE"), {"t": t.id})
+    t = await _get_task(session, a.task_id, lock=True)
+    if t.status == "cancelled":
+        raise _ended(t)
 
     # uploads that never finished are not part of anything
     await session.execute(
@@ -1407,14 +1879,18 @@ async def reopen_assignment(
 ) -> dict[str, Any]:
     """After the delivery partner fails the task at gate 2, the aggregator
     sends an accepted assignment back to the worker for rework."""
-    a = await _get_assignment(session, assignment_id)
+    a = await _lock_assignment(session, assignment_id)
     if a.supplier_org_id != claims.org_id:
         raise DeliveryError("Only the supplier reopens an assignment.")
     if a.status != "accepted":
         raise DeliveryError(f"A {a.status} assignment cannot be reopened.")
+    # read under the lock _lock_assignment took: a task that ended meanwhile
+    # must not get a live assignment back
     task_status = (
         await session.execute(text("SELECT status FROM task WHERE id = :t"), {"t": a.task_id})
     ).scalar_one()
+    if task_status == "cancelled":
+        raise DeliveryError("The task has ended; nothing on it can be reopened.")
     if task_status != "qa_failed":
         raise DeliveryError("An assignment is reopened only after the task failed partner QA.")
     a.status = "in_progress"
@@ -1456,13 +1932,11 @@ async def deliver_contract(
     session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID
 ) -> dict[str, Any]:
     """Partner -> client. Gated hard on every task having cleared QA."""
-    c = (
-        await session.execute(select(Contract).where(Contract.id == contract_id))
-    ).scalar_one_or_none()
-    if c is None:
-        raise LookupError("contract not found")
+    c = await _lock_contract(session, contract_id)
     if c.partner_org_id != claims.org_id:
         raise DeliveryError("Only the delivering partner can deliver.")
+    if c.status == "cancelled":
+        raise DeliveryError(f"{c.reference_code} has ended; it cannot be delivered.")
     if c.status != "active":
         raise DeliveryError(f"A {c.status} contract cannot be delivered.")
     prog = await progress_of(session, contract_id)
@@ -1498,13 +1972,11 @@ async def dispute_delivery(
     not a terminus. Invoices already raised are untouched (db/320): they follow
     the work that passed gate 2, not the contract's state.
     """
-    c = (
-        await session.execute(select(Contract).where(Contract.id == contract_id))
-    ).scalar_one_or_none()
-    if c is None:
-        raise LookupError("contract not found")
+    c = await _lock_contract(session, contract_id)
     if c.client_org_id != claims.org_id:
         raise DeliveryError("Only the client can dispute a delivery.")
+    if c.status == "cancelled":
+        raise DeliveryError(f"{c.reference_code} has ended; there is no delivery to dispute.")
     if c.status != "delivered":
         raise DeliveryError(f"A {c.status} contract cannot be disputed.")
     if not reason.strip():
@@ -1544,13 +2016,11 @@ async def approve_delivery(
     if not comment or not comment.strip():
         raise DeliveryError("Add a comment — ratings without one are not published.")
 
-    c = (
-        await session.execute(select(Contract).where(Contract.id == contract_id))
-    ).scalar_one_or_none()
-    if c is None:
-        raise LookupError("contract not found")
+    c = await _lock_contract(session, contract_id)
     if c.client_org_id != claims.org_id:
         raise DeliveryError("Only the buying client approves a delivery.")
+    if c.status == "cancelled":
+        raise DeliveryError(f"{c.reference_code} has ended; there is no delivery to approve.")
     if c.status != "delivered":
         raise DeliveryError(f"A {c.status} contract cannot be approved.")
 
@@ -1581,6 +2051,161 @@ async def approve_delivery(
         [c.id, c.request_id, c.client_org_id, c.partner_org_id],
     )
     return await _contract_row(session, c)
+
+
+_PARTY_WORDS = {"client": "the client", "partner": "the delivery partner", "ops": "operations"}
+
+
+def end_contract_problem(status: str, ref: str) -> str | None:
+    """Why a contract in this state cannot end, or None: a live one can.
+    contract_end() and contract_end_guard (db/610) hold the same line."""
+    if status == "cancelled":
+        return f"{ref} has already ended."
+    if status == "completed":
+        return f"{ref} is complete: the client approved the delivery, so it cannot end."
+    if status not in ("active", "in_qa", "delivered", "disputed"):
+        return f"A {status} contract cannot end."
+    return None
+
+
+async def end_contract(
+    session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID, reason: str | None
+) -> dict[str, Any]:
+    """The client, the partner or Ops ends a live contract, alone and at once.
+
+    contract_end() (db/610) does the work in this transaction: the contract
+    becomes cancelled (shown as Ended) with who and why, every task that has
+    not passed QA ends through task_end() as 'contract_ended', and the
+    conversation closes. Work that passed QA stays accepted and invoiceable.
+    Here: the checks in words first, then everyone it reaches is told — the
+    other party (both, when Ops ends it) and each supplier whose tasks ended,
+    by bell and e-mail; each person taken off the work, by push.
+    """
+    from sourcehub.modules.outbox import service as outbox
+
+    why = _end_reason(reason)
+    c = (
+        await session.execute(
+            select(Contract).where(Contract.id == contract_id, Contract.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if c is None:
+        raise LookupError("contract not found")
+    ops = claims.role == "platform_admin"
+    if not ops and claims.org_id not in (c.client_org_id, c.partner_org_id):
+        raise DeliveryError("Only the contract's client, its partner or operations can end it.")
+    problem = end_contract_problem(c.status, c.reference_code)
+    if problem:
+        raise DeliveryError(problem)
+
+    try:
+        taken = (
+            await session.execute(
+                text("SELECT ended_task, ended_assignment, ended_worker FROM contract_end(:c, :r)"),
+                {"c": contract_id, "r": why},
+            )
+        ).all()
+    except DBAPIError as e:
+        said = _contract_refusal(e)
+        if said is None:
+            raise
+        raise DeliveryError(said) from None
+    await session.refresh(c)
+
+    names = (
+        await session.execute(
+            text(
+                "SELECT r.title, r.reference_code AS request_ref, "
+                "  (SELECT name FROM organisation WHERE id = :by) AS by_name "
+                "FROM request r WHERE r.id = :rid"
+            ),
+            {"rid": c.request_id, "by": claims.org_id},
+        )
+    ).mappings().one()
+    by = f"{names['by_name']} ({_PARTY_WORDS[c.ended_by_party or 'ops']})"
+    headline = f"{by} ended {c.reference_code} {names['title']}"
+
+    # the tasks that ended with it, by supplier
+    ended = (
+        await session.execute(
+            select(Task)
+            .where(Task.contract_id == c.id, Task.end_kind == "contract_ended")
+            .order_by(Task.created_at, Task.reference_code)
+        )
+    ).scalars().all()
+    by_task: dict[uuid.UUID, list[tuple[uuid.UUID, uuid.UUID]]] = {}
+    for task_id, assignment_id, worker in taken:
+        by_task.setdefault(task_id, []).append((assignment_id, worker))
+    suppliers: dict[uuid.UUID, list[Task]] = {}
+    for t in ended:
+        suppliers.setdefault(t.assignee_org_id, []).append(t)
+        # each worker taken off it by push, and the task's own audit row
+        await _announce_end(session, claims, t, by_task.get(t.id, []), tell_org=None, link=("", ""))
+
+    def mail(org: uuid.UUID, detail: str, path: str) -> dict[str, Any]:
+        return {
+            "headline": headline, "contract_ref": c.reference_code, "title": names["title"],
+            "reason": why, "detail": detail, "path": path,
+        }
+
+    parties = [o for o in (c.client_org_id, c.partner_org_id) if ops or o != claims.org_id]
+    for org in parties:
+        is_client = org == c.client_org_id
+        detail = (
+            "Work that passed QA stays accepted; invoices already raised stay payable, and the "
+            "partner may invoice accepted work not yet claimed."
+            + (" You can tender the RFP again as a new draft." if is_client else "")
+        )
+        path = f"/deliveries/{c.id}" if is_client else f"/contracts/{c.id}"
+        await notifier.notify(session, org, f"{headline}: {why}", "contracts", {"id": str(c.id)})
+        await outbox.enqueue(session, "contract_ended", mail(org, detail, path), [org],
+                             entity=("contract", c.id), label=f"{c.reference_code} {names['title']}")
+    for org, tasks in suppliers.items():
+        refs = ", ".join(t.reference_code for t in tasks)
+        detail = f"Your task{'s' if len(tasks) != 1 else ''} {refs} ended with it, and anyone capturing for {'them' if len(tasks) != 1 else 'it'} has been told to stop."
+        await notifier.notify(session, org, f"{headline}: {why}. {refs} ended with it.",
+                              "tasks", {"id": str(tasks[0].id)})
+        await outbox.enqueue(session, "contract_ended", mail(org, detail, "/tasks"), [org],
+                             entity=("contract", c.id), label=f"{c.reference_code} {names['title']}")
+
+    thread = (
+        await session.execute(
+            text(
+                "SELECT id FROM rfp_thread WHERE request_id = :rid AND partner_org_id = :pt "
+                "AND closed_reason = 'contract_ended'"
+            ),
+            {"rid": c.request_id, "pt": c.partner_org_id},
+        )
+    ).scalar_one_or_none()
+    if thread is not None:
+        await audit.log(
+            session, "thread.closed",
+            f"Closed the conversation on {names['request_ref']}: the contract was ended",
+            [thread, c.request_id, c.client_org_id, c.partner_org_id],
+            {"reason": "contract_ended"},
+        )
+    await audit.log(
+        session, "contract.ended",
+        f"{by} ended {c.reference_code}: {why}",
+        [c.id, c.request_id, c.client_org_id, c.partner_org_id, *suppliers],
+        {"by_party": c.ended_by_party, "tasks_ended": len(ended),
+         "assignments_cancelled": len([1 for _, a, _ in taken if a])},
+    )
+    return await _contract_row(session, c)
+
+
+# check_violation and insufficient_privilege, the two contract_end() refuses with
+def _contract_refusal(e: DBAPIError) -> str | None:
+    """contract_end()'s own sentence ("CTR-0003: it has already ended"), or None."""
+    orig = getattr(e, "orig", None)
+    if getattr(orig, "sqlstate", None) not in _TASK_REFUSAL_STATES:
+        return None
+    msg = str(orig)
+    for prefix in ("contract ", "task "):
+        at = msg.find(prefix)
+        if at >= 0:
+            return msg[at + len(prefix):].splitlines()[0].strip()
+    return None
 
 
 async def _attach_instructions(
@@ -1956,9 +2581,11 @@ async def create_offer(
     respond_by: dt.datetime | None,
     recipient_user_ids: list[uuid.UUID] | None,
 ) -> dict[str, Any]:
-    t = await _get_task(session, task_id)
+    t = await _get_task(session, task_id, lock=True)
     if t.assignee_org_id != claims.org_id:
         raise DeliveryError("Only the assigned supplier offers its tasks.")
+    if t.status == "cancelled":
+        raise _ended(t)
     if t.status not in _ASSIGNABLE:
         raise DeliveryError(f"A {t.status} task cannot be offered.")
     quantity = _check_crowd_quantity(t, quantity)
@@ -2228,6 +2855,11 @@ async def _respond(row: dict[str, Any], action: str) -> dict[str, Any]:
     limit is exact under concurrent accepts; the CHECK on accepted_count is
     the brace to that belt. Nothing is written when the answer is refused."""
     async with org_session(row["supplier_org_id"], "aggregator", row["worker_user_id"]) as s:
+        # the task before the offer, in the order task_end() locks them
+        # (db/600), so an accept and an ending never wait on each other
+        await s.execute(
+            text("SELECT id FROM task WHERE id = :t FOR NO KEY UPDATE"), {"t": row["task_id"]}
+        )
         o = (
             await s.execute(
                 select(TaskOffer).where(TaskOffer.id == row["offer_id"]).with_for_update()

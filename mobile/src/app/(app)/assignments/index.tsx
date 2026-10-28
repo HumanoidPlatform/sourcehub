@@ -3,15 +3,17 @@
 
 import { Link, useRouter } from "expo-router";
 import { useMemo } from "react";
-import { Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
+import { Alert, Pressable, RefreshControl, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { Assignment, OfferRow } from "@/api/types";
-import { boardStatus, summary, unitsOf } from "@/batches";
+import { boardStatus, strandedAssignments, summary, unitsOf } from "@/batches";
+import { dropAssignment } from "@/db/outbox";
 import { useSession } from "@/auth/AuthProvider";
 import { offerAmount, openOffers, placesText, respondBy } from "@/offers";
 import { useAssignments, useNotifications, useOffers, useOutboxSummary } from "@/query/hooks";
 import { SECTION_ORDER, assignmentStatus, meta } from "@/status";
-import { C, Callout, Empty, Meter, Pill, s } from "@/ui";
+import { Button, C, Callout, Empty, Meter, Pill, s } from "@/ui";
+import { dropCaptures } from "@/upload/drop";
 import { uploadService } from "@/upload/service";
 
 const SECTION_TITLE: Record<string, string> = {
@@ -41,8 +43,27 @@ export default function Board() {
     return SECTION_ORDER.map((st) => ({ status: st, rows: rows.filter((a) => boardStatus(a) === st) })).filter((x) => x.rows.length);
   }, [q.data]);
 
-  const queued = Object.values(outbox).reduce((n, x) => n + x.queued, 0);
-  const failed = Object.values(outbox).reduce((n, x) => n + x.failed, 0);
+  // Captures queued for assignments no longer on the list: the task ended
+  // (db/600) or the share was cancelled, so they can never be sent. Counted
+  // apart, since "open the assignment" is no help for an assignment that is gone.
+  const stranded = q.isSuccess ? strandedAssignments(outbox, q.data) : [];
+  const strandedN = stranded.reduce((n, id) => n + outbox[id].queued + outbox[id].failed, 0);
+  const mine = Object.entries(outbox).filter(([id]) => !stranded.includes(id)).map(([, x]) => x);
+  const queued = mine.reduce((n, x) => n + x.queued, 0);
+  const failed = mine.reduce((n, x) => n + x.failed, 0);
+  const removeStranded = () =>
+    Alert.alert(
+      "Remove these captures?",
+      "The work was taken off you, so they can never be sent. The files are deleted from this phone.",
+      [
+        { text: "Keep", style: "cancel" },
+        {
+          text: "Remove",
+          style: "destructive",
+          onPress: () => void Promise.all(stranded.map((id) => dropAssignment(id).then(dropCaptures))),
+        },
+      ],
+    );
 
   return (
     <SafeAreaView style={s.safe} edges={["bottom"]}>
@@ -81,6 +102,14 @@ export default function Board() {
                 ? "They carry on in the background, even with the screen off."
                 : "Keep the app open on this Wi-Fi until they finish."}
           </Callout>
+        )}
+        {strandedN > 0 && (
+          <View style={{ marginBottom: 12 }}>
+            <Callout tone="attention" title={`${strandedN} capture${strandedN === 1 ? "" : "s"} for work taken off you`}>
+              The task ended or your share was cancelled, so they can never be sent.
+            </Callout>
+            <Button title="Remove them" variant="danger" onPress={removeStranded} />
+          </View>
         )}
         {q.isError && <Callout tone="critical" title="Could not reach the server">Pull down to try again.</Callout>}
         {q.data && q.data.length === 0 && offered.length === 0 && (

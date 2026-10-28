@@ -41,7 +41,7 @@ function TenantOverview() {
   const ps = mine.data ?? [];
   const won = ps.filter((p) => p.status === "accepted").length;
   const winRate = ps.length ? Math.round((100 * won) / ps.length) : 0;
-  const active = (contracts.data ?? []).filter((c) => c.status !== "completed");
+  const active = (contracts.data ?? []).filter((c) => !["completed", "cancelled"].includes(c.status));
   const ready = active.filter((c) => c.progress.deliverable).length;
 
   return (

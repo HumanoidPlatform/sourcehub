@@ -271,6 +271,48 @@ async def attach(
     return out
 
 
+async def stage_copies(
+    session: AsyncSession, claims: AccessClaims,
+    *, entity_type: str, entity_id: uuid.UUID, slot: str,
+) -> list[dict[str, Any]]:
+    """Copy the current version of every live file in one field into the
+    caller's staging area, as though uploaded afresh, for attach() to file
+    under another entity. A moved task's copy gets its shot list this way
+    (modules/delivery move_task). Each copy is its own object: discarding a
+    file from one entity never removes it from the other.
+
+    Only what the caller's session may read is copied (RLS). Storage is
+    outside the transaction: call this before writing anything, so a failed
+    copy refuses the whole change."""
+    from sourcehub.platform import storage
+
+    rows = (
+        await session.execute(
+            text(
+                "SELECT filename, content_type, storage_key FROM ("
+                "  SELECT filename, content_type, storage_key, doc_no, "
+                "         version = max(version) OVER (PARTITION BY doc_no) AS is_current "
+                "  FROM attachment "
+                "  WHERE entity_type = CAST(:t AS attachment_entity) AND entity_id = :e "
+                "    AND slot = :s AND deleted_at IS NULL) x "
+                "WHERE is_current ORDER BY doc_no"
+            ),
+            {"t": entity_type, "e": entity_id, "s": slot},
+        )
+    ).mappings().all()
+    target = storage.platform_target()
+    staged: list[dict[str, Any]] = []
+    for r in rows:
+        key = folders.staging_key(claims.org_id, r["filename"])
+        try:
+            await storage.copy(target, r["storage_key"], key)
+        except Exception:  # noqa: BLE001 - any storage failure refuses the change
+            raise AttachmentError(f"Could not copy {r['filename']}; try again.") from None
+        staged.append({"storage_key": key, "filename": r["filename"],
+                       "content_type": r["content_type"], "slot": slot})
+    return staged
+
+
 async def list_for(
     session: AsyncSession, entity_type: str, entity_ids: list[uuid.UUID]
 ) -> dict[uuid.UUID, list[dict[str, Any]]]:

@@ -37,6 +37,7 @@ const FILTERS: { key: Filter; label: string }[] = [
 const MAILS: Record<string, string> = {
   rfp_published: "New RFP to partners",
   rfp_awarded: "RFP awarded",
+  task_ended: "Task ended",
   password_reset: "Password reset",
   member_invitation: "Colleague invitation",
   onboarding_approved: "Organisation approved",
@@ -50,6 +51,7 @@ const MAILS: Record<string, string> = {
 const ABOUT: Record<string, string> = {
   request: "RFP",
   contract: "Contract",
+  task: "Task",
   app_user: "Account",
   onboarding_request: "Onboarding",
   crowd_worker: "Crowd resource",

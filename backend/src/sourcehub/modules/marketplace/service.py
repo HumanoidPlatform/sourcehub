@@ -132,7 +132,8 @@ _CONTRACT_TO_REQUEST = {
     "delivered": "delivered",
     "completed": "completed",
     "disputed": "in_progress",
-    "cancelled": "accepted",
+    # ended early by its client, its partner or Ops (db/610)
+    "cancelled": "contract_ended",
 }
 
 
@@ -147,7 +148,8 @@ async def _status_maps(
             text(
                 "SELECT request_id, status, "
                 "  (SELECT count(*) FROM task t WHERE t.contract_id = contract.id "
-                "     AND t.deleted_at IS NULL) AS task_count "
+                # a task that ended (db/600) is no work under way
+                "     AND t.deleted_at IS NULL AND t.status <> 'cancelled') AS task_count "
                 "FROM contract WHERE request_id = ANY(:ids) AND deleted_at IS NULL"
             ),
             {"ids": request_ids},
@@ -270,6 +272,8 @@ def _row(
         # bidder was told
         "cancelled_at": r.cancelled_at,
         "cancel_reason": r.cancel_reason,
+        # db/610: on a draft copied from an RFP whose contract ended, that RFP
+        "retender_of": r.retender_of,
     }
 
 
@@ -791,6 +795,92 @@ async def delete_draft(
     )
 
 
+# What a re-tendered draft carries over from the RFP it is copied from: what
+# the client asked for, and how it priced it. Not the dates, which have
+# passed or will be set again, and not the deadline for bids.
+_RETENDER_COPY = (
+    "title", "category", "currency", "objective", "use_case", "target_quantity", "target_unit",
+    "capture_spec", "countries", "location_type", "budget_disclosed", "pilot_required",
+    "pricing_basis", "pricing_unit", "pricing_block", "pricing_quantity", "budget_amount",
+    "people_requirements", "pilot", "quality_bar", "consent_and_compliance",
+)
+_RETENDER_SLOTS = ("brief", "compliance", "acceptance", "capture_examples", "guidelines")
+
+
+async def retender_request(
+    session: AsyncSession, claims: AccessClaims, request_id: uuid.UUID
+) -> dict[str, Any]:
+    """Tender an RFP again whose contract was ended (db/610): a new draft
+    copied from it, files and all, for the client to edit and publish. One
+    contract per RFP stays the rule; the draft names the RFP it came from in
+    retender_of, and asking again returns the same draft."""
+    from sourcehub.modules.attachments import service as attachments
+    from sourcehub.modules.storage import service as storage_svc
+
+    # the old RFP locked: two clicks at once make one draft, not two
+    r = await _get_owned(session, request_id)
+    if r.client_org_id != claims.org_id:
+        raise MarketplaceError("Only the client that raised a request may tender it again.")
+    ended = (
+        await session.execute(
+            text("SELECT status::text FROM contract WHERE request_id = :rid AND deleted_at IS NULL"),
+            {"rid": r.id},
+        )
+    ).scalar_one_or_none()
+    if ended != "cancelled":
+        raise MarketplaceError("Only an RFP whose contract was ended can be tendered again.")
+    existing = (
+        await session.execute(
+            select(Request.id).where(Request.retender_of == r.id, Request.deleted_at.is_(None))
+        )
+    ).scalar_one_or_none()
+    if existing is not None:
+        out = await get_request(session, claims, existing)
+        assert out is not None
+        return out
+
+    # the destination only while it is still the client's and live (db/590)
+    destination = r.storage_target_id
+    if destination is not None:
+        try:
+            await storage_svc.hold_for_request(session, destination)
+        except storage_svc.StorageTargetError:
+            destination = None
+    # the files, copied before anything is written: a failure leaves nothing
+    staged: list[dict[str, Any]] = []
+    try:
+        for slot in _RETENDER_SLOTS:
+            staged += await attachments.stage_copies(
+                session, claims, entity_type="request", entity_id=r.id, slot=slot
+            )
+    except attachments.AttachmentError as e:
+        raise MarketplaceError(str(e)) from None
+
+    ref = (
+        await session.execute(text("SELECT next_reference_code('RFP','seq_ref_request', 4)"))
+    ).scalar_one()
+    draft = Request(
+        reference_code=ref,
+        client_org_id=claims.org_id,
+        status="draft",
+        storage_target_id=destination,
+        retender_of=r.id,
+        created_by=claims.user_id,
+        **{k: getattr(r, k) for k in _RETENDER_COPY},
+    )
+    session.add(draft)
+    await session.flush()
+    await _attach_fields(session, claims, draft.id, staged)
+    await audit.log(
+        session, "request.retendered",
+        f"Drafted {ref} to tender {r.reference_code}, {r.title} again",
+        [draft.id, r.id, claims.org_id],
+    )
+    out = await get_request(session, claims, draft.id)
+    assert out is not None
+    return out
+
+
 async def _hold_destination(session: AsyncSession, target_id: uuid.UUID) -> None:
     """The destination a request is about to name: live and the client's own,
     and share-locked until the request is saved, so a delete of it in flight
@@ -899,6 +989,15 @@ async def get_request(
     )
     out["proposals"] = await list_proposals(session, claims, request_id)
     out["attachments"] = await _field_attachments(session, "request", [r.id])
+    # db/610: the draft tendering it again, once there is one; the client's
+    # own rows, so RLS gives it to nobody else
+    again = (
+        await session.execute(
+            select(Request.id, Request.reference_code)
+            .where(Request.retender_of == r.id, Request.deleted_at.is_(None))
+        )
+    ).first()
+    out["retendered_as"] = {"id": again.id, "reference_code": again.reference_code} if again else None
     return out
 
 

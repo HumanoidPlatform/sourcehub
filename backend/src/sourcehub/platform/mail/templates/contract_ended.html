@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ contract_ref }} was ended{% endblock %}
+{% block content %}
+{% from "_macros.html" import button, kv %}
+<p style="margin:0 0 12px;">Hello {{ recipient_name }},</p>
+<p style="margin:0 0 16px;">{{ headline }}.</p>
+{{ kv([("Contract", contract_ref), ("Why", reason)]) }}
+<p style="margin:16px 0 0;">{{ detail }}</p>
+<p style="margin:24px 0 8px;">{{ button(app_base_url ~ path, "Open it") }}</p>
+{% endblock %}

@@ -185,6 +185,10 @@ export interface Rfp {
    *  bidder was told. */
   cancelled_at?: string | null;
   cancel_reason?: string | null;
+  /** db/610: on a draft copied from an RFP whose contract ended, that RFP. */
+  retender_of?: string | null;
+  /** db/610: the draft tendering this RFP again, once there is one (detail only). */
+  retendered_as?: { id: string; reference_code: string } | null;
   proposals?: Proposal[];
   attachments?: Attachment[];
 }
@@ -323,8 +327,11 @@ export interface Proposal {
 }
 
 export interface Progress {
+  /** live tasks: one that ended before passing QA (db/600) is not counted */
   total: number;
   done: number;
+  /** tasks that ended before passing QA: declined, handed back, withdrawn, moved */
+  ended?: number;
   pct: number;
   assets_accepted: number;
   /** the same, in each task's own unit (db/510); hours delivered before it count 0 */
@@ -362,6 +369,15 @@ export interface Contract {
   catalogue_dataset_id?: string | null;
   tasks?: Task[];
   ratings?: RatingRow[];
+  /** db/610: set once the contract was ended early (status cancelled). */
+  ended?: ContractEnding | null;
+}
+
+export interface ContractEnding {
+  at: string;
+  by_party: "client" | "partner" | "ops";
+  by_org_name: string | null;
+  reason: string;
 }
 
 export interface Task {
@@ -401,6 +417,36 @@ export interface Task {
   /** The partner's rating of this task's supplier, once given (db/380); null
    *  before, and null to the client, who may not read it. */
   supplier_rating?: RatingSummary | null;
+  /** Set by the first start; until then the supplier may still decline. */
+  started_at?: string | null;
+  /** Set once the task ended before passing QA (status cancelled, db/600). */
+  ended?: TaskEnding | null;
+  /** On a moved task: the copy it became. The copy's supplier is not named. */
+  moved_to?: { id: string; reference_code: string } | null;
+  /** On the copy of a moved task: the task it replaces. */
+  replaces?: { id: string; reference_code: string } | null;
+}
+
+export type TaskEndKind = "declined" | "returned" | "withdrawn" | "moved" | "contract_ended";
+
+export interface TaskEnding {
+  at: string;
+  kind: TaskEndKind;
+  reason: string;
+  by_org_id: string | null;
+  by_org_name: string | null;
+}
+
+/** Per supplier a partner has given work to: GET /suppliers/stats. */
+export interface SupplierStats {
+  org_id: string;
+  open_tasks: number;
+  passed_tasks: number;
+  /** tasks it declined or handed back */
+  handed_back: number;
+  qa_decided: number;
+  /** share of the partner's QA verdicts that passed; null before any */
+  qa_pass_rate: number | null;
 }
 
 /** A task put to the crowd at once; the first worker_limit accepts become assignments. */
@@ -922,6 +968,16 @@ export interface ContractInvoicing {
   outstanding_total: string;
   invoiced_quantity: string;
   count: number;
+  /** db/610: a fixed price ended early may be invoiced in proportion to the
+   *  work accepted; null on any other contract. cap and left are null when
+   *  that share cannot be measured. */
+  after_end?: {
+    accepted: number | null;
+    target: number | null;
+    unit: string | null;
+    cap: string | null;
+    left: string | null;
+  } | null;
 }
 
 export type InvoiceStatus = "issued" | "paid" | "acknowledged" | "withdrawn";

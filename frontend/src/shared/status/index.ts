@@ -26,6 +26,8 @@ export const requestStatus: StatusMap = {
   delivered: { label: "Delivered", tone: "attention", owner: "client" },
   completed: { label: "Done", tone: "success", owner: null },
   cancelled: { label: "Cancelled", tone: "neutral", owner: null },
+  // db/610: its contract was ended early; the client may tender it again
+  contract_ended: { label: "Contract ended", tone: "neutral", owner: null },
 };
 
 export const proposalStatus: StatusMap = {
@@ -43,7 +45,8 @@ export const contractStatus: StatusMap = {
   delivered: { label: "Delivered", tone: "attention", owner: "client" },
   completed: { label: "Done", tone: "success", owner: null },
   disputed: { label: "Disputed", tone: "critical", owner: "ops" },
-  cancelled: { label: "Cancelled", tone: "neutral", owner: null },
+  // ended early by its client, its partner or Ops (db/610)
+  cancelled: { label: "Ended", tone: "neutral", owner: null },
 };
 
 export const taskStatus: StatusMap = {
@@ -52,7 +55,9 @@ export const taskStatus: StatusMap = {
   submitted: { label: "Submitted", tone: "attention", owner: "partner" },
   qa_passed: { label: "QA passed", tone: "success", owner: null },
   qa_failed: { label: "QA failed", tone: "critical", owner: "supplier" },
-  cancelled: { label: "Cancelled", tone: "neutral", owner: null },
+  // ended before passing QA (db/600); the task says how: declined, handed
+  // back, withdrawn or moved
+  cancelled: { label: "Ended", tone: "neutral", owner: null },
 };
 
 export const loanStatus: StatusMap = {

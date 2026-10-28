@@ -13,9 +13,9 @@ import { ApiError, del, post } from "@/api/client";
 import type { Assignment, AssetRow } from "@/api/types";
 import {
   type Action, boardStatus, byDuration, handedOver, hoursText, isRevoked, localUnits, nextAction, ownNote, progressOf,
-  remaining, requirementLabels, sections, unitsOf, unitText,
+  remaining, requirementLabels, sections, takenOff, unitsOf, unitText,
 } from "@/batches";
-import { deleteCapture, discardCapture, discardFailed, retryCapture, retryFailed } from "@/db/outbox";
+import { deleteCapture, discardCapture, discardFailed, dropAssignment, retryCapture, retryFailed } from "@/db/outbox";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { exampleImages, refreshExamples } from "@/qa_pipeline/examples/load";
@@ -98,10 +98,33 @@ export default function AssignmentDetail() {
     );
   }, [revokedAt, outbox]);
 
+  // Gone from the worker's list altogether: its task ended (db/600) or the
+  // share was cancelled. Nothing queued for it can be sent any more, and it
+  // used to sit in the outbox failing, with no screen left to discard it from.
+  // Only once a fetch has settled: an assignment just accepted from an offer
+  // is missing from the cached list until the refetch lands. And never
+  // deleted on its own: the worker removes what is left, with a confirmation.
+  const gone = list.isSuccess && !list.isFetching && !a;
+  const leftOnPhone = outbox.filter((r) => r.status !== "confirmed").length;
+  const removeLeft = () =>
+    Alert.alert("Remove these captures?", "The work was taken off you, so they can never be sent. The files are deleted from this phone.", [
+      { text: "Keep", style: "cancel" },
+      { text: "Remove", style: "destructive", onPress: () => void dropAssignment(id).then(dropCaptures) },
+    ]);
+
   if (!a) {
     return (
       <Screen>
-        {list.isLoading ? <Text style={s.muted}>Loading…</Text> : <Callout tone="critical" title="This assignment is no longer yours." />}
+        {list.isError ? (
+          <Callout tone="critical" title="Could not reach the server">Go back and pull down to try again.</Callout>
+        ) : !gone ? (
+          <Text style={s.muted}>Loading…</Text>
+        ) : (
+          <>
+            <Callout tone="attention" title="Taken off you">{takenOff(leftOnPhone)}</Callout>
+            {leftOnPhone > 0 && <Button title="Remove them" variant="danger" onPress={removeLeft} />}
+          </>
+        )}
       </Screen>
     );
   }

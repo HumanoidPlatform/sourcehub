@@ -11,7 +11,14 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from sourcehub.api.deps import Principal, TxRoute, get_principal, get_session, require_capability
+from sourcehub.api.deps import (
+    Principal,
+    TxRoute,
+    get_principal,
+    get_session,
+    require_any_capability,
+    require_capability,
+)
 from sourcehub.api.v1.attachments import AttachmentIn
 from sourcehub.api.v1.marketplace import CaptureSpec, TargetUnit
 from sourcehub.modules.delivery import service as delivery
@@ -64,6 +71,31 @@ class TaskIn(BaseModel):
     subject: SubjectIn | None = None
     # a shot list, a site map — what the instructions refer to
     attachments: list[AttachmentIn] = Field(default_factory=list, max_length=5)
+
+
+class TaskEndIn(BaseModel):
+    """Why a task ends (db/600): the other side is told in these words. The
+    service checks it too; this makes a blank, too-short or over-long reason a
+    422 naming the field. The console's ReasonDialog asks for the same."""
+
+    reason: str
+
+    @field_validator("reason")
+    @classmethod
+    def _a_reason(cls, v: str) -> str:
+        problem = delivery.end_reason_problem(v)
+        if problem:
+            raise ValueError(problem)
+        return v.strip()
+
+
+class TaskMoveIn(TaskEndIn):
+    """The supplier the copy goes to; quantity and due date as they were,
+    unless given here."""
+
+    assignee_org_id: uuid.UUID
+    target_quantity: Decimal | None = Field(default=None, gt=0, max_digits=12, decimal_places=2)
+    due_on: dt.date | None = None
 
 
 class SubmitIn(BaseModel):
@@ -262,6 +294,85 @@ async def submit_task(
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
     except delivery.DeliveryError as e:
         raise _conflict(e) from None
+
+
+# --- ending a task before it passes QA (db/600) -------------------------------
+#
+# The supplier declines or hands back with the capability it starts tasks
+# with; the partner withdraws or moves with the one it assigns them with.
+
+@router.post("/tasks/{task_id}/decline")
+async def decline_task(
+    task_id: uuid.UUID,
+    body: TaskEndIn,
+    principal: Principal = Depends(require_capability("task.start")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.decline_task(session, principal, task_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/tasks/{task_id}/return")
+async def return_task(
+    task_id: uuid.UUID,
+    body: TaskEndIn,
+    principal: Principal = Depends(require_capability("task.start")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.return_task(session, principal, task_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/tasks/{task_id}/withdraw")
+async def withdraw_task(
+    task_id: uuid.UUID,
+    body: TaskEndIn,
+    principal: Principal = Depends(require_capability("task.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.withdraw_task(session, principal, task_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/tasks/{task_id}/move")
+async def move_task(
+    task_id: uuid.UUID,
+    body: TaskMoveIn,
+    principal: Principal = Depends(require_capability("task.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    try:
+        return await delivery.move_task(
+            session, principal, task_id,
+            assignee_org_id=body.assignee_org_id, reason=body.reason,
+            target_quantity=body.target_quantity, due_on=body.due_on,
+        )
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Task not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.get("/suppliers/stats")
+async def supplier_stats(
+    principal: Principal = Depends(require_capability("task.assign")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Per supplier this partner has given work to: open tasks, its pass rate
+    at the partner's QA, tasks declined or handed back. For the picker."""
+    return await delivery.supplier_stats(session, principal)
 
 
 # --- assignments: the aggregator → worker hop ---------------------------------
@@ -595,6 +706,26 @@ async def dispute(
     """The client sends a delivery back instead of approving it."""
     try:
         return await delivery.dispute_delivery(session, principal, contract_id, body.reason)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None
+    except delivery.DeliveryError as e:
+        raise _conflict(e) from None
+
+
+@router.post("/contracts/{contract_id}/end")
+async def end_contract(
+    contract_id: uuid.UUID,
+    body: TaskEndIn,
+    # the client with the capability it approves deliveries with, the partner
+    # with the one it delivers with, Ops with dispute.arbitrate (db/610)
+    principal: Principal = Depends(
+        require_any_capability("contract.approve", "contract.deliver", "dispute.arbitrate")
+    ),
+    session: AsyncSession = Depends(get_session),
+):
+    """Its client, its partner or Ops ends a live contract, with a reason."""
+    try:
+        return await delivery.end_contract(session, principal, contract_id, body.reason)
     except LookupError:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Contract not found") from None
     except delivery.DeliveryError as e:

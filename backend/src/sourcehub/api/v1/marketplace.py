@@ -389,6 +389,23 @@ async def cancel_request(
         raise _conflict(e) from None
 
 
+@router.post("/requests/{request_id}/retender")
+async def retender_request(
+    request_id: uuid.UUID,
+    principal: Principal = Depends(require_capability("rfp.create")),
+    session: AsyncSession = Depends(get_session),
+):
+    """Tender an RFP again whose contract was ended (db/610): a new draft
+    copied from it, returned to edit. Guarded as drafting is. Asking again
+    returns the same draft; 409 for an RFP whose contract did not end."""
+    try:
+        return await marketplace.retender_request(session, principal, request_id)
+    except LookupError:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Request not found") from None
+    except marketplace.MarketplaceError as e:
+        raise _conflict(e) from None
+
+
 @router.delete("/requests/{request_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_draft(
     request_id: uuid.UUID,

@@ -11,12 +11,14 @@ import { threadFor } from "./state";
 export function ContractThreadPanel({ c }: { c: Contract }) {
   const session = useSession();
   const viewer = viewerOf(session);
-  const threads = useThreads(viewer ? c.request_id : undefined, viewer !== "ops" && c.status !== "completed");
+  // an ended contract (db/610) closes its conversation as completion does
+  const closed = c.status === "completed" || c.status === "cancelled";
+  const threads = useThreads(viewer ? c.request_id : undefined, viewer !== "ops" && !closed);
   if (!viewer || threads.isLoading) return null;
   const t = threadFor(threads.data ?? [], c.partner_org_id);
   // A winner that never asked before award can still start here — the
   // request's own page has closed its composer by then.
-  const canStart = viewer === "partner" && session.org_id === c.partner_org_id && c.status !== "completed";
+  const canStart = viewer === "partner" && session.org_id === c.partner_org_id && !closed;
   if (!t && !canStart) return null;
   const withName = viewer === "partner" ? c.client_name : c.partner_name;
   return (

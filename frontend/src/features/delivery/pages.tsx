@@ -32,6 +32,10 @@ import { useUploadActivity } from "@features/capture/hooks";
 import { ContractThreadPanel } from "@features/messages/contract-thread";
 import { threadKeys } from "@features/messages/hooks";
 import { SubmitToPartnerDialog, TaskAssignmentsDialog } from "./components/assignments";
+import {
+  EndTaskDialog, endedRows, MoveTaskDialog, partnerMayEnd, SupplierSelect, supplierEnd, TaskEndNote,
+} from "./components/task-end";
+import { ContractEndedBanner, EndContractDialog, mayEndContract } from "./components/contract-end";
 import { galleryKeys } from "./components/gallery-keys";
 import { GalleryGrid } from "./components/GalleryGrid";
 
@@ -118,6 +122,11 @@ export function ContractDetailPage() {
   const [approving, setApproving] = useState(false);
   const [viewingTask, setViewingTask] = useState<Task | null>(null);
   const [rating, setRating] = useState<RateTarget | null>(null);
+  // db/600: the partner withdraws a task, or moves it to another supplier
+  const [withdrawing, setWithdrawing] = useState<Task | null>(null);
+  const [moving, setMoving] = useState<Task | null>(null);
+  // db/610: the client, the partner or Ops ends the contract
+  const [endingContract, setEndingContract] = useState(false);
 
   const contract = useQuery({
     queryKey: ["contract", id],
@@ -201,7 +210,7 @@ export function ContractDetailPage() {
             <>
               <Button onClick={() => setAssigning(true)}>Assign task</Button>
               <Button variant="success" disabled={!c.progress.deliverable} onClick={() => deliver.mutate()}
-                title={c.progress.deliverable ? undefined : "Every task must clear QA first"}>
+                title={c.progress.deliverable ? undefined : "Every live task must clear QA first"}>
                 Deliver to client
               </Button>
             </>
@@ -212,6 +221,12 @@ export function ContractDetailPage() {
           {isPartner && c.status === "completed" && canRate && !clientRated && (
             <Button variant="primary" onClick={() => setRating({ kind: "client", contractId: c.id, name: c.client_name ?? "the client" })}>
               Rate the client
+            </Button>
+          )}
+          {mayEndContract(c, session) && (
+            <Button variant="danger" onClick={() => setEndingContract(true)}
+              title="End it now for everyone, with a reason. Tasks not yet through QA end with it.">
+              End contract
             </Button>
           )}
           {isPartner && c.status === "completed" && c.partner_reuse_allowed && can(session, "catalogue.list") && (
@@ -225,6 +240,7 @@ export function ContractDetailPage() {
         </>
       }
     >
+      <ContractEndedBanner c={c} isClient={isClient} />
       <div className="g4">
         {/* db/320: the agreed price on its basis, and what has been invoiced
             against it. No milestone, no fee — the platform moves no money. */}
@@ -245,9 +261,10 @@ export function ContractDetailPage() {
         <Metric
           label={isClient ? "Review status" : "Progress"}
           value={`${c.progress.pct}%`}
-          sub={isClient
+          sub={(isClient
             ? `${c.progress.done} of ${c.progress.total} tasks cleared QA. Open a task to compare requested scope, delivered assets and QA evidence.`
-            : `${c.progress.done} of ${c.progress.total} tasks QA-passed · due ${fmtDate(c.delivery_due_on)}`}
+            : `${c.progress.done} of ${c.progress.total} tasks QA-passed · due ${fmtDate(c.delivery_due_on)}`)
+            + (c.progress.ended ? ` · ${c.progress.ended} ended before QA, not counted` : "")}
         />
         <Metric label="Waiting on" value={waitingOn(meta, isClient ? "client" : "partner")} sub={isClient ? `Delivery due ${fmtDate(c.delivery_due_on)}` : undefined} />
       </div>
@@ -272,9 +289,17 @@ export function ContractDetailPage() {
                       <td className="num">{fmtDate(t.due_on)}</td>
                       <td>
                         <Pill tone={tm.tone}>{tm.label}</Pill>
+                        <TaskEndNote t={t} />
                         {t.supplier_rating && <div className="cell-meta" title={t.supplier_rating.comment}>rated ★ {t.supplier_rating.score}</div>}
                       </td>
                       <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
+                        {isPartner && ["active", "in_qa"].includes(c.status) && partnerMayEnd(t)
+                          && can(session, "task.assign") && (
+                          <>
+                            <Button size="sm" onClick={() => setMoving(t)}>Move</Button>
+                            <Button size="sm" variant="danger" onClick={() => setWithdrawing(t)}>Withdraw</Button>
+                          </>
+                        )}
                         {isPartner && canRate && t.status === "qa_passed" && !t.supplier_rating && (
                           <Button size="sm" variant="primary" onClick={() => setRating({ kind: "supplier", taskId: t.id, taskRef: t.reference_code, name: t.assignee_name ?? "the supplier" })}>
                             Rate supplier
@@ -373,6 +398,9 @@ export function ContractDetailPage() {
         />
       )}
       {rating && <RateDialog target={rating} onClose={() => setRating(null)} />}
+      {withdrawing && <EndTaskDialog task={withdrawing} action="withdraw" onClose={() => setWithdrawing(null)} />}
+      {moving && <MoveTaskDialog task={moving} onClose={() => setMoving(null)} />}
+      {endingContract && <EndContractDialog c={c} onClose={() => setEndingContract(false)} />}
     </View>
   );
 }
@@ -518,27 +546,9 @@ function AssignTaskDialog({
             The prototype (docs/sourcehub-app.html:2376) puts this fourth and
             outside the grid; second is what the console wants. */}
         <Field label="Assign to" required span hint={supplierHint}>
-          {(id) => (
-            <select id={id} className={inputCls} value={assignee} onChange={(e) => setAssignee(e.target.value)}>
-              <option value="">Choose a supplier…</option>
-              {(aggs.data ?? []).length > 0 && (
-                <optgroup label="Aggregators">
-                  {(aggs.data ?? []).map((a) => (
-                    <option key={a.id} value={a.id}>
-                      {a.name} — {(a.profile.crowd_size as number) ?? "?"} crowd resources
-                    </option>
-                  ))}
-                </optgroup>
-              )}
-              {(bizs.data ?? []).length > 0 && (
-                <optgroup label="Business partners">
-                  {(bizs.data ?? []).map((b) => (
-                    <option key={b.id} value={b.id}>{b.name} — {(b.profile.specialty as string) ?? ""}</option>
-                  ))}
-                </optgroup>
-              )}
-            </select>
-          )}
+          {/* with what this partner has seen of each: rating, open tasks with
+              it, how often its work passed this partner's QA (db/600) */}
+          {(id) => <SupplierSelect id={id} value={assignee} onChange={setAssignee} />}
         </Field>
         <Field label="Due date">
           {(id) => <input id={id} className={inputCls} type="date" value={due} onChange={(e) => setDue(e.target.value)} />}
@@ -915,6 +925,7 @@ function TaskDetailDialog({
       foot={<Button onClick={onClose}>Close</Button>}
     >
       <div style={{ display: "grid", gap: 16 }}>
+        {(t.ended || t.replaces) && <Dl rows={endedRows(t)} />}
         <section>
           <div className="eyebrow" style={{ marginBottom: 8 }}>What was asked</div>
           <Dl rows={[
@@ -1018,6 +1029,8 @@ export function TasksPage() {
   const [submitting, setSubmitting] = useState<Task | null>(null);
   const [viewing, setViewing] = useState<Task | null>(null);
   const [workersFor, setWorkersFor] = useState<Task | null>(null);
+  // db/600: decline a new task, or hand one back before it is with the partner
+  const [ending, setEnding] = useState<{ task: Task; action: "decline" | "return" } | null>(null);
 
   const tasks = useQuery({ queryKey: ["tasks"], queryFn: () => get<Task[]>("/tasks") });
 
@@ -1115,9 +1128,10 @@ export function TasksPage() {
                           </td>
                         )}
                         <td className="num">{fmtDate(t.due_on)}</td>
-                        <td><Pill tone={tm.tone}>{tm.label}</Pill></td>
+                        <td><Pill tone={tm.tone}>{tm.label}</Pill><TaskEndNote t={t} /></td>
                         <td style={{ maxWidth: 260 }} className="small muted">
-                          {t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
+                          {t.ended ? t.ended.reason
+                            : t.status === "qa_failed" ? <QaNote taskId={t.id} /> : t.last_submission?.supplier_note ?? "—"}
                         </td>
                         <td className="right" onClick={(e) => e.stopPropagation()}><div className="rowactions">
                           <Button size="sm" onClick={() => setViewing(t)}>Details</Button>
@@ -1130,6 +1144,15 @@ export function TasksPage() {
                           {["in_progress", "qa_failed", "assigned"].includes(t.status) && (
                             <Button size="sm" variant="primary" onClick={() => setSubmitting(t)}>
                               {isAggregator ? "Submit to partner" : "Submit"}
+                            </Button>
+                          )}
+                          {supplierEnd(t) === "decline" && can(session, "task.start") && (
+                            <Button size="sm" variant="danger" onClick={() => setEnding({ task: t, action: "decline" })}>Decline</Button>
+                          )}
+                          {supplierEnd(t) === "return" && can(session, "task.start") && (
+                            <Button size="sm" onClick={() => setEnding({ task: t, action: "return" })}
+                              title="Short of people, devices or time? Hand it back to the partner, with a reason.">
+                              Hand back
                             </Button>
                           )}
                           </div>
@@ -1175,6 +1198,7 @@ export function TasksPage() {
         />
       )}
       {workersFor && <TaskAssignmentsDialog task={live(workersFor)} onClose={() => setWorkersFor(null)} />}
+      {ending && <EndTaskDialog task={live(ending.task)} action={ending.action} onClose={() => setEnding(null)} />}
       {viewing && <TaskDetailDialog t={viewing} onClose={closeViewing} />}
     </View>
   );

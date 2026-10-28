@@ -225,6 +225,21 @@ export async function deleteCapture(id: string): Promise<CaptureRow | null> {
   return row;
 }
 
+/** removes every capture of one assignment not yet confirmed, whatever its
+ *  state, for work taken off this worker: a task that ended (db/600) or a
+ *  share that was cancelled. Hands the rows back for upload/drop.ts. */
+export async function dropAssignment(assignmentId: string): Promise<CaptureRow[]> {
+  const db = await getDb();
+  const rows = await db.getAllAsync<CaptureRow>(
+    "SELECT * FROM captures WHERE assignment_id = ? AND status <> 'confirmed'",
+    [assignmentId],
+  );
+  if (!rows.length) return rows;
+  await db.runAsync("DELETE FROM captures WHERE assignment_id = ? AND status <> 'confirmed'", [assignmentId]);
+  emitOutboxChange();
+  return rows;
+}
+
 /** one failed capture back to the start of the pipeline */
 export async function retryCapture(id: string): Promise<void> {
   const db = await getDb();

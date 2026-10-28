@@ -10,10 +10,12 @@ import { Button, Callout, Empty, Panel, Pill, Skeleton, TableWrap } from "@ds/pr
 import { useSession } from "@shared/auth";
 import { fmtDate, money } from "@shared/format";
 import { InvoiceActions, InvoiceDetailDialog, invoiceClaim, RaiseInvoiceDialog } from "@shared/invoices";
+import { quantityWords } from "@shared/pricing";
 import { can } from "@shared/rbac";
 import { invoiceStatus, statusMeta } from "@shared/status";
 
-const INVOICEABLE = new Set(["active", "in_qa", "delivered", "completed"]);
+// "cancelled": ended early (db/610); the work accepted before the end is still owed for
+const INVOICEABLE = new Set(["active", "in_qa", "delivered", "completed", "cancelled"]);
 
 export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: UseQueryResult<InvoiceRow[]> }) {
   const session = useSession();
@@ -32,6 +34,8 @@ export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: 
   const rows = invoices.data ?? [];
   const viewing = viewingId ? rows.find((i) => i.id === viewingId) ?? null : null;
   const inv = c.invoicing;
+  // a fixed price ended early (db/610): nothing left of its share, or no share to measure
+  const noneLeft = !!inv?.after_end && (inv.after_end.cap == null || Number(inv.after_end.left ?? 0) <= 0);
 
   return (
     <Panel
@@ -47,8 +51,8 @@ export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: 
           size="sm"
           // an invoice follows the work on either basis; the server refuses
           // one before any gate-2 pass, so say so here instead of a 409
-          disabled={accepted === 0}
-          title={accepted === 0 ? "Nothing has passed gate 2 yet" : undefined}
+          disabled={accepted === 0 || noneLeft}
+          title={accepted === 0 ? "Nothing has passed gate 2 yet" : noneLeft ? "Nothing more can be invoiced on this ended contract" : undefined}
           onClick={() => setRaising(true)}
         >
           Raise invoice
@@ -61,6 +65,14 @@ export function ContractInvoicesPanel({ c, invoices }: { c: Contract; invoices: 
           {money(inv.outstanding_total, c.currency)} awaiting payment
           {c.pricing?.basis === "per_unit" && ` · ${Number(inv.invoiced_quantity).toLocaleString("en-US")} of ${accepted.toLocaleString("en-US")} accepted ${hours ? "hours" : "captures"} invoiced`}
         </p>
+      )}
+      {inv?.after_end && (
+        // a fixed price ended early (db/610): the value in proportion to the accepted work
+        <Callout tone="attention" title="Ended early: invoices follow the accepted work">
+          {inv.after_end.cap != null && inv.after_end.accepted != null && inv.after_end.target != null
+            ? `${quantityWords(inv.after_end.accepted, inv.after_end.unit)} of ${quantityWords(inv.after_end.target, inv.after_end.unit)} were accepted, so up to ${money(inv.after_end.cap, c.currency)} of the agreed price may be invoiced; ${money(inv.after_end.left ?? "0", c.currency)} of that is left.`
+            : "The accepted share of the work cannot be measured against what the RFP asked for, so nothing more can be invoiced here. Agree any remainder directly."}
+        </Callout>
       )}
       {invoices.isLoading ? (
         <Skeleton rows={2} label="Loading invoices" />

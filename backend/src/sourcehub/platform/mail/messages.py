@@ -87,6 +87,62 @@ def rfp_awarded(
     return f"You won {request_ref} {title}", text, html
 
 
+def task_ended(
+    *,
+    recipient_name: str,
+    recipient_org: str,
+    headline: str,
+    task_ref: str,
+    title: str,
+    contract_ref: str,
+    what: str,
+    reason: str,
+    path: str,
+) -> Mail:
+    """A task ended before passing QA (db/600), told to the organisation on
+    the other side: the partner when its supplier declined or handed it back,
+    the supplier when the partner withdrew or moved it."""
+    text, html = render(
+        "task_ended",
+        recipient_name=recipient_name,
+        recipient_org=recipient_org,
+        headline=headline,
+        task_ref=task_ref,
+        title=title,
+        contract_ref=contract_ref,
+        reason=reason,
+        path=path,
+    )
+    return f"{task_ref} {title} {what}", text, html
+
+
+def contract_ended(
+    *,
+    recipient_name: str,
+    recipient_org: str,
+    headline: str,
+    contract_ref: str,
+    title: str,
+    reason: str,
+    detail: str,
+    path: str,
+) -> Mail:
+    """A contract was ended early (db/610), told to the parties that did not
+    end it and to each supplier whose tasks ended with it. detail says what it
+    means for this reader."""
+    text, html = render(
+        "contract_ended",
+        recipient_name=recipient_name,
+        recipient_org=recipient_org,
+        headline=headline,
+        contract_ref=contract_ref,
+        reason=reason,
+        detail=detail,
+        path=path,
+    )
+    return f"{contract_ref} {title} was ended", text, html
+
+
 # ---------------------------------------------------------------------------
 # Sent inline by their modules: accounts and invitations
 # ---------------------------------------------------------------------------
@@ -239,6 +295,8 @@ def assignment_reminder_mail(*, subject: str, **fields: Any) -> Mail:
 OUTBOX: dict[str, Callable[..., Mail]] = {
     "rfp_published": rfp_published,
     "rfp_awarded": rfp_awarded,
+    "task_ended": task_ended,
+    "contract_ended": contract_ended,
     "password_reset": password_reset,
     "member_invitation": member_invitation,
     "onboarding_approved": onboarding_approved,

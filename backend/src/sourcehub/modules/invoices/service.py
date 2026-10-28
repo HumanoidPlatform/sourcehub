@@ -45,7 +45,9 @@ class InvoiceError(Exception):
     pass
 
 
-_INVOICEABLE = ("active", "delivered", "completed")
+# 'cancelled' is a contract ended early (db/610): the work that passed QA
+# before the end is still owed for, within the caps below.
+_INVOICEABLE = ("active", "delivered", "completed", "cancelled")
 
 # A deal's two sides may be two partners, which organisation's policies never
 # let see each other: datahub_org_name answers with the name alone (db/410).
@@ -207,6 +209,67 @@ def invoice_cap(pricing_unit: str | None, assets: int, hours: Decimal | None) ->
     return None
 
 
+def ended_cap(value: Any, accepted: Decimal | None, target: int | None) -> Decimal | None:
+    """The most a fixed-price contract ended early (db/610) may have invoiced
+    in all: the agreed value in proportion to the work accepted against the
+    quantity the RFP asked for, rounded down to the cent, never more than the
+    value. None when that share cannot be measured."""
+    if accepted is None or not target:
+        return None
+    share = min(Decimal(accepted) / Decimal(target), Decimal(1))
+    return (Decimal(str(value)) * share).quantize(Decimal("0.01"), rounding=ROUND_DOWN)
+
+
+async def ended_share(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
+    """What a contract ended early had delivered against what was asked:
+    {accepted, target, unit}. accepted is None when it cannot be measured in
+    the RFP's own unit (a task in another unit, or work accepted before
+    db/510 measured it)."""
+    req = (
+        await session.execute(
+            text(
+                "SELECT r.target_quantity, r.target_unit FROM contract c "
+                "JOIN request r ON r.id = c.request_id WHERE c.id = :cid"
+            ),
+            {"cid": contract_id},
+        )
+    ).mappings().one_or_none() or {"target_quantity": None, "target_unit": None}
+    rows = (
+        await session.execute(
+            text(
+                "SELECT t.target_unit, s.unit_quantity "
+                "FROM submission s JOIN task t ON t.id = s.task_id "
+                "WHERE t.contract_id = :cid AND t.deleted_at IS NULL AND s.status = 'accepted'"
+            ),
+            {"cid": contract_id},
+        )
+    ).all()
+    total = Decimal(0)
+    for unit, units in rows:
+        if units is None or (unit or req["target_unit"]) != req["target_unit"]:
+            return {"accepted": None, "target": req["target_quantity"], "unit": req["target_unit"]}
+        total += Decimal(units)
+    return {"accepted": total, "target": req["target_quantity"], "unit": req["target_unit"]}
+
+
+async def after_end(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any] | None:
+    """For a fixed-price contract ended early: how much of its value may be
+    invoiced in all, and what is left of that. None on any other contract."""
+    c = await _contract(session, contract_id)
+    if c["status"] != "cancelled" or c["pricing_basis"] != "total":
+        return None
+    share = await ended_share(session, contract_id)
+    cap = ended_cap(c["value"], share["accepted"], share["target"])
+    invoiced = Decimal((await contract_totals(session, contract_id))["invoiced_total"] or "0")
+    return {
+        "accepted": None if share["accepted"] is None else float(share["accepted"]),
+        "target": share["target"],
+        "unit": share["unit"],
+        "cap": _money(cap),
+        "left": _money(None if cap is None else max(cap - invoiced, Decimal(0))),
+    }
+
+
 async def contract_totals(session: AsyncSession, contract_id: uuid.UUID) -> dict[str, Any]:
     """What has been claimed, paid and is still open on a contract, for its
     detail page. Withdrawn invoices count for nothing."""
@@ -317,6 +380,24 @@ async def raise_invoice(
             raise InvoiceError(f"{c['reference_code']} is a fixed price: state the amount.")
         if quantity is not None:
             raise InvoiceError("A fixed-price contract is invoiced by amount, not quantity.")
+        if c["status"] == "cancelled":
+            # ended early (db/610): the value in proportion to the accepted work
+            share = await ended_share(session, contract_id)
+            cap = ended_cap(c["value"], share["accepted"], share["target"])
+            if cap is None:
+                raise InvoiceError(
+                    f"{c['reference_code']} ended, and the share of its work that was accepted "
+                    "cannot be measured against what the RFP asked for, so nothing more can be "
+                    "invoiced on it here. Agree any remainder with the client directly."
+                )
+            if amount + invoiced_amount > cap:
+                left = max(cap - invoiced_amount, Decimal(0))
+                raise InvoiceError(
+                    f"{c['reference_code']} ended with {pricing.quantity_text(share['accepted'], share['unit'])} "
+                    f"of {pricing.quantity_text(share['target'], share['unit'])} accepted, so it may be "
+                    f"invoiced up to {currency} {cap:,.2f}. {currency} {invoiced_amount:,.2f} is already "
+                    f"invoiced, so at most {currency} {left:,.2f} can be invoiced now."
+                )
         if amount + invoiced_amount > Decimal(str(c["value"])):
             left = Decimal(str(c["value"])) - invoiced_amount
             raise InvoiceError(

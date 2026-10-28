@@ -40,12 +40,14 @@ MAX_MESSAGES_PER_THREAD = 500
 AWARDED_ELSEWHERE = "awarded_elsewhere"
 CONTRACT_COMPLETED = "contract_completed"
 REQUEST_CANCELLED = "request_cancelled"  # db/580
+CONTRACT_ENDED = "contract_ended"  # db/610, closed by contract_end() itself
 CLOSED_MESSAGES = {
     AWARDED_ELSEWHERE: (
         "This conversation is read-only: the request was awarded to another partner."
     ),
     CONTRACT_COMPLETED: "This conversation is read-only: the contract was completed.",
     REQUEST_CANCELLED: "This conversation is read-only: the client cancelled the request.",
+    CONTRACT_ENDED: "This conversation is read-only: the contract was ended.",
 }
 
 _WS = re.compile(r"\s+")
@@ -459,7 +461,8 @@ async def open_thread(
         await session.execute(
             text(
                 "SELECT 1 FROM contract WHERE request_id = :rid AND partner_org_id = :org "
-                "  AND status <> 'completed'"
+                # an ended contract (db/610) is as closed as a completed one
+                "  AND status NOT IN ('completed', 'cancelled')"
             ),
             {"rid": request_id, "org": claims.org_id},
         )
