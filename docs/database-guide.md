@@ -413,8 +413,9 @@ Facts, not opinions. Each is small on its own; together they are the to-do list 
    enforces it, and no code deletes a file ([section 6](#nothing-deletes-bytes)). The blueprint's tables for
    this (`retention_policy`, `legal_hold`, `erasure_request`, `consent_artefact`) never reached code and were
    dropped by [`290_dormant_objects.sql`](../db/290_dormant_objects.sql); the feature starts from a fresh
-   design when it comes. The request form also offers `strip_gps`, `blur_faces` and `redact_plates`, which are
-   stored and not yet acted on.
+   design when it comes. The request form's `strip_gps`, `blur_faces` and `redact_plates` travel to every task
+   as `capture_spec.privacy` (migration 0061) and are done on the capture app before upload; the server refuses
+   such a task's capture without the phone's `deidentified` account (428) and records `asset.redaction`.
 2. **Five tables have no row-level security:** `permission`, `role_permission`, `defect_code` (shared
    vocabulary — intended), and `login_attempt`, `user_password_history`. The two that matter
    are `login_attempt` (every email that ever tried to sign in) and `user_password_history` (hashes). No route

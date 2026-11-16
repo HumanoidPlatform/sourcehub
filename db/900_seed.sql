@@ -225,6 +225,9 @@ INSERT INTO defect_code (code, label, category, automated) VALUES
   ('malware',         'Malware detected',             'compliance', true),
   ('wrong_subject',   'Wrong subject or location',    'coverage',   false),
   ('consent_missing', 'Consent artefact missing',     'compliance', false),
+  -- someone, or a child, in a shot the client's brief said should have nobody
+  -- in it; the phone can see a face, a reviewer decides (migration 0061)
+  ('person_in_frame', 'Person or child in frame',     'compliance', false),
   -- The phone measures squareness and records the degrees on every capture
   -- (validation/rules.ts tilt_measured), but the decision is the reviewer's,
   -- so this follows wrong_subject rather than the machine-run codes above.
