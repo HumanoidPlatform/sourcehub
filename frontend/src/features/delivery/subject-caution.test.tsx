@@ -62,7 +62,7 @@ const CROWD = { id: "o-crowd", name: "Bengaluru Crowd Collective", reference_cod
 const VIDEO_BRIEF = {
   id: "r1", reference_code: "RFP-1011", title: "Aisle clips, Bengaluru",
   category: "video", status: "open",
-  spec: { location_type: "retail_store", capture: { media: ["video"] } },
+  spec: { location_type: "retail_interior", capture: { media: ["video"] } },
   attachments: [],
 };
 
@@ -140,12 +140,11 @@ describe("the Subject field", () => {
     expect(within(dlg).queryByTestId("subject-caution")).toBeNull();
   });
 
-  it("is not pre-filled with the medium when that is all the category says", async () => {
-    // draftSubject falls back to the request category, and on a visual request
-    // the category IS the medium. It handed every partner the one word the
-    // phone's labeller can never match, so the caution fired on a field nobody
-    // had typed in. Blank means no subject check, which beats one that fails
-    // on every capture.
+  it("starts empty and shows the client's brief beside it, not in it", async () => {
+    // The brief used to be typed into the subject: the category as the domain
+    // (on a visual request the MEDIUM, which the phone can never see) and the
+    // location type as a must-show phrase (a kind of place, which drags a
+    // good close-up's score down). Both are context now.
     api.get.mockImplementation((path: string) => {
       if (path === "/contracts/c1") return Promise.resolve(CONTRACT);
       if (path === "/requests/r1") return Promise.resolve(VIDEO_BRIEF);
@@ -154,11 +153,11 @@ describe("the Subject field", () => {
       return Promise.resolve(null);
     });
     const dlg = await openDialog();
-    // The brief arrives on its own query; the prefill runs when it does.
-    await waitFor(() =>
-      expect((within(dlg).getByLabelText(/^Must show/) as HTMLInputElement).value).toBe("retail store"),
-    );
+    // The brief arrives on its own query; the context line follows it.
+    const context = await within(dlg).findByTestId("subject-context");
+    expect(context.textContent).toBe("From the client's brief: Video · Inside a shop or mall");
     expect((within(dlg).getByLabelText(/^Subject/) as HTMLInputElement).value).toBe("");
+    expect((within(dlg).getByLabelText(/^Must show/) as HTMLInputElement).value).toBe("");
     expect(within(dlg).queryByTestId("subject-caution")).toBeNull();
   });
 
@@ -181,5 +180,93 @@ describe("the Subject field", () => {
         expect.objectContaining({ subject: expect.objectContaining({ domain: "video" }) }),
       ),
     );
+  });
+});
+
+describe("Must show and Must not show", () => {
+  async function readyToAssign() {
+    const dlg = await openDialog();
+    fireEvent.change(within(dlg).getByLabelText(/^Task title/), { target: { value: "Shelf photos" } });
+    await within(dlg).findByRole("option", { name: /Bengaluru Crowd Collective/ });
+    fireEvent.change(within(dlg).getByLabelText(/^Assign to/), { target: { value: "o-crowd" } });
+    return dlg;
+  }
+
+  it("wait for a subject, since without one they reach nobody", async () => {
+    // They ride inside the subject. Filled in with the Subject left empty,
+    // they used to be dropped on save without a word.
+    const dlg = await openDialog();
+    const show = within(dlg).getByLabelText(/^Must show/) as HTMLInputElement;
+    const hide = within(dlg).getByLabelText(/^Must not show/) as HTMLInputElement;
+    expect(show.disabled && hide.disabled).toBe(true);
+    expect(within(dlg).getAllByText(/Used only with a subject/)).toHaveLength(2);
+
+    typeSubject(dlg, "retail shelf");
+    expect(show.disabled || hide.disabled).toBe(false);
+    expect(within(dlg).queryByText(/Used only with a subject/)).toBeNull();
+    expect(hide.value).toBe("person, selfie, screenshot");
+  });
+
+  it("go out with the subject, the usual unwanted shots included", async () => {
+    const dlg = await readyToAssign();
+    typeSubject(dlg, "retail shelf");
+    fireEvent.change(within(dlg).getByLabelText(/^Must show/), { target: { value: "price tags, shelf" } });
+    fireEvent.click(within(dlg).getByRole("button", { name: "Assign task" }));
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith(
+        "/contracts/c1/tasks",
+        expect.objectContaining({
+          subject: {
+            domain: "retail shelf",
+            must_show: ["price tags", "shelf"],
+            must_not_show: ["person", "selfie", "screenshot"],
+          },
+        }),
+      ),
+    );
+  });
+
+  it("send no subject at all while the Subject is empty", async () => {
+    const dlg = await readyToAssign();
+    fireEvent.click(within(dlg).getByRole("button", { name: "Assign task" }));
+    await waitFor(() =>
+      expect(api.post).toHaveBeenCalledWith("/contracts/c1/tasks", expect.objectContaining({ subject: null })),
+    );
+  });
+});
+
+describe("Must not show follows who may be in frame", () => {
+  function withBrief(people: string | null) {
+    api.get.mockImplementation((path: string) => {
+      if (path === "/contracts/c1") return Promise.resolve(CONTRACT);
+      if (path === "/requests/r1") {
+        return Promise.resolve({ ...VIDEO_BRIEF, compliance: { people_in_frame: people } });
+      }
+      if (path === "/organisations?kind=aggregator") return Promise.resolve([CROWD]);
+      if (path === "/organisations?kind=business") return Promise.resolve([]);
+      return Promise.resolve(null);
+    });
+  }
+
+  it.each([
+    ["incidental", "selfie, screenshot"],
+    ["consented", "selfie, screenshot"],
+    ["none", "person, selfie, screenshot"],
+    [null, "person, selfie, screenshot"],
+  ])("people in frame %s: %s", async (people, expected) => {
+    // "person" ruled out on a brief with passers-by, or people as the subject,
+    // would flag every face in every shot
+    withBrief(people);
+    const dlg = await openDialog();
+    await within(dlg).findByTestId("subject-context");
+    expect((within(dlg).getByLabelText(/^Must not show/) as HTMLInputElement).value).toBe(expected);
+  });
+
+  it("leaves the partner's own words alone", async () => {
+    withBrief(null);
+    const dlg = await openDialog();
+    typeSubject(dlg, "retail shelf");
+    fireEvent.change(within(dlg).getByLabelText(/^Must not show/), { target: { value: "screenshot" } });
+    expect((within(dlg).getByLabelText(/^Must not show/) as HTMLInputElement).value).toBe("screenshot");
   });
 });

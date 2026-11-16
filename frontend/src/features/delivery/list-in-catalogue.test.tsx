@@ -74,6 +74,16 @@ describe("List in DataHub", () => {
     await waitFor(() => expect(router.state.location.pathname).toBe("/datahub/mine/d9"));
   });
 
+  it("says why the request's privacy terms rule resale out, instead of failing on the click", async () => {
+    const reason = "The client's request has people in frame, so its captures cannot be resold.";
+    show({ ...CONTRACT, resale_blocked_reason: reason });
+    const button = (await screen.findByRole("button", { name: "List in DataHub" })) as HTMLButtonElement;
+    expect(button.disabled).toBe(true);
+    expect(button.title).toBe(reason);
+    fireEvent.click(button);
+    expect(api.post).not.toHaveBeenCalled();
+  });
+
   it("is not offered before the client approves", async () => {
     show({ ...CONTRACT, status: "delivered" });
     await screen.findByText("CTR-09", { exact: false });

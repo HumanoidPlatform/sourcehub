@@ -12,11 +12,13 @@ import type { Assignment, AssetRow, CaptureSpec } from "@api/types";
 import { Button, Callout, Dialog, Dl, Field, Meter, Pill, textareaCls, useToast } from "@ds/primitives";
 import { AttachmentList, slotRows } from "@shared/attachments";
 import { useSession } from "@shared/auth";
+import { CAPTURE_APP } from "@shared/brand";
 import { fmtDate } from "@shared/format";
 import { can } from "@shared/rbac";
 import { assignmentStatus, statusMeta } from "@shared/status";
 import { byDuration, round2, unitsOf } from "@shared/units";
 import { AssetGallery, fmtBytes, useAssignmentAssets } from "@features/delivery/components/AssetGallery";
+import { privacyRows } from "@features/delivery/components/brief";
 import { ACCEPT } from "./config";
 import { useUploadQueue } from "./hooks";
 import { groupRefusals, refusalLabel } from "./intake";
@@ -145,7 +147,11 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
   const inputRef = useRef<HTMLInputElement>(null);
 
   // taken off this worker: what they sent is reviewed, nothing more goes up
-  const uploadable = a.status === "in_progress" && !a.revoked_at;
+  // A request that asked for faces, plates or the location to be removed
+  // before upload is captured in the app only: the phone does the removing,
+  // and the server refuses a file that says it was not cleaned (428).
+  const appOnly = (spec?.privacy?.deidentification ?? []).length > 0;
+  const uploadable = a.status === "in_progress" && !a.revoked_at && !appOnly;
   const startable = a.status === "assigned" || a.status === "rejected";
 
   // Whatever an earlier session left half-done is still on the server and
@@ -251,6 +257,13 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
         )
       }
     >
+      {appOnly && a.status === "in_progress" && !a.revoked_at && (
+        <Callout tone="attention" title={`Capture this task in ${CAPTURE_APP}`}>
+          The client asked for faces, number plates or the location to be removed before
+          anything is uploaded, and only the app on your phone does that. Files cannot be
+          uploaded from a browser for this task.
+        </Callout>
+      )}
       {a.revoked_at && (
         <Callout tone="neutral" title="This task was given to someone else">
           What you uploaded was sent to your supplier for review. Nothing more is needed from you on it.
@@ -278,6 +291,20 @@ export function AssignmentUploadDialog({ assignment: a, onClose }: { assignment:
               <div className="eyebrow" style={{ marginBottom: 6 }}>Instructions</div>
               {a.task.instructions && <p className="small" style={{ whiteSpace: "pre-wrap" }}>{a.task.instructions}</p>}
               {a.instructions && <p className="small" style={{ whiteSpace: "pre-wrap" }}>{a.instructions}</p>}
+            </>
+          )}
+          {/* the client's criteria, frozen at award: what these uploads are judged on */}
+          {a.task.acceptance && (
+            <>
+              <div className="eyebrow" style={{ marginBottom: 6, marginTop: 8 }}>Acceptance criteria</div>
+              <p className="small" style={{ whiteSpace: "pre-wrap" }}>{a.task.acceptance}</p>
+            </>
+          )}
+          {/* and its privacy terms, which a capture can break whatever else it gets right */}
+          {privacyRows(spec?.privacy).length > 0 && (
+            <>
+              <div className="eyebrow" style={{ marginBottom: 6, marginTop: 8 }}>Privacy</div>
+              <Dl rows={privacyRows(spec?.privacy)} />
             </>
           )}
         </div>

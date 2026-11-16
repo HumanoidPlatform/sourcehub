@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { get, post } from "@api/client";
 import type {
-  ActivityRow, Assignment, CaptureSpec, CheckSummary, Contract, InvoiceRow, Org, Rfp, SubjectSpec, Task,
+  ActivityRow, Assignment, CaptureSpec, CheckSummary, Contract, InvoiceRow, Org, Rfp, Task,
 } from "@api/types";
 import {
   Button, Callout, Dialog, Dl, Empty, Field, inputCls, Loadable, Meter, Metric, Panel,
@@ -17,15 +17,15 @@ import {
 } from "@shared/attachments";
 import { useSession } from "@shared/auth";
 import { CAPTURE_APP, COMPANY } from "@shared/brand";
-import { fmtDate, fmtDateTime, mediaList, money, taskTarget } from "@shared/format";
+import { fmtDate, fmtDateTime, mediaList, money, taskTarget, titleCase } from "@shared/format";
 import { describePricing, quantityWords, unitWords } from "@shared/pricing";
 import { RATING_COMMENT_MIN, RATING_LABEL, RateDialog, ScoreField, type RateTarget } from "@shared/rating";
 import { can } from "@shared/rbac";
-import { captureRequirementText, subjectRows } from "./components/brief";
+import { captureRequirementText, privacyRows, subjectRows } from "./components/brief";
 import { ContractInvoicesPanel } from "./components/invoices";
 import { assignmentStatus, contractStatus, statusMeta, taskStatus, waitingOn } from "@shared/status";
 import {
-  DEIDENTIFICATION, labelOf, labelsOf, LAWFUL_BASES, PERMITTED_USES,
+  labelOf, labelsOf, LOCATION_TYPES, PERMITTED_USES,
 } from "@features/marketplace/vocabularies";
 import { AssignmentUploadDialog } from "@features/capture/dialog";
 import { useUploadActivity } from "@features/capture/hooks";
@@ -217,8 +217,13 @@ export function ContractDetailPage() {
           {isPartner && c.status === "completed" && c.partner_reuse_allowed && can(session, "catalogue.list") && (
             c.catalogue_dataset_id
               ? <Link className="btn" to={`/datahub/mine/${c.catalogue_dataset_id}`}>Open listing</Link>
-              : <Button onClick={() => listInCatalogue.mutate()} disabled={listInCatalogue.isPending}
-                  title="The client did not ask for exclusivity. The accepted captures go into a draft listing.">
+              // Non-exclusive, but the request's privacy terms may still rule
+              // resale out (people in frame, biometric processing): said on
+              // the button, not discovered as a refusal after the click.
+              : <Button onClick={() => listInCatalogue.mutate()}
+                  disabled={listInCatalogue.isPending || !!c.resale_blocked_reason}
+                  title={c.resale_blocked_reason
+                    ?? "The client did not ask for exclusivity. The accepted captures go into a draft listing."}>
                   List in DataHub
                 </Button>
           )}
@@ -310,7 +315,7 @@ export function ContractDetailPage() {
       <ContractInvoicesPanel c={c} invoices={invoices} />
 
       <div className="g2">
-        <Panel title="Rubric snapshot" sub="Frozen at award. Disputes are arbitrated against this, not the request as it reads today.">
+        <Panel title="Rubric snapshot" sub="Frozen at award: what the work is judged against. The supplier and the crowd see the same acceptance criteria.">
           <Dl rows={[
             ["Acceptance", rubric.acceptance ?? "—"],
             ["Compliance", rubric.compliance ?? "—"],
@@ -388,11 +393,15 @@ function AssignTaskDialog({
   const [instructions, setInstructions] = useState("");
   const [files, setFiles] = useState<AttachmentDraft[]>([]);
   // The subject: what every capture must show. The crowd resource reads it before the
-  // shutter and their phone checks each photo against it; a task without one
-  // gets no check. Prefilled from the brief, kept as the partner's own words.
+  // shutter and their phone checks each capture against it; a task without one
+  // gets no check. Always the partner's own words: nothing in the brief names
+  // what a camera can see (the category is a medium or not visual at all, and
+  // a location type is a kind of place), so the brief is shown beside the
+  // field as context rather than typed into it. Must not show starts with the
+  // usual unwanted shots and, like Must show, counts only with a subject.
   const [domain, setDomain] = useState("");
   const [mustShow, setMustShow] = useState("");
-  const [mustNotShow, setMustNotShow] = useState("");
+  const [mustNotShow, setMustNotShow] = useState(DEFAULT_MUST_NOT_SHOW);
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
@@ -413,15 +422,16 @@ function AssignTaskDialog({
   useEffect(() => {
     if (wantedUnit && ["photos", "videos", "records", "hours"].includes(wantedUnit)) setUnit(wantedUnit);
   }, [wantedUnit]);
+  const briefContext = brief.data ? subjectContext(brief.data) : null;
+  const noSubject = !domain.trim();
+  // "person" is offered as unwanted only where the client said nobody may be
+  // in frame: on a brief with passers-by or people as the subject it would
+  // flag every face. Swapped once, while the partner has not edited the field.
+  const peopleInFrame = brief.data?.compliance?.people_in_frame ?? null;
   useEffect(() => {
-    if (!brief.data || domain) return;
-    const d = draftSubject(brief.data);
-    setDomain(d.domain);
-    setMustShow(d.must_show.join(", "));
-    setMustNotShow(d.must_not_show.join(", "));
-    // prefill once, when the brief arrives; the partner's edits stand after
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [brief.data]);
+    const wanted = defaultMustNotShow(peopleInFrame);
+    setMustNotShow((cur) => (cur === DEFAULT_MUST_NOT_SHOW ? wanted : cur));
+  }, [peopleInFrame]);
 
   const aggs = useQuery({ queryKey: ["orgs", "aggregator"], queryFn: () => get<Org[]>("/organisations?kind=aggregator") });
   const bizs = useQuery({ queryKey: ["orgs", "business"], queryFn: () => get<Org[]>("/organisations?kind=business") });
@@ -575,11 +585,18 @@ function AssignTaskDialog({
         <Field
           label="Subject"
           span
-          hint="What the camera must SEE, in a few words — “retail shelf”, “warehouse aisle” — not the medium. Their phone labels each capture and asks for a retake when nothing matches. Leave empty for no check."
+          hint="What the camera must SEE, in a few words — “retail shelf”, “warehouse aisle” — not the medium. Their phone compares each capture with these words and asks them to keep or retake one that doesn't match. Leave empty for no check."
         >
           {(id) => (
             <>
               <input id={id} className={inputCls} value={domain} onChange={(e) => setDomain(e.target.value)} placeholder="retail shelf" maxLength={80} />
+              {briefContext && (
+                // Context, not a value: neither names what is in front of the
+                // lens, but they say what kind of work and where.
+                <div className="small muted" data-testid="subject-context" style={{ marginTop: 6 }}>
+                  From the client's brief: {briefContext}
+                </div>
+              )}
               {looksLikeMediaWord(domain) && (
                 // Not a refusal: "video wall" is a real subject and the partner
                 // may know something this does not. But a subject the labeller
@@ -593,11 +610,13 @@ function AssignTaskDialog({
             </>
           )}
         </Field>
-        <Field label="Must show" hint="Comma-separated words.">
-          {(id) => <input id={id} className={inputCls} value={mustShow} onChange={(e) => setMustShow(e.target.value)} placeholder="shelf, products, price tags" />}
+        {/* Both ride inside the subject, so without one they reach nobody:
+            disabled rather than silently dropped on save. */}
+        <Field label="Must show" hint={noSubject ? SUBJECT_FIRST : "Comma-separated words."}>
+          {(id) => <input id={id} className={inputCls} value={mustShow} onChange={(e) => setMustShow(e.target.value)} placeholder="shelf, products, price tags" disabled={noSubject} />}
         </Field>
-        <Field label="Must not show" hint="Comma-separated words.">
-          {(id) => <input id={id} className={inputCls} value={mustNotShow} onChange={(e) => setMustNotShow(e.target.value)} placeholder="person, selfie, screenshot" />}
+        <Field label="Must not show" hint={noSubject ? SUBJECT_FIRST : "Comma-separated words."}>
+          {(id) => <input id={id} className={inputCls} value={mustNotShow} onChange={(e) => setMustNotShow(e.target.value)} placeholder={DEFAULT_MUST_NOT_SHOW} disabled={noSubject} />}
         </Field>
         <AttachmentsField
           label="Attach to the instructions"
@@ -631,22 +650,32 @@ export function looksLikeMediaWord(domain: string): boolean {
   return MEDIA_WORDS.has(domain.trim().toLowerCase());
 }
 
-const words = (s: string | null | undefined) => (s ?? "").replace(/_/g, " ").trim();
+/** The shots a capture usually should not be, offered as Must not show. */
+const DEFAULT_MUST_NOT_SHOW = "person, selfie, screenshot";
 
-/** A first draft of the subject from the client's own brief. Deterministic:
- *  it saves the partner typing, it never decides anything. */
-function draftSubject(r: Rfp): SubjectSpec {
-  const place = words(r.spec.location_type);
-  // On a visual request the category IS the medium — "image", "video" — and
-  // seeding the subject with it is why every pilot clip raised the retake
-  // dialog: the labeller can never match it. Blank means no subject check,
-  // which is better than a check that fails on every capture.
-  const fromCategory = words(r.category);
-  return {
-    domain: looksLikeMediaWord(fromCategory) ? "" : fromCategory,
-    must_show: [place].filter(Boolean),
-    must_not_show: ["person", "selfie", "screenshot"],
-  };
+/** The default as the client's people-in-frame answer allows it: a brief with
+ *  passers-by or people as the subject must not have "person" ruled out. No
+ *  answer keeps the old default. */
+export function defaultMustNotShow(people: string | null | undefined): string {
+  return people === "incidental" || people === "consented" ? "selfie, screenshot" : DEFAULT_MUST_NOT_SHOW;
+}
+
+const SUBJECT_FIRST = "Used only with a subject. Without one the phone runs no subject check.";
+
+/** The client's brief beside the Subject field: "Image · Inside a shop or mall".
+ *
+ * It used to be typed INTO the subject, and neither half belongs there. The
+ * category is the medium on a visual request ("image", "video"), which the
+ * phone can never see, and not visual at all otherwise ("structured data").
+ * The location type is a kind of place, and averaged into what CLIP must
+ * match it drags a good close-up's score down ("private premises" against a
+ * photo of a shelf). Null when the brief says neither. */
+function subjectContext(r: Rfp): string | null {
+  const parts = [
+    r.category ? titleCase(r.category) : null,
+    r.spec.location_type ? labelOf(LOCATION_TYPES, r.spec.location_type) : null,
+  ].filter(Boolean);
+  return parts.length ? parts.join(" · ") : null;
 }
 
 function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () => void }) {
@@ -655,6 +684,9 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
   const [error, setError] = useState<string | null>(null);
   const toast = useToast();
   const qc = useQueryClient();
+  // What was agreed at award, in front of the one deciding whether it was met:
+  // a send-back is written against these words, not from memory.
+  const agreed = contract.rubric_snapshot?.acceptance;
 
   const approve = useMutation({
     mutationFn: () =>
@@ -724,6 +756,11 @@ function ApproveDialog({ contract, onClose }: { contract: Contract; onClose: () 
         invoices the work that passed QA, and you mark each invoice paid on Billing. This cannot be
         undone.
       </Callout>
+      {typeof agreed === "string" && agreed.trim() && (
+        <div style={{ marginTop: 12 }} data-testid="agreed-acceptance">
+          <Dl rows={[["Acceptance criteria, as agreed", agreed]]} />
+        </div>
+      )}
       <div className="formgrid" style={{ marginTop: 12 }}>
         <ScoreField label="Rate your delivery partner" value={score} onChange={setScore} />
         <Field
@@ -846,19 +883,19 @@ export function deviceCheckList(s: CheckSummary | undefined): React.ReactNode {
   );
 }
 
+/** The terms only the client and the partner read off the request itself.
+ *  The ones that bind the work (people in frame, children, de-identification,
+ *  lawful basis, regulations, biometric processing) come from the task's own
+ *  copy instead (privacyRows), which the supplier can read too; a supplier,
+ *  who cannot read the request, gets nothing here rather than a placeholder. */
 function complianceRows(request: Rfp | undefined, loading: boolean): [string, React.ReactNode][] {
   if (loading) return [["Compliance and exclusivity", "Loading RFP terms…"]];
-  if (!request) return [["Compliance and exclusivity", "No RFP terms available"]];
+  if (!request) return [];
   return [
     ["Permitted uses", labelsOf(PERMITTED_USES, request.compliance.permitted_uses)],
     ["Exclusivity", request.compliance.partner_reuse_allowed
       ? "Non-exclusive: once the client approves, the partner may choose to list the captures in DataHub"
       : "Exclusive to the client; partner reuse is not allowed"],
-    ["Lawful basis", labelOf(LAWFUL_BASES, request.compliance.lawful_basis)],
-    ["De-identification", labelsOf(DEIDENTIFICATION, request.compliance.deidentification)],
-    ...(request.compliance.regulations.length
-      ? [["Regulations", request.compliance.regulations.join(", ")] as [string, React.ReactNode]]
-      : []),
     ...(request.compliance_notes
       ? [["Compliance notes", request.compliance_notes] as [string, React.ReactNode]]
       : []),
@@ -925,7 +962,10 @@ function TaskDetailDialog({
             ["Capture requirements", captureRequirementText(captureSpec)],
             ...subjectRows(captureSpec.subject),
             ...(t.instructions ? ([["Task instructions", t.instructions]] as [string, React.ReactNode][]) : []),
-            ...(request?.acceptance ? ([["Acceptance criteria", request.acceptance]] as [string, React.ReactNode][]) : []),
+            // the text frozen at award, which the task carries for everyone who
+            // can open it: the supplier's Tasks page has no request to read
+            ...(t.acceptance ? ([["Acceptance criteria", t.acceptance]] as [string, React.ReactNode][]) : []),
+            ...privacyRows(captureSpec.privacy, { legal: true }),
             ...complianceRows(request, !!requestLoading),
             ...((t.attachments ?? []).length
               ? ([["Task attachments", <AttachmentList key="ta" items={t.attachments ?? []} />]] as [string, React.ReactNode][])

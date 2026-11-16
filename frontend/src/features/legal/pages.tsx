@@ -11,9 +11,12 @@
 // in fewer words; change them together.
 //
 // It must not promise anything the platform does not do. Nothing deletes data
-// automatically today, and the request form's "strip GPS", "blur faces" and
-// "redact plates" options are not implemented — so deletion is described as a
-// request to a person, which is what it is.
+// automatically today, so deletion is described as a request to a person,
+// which is what it is. The request form's "strip GPS", "blur faces" and
+// "redact plates" are done on the capture app before upload where a task asks
+// (mobile qa_pipeline/privacy), and the server refuses a capture on such a
+// task that was not cleaned; they protect the people in a capture, not the
+// worker this page is written for.
 
 import { Callout } from "@ds/primitives";
 import { BrandMark, CAPTURE_APP, PRODUCT } from "@shared/brand";

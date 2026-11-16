@@ -1185,7 +1185,7 @@ export function RequestNewPage() {
         )}
         {step === 1 && (
           <div className="formgrid">
-            <Field label="Acceptance criteria" span hint="Frozen into the contract at award — disputes are arbitrated against exactly these words.">
+            <Field label="Acceptance criteria" span hint="Frozen into the contract at award, and shown to the supplier reviewing the captures and to every crowd resource on the task.">
               {(id) => <textarea id={id} className={textareaCls} rows={2} value={d.acceptance} onChange={set("acceptance")} placeholder="95% or better pass on the automated blur check; 5% manual audit sample" />}
             </Field>
             <Field label="Compliance notes" span hint="Also copied onto the contract. Site permissions, anything a crew must be told.">
@@ -1228,7 +1228,7 @@ export function RequestNewPage() {
                   options={DEIDENTIFICATION}
                   value={d.deidentification}
                   onChange={(v) => setD((x) => ({ ...x, deidentification: v }))}
-                  hint="Applied before the data reaches you."
+                  hint="Done on the crowd resource's phone before upload: faces pixelated, Indian number plates covered, location removed. The app refuses a capture it cannot clean, and the platform refuses one that was not. A plate too small or blurred to read is missed. Clips are capped at 60 s, and their sound is kept."
                   columns={3}
                 />
                 <CheckGroup
@@ -1236,7 +1236,7 @@ export function RequestNewPage() {
                   options={PERMITTED_USES}
                   value={d.permitted_uses}
                   onChange={(v) => setD((x) => ({ ...x, permitted_uses: v }))}
-                  hint="Anything not ticked is off-limits, including to you."
+                  hint="Shown to the partner. If the captures may be resold (non-exclusive), a DataHub listing of them can offer only these uses."
                   columns={3}
                 />
                 <Field label="Regulations that apply" span hint="GDPR, DPDP, CCPA — whatever governs this. Enter or comma to add.">
@@ -2085,7 +2085,7 @@ export function RequestDetailPage() {
             could not read them while deciding whether to take the work. */}
         <Panel
           title="Consent and permitted use"
-          sub="What a crew is bound by. Agreed at award and carried into the contract."
+          sub="What a crew is bound by. Every task carries these terms to its supplier, and the rules on people, children and de-identification to every crowd resource."
         >
           <Dl rows={[
             ["People in frame", labelOf(PEOPLE_IN_FRAME, r.compliance.people_in_frame)],

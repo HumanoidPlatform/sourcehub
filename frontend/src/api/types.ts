@@ -251,14 +251,28 @@ export interface CaptureSpec {
   min_ram_gb?: number | null;
   /** what a capture must show; the phone's domain check reads it */
   subject?: SubjectSpec | null;
+  /** the client's privacy terms, copied onto every task from its request
+   *  (delivery.privacy_terms, migration 0061). Absent on a request's own spec. */
+  privacy?: PrivacyTerms | null;
 }
-/** Short phrases, not sentences. The phone compares the labels it sees in a
- *  photo against these words and warns when nothing matches. */
+/** The six of a request's consent and compliance terms that bind the work:
+ *  what the supplier and the crowd are held to. */
+export interface PrivacyTerms {
+  people_in_frame: PeopleInFrame | null;
+  minors_policy: MinorsPolicy | null;
+  deidentification: Deidentification[];
+  lawful_basis: LawfulBasis | null;
+  regulations: string[];
+  biometric_processing: boolean;
+}
+/** Short phrases, not sentences. The phone's subject check (CLIP) compares
+ *  each capture with domain + must_show and asks for a keep-or-retake when it
+ *  does not match; a must_not_show phrase that shows is a reviewer's warning. */
 export interface SubjectSpec {
   domain: string;
   must_show: string[];
   must_not_show: string[];
-  /** an explicit ML Kit vocabulary; usually empty */
+  /** phrases CLIP compares against instead of domain + must_show; usually empty */
   labels?: string[];
 }
 export interface PeopleRequirements {
@@ -338,6 +352,9 @@ export interface Contract {
   progress: Progress;
   /** false: exclusive to the client. true: once approved, the partner may list the captures (db/350). */
   partner_reuse_allowed?: boolean;
+  /** why a non-exclusive contract may still not be relisted: people in frame,
+   *  biometric processing (catalogue.resale_block); null when it may */
+  resale_blocked_reason?: string | null;
   /** The partner's catalogue listing of these captures, once it chose to list them. */
   catalogue_dataset_id?: string | null;
   tasks?: Task[];
@@ -360,6 +377,9 @@ export interface Task {
   measure?: "count" | "duration";
   instructions: string | null;
   capture_spec: Record<string, unknown>;
+  /** the client's acceptance criteria as frozen at award (db/560); absent
+   *  when the client wrote none */
+  acceptance?: string | null;
   status: string;
   due_on: string | null;
   attachments?: Attachment[];
@@ -548,6 +568,8 @@ export interface Assignment {
     title: string;
     instructions: string | null;
     capture_spec: CaptureSpec;
+    /** the acceptance criteria frozen at award, as on Task */
+    acceptance?: string | null;
     target_unit: string | null;
     due_on: string | null;
     status: string;
@@ -617,6 +639,8 @@ export interface Gate1Row {
    *  screen. Empty on a task created without a spec. */
   capture_spec: CaptureSpec;
   task_instructions: string | null;
+  /** the acceptance criteria frozen at award (db/560); absent when none */
+  task_acceptance?: string | null;
 }
 
 // asset — one capture, as GET /tasks/{id}/assets and GET /assignments/{id}/assets return it
@@ -641,6 +665,9 @@ export interface AssetRow {
   captured_lon: string | null;
   uploaded_at: string | null;
   created_at: string;
+  /** "device_redacted": the phone removed what the request asked for (faces,
+   *  plates, the file's location) before the file left it */
+  redaction?: "not_required" | "device_redacted" | "verified" | "failed_verification";
   /** what the phone noticed before queueing the file; recorded, not trusted.
    *  Optional: test fixtures and older rows may lack it. */
   device_checks?: DeviceCheck[];
@@ -797,6 +824,11 @@ export interface QaQueueRow {
   contract_id: string;
   contract_ref: string;
   supplier_name: string;
+  /** the same brief gate 1 gets (qa.review_queue): what was asked, and the
+   *  acceptance criteria frozen at award */
+  capture_spec?: CaptureSpec;
+  task_instructions?: string | null;
+  task_acceptance?: string | null;
 }
 
 export interface EquipmentRow {
@@ -1285,6 +1317,9 @@ export interface Dataset {
   is_owner: boolean;
   // owner and operations only
   contract_id?: string | null;
+  /** a contract listing, to its owner: the uses the client's request
+   *  permitted, all it may offer a buyer (catalogue.dataset_detail) */
+  allowed_permitted_uses?: PermittedUse[];
   submitted_at?: string | null;
   review_note?: string | null;
   reviewed_at?: string | null;

@@ -122,6 +122,11 @@ export const RETAKE_REASONS: [string, string][] = [
   // The phone records the degrees on every capture, so the preview pane below
   // usually says how far off square this one was.
   ["tilt", "Tilted — not square"],
+  // The client's privacy terms (capture_spec.privacy): someone, or a child, in
+  // a shot the brief said should have nobody in it (migration 0061), and a
+  // face or plate the phone failed to blur where the brief said to.
+  ["person_in_frame", "Person or child in frame"],
+  ["redaction", "Face or plate not blurred"],
   ["other", "Something else"],
 ];
 
@@ -352,6 +357,12 @@ export function AssetPreview({
           ["Captured", fmtDateTime(asset.captured_at)],
           ["By", asset.captured_by_name ?? "—"],
           ["Location", where],
+          ...(asset.redaction === "device_redacted"
+            ? ([["Privacy", "Cleaned on the phone before upload, as the client's privacy terms asked"]] as [
+                string,
+                React.ReactNode,
+              ][])
+            : []),
           ["Size", fmtBytes(asset.size_bytes)],
           ["Checksum", <code key="sha" className="id">{asset.sha256.slice(0, 16)}…</code>],
           ...(asset.review_reason

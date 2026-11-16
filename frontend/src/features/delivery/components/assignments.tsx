@@ -160,6 +160,8 @@ export interface DecideTarget {
    *  recorded no spec, and the brief then renders nothing. */
   capture_spec?: CaptureSpec;
   task_instructions?: string | null;
+  /** the client's acceptance criteria, frozen at award: what the verdict is on */
+  task_acceptance?: string | null;
   /** The batch being answered. Without one, the assignment's oldest batch in
    *  review is answered (POST /assignments/{id}/decide). */
   batch_id?: string | null;
@@ -367,7 +369,7 @@ export function DecideAssignmentDialog({
           was previously deciding whether a photograph met a tilt tolerance, an
           orientation and a subject that appeared nowhere on this screen. */}
       <div style={{ marginTop: 12 }}>
-        <Brief spec={target.capture_spec} instructions={target.task_instructions} />
+        <Brief spec={target.capture_spec} instructions={target.task_instructions} acceptance={target.task_acceptance} />
       </div>
       <div style={{ marginTop: 12 }}>
         <GalleryGrid source={source} emptyHint="Nothing in this batch." markOf={markOf} onMark={mark} />
@@ -791,6 +793,7 @@ export function TaskAssignmentsDialog({ task, onClose }: { task: Task; onClose: 
           // Task types capture_spec loosely; it is this shape, as pages.tsx
           // also assumes where it renders the same brief.
           capture_spec: task.capture_spec as CaptureSpec, task_instructions: task.instructions,
+          task_acceptance: task.acceptance,
           batch_id: batch?.id ?? null, batch_no: batch?.batch_no ?? null,
           accepted_before: d.progress ? unitsOf(d).accepted : undefined,
           unit: task.target_unit,

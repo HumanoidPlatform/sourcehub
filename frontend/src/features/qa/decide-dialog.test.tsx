@@ -71,6 +71,87 @@ describe("the gate-2 review", () => {
     expect(api.get.mock.calls.some(([p]) => p.startsWith("/tasks/t1/assets"))).toBe(false);
   });
 
+  it("shows what was asked and what will be accepted, above the captures", async () => {
+    // review_queue always sent the brief; the dialog never showed it, so a
+    // partner judged a bundle without the conditions or the client's criteria
+    api.get.mockImplementation((path: string) => {
+      if (path === "/qa/queue") {
+        return Promise.resolve([{
+          ...ROW, capture_spec: { media: ["video"], orientation: "landscape" },
+          task_instructions: "Walk each aisle end to end.",
+          task_acceptance: "Every aisle filmed end to end, labels readable.",
+        }]);
+      }
+      return Promise.resolve(path.startsWith("/submissions/s1/assets?") ? EMPTY_PAGE : []);
+    });
+    show();
+    const brief = within(await openReview()).getByTestId("review-brief");
+    expect(within(brief).getByText("Walk each aisle end to end.")).toBeTruthy();
+    expect(within(brief).getByText("Acceptance criteria")).toBeTruthy();
+    expect(within(brief).getByText("Every aisle filmed end to end, labels readable.")).toBeTruthy();
+  });
+
+  it("shows the client's privacy terms the captures are judged by", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(path === "/qa/queue"
+        ? [{
+            ...ROW,
+            capture_spec: {
+              media: ["photo"],
+              privacy: {
+                people_in_frame: "none", minors_policy: "prohibited",
+                deidentification: ["blur_faces", "strip_gps"], lawful_basis: "consent",
+                regulations: ["DPDP"], biometric_processing: false,
+              },
+            },
+          }]
+        : path.startsWith("/submissions/s1/assets?") ? EMPTY_PAGE : []),
+    );
+    show();
+    const brief = within(await openReview()).getByTestId("review-brief");
+    expect(within(brief).getByText("People in frame")).toBeTruthy();
+    expect(within(brief).getByText(/^Nobody: Capture must not include people at all/)).toBeTruthy();
+    expect(within(brief).getByText("Not permitted")).toBeTruthy();
+    expect(within(brief).getByText("Blur faces, Strip GPS from files")).toBeTruthy();
+    // the legal terms bind the supplier; a reviewer does not judge a frame by them
+    expect(within(brief).queryByText("Lawful basis")).toBeNull();
+  });
+
+  it("shows no brief for a task whose spec holds only empty privacy terms", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(path === "/qa/queue"
+        ? [{
+            ...ROW,
+            capture_spec: {
+              privacy: {
+                people_in_frame: null, minors_policy: null, deidentification: [], lawful_basis: null,
+                regulations: [], biometric_processing: false,
+              },
+            },
+          }]
+        : path.startsWith("/submissions/s1/assets?") ? EMPTY_PAGE : []),
+    );
+    show();
+    expect(within(await openReview()).queryByTestId("review-brief")).toBeNull();
+  });
+
+  it("shows no brief for a row that carries none", async () => {
+    show();
+    expect(within(await openReview()).queryByTestId("review-brief")).toBeNull();
+  });
+
+  it("shows the criteria even on a task that stated no capture conditions", async () => {
+    api.get.mockImplementation((path: string) =>
+      Promise.resolve(path === "/qa/queue"
+        ? [{ ...ROW, capture_spec: {}, task_instructions: null, task_acceptance: "Labels readable." }]
+        : path.startsWith("/submissions/s1/assets?") ? EMPTY_PAGE : []),
+    );
+    show();
+    const brief = within(await openReview()).getByTestId("review-brief");
+    expect(within(brief).getByText("Labels readable.")).toBeTruthy();
+    expect(within(brief).queryByText("Capture requirements")).toBeNull();
+  });
+
   it("shows no gallery for a count-only submission", async () => {
     api.get.mockImplementation((path: string) =>
       Promise.resolve(path === "/qa/queue" ? [{ ...ROW, asset_count: 0 }] : []),

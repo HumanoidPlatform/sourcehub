@@ -377,8 +377,19 @@ function DetailsPanel({ dataset, editable, onSaved }: { dataset: Dataset; editab
           {(id) => <TagInput id={id} value={f.languages} onChange={set("languages")} placeholder={locked ? "" : "Add a language"} />}
         </Field>
         <div style={{ gridColumn: "1 / -1" }}>
-          <CheckGroup label="Buyers may use it for" options={PERMITTED_USES} value={f.permitted_uses}
-            onChange={locked ? () => {} : set("permitted_uses")} columns={3} />
+          {/* A contract listing offers no use the client's request did not
+              permit (its privacy terms); the server refuses anything else. */}
+          <CheckGroup label="Buyers may use it for"
+            options={dataset.allowed_permitted_uses
+              ? PERMITTED_USES.filter((o) => dataset.allowed_permitted_uses?.includes(o.value))
+              : PERMITTED_USES}
+            value={f.permitted_uses}
+            onChange={locked ? () => {} : set("permitted_uses")} columns={3}
+            hint={dataset.allowed_permitted_uses
+              ? dataset.allowed_permitted_uses.length
+                ? "Only what the client's request permitted."
+                : "The client's request permitted no uses, so these captures cannot be offered."
+              : undefined} />
         </div>
         <Field label="Licence terms" required span hint="Your terms, in your words: what buyers may and may not do with the files you hand over. The platform does not write these for you.">
           {(id) => <textarea id={id} className={textareaCls} disabled={locked} style={{ minHeight: 140 }} value={f.licence_terms} onChange={on("licence_terms")} />}

@@ -14,6 +14,7 @@ import {
 import { fmtDateTime } from "@shared/format";
 import { AttachmentsField, attachmentPayload, type AttachmentDraft } from "@shared/attachments";
 import { DecideAssignmentDialog } from "@features/delivery/components/assignments";
+import { Brief } from "@features/delivery/components/brief";
 import { galleryKeys } from "@features/delivery/components/gallery-keys";
 import { GalleryGrid } from "@features/delivery/components/GalleryGrid";
 
@@ -147,6 +148,12 @@ function DecideDialog({ row, onClose, onDone }: { row: QaQueueRow; onClose: () =
       {row.supplier_note && (
         <Callout title="Supplier's note">{row.supplier_note}</Callout>
       )}
+      {/* What the client asked for and will accept, above the captures judged
+          against it: review_queue has always sent the brief, and this dialog
+          never showed it. */}
+      <div style={{ marginTop: 12 }}>
+        <Brief spec={row.capture_spec} instructions={row.task_instructions} acceptance={row.task_acceptance} />
+      </div>
       {/* The captures bundled into THIS attempt, paged from the server and
           scoped to the submission (db/530); the count is the queue row's. A
           count-only submission has none and shows no gallery. */}
@@ -244,6 +251,7 @@ export function Gate1Page() {
             id: deciding.assignment_id, quantity: deciding.quantity, worker_name: deciding.worker_name,
             worker_note: deciding.worker_note, task_ref: deciding.task_ref, task_title: deciding.task_title,
             capture_spec: deciding.capture_spec, task_instructions: deciding.task_instructions,
+            task_acceptance: deciding.task_acceptance,
             batch_id: deciding.batch_id, batch_no: deciding.batch_no, accepted_before: deciding.accepted_before,
             task_id: deciding.task_id, in_batch: deciding.ready_assets,
           }}
