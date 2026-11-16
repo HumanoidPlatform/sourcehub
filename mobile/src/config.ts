@@ -88,6 +88,27 @@ export const FRAME_EVERY_S = 5;
 export const MIN_FRAMES = 3;
 export const MAX_FRAMES = 40;
 export const FRAMES_BUDGET_MS = 45_000;
+
+// De-identification (qa_pipeline/privacy, modules/deidentify): on a task whose
+// request asked for faces, plates or the location to be removed, the phone
+// does it before the capture is queued, and refuses a capture it cannot clean.
+//
+// A clip is looked at for faces every DEID_FACE_EVERY_MS and read for plates
+// every DEID_TEXT_EVERY_MS (reading text costs several times a face look);
+// every frame is covered by both looks either side of it (regions.ts spans).
+// A face that appears and leaves entirely between two looks is missed, so the
+// face interval is short. Clips on such tasks are capped at
+// DEID_MAX_CLIP_SECONDS because cleaning one takes one to three times its
+// length on a mid-range phone, and come out at most DEID_MAX_LINES tall.
+export const DEID_FACE_EVERY_MS = 333;
+export const DEID_TEXT_EVERY_MS = 1_000;
+export const DEID_MAX_CLIP_SECONDS = 60;
+export const DEID_MAX_LINES = 1080;
+/** Past these, cleaning has failed: the capture is refused, never sent as it was. */
+export const DEID_PHOTO_TIMEOUT_MS = 30_000;
+export const DEID_CLIP_TIMEOUT_MIN_MS = 90_000;
+/** a clip's cleaning may take this many times its running time */
+export const DEID_CLIP_TIMEOUT_FACTOR = 4;
 /** How many of a clip's sampled frames must show a fault before the clip is
  *  warned about it (blur.ts, exposure.ts), however few were sampled.
  *

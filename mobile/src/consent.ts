@@ -38,9 +38,11 @@ export interface NoticeSection {
 /** Plain words, short lines: it is read on a phone, often in a second language.
  *
  * It must not promise anything the platform does not do. Nothing deletes data
- * automatically today, and the client-facing "strip GPS", "blur faces" and
- * "redact plates" options are not implemented — so this describes a contact
- * route for deletion, not an automatic process. */
+ * automatically today, so this describes a contact route for deletion, not an
+ * automatic process. The client-facing "strip GPS", "blur faces" and "redact
+ * plates" options are done on this phone before upload where a task asks
+ * (qa_pipeline/privacy); they protect the people in a capture, not the worker,
+ * so the notice does not lean on them. */
 export const NOTICE: { title: string; intro: string; sections: NoticeSection[] } = {
   title: "Before you start",
   intro: `${APP_NAME} records the following while you work. Please read it once.`,

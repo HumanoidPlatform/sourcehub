@@ -13,10 +13,18 @@ import { clockTone, formatClock } from "@/capture/clock";
 import { freeSpace } from "@/capture/files";
 import { probeCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
+import { asksAboutPeople } from "@/qa_pipeline/faces/faces";
+import { needsDeidentification } from "@/qa_pipeline/privacy/deidentify";
 import { ensureLocationPermission, type Fix, watchFix } from "@/qa_pipeline/location/location";
 import { type Held, medianOff, type Tilt, tiltAdvice, watchTilt } from "@/qa_pipeline/tilt/tilt";
 import { type CaptureOutcome, CaptureRejected, useCapture } from "@/qa_pipeline/pipeline";
-import { CLIP_EXAMPLE_MIN_SIMILARITY, CLIP_SUBJECT_MIN_MARGIN, LOW_STORAGE_BYTES, MAX_VIDEO_SECONDS } from "@/config";
+import {
+  CLIP_EXAMPLE_MIN_SIMILARITY,
+  CLIP_SUBJECT_MIN_MARGIN,
+  DEID_MAX_CLIP_SECONDS,
+  LOW_STORAGE_BYTES,
+  MAX_VIDEO_SECONDS,
+} from "@/config";
 import { clipExampleSet, exampleImages, warmClipExamples } from "@/qa_pipeline/subject/clipExamples";
 import { type ClipStatus, clipStatus, onClipStatus, textVectors, warmClip } from "@/qa_pipeline/subject/clipSubject";
 import { useAssignments, useOutbox } from "@/query/hooks";
@@ -237,7 +245,14 @@ export default function Capture() {
   // Every limit below is read through the same numeric()/wantedOrientation()
   // the rules enforce with, so the screen never hides a limit the check then
   // refuses on ("Landscape", "10" as text).
-  const maxSeconds = Math.min(MAX_VIDEO_SECONDS, numeric(spec?.max_duration_s) ?? MAX_VIDEO_SECONDS);
+  // A privacy task's clips are cleaned on the phone before they queue, which
+  // takes one to three times their length: the camera stops at the cap rather
+  // than the pipeline refusing a long clip after it was shot.
+  const maxSeconds = Math.min(
+    MAX_VIDEO_SECONDS,
+    numeric(spec?.max_duration_s) ?? MAX_VIDEO_SECONDS,
+    needsDeidentification(spec?.privacy) ? DEID_MAX_CLIP_SECONDS : MAX_VIDEO_SECONDS,
+  );
   const minSeconds = numeric(spec?.min_duration_s);
   // Picking a clip the phone already holds is allowed only where the client
   // said so: a recording made here is provably from this place and time, a
@@ -441,7 +456,12 @@ export default function Capture() {
     // the worker answers it knowing the rest rather than reading it afterwards.
     const others = o.findings.filter((f) => f !== o.finding);
     warn(others.length > 0 ? others : [o.finding]);
-    Alert.alert(`Doesn't look like ${spec?.subject?.domain ?? "the subject"}`, `${o.finding.message} Keep it anyway, or shoot it again?`, [
+    // Two questions reach here: the client's "nobody in frame" (a face was
+    // found) and the subject check's miss. The title says which.
+    const title = asksAboutPeople(o.finding)
+      ? "Someone is in this shot"
+      : `Doesn't look like ${spec?.subject?.domain ?? "the subject"}`;
+    Alert.alert(title, `${o.finding.message} Keep it anyway, or shoot it again?`, [
       { text: "Retake", style: "destructive", onPress: () => void o.retake().then(() => setNotice(null), failed) },
       { text: "Keep", onPress: () => void o.keep().then(kept, failed) },
     ]);

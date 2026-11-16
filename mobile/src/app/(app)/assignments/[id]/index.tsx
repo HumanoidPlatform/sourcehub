@@ -29,6 +29,8 @@ import { DocumentList } from "@/components/DocumentList";
 import { ReworkList } from "@/components/ReworkList";
 import { Gallery } from "@/components/Gallery";
 import { referenceSections } from "@/documents";
+import { privacyLines } from "@/privacy";
+import { privacyPhoneFinding } from "@/qa_pipeline/privacy/deidentify";
 
 export default function AssignmentDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -180,11 +182,16 @@ export default function AssignmentDetail() {
   const unsentLocal = outbox.filter((r) => r.status !== "confirmed");
   const started = a.status !== "assigned";
   const requirements = requirementLabels(spec);
+  const privacy = privacyLines(spec.privacy);
   // Where this phone falls short of the task's own device requirements
   // (qa_pipeline/device/device.ts). A warning, never a gate: the worker may
   // still start; a capture from a phone that falls short is refused at the
   // shutter (qa_pipeline/pipeline.ts).
-  const phone = deviceFindings(thisDevice(), camera, spec, unit);
+  const phone = [
+    ...deviceFindings(thisDevice(), camera, spec, unit),
+    // a phone that cannot clean what the client asked removed (qa_pipeline/privacy)
+    ...[privacyPhoneFinding(spec.privacy)].filter((f) => f !== null),
+  ];
 
   const goCapture = async (replaces?: string) => {
     setError(null);
@@ -255,6 +262,22 @@ export default function AssignmentDetail() {
           {subject.must_not_show.length > 0 && <Text style={s.muted}>Must not show: {subject.must_not_show.join(", ")}</Text>}
         </View>
       )}
+      {/* the client's own words, frozen at award: what every capture is judged against */}
+      {a.task.acceptance ? (
+        <View style={{ marginTop: 10 }}>
+          <Text style={[s.body, { fontWeight: "600" }]}>Acceptance criteria</Text>
+          <Text style={s.body}>{a.task.acceptance}</Text>
+        </View>
+      ) : null}
+      {/* the client's privacy terms: who may be in shot, and what must go */}
+      {privacy.length > 0 ? (
+        <View style={{ marginTop: 10 }}>
+          <Text style={[s.body, { fontWeight: "600" }]}>Privacy</Text>
+          {privacy.map((line) => (
+            <Text key={line} style={s.body}>{line}</Text>
+          ))}
+        </View>
+      ) : null}
       {requirements.length > 0 && (
         <View style={st.chips}>
           {requirements.map((r) => (

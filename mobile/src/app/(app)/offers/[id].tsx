@@ -13,6 +13,8 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import { ApiError, post } from "@/api/client";
 import { requirementLabels } from "@/batches";
 import { OFFER_STATE_TEXT, offerAmount, placesText, respondBy } from "@/offers";
+import { privacyLines } from "@/privacy";
+import { privacyPhoneFinding } from "@/qa_pipeline/privacy/deidentify";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { type CameraCaps, deviceFindings, thisDevice } from "@/qa_pipeline/device/device";
 import { useOffers } from "@/query/hooks";
@@ -77,9 +79,14 @@ export default function Offer() {
   const spec = o.task.capture_spec ?? {};
   const subject = spec.subject ?? null;
   const requirements = requirementLabels(spec);
+  const privacy = privacyLines(spec.privacy);
   // where this phone falls short of the task's device requirements: a warning
   // before accepting, never a bar to it; captures that fall short are refused
-  const phone = deviceFindings(thisDevice(), camera, spec, o.task.target_unit);
+  const phone = [
+    ...deviceFindings(thisDevice(), camera, spec, o.task.target_unit),
+    // a phone that cannot clean what the client asked removed (qa_pipeline/privacy)
+    ...[privacyPhoneFinding(spec.privacy)].filter((f) => f !== null),
+  ];
   const open = o.state === "open" && !refused;
   const canAnswer = open && online && !answer.isPending;
   const pill = open ? "Offer" : o.response === "accepted" ? "Accepted" : o.response === "declined" ? "Declined" : "Closed";
@@ -122,6 +129,20 @@ export default function Offer() {
             {subject.must_not_show.length > 0 && <Text style={s.muted}>Must not show: {subject.must_not_show.join(", ")}</Text>}
           </View>
         )}
+        {o.task.acceptance ? (
+          <View style={{ marginTop: 10 }}>
+            <Text style={[s.body, { fontWeight: "600" }]}>Acceptance criteria</Text>
+            <Text style={s.body}>{o.task.acceptance}</Text>
+          </View>
+        ) : null}
+        {privacy.length > 0 ? (
+          <View style={{ marginTop: 10 }}>
+            <Text style={[s.body, { fontWeight: "600" }]}>Privacy</Text>
+            {privacy.map((line) => (
+              <Text key={line} style={s.body}>{line}</Text>
+            ))}
+          </View>
+        ) : null}
         {requirements.length > 0 && (
           <View style={st.chips}>
             {requirements.map((r) => (

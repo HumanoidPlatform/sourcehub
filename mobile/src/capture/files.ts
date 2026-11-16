@@ -145,3 +145,16 @@ export async function deleteLocal(uri: string | null): Promise<void> {
     // already gone
   }
 }
+
+/** The cleaned copy of a capture (qa_pipeline/privacy/deidentify.ts), written
+ *  beside it as `<name>.part`, takes the capture's place: renamed to
+ *  `<name-without-ext>.clean.<ext>`, and the original deleted. Only after this
+ *  is an outbox row written, so a queued row never points at an original on a
+ *  task that asked for de-identification; a crash before it leaves files with
+ *  no row, which sweep.ts removes. Returns the cleaned file's uri. */
+export async function replaceWithCleaned(originalUri: string, partUri: string): Promise<string> {
+  const finalUri = originalUri.replace(/(\.[^./]+)$/, ".clean$1");
+  await Legacy.moveAsync({ from: partUri, to: finalUri });
+  await deleteLocal(originalUri);
+  return finalUri;
+}

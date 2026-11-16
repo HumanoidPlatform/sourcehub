@@ -10,11 +10,19 @@ import * as Crypto from "expo-crypto";
 import { useCallback } from "react";
 import { loadSession } from "@/api/client";
 import type { CaptureSpec, SubjectSpec } from "@/api/types";
-import { CLIP_IMAGE_WIDTH, FRAMES_BUDGET_MS, SUBJECT_DIALOG } from "@/config";
+import { CLIP_IMAGE_WIDTH, DEID_MAX_CLIP_SECONDS, FRAMES_BUDGET_MS, SUBJECT_DIALOG } from "@/config";
 import { insertCapture, recordRejections } from "@/db/outbox";
 import { uploader } from "@/upload/uploader";
 import { frameTimes, judgeFrames, stillFindings, uncheckedFinding } from "@/qa_pipeline/clip/clip";
-import { detectFaces, facesFinding, facesUncheckedFinding, scoreFaces } from "@/qa_pipeline/faces/faces";
+import {
+  asksAboutPeople,
+  detectFaces,
+  facesFinding,
+  facesUncheckedFinding,
+  framesFacesFinding,
+  scoreFaces,
+  wantsNobody,
+} from "@/qa_pipeline/faces/faces";
 import { blocking, checkCapture, displayedSize, type Finding } from "@/qa_pipeline/rules/rules";
 import { recogniseText, scoreText, textFinding, textUnreadFinding } from "@/qa_pipeline/text/text";
 import {
@@ -36,7 +44,14 @@ import {
 } from "@/qa_pipeline/subject/clipSubject";
 import { cachedCamera } from "@/qa_pipeline/device/camera";
 import { deviceFinding, deviceRefusals, thisDevice } from "@/qa_pipeline/device/device";
-import { deleteLocal, moveIntoPrivateDir } from "@/capture/files";
+import { deleteLocal, moveIntoPrivateDir, replaceWithCleaned } from "@/capture/files";
+import {
+  canDeidentify,
+  type Deidentified,
+  deidentifyClip,
+  deidentifyPhoto,
+  needsDeidentification,
+} from "@/qa_pipeline/privacy/deidentify";
 import { frameAt, greyImage, rgbaImage, sampleFrames } from "@/qa_pipeline/clip/frames";
 import { blurFinding, framesBlurFinding, measureSharpness, type Sharpness } from "@/qa_pipeline/blur/blur";
 import {
@@ -50,6 +65,11 @@ import {
 } from "@/qa_pipeline/exposure/exposure";
 import { currentFix, type Fix } from "@/qa_pipeline/location/location";
 import type { Tilt } from "@/qa_pipeline/tilt/tilt";
+
+/** How many of a clip's sampled frames are looked at for faces, where the
+ *  client wants nobody in frame: enough to catch someone in shot for a while,
+ *  few enough to stay inside the frames budget CLIP needs. */
+const FACE_FRAMES = 4;
 
 export interface CameraResult {
   uri: string;
@@ -182,18 +202,68 @@ export function useCapture(
       // from a phone under them is refused here like any other, after the
       // worker was warned on the assignment screen (device.ts).
       findings.push(...deviceRefusals(thisDevice(), spec));
+      // The client's de-identification terms (capture_spec.privacy): a phone
+      // that cannot clean a capture refuses it now, before the worker spends
+      // anything more on it; a clip too long to clean in good time likewise.
+      const privacy = spec?.privacy ?? null;
+      const mustClean = needsDeidentification(privacy);
+      if (mustClean && !canDeidentify()) {
+        findings.push({
+          code: "deidentify_unavailable",
+          severity: "block",
+          message: "This phone cannot remove faces, number plates or the location before upload, which this task requires.",
+        });
+      }
+      if (mustClean && kind === "video" && (result.duration ?? 0) > DEID_MAX_CLIP_SECONDS + 1) {
+        findings.push({
+          code: "duration",
+          severity: "block",
+          message: `Clips on this task are cleaned on the phone before upload, so they can run ${DEID_MAX_CLIP_SECONDS} s at most.`,
+        });
+      }
       const blocked = blocking(findings);
       if (blocked.length > 0) await refuse(session.user_id, assignmentId, moved.uri, blocked);
 
+      // Every way a capture is kept ends here: the normal path, the keep
+      // answer to a question, the photo CLIP could not score. So this is where
+      // a privacy task's capture is cleaned, and FAILS CLOSED: anything that
+      // goes wrong refuses it, and only the cleaned file is ever queued
+      // (insertCapture refuses an uncleaned row on such a task, as a last line).
       const queue = async (checks: Finding[]) => {
+        let localUri = moved.uri;
+        let size = moved.size;
+        let deidentified: Deidentified | null = null;
+        if (mustClean && privacy) {
+          const part = `${moved.uri}.part`;
+          try {
+            const cleaned =
+              kind === "video"
+                ? await deidentifyClip(moved.uri, privacy, part, result.duration ?? 0, id, (_phase, done, total) =>
+                    onProgress?.(done, total),
+                  )
+                : await deidentifyPhoto(moved.uri, privacy, part);
+            localUri = await replaceWithCleaned(moved.uri, part);
+            size = cleaned.written.bytes;
+            deidentified = cleaned.summary;
+          } catch (e) {
+            await deleteLocal(part);
+            await refuse(session.user_id, assignmentId, moved.uri, [
+              {
+                code: "deidentify_failed",
+                severity: "block",
+                message: e instanceof Error ? e.message : "The capture could not be cleaned. Shoot it again.",
+              },
+            ]);
+          }
+        }
         await insertCapture({
           id,
           user_id: session.user_id,
           assignment_id: assignmentId,
-          local_uri: moved.uri,
+          local_uri: localUri,
           filename,
           mime: kind === "video" ? "video/mp4" : "image/jpeg",
-          size: moved.size,
+          size,
           captured_at: capturedAt.toISOString(),
           lat: fix?.lat ?? null,
           lon: fix?.lon ?? null,
@@ -201,10 +271,25 @@ export function useCapture(
           replaces_asset_id: replacesAssetId ?? null,
           // what a share in hours is counted in (db/510)
           duration_s: kind === "video" && result.duration && result.duration > 0 ? result.duration : null,
+          deidentified: deidentified ? JSON.stringify(deidentified) : null,
+          requires_deidentification: mustClean,
         });
         uploader.kick();
         return checks;
       };
+
+      // The file waits on disk until the worker answers: keep queues it with
+      // the finding attached, retake records the refusal and deletes it.
+      const ask = (question: Finding): CaptureOutcome => ({
+        kept: false,
+        finding: question,
+        findings,
+        keep: () => queue(findings),
+        retake: async () => {
+          await recordRejections(session.user_id, assignmentId, [question]);
+          await deleteLocal(moved.uri);
+        },
+      });
 
       // The instruments that need no subject profile: what is written in the
       // frame and how tall it is, whether a face is in it, and which phone
@@ -222,6 +307,11 @@ export function useCapture(
       // Boxes come back in the orientation ML Kit decoded, which is the
       // displayed one — so the frame they are measured against has to be too.
       findings.push(deviceFinding(thisDevice(), await cachedCamera()));
+      // The client's "nobody in frame" (capture_spec.privacy): a face in the
+      // shot is put to the worker, keep or retake, ahead of any subject miss.
+      // It is the client's term, so it is asked whatever SUBJECT_DIALOG says.
+      const nobody = wantsNobody(spec?.privacy);
+      let personAsk: Finding | null = null;
       if (kind === "photo") {
         const shown = width && height ? displayedSize(width, height, result.exifOrientation) : null;
         const [read, faces, pixels] = await Promise.all([
@@ -234,11 +324,12 @@ export function useCapture(
             ? textUnreadFinding(read.unscored, read.error)
             : textFinding(scoreText(read, shown?.height)),
         );
-        findings.push(
+        const facesF =
           "unscored" in faces
             ? facesUncheckedFinding(faces.unscored, faces.error)
-            : facesFinding(scoreFaces(faces.faces, shown?.width, shown?.height), spec?.subject),
-        );
+            : facesFinding(scoreFaces(faces.faces, shown?.width, shown?.height), spec?.subject, spec?.privacy);
+        findings.push(facesF);
+        if (asksAboutPeople(facesF)) personAsk = facesF;
         // Focus and light. A photo clearly out of focus is refused here, like
         // any rules.ts block — before the labeller spends seconds on it.
         if (pixels instanceof Error) {
@@ -289,14 +380,23 @@ export function useCapture(
         const exSims: number[] = [];
         let miss: Exclude<ClipResult, { vecs: unknown }> | null = null;
         let ms = 0;
+        // Faces on a clip, only where the client wants nobody in frame: up to
+        // FACE_FRAMES of the sampled frames, spread across it. A second native
+        // call on every frame would cost the budget CLIP needs (see above).
+        const faceCounts: number[] = [];
+        const faceEvery = Math.max(1, Math.ceil(times.length / FACE_FRAMES));
         const sampled = await sampleFrames(
           moved.uri,
           times,
           FRAMES_BUDGET_MS,
-          async (frame) => {
+          async (frame, index) => {
             greys.push(frame.grey);
             sharps.push(measureSharpness(frame.image));
             expos.push(measureExposure(frame.image));
+            if (nobody && index % faceEvery === 0 && faceCounts.length < FACE_FRAMES) {
+              const seen = await detectFaces(frame.uri);
+              if (!("unscored" in seen)) faceCounts.push(seen.faces.length);
+            }
             // A frame CLIP could not answer is skipped, not the clip: a slow
             // frame among thirty says nothing about the other twenty-nine.
             if (!looks || (miss && miss.unscored !== "error")) return;
@@ -324,6 +424,12 @@ export function useCapture(
         if (soft) findings.push(soft);
         const lit = framesExposureFinding(expos);
         if (lit) findings.push(lit);
+        if (nobody) {
+          const ff = framesFacesFinding(faceCounts, spec?.privacy);
+          if (ff) findings.push(ff);
+          else findings.push(facesUncheckedFinding("error", "no sampled frame could be checked"));
+          if (asksAboutPeople(ff)) personAsk = ff;
+        }
 
         let wordMiss: Finding | null = null;
         if (subject) {
@@ -363,6 +469,8 @@ export function useCapture(
           // The same missing look costs the example comparison; say so rather
           // than leave a capture that was never compared looking like a match.
           if (exSet && withExamples) findings.push(clipExamplesUncheckedFinding(exSet.expected));
+          // no subject verdict to put to the worker, but the client's may be
+          if (personAsk) return ask(personAsk);
           return { kept: true, findings: await queue(findings) };
         }
         let wordMiss: Finding | null = null;
@@ -384,21 +492,10 @@ export function useCapture(
         onSubject = (subject != null || cx.used) && wordMiss === null && !cx.miss;
       }
 
-      if (finding) {
-        if (SUBJECT_DIALOG) {
-          const asked = finding;
-          return {
-            kept: false,
-            finding: asked,
-            findings,
-            keep: () => queue(findings),
-            retake: async () => {
-              await recordRejections(session.user_id, assignmentId, [asked]);
-              await deleteLocal(moved.uri);
-            },
-          };
-        }
-      }
+      // One question at most: the client's no-people term first, the subject
+      // miss when that dialog is on. Both findings are recorded either way.
+      const asked = personAsk ?? (SUBJECT_DIALOG ? finding : null);
+      if (asked) return ask(asked);
 
       return { kept: true, findings: await queue(findings), onSubject };
     },

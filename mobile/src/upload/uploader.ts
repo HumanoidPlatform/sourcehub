@@ -28,10 +28,11 @@ import NetInfo from "@react-native-community/netinfo";
 import * as Legacy from "expo-file-system/legacy";
 import { AppState, type AppStateStatus } from "react-native";
 import { ApiError, currentUserId, del, get, loadSession, post } from "@/api/client";
-import type { AssetRow, Presign } from "@/api/types";
+import type { Assignment, AssetRow, Presign } from "@/api/types";
 import { CHUNK_BYTES, PARTS_IN_FLIGHT_CELL, PARTS_IN_FLIGHT_WIFI, POLL_MS, PRESIGN_SAFETY_MS, PUT_STALL_MS } from "@/config";
-import { deleteLocal } from "@/capture/files";
+import { deleteLocal, replaceWithCleaned } from "@/capture/files";
 import { sweepOrphans } from "@/capture/sweep";
+import { canDeidentify, deidentifyClip, deidentifyPhoto, needsDeidentification } from "@/qa_pipeline/privacy/deidentify";
 import { captureExists, type CaptureRow, flagResumableForStatus, nextRunnable, patchCapture, type QueueOrder, resetStuck } from "@/db/outbox";
 import { queryClient } from "@/query/queryClient";
 import { checksForServer } from "./checks";
@@ -287,32 +288,79 @@ class Uploader {
     return true;
   }
 
+  private presign(row: CaptureRow): Promise<Presign> {
+    return post<Presign>(`/assignments/${row.assignment_id}/assets/presign`, {
+      filename: row.filename,
+      content_type: row.mime,
+      size_bytes: row.size,
+      // the phone's own id names the capture; a small file adds its hash
+      client_capture_id: row.id,
+      ...(row.sha256 ? { sha256: row.sha256 } : {}),
+      // a big file goes up in chunks against a session storage keeps;
+      // restart says the session the phone had is gone (machine.ts)
+      resumable: wantsChunks(row),
+      restart: row.restart === 1,
+      captured_at: row.captured_at,
+      lat: row.lat,
+      lon: row.lon,
+      // what the phone found before queueing; lands in asset.check_results
+      checks: checksForServer(row.checks),
+      // a retake names the capture it replaces (db/350)
+      ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
+      // a clip's running time: a share in hours is counted in it (db/510)
+      ...(row.duration_s ? { duration_s: Math.round(row.duration_s * 100) / 100 } : {}),
+      // what the phone removed before queueing, on a task that asked; the
+      // server refuses such a task's capture without it (428)
+      ...(row.deidentified ? { deidentified: JSON.parse(row.deidentified) as unknown } : {}),
+    });
+  }
+
+  /** The server says this row's task needs de-identification and the row was
+   *  not cleaned: one queued before the task carried the terms. The file still
+   *  on the phone is cleaned as the task asks and the presign tried again;
+   *  anything that cannot be cleaned fails here, never goes as it was. */
+  private async reclean(row: CaptureRow, why: string): Promise<Outcome> {
+    // already cleaned and still refused: cleaning again would not change that
+    if (row.deidentified || !canDeidentify()) return { type: "fatal", error: `presign: ${why}` };
+    const list = await get<Assignment[]>("/me/assignments");
+    const privacy = list.find((a) => a.id === row.assignment_id)?.task.capture_spec.privacy ?? null;
+    if (!privacy || !needsDeidentification(privacy)) return { type: "fatal", error: `presign: ${why}` };
+    const src = this.requireUri(row);
+    const part = `${src}.part`;
+    try {
+      const cleaned = row.mime.startsWith("video/")
+        ? await deidentifyClip(src, privacy, part, row.duration_s ?? 0, row.id)
+        : await deidentifyPhoto(src, privacy, part);
+      const local = await replaceWithCleaned(src, part);
+      // a new file: its hash is taken again before the next presign
+      await patchCapture(row.id, {
+        local_uri: local,
+        size: cleaned.written.bytes,
+        sha256: null,
+        deidentified: JSON.stringify(cleaned.summary),
+      });
+      return { type: "retryable", error: "presign: cleaned on the phone as the task's privacy terms ask; sending again" };
+    } catch (e) {
+      await deleteLocal(part);
+      return { type: "fatal", error: `presign: ${e instanceof Error ? e.message : String(e)}` };
+    }
+  }
+
   private async perform(row: CaptureRow, action: Action): Promise<Outcome[]> {
     switch (action.type) {
       case "hash":
         return [{ type: "hashed", sha256: await sha256Hex(this.requireUri(row)) }];
       case "presign": {
-        const p = await post<Presign>(`/assignments/${row.assignment_id}/assets/presign`, {
-          filename: row.filename,
-          content_type: row.mime,
-          size_bytes: row.size,
-          // the phone's own id names the capture; a small file adds its hash
-          client_capture_id: row.id,
-          ...(row.sha256 ? { sha256: row.sha256 } : {}),
-          // a big file goes up in chunks against a session storage keeps;
-          // restart says the session the phone had is gone (machine.ts)
-          resumable: wantsChunks(row),
-          restart: row.restart === 1,
-          captured_at: row.captured_at,
-          lat: row.lat,
-          lon: row.lon,
-          // what the phone found before queueing; lands in asset.check_results
-          checks: checksForServer(row.checks),
-          // a retake names the capture it replaces (db/350)
-          ...(row.replaces_asset_id ? { replaces_asset_id: row.replaces_asset_id } : {}),
-          // a clip's running time: a share in hours is counted in it (db/510)
-          ...(row.duration_s ? { duration_s: Math.round(row.duration_s * 100) / 100 } : {}),
-        });
+        let p: Presign;
+        try {
+          p = await this.presign(row);
+        } catch (e) {
+          // 428: the task's request asks for de-identification and this row
+          // was queued uncleaned (before the task carried the terms): clean
+          // the file still on the phone and send it again, never as it was
+          if (e instanceof ApiError && e.status === 428) return [await this.reclean(row, e.message)];
+          throw e;
+        }
         return [
           {
             type: "presigned",

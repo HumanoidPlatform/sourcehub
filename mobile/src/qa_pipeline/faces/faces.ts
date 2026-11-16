@@ -14,15 +14,20 @@
 // never refuse work, and the info variant below says "faces", not "people",
 // for the same reason.
 //
-// The warning fires only when the brief forbade people. Otherwise the count
-// is recorded as a measurement the reviewer can see and the worker never
-// does — a passer-by walking into shot is not something a worker can always
-// prevent, and the shelf is still the shelf.
+// The warning fires when someone said there should be nobody: the client's
+// privacy terms ("Are people in frame? Nobody", capture_spec.privacy), or the
+// partner's subject listing people under Must not show. The client's answer
+// is the stronger of the two, and only it puts the shot to the worker, keep
+// or retake (pipeline.ts): it is a term the client set, where the subject's is
+// a framing preference. Otherwise the count is recorded as a measurement the
+// reviewer can see and the worker never does — a passer-by walking into shot
+// is not something a worker can always prevent, and the shelf is still the
+// shelf.
 //
-// scoreFaces, forbidsPeople and facesFinding are pure and unit-tested;
-// detectFaces is the one native call.
+// scoreFaces, forbidsPeople, wantsNobody, facesFinding and framesFacesFinding
+// are pure and unit-tested; detectFaces is the one native call.
 
-import type { SubjectSpec } from "@/api/types";
+import type { PrivacyTerms, SubjectSpec } from "@/api/types";
 import type { Finding } from "@/qa_pipeline/rules/rules";
 import { type ModuleUnscored as UnscoredReason, words } from "@/qa_pipeline/subject/subject";
 
@@ -70,10 +75,29 @@ export function forbidsPeople(subject?: SubjectSpec | null): boolean {
   return subject.must_not_show.flatMap(words).some((w) => PERSON.has(w));
 }
 
-/** A warning when the brief forbade people and a face is there; a measurement
- *  otherwise. Never a refusal, in either case — see the header. */
-export function facesFinding(s: FaceScore, subject?: SubjectSpec | null): Finding {
+/** Did the client's privacy terms say nobody may be in shot? */
+export function wantsNobody(privacy?: PrivacyTerms | null): boolean {
+  return privacy?.people_in_frame === "none";
+}
+
+/** A warning when the client or the brief forbade people and a face is there;
+ *  a measurement otherwise. Never a refusal, in either case — see the header.
+ *  `rule: "privacy"` marks the client's term, which pipeline.ts asks about. */
+export function facesFinding(
+  s: FaceScore,
+  subject?: SubjectSpec | null,
+  privacy?: PrivacyTerms | null,
+): Finding {
   const many = `${s.count} face${s.count === 1 ? "" : "s"}`;
+  if (s.count > 0 && wantsNobody(privacy)) {
+    return {
+      code: "person_in_frame",
+      severity: "warn",
+      message: `${many} in this shot, and the client wants nobody in it.`,
+      score: s.largest,
+      detail: { faces: s.count, largest: s.largest, rule: "privacy" },
+    };
+  }
   if (s.count > 0 && forbidsPeople(subject)) {
     return {
       code: "person_in_frame",
@@ -90,6 +114,34 @@ export function facesFinding(s: FaceScore, subject?: SubjectSpec | null): Findin
     score: s.largest,
     detail: { faces: s.count, largest: s.largest },
   };
+}
+
+/** The same rule over a clip's sampled frames, from the face count in each.
+ *  Asked only where the client wants nobody in frame (pipeline.ts samples
+ *  faces on a clip for that alone); null when no frame was looked at. */
+export function framesFacesFinding(counts: number[], privacy?: PrivacyTerms | null): Finding | null {
+  if (counts.length === 0) return null;
+  const withFaces = counts.filter((n) => n > 0).length;
+  const detail = { frames_with_faces: withFaces, frames: counts.length };
+  if (withFaces > 0 && wantsNobody(privacy)) {
+    return {
+      code: "person_in_frame",
+      severity: "warn",
+      message: `A face in ${withFaces} of ${counts.length} checked frames, and the client wants nobody in this clip.`,
+      detail: { ...detail, rule: "privacy" },
+    };
+  }
+  return {
+    code: "faces_measured",
+    severity: "info",
+    message: withFaces === 0 ? "No faces in the checked frames." : `A face in ${withFaces} of ${counts.length} checked frames.`,
+    detail,
+  };
+}
+
+/** Is this the client's no-people term, which the worker is asked about? */
+export function asksAboutPeople(f: Finding | null | undefined): boolean {
+  return f?.code === "person_in_frame" && f.detail?.rule === "privacy";
 }
 
 const REASON_TEXT: Record<UnscoredReason, string> = {

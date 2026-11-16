@@ -1,5 +1,5 @@
 import * as SQLite from "expo-sqlite";
-import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8 } from "./schema";
+import { SCHEMA_V1, SCHEMA_V2, SCHEMA_V3, SCHEMA_V4, SCHEMA_V5, SCHEMA_V6, SCHEMA_V7, SCHEMA_V8, SCHEMA_V9 } from "./schema";
 
 let dbPromise: Promise<SQLite.SQLiteDatabase> | null = null;
 
@@ -61,4 +61,5 @@ async function migrate(db: SQLite.SQLiteDatabase): Promise<void> {
   await step(6, () => addColumns(db, SCHEMA_V6));
   await step(7, () => addColumns(db, SCHEMA_V7));
   await step(8, () => addColumns(db, SCHEMA_V8));
+  await step(9, () => addColumns(db, SCHEMA_V9));
 }

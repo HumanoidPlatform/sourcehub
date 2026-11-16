@@ -100,7 +100,22 @@ export interface CaptureSpec {
   notes?: string;
   /** what a capture must show; qa_pipeline/subject/subject.ts checks photos and clips against it */
   subject?: SubjectSpec | null;
+  /** the client's privacy terms, copied onto every task from its request
+   *  (backend delivery.privacy_terms). Absent from an API before 0061. */
+  privacy?: PrivacyTerms | null;
   [key: string]: unknown;
+}
+
+/** The six of a request's consent terms that bind the work. */
+export interface PrivacyTerms {
+  /** "none": nobody may be in shot; "incidental": passers-by may appear;
+   *  "consented": people are the subject and each agreed */
+  people_in_frame: "none" | "incidental" | "consented" | null;
+  minors_policy: "prohibited" | "with_parental_consent" | null;
+  deidentification: ("blur_faces" | "redact_plates" | "strip_gps")[];
+  lawful_basis: string | null;
+  regulations: string[];
+  biometric_processing: boolean;
 }
 
 export interface SubjectSpec {
@@ -150,6 +165,10 @@ export interface Assignment {
     title: string;
     instructions: string | null;
     capture_spec: CaptureSpec;
+    /** the client's acceptance criteria, frozen at award (db/560): what every
+     *  capture is judged against. Absent when the client wrote none, and from
+     *  an API before 0060. */
+    acceptance?: string | null;
     target_unit: string | null;
     due_on: string | null;
     status: string;
@@ -188,6 +207,8 @@ export interface OfferRow {
     due_on: string | null;
     target_unit: string | null;
     capture_spec: CaptureSpec;
+    /** the criteria the worker is accepting, as on Assignment["task"] */
+    acceptance?: string | null;
   };
 }
 

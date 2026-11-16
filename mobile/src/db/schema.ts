@@ -124,6 +124,15 @@ ALTER TABLE captures ADD COLUMN duration_s REAL;
 // gone. The status CHECK is unchanged: presigned is "session ready", uploading
 // is "chunks going up", uploaded is "all in, confirm". Nothing here is the
 // truth about what storage holds; status is asked, never assumed.
+// What the phone removed from the file before queueing it, on a task whose
+// request asked for faces, plates or the location to go (qa_pipeline/privacy):
+// JSON {version, faces, plates, frames, metadata_stripped}, sent with the
+// presign as `deidentified`. The server refuses such a task's capture without
+// it (428), so a row on one is never written without it (outbox.insertCapture).
+export const SCHEMA_V9 = `
+ALTER TABLE captures ADD COLUMN deidentified TEXT;
+`;
+
 export const SCHEMA_V8 = `
 ALTER TABLE captures ADD COLUMN upload_mode TEXT;
 ALTER TABLE captures ADD COLUMN upload_protocol TEXT;

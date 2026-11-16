@@ -62,6 +62,9 @@ export interface CaptureRow {
   needs_status: number;
   /** 1: the session is gone; the next presign must open a fresh one */
   restart: number;
+  /** JSON: what the phone removed before queueing (qa_pipeline/privacy), sent
+   *  with the presign; null on a task that asked for none (schema V9) */
+  deidentified: string | null;
   created_at: number;
   updated_at: number;
 }
@@ -69,7 +72,23 @@ export interface CaptureRow {
 export type NewCapture = Pick<
   CaptureRow,
   "id" | "user_id" | "assignment_id" | "local_uri" | "filename" | "mime" | "size" | "captured_at" | "lat" | "lon" | "checks"
-> & { replaces_asset_id?: string | null; duration_s?: number | null };
+> & {
+  replaces_asset_id?: string | null;
+  duration_s?: number | null;
+  deidentified?: string | null;
+  /** the task's request asked for de-identification: the row is refused
+   *  without `deidentified`, so an uncleaned file can never be queued */
+  requires_deidentification?: boolean;
+};
+
+/** Thrown by insertCapture for an uncleaned capture on a task that asked for
+ *  de-identification. Should be unreachable: pipeline.ts cleans first. */
+export class UncleanedCapture extends Error {
+  constructor() {
+    super("This capture was not cleaned as the task's privacy terms require, so it was not queued.");
+    this.name = "UncleanedCapture";
+  }
+}
 
 // --- a tiny change bus, so screens re-read after the uploader moves a row ---
 
@@ -135,16 +154,19 @@ export async function rejectionsByAssignment(assignmentId: string): Promise<Reje
 // --- writes ---------------------------------------------------------------
 
 export async function insertCapture(c: NewCapture): Promise<void> {
+  // The last line of the fail-closed rule (qa_pipeline/privacy/deidentify.ts):
+  // whatever path reached here, nothing uncleaned is queued on such a task.
+  if (c.requires_deidentification && !c.deidentified) throw new UncleanedCapture();
   const db = await getDb();
   const now = Date.now();
   await db.runAsync(
     `INSERT INTO captures (id, user_id, assignment_id, local_uri, filename, mime, size, captured_at,
-                           lat, lon, checks, replaces_asset_id, duration_s, status, attempts, next_attempt_at,
-                           created_at, updated_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'captured', 0, 0, ?, ?)`,
+                           lat, lon, checks, replaces_asset_id, duration_s, deidentified, status, attempts,
+                           next_attempt_at, created_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'captured', 0, 0, ?, ?)`,
     [
       c.id, c.user_id, c.assignment_id, c.local_uri, c.filename, c.mime, c.size, c.captured_at, c.lat, c.lon, c.checks,
-      c.replaces_asset_id ?? null, c.duration_s ?? null, now, now,
+      c.replaces_asset_id ?? null, c.duration_s ?? null, c.deidentified ?? null, now, now,
     ],
   );
   emitOutboxChange();
