@@ -32,6 +32,8 @@ class QaError(Exception):
 async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
     """Everything awaiting this partner's verdict. RLS already scopes the rows;
     the WHERE narrows to the queue itself."""
+    from sourcehub.modules.delivery import service as delivery
+
     rows = (
         await session.execute(
             text(
@@ -41,7 +43,8 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
                 "       c.reference_code AS contract_ref, o.name AS supplier_name, "
                 # The same brief gate 1 now gets. A partner judging a bundle was
                 # equally blind to what the client actually asked for.
-                "       t.capture_spec, t.instructions AS task_instructions "
+                "       t.capture_spec, t.instructions AS task_instructions, "
+                "       c.rubric_snapshot ->> 'acceptance' AS task_acceptance "
                 "FROM submission s "
                 "JOIN task t ON t.id = s.task_id "
                 "JOIN contract c ON c.id = t.contract_id "
@@ -53,7 +56,14 @@ async def review_queue(session: AsyncSession, claims: AccessClaims) -> list[dict
             {"me": claims.org_id},
         )
     ).mappings().all()
-    return [{**dict(r), "capture_spec": r["capture_spec"] or {}} for r in rows]
+    return [
+        {
+            **dict(r),
+            "capture_spec": r["capture_spec"] or {},
+            "task_acceptance": delivery.stated_acceptance(r["task_acceptance"]),
+        }
+        for r in rows
+    ]
 
 
 async def decide(
@@ -180,6 +190,8 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
     those are the ones most likely to need a rejection, and the reviewer
     should see the score the phone gave before the batch ages.
     """
+    from sourcehub.modules.delivery import service as delivery
+
     rows = (
         await session.execute(
             text(
@@ -192,6 +204,9 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 # floor. Selected here exactly as _assignment_dict already
                 # selects them for the worker, so both ends read one brief.
                 "       t.capture_spec, t.instructions AS task_instructions, "
+                # and the acceptance criteria frozen at award (db/560), which
+                # the supplier may read off the contract of its own task
+                "       c.rubric_snapshot ->> 'acceptance' AS task_acceptance, "
                 "       a.worker_user_id, coalesce(w.display_name, u.full_name) AS worker_name, "
                 "       w.reference_code AS worker_ref, a.quantity, b.worker_note, b.submitted_at, "
                 "       a.revoked_at, "
@@ -206,6 +221,7 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
                 "FROM capture_batch b "
                 "JOIN task_assignment a ON a.id = b.assignment_id "
                 "JOIN task t ON t.id = a.task_id "
+                "LEFT JOIN contract c ON c.id = t.contract_id "
                 "LEFT JOIN crowd_worker w ON w.user_id = a.worker_user_id "
                 "LEFT JOIN app_user u ON u.id = a.worker_user_id "
                 "LEFT JOIN LATERAL (SELECT count(*) AS ready, "
@@ -233,6 +249,7 @@ async def gate1_queue(session: AsyncSession, claims: AccessClaims) -> list[dict[
             # An older task may carry no spec at all; the console then shows
             # nothing rather than an empty panel.
             "capture_spec": r["capture_spec"] or {},
+            "task_acceptance": delivery.stated_acceptance(r["task_acceptance"]),
         }
         for r in rows
     ]

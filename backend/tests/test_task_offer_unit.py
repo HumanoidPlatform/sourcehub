@@ -140,9 +140,14 @@ def test_my_offer_dict_adds_what_the_phone_needs():
         "respond_by": dt.datetime.now(dt.UTC) + dt.timedelta(days=1),
         "worker_limit": 3, "accepted_count": 1, "response": None, "responded_at": None,
         "offer_status": "open", "task_status": "assigned", "grant_live": True,
+        "task_acceptance": "The fan is running and fills the frame.",
     }
     d = delivery._my_offer_dict(r)
     assert (d["id"], d["state"], d["places_left"], d["quantity"]) == ("r1", "open", 2, 0.05)
     assert d["task"]["id"] == "t1" and d["task"]["capture_spec"] == {"media": ["video"]}
     # a spec the task never had reads as none, not null, like _assignment_dict
     assert delivery._my_offer_dict({**r, "capture_spec": None})["task"]["capture_spec"] == {}
+    # the criteria the worker is accepting (db/560); a blank answer's placeholder is none
+    assert d["task"]["acceptance"] == "The fan is running and fills the frame."
+    blank = {**r, "task_acceptance": "Client review on delivery"}
+    assert delivery._my_offer_dict(blank)["task"]["acceptance"] is None

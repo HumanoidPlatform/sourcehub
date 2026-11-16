@@ -67,6 +67,22 @@ class ThumbnailIn(BaseModel):
     content_type: Literal["image/jpeg"]
 
 
+class DeidentifiedIn(BaseModel):
+    """What the phone removed from the file before it left, on a task whose
+    request asked for faces, plates or GPS to go (capture_spec.privacy). Its
+    own field rather than a check: checks are capped and trimmed, and this one
+    decides whether the capture may be sent at all."""
+
+    # the capture app's de-identification version, so a fault found later
+    # can be traced to the builds that had it
+    version: int = Field(ge=1)
+    faces: int = Field(ge=0)
+    plates: int = Field(ge=0)
+    # a clip's frames looked at; none for a photo
+    frames: int | None = Field(default=None, ge=0)
+    metadata_stripped: bool
+
+
 class PresignIn(BaseModel):
     filename: str = Field(min_length=1, max_length=255)
     content_type: str = Field(min_length=3, max_length=120)
@@ -91,6 +107,8 @@ class PresignIn(BaseModel):
     duration_s: float | None = Field(default=None, gt=0, le=media.MAX_CLIP_SECONDS + 5)
     # a poster for the tile, PUT beside the capture before confirm; optional
     thumbnail: ThumbnailIn | None = None
+    # required where the task's request asked for de-identification (428 if not)
+    deidentified: DeidentifiedIn | None = None
 
     @model_validator(mode="after")
     def _identified(self) -> PresignIn:
@@ -112,6 +130,10 @@ _STORAGE_ERRORS = (StorageError, StorageTargetError)
 def _map(e: Exception) -> HTTPException:
     if isinstance(e, LookupError):
         return HTTPException(status.HTTP_404_NOT_FOUND, "Not found")
+    # Before MediaInvalid, which it is: its own status, so the phone can clean
+    # the file and send it again rather than give the capture up.
+    if isinstance(e, media.DeidentificationRequired):
+        return HTTPException(status.HTTP_428_PRECONDITION_REQUIRED, str(e))
     if isinstance(e, media.MediaInvalid):
         return HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(e))
     if isinstance(e, media.MediaGone):
@@ -145,6 +167,7 @@ async def presign(
             thumbnail=body.thumbnail.model_dump() if body.thumbnail else None,
             client_capture_id=body.client_capture_id,
             resumable=body.resumable, restart=body.restart,
+            deidentified=body.deidentified.model_dump() if body.deidentified else None,
         )
     except (LookupError, media.MediaError, media.MediaInvalid, *_STORAGE_ERRORS) as e:
         raise _map(e) from None

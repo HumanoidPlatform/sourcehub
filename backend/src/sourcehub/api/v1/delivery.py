@@ -23,16 +23,19 @@ router = APIRouter(route_class=TxRoute)
 
 
 class SubjectIn(BaseModel):
-    """What a capture must show — the phone's domain check compares its
-    image labels against these words, and the worker reads them before the
-    shutter. Short phrases, not sentences: "price tags", not "make sure the
-    price tags are readable"."""
+    """What a capture must show. The phone's subject check (CLIP,
+    mobile qa_pipeline/subject/clipSubject.ts) compares each capture with the
+    domain and must_show phrases and asks the worker to keep or retake one
+    that does not match; a must_not_show phrase that clearly shows is a warning
+    for the reviewer. The worker reads all three before the shutter. Short
+    phrases, not sentences: "price tags", not "make sure the price tags are
+    readable"."""
 
     domain: str = Field(min_length=2, max_length=80)
     must_show: list[str] = Field(default_factory=list, max_length=12)
     must_not_show: list[str] = Field(default_factory=list, max_length=12)
-    # an explicit ML Kit vocabulary, when the words above are not the labels
-    # the model uses ("Shelf", "Supermarket"); usually left empty
+    # phrases CLIP compares against INSTEAD of domain + must_show, for when
+    # those words are not how the thing looks; usually left empty
     labels: list[str] = Field(default_factory=list, max_length=12)
 
     @field_validator("must_show", "must_not_show", "labels")

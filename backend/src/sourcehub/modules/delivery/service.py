@@ -193,6 +193,7 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
                 "SELECT r.title, r.reference_code AS request_ref, r.delivery_due_on, "
                 "  coalesce((r.consent_and_compliance ->> 'partner_reuse_allowed')::boolean, false) "
                 "    AS partner_reuse_allowed, "
+                "  r.consent_and_compliance AS consent, "
                 "  (SELECT name FROM organisation WHERE id = :cl) AS client_name, "
                 "  (SELECT name FROM organisation WHERE id = :pt) AS partner_name, "
                 # the partner's listing of it, once listed (RLS hides it from others)
@@ -229,8 +230,42 @@ async def _contract_row(session: AsyncSession, c: Contract) -> dict[str, Any]:
         # false: exclusive to the client. true: once the client approves, the
         # partner may list the captures in the dataset catalogue.
         "partner_reuse_allowed": bool(names.get("partner_reuse_allowed")),
+        # why a non-exclusive contract may still not be resold (people in
+        # frame, biometric processing): the dataset catalogue refuses it with
+        # this sentence, and the console says it before anyone clicks
+        "resale_blocked_reason": (
+            resale_block(names.get("consent")) if names.get("partner_reuse_allowed") else None
+        ),
         "catalogue_dataset_id": names.get("catalogue_dataset_id"),
     }
+
+
+def resale_block(consent: dict[str, Any] | None) -> str | None:
+    """Why a contract's captures may not be resold, from its request's privacy
+    terms (db/360 consent_and_compliance), or None. Pure.
+
+    Exclusivity says whether the partner may resell at all; this says whether
+    the captures themselves may go to a stranger. Anyone in frame agreed to
+    the client's use, or none was asked, so only a request that said nobody is
+    in frame may be resold, and never one that involves biometric processing.
+    A request that did not answer is treated as people in frame: nothing on
+    it says otherwise. The dataset catalogue applies it; it lives here, beside
+    privacy_terms, because it reads the same request terms.
+    """
+    cc = consent or {}
+    if cc.get("biometric_processing"):
+        return (
+            "The client's request involves biometric processing, so its captures cannot be resold."
+        )
+    people = cc.get("people_in_frame")
+    if people == "none":
+        return None
+    if people in ("incidental", "consented"):
+        return "The client's request has people in frame, so its captures cannot be resold."
+    return (
+        "The client's request does not say its captures are free of people, "
+        "so they cannot be resold."
+    )
 
 
 async def list_contracts(session: AsyncSession, claims: AccessClaims) -> list[dict[str, Any]]:
@@ -296,6 +331,44 @@ def working_documents(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return sorted(kept, key=lambda r: order[r["slot"]])  # sorted() is stable
 
 
+def stated_acceptance(text_: str | None) -> str | None:
+    """The acceptance criteria the client wrote, as frozen at award, or None.
+
+    Every payload that carries a task's brief carries these too (db/560): the
+    supplier deciding a batch and the crowd resource capturing are judged
+    against them. A request saved with the field blank froze marketplace's
+    placeholder, which says nothing either of them can act on, so it reads as
+    absent here rather than as a row that tells nobody anything.
+    """
+    from sourcehub.modules.marketplace import service as marketplace
+
+    s = (text_ or "").strip()
+    return None if not s or s == marketplace.NO_ACCEPTANCE_STATED else s
+
+
+def privacy_terms(consent: dict[str, Any] | None) -> dict[str, Any]:
+    """The client's privacy terms as a task carries them: capture_spec.privacy.
+
+    A request's terms (db/360 consent_and_compliance) used to stop at the
+    client and the partner. The supplier and the crowd resource cannot read a
+    request under RLS, so a task now carries the six that bind the work in its
+    capture_spec, which already reaches the phone, its offline copy, the
+    browser upload and both review gates. Every key is always present, so a
+    task whose request said nothing reads as "nothing stated" rather than as a
+    task from before this existed. Migration 0061 builds the same shape in SQL
+    for the tasks that already existed; the two must stay in step.
+    """
+    cc = consent or {}
+    return {
+        "people_in_frame": cc.get("people_in_frame"),
+        "minors_policy": cc.get("minors_policy"),
+        "deidentification": list(cc.get("deidentification") or []),
+        "lawful_basis": cc.get("lawful_basis"),
+        "regulations": list(cc.get("regulations") or []),
+        "biometric_processing": bool(cc.get("biometric_processing")),
+    }
+
+
 async def _client_documents(
     session: AsyncSession, task_ids: list[uuid.UUID]
 ) -> dict[uuid.UUID, list[dict[str, Any]]]:
@@ -337,6 +410,9 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
             text(
                 "SELECT o.name AS assignee_name, o.kind AS assignee_kind, "
                 "  c.reference_code AS contract_ref, "
+                # the criteria frozen at award; every caller here can read
+                # contract (a worker, who cannot, never reaches this)
+                "  c.rubric_snapshot ->> 'acceptance' AS acceptance, "
                 "  (SELECT row_to_json(x) FROM ("
                 "     SELECT s.id, s.attempt_no, s.status, s.supplier_note, s.asset_count, "
                 "            s.unit_quantity, s.submitted_at "
@@ -399,6 +475,7 @@ async def _task_row(session: AsyncSession, t: Task) -> dict[str, Any]:
         "measure": "duration" if pricing.measured_by_duration(t.target_unit) else "count",
         "instructions": t.instructions,
         "capture_spec": t.capture_spec or {},
+        "acceptance": stated_acceptance(extra.get("acceptance")),
         "status": t.status,
         "due_on": t.due_on,
         "attachments": (await _task_files(session, t.id)),
@@ -529,21 +606,23 @@ async def create_task(
     # empty spec and no spec mean the same thing to _allowed_kinds anyway. A
     # partner who genuinely wants no media restriction sends {"media": []},
     # which is truthy and overrides.
-    if not capture_spec or target_unit is None:
-        wanted = (
-            await session.execute(
-                text(
-                    "SELECT r.capture_spec, r.target_unit FROM contract c "
-                    "JOIN request r ON r.id = c.request_id WHERE c.id = :cid"
-                ),
-                {"cid": contract_id},
-            )
-        ).mappings().one_or_none()
-        if wanted is not None:
-            if not capture_spec:
-                capture_spec = wanted["capture_spec"] or None
-            if target_unit is None:
-                target_unit = wanted["target_unit"]
+    #
+    # Read every time now, not only when something is missing: the client's
+    # privacy terms come from the same row and every task carries them.
+    wanted = (
+        await session.execute(
+            text(
+                "SELECT r.capture_spec, r.target_unit, r.consent_and_compliance FROM contract c "
+                "JOIN request r ON r.id = c.request_id WHERE c.id = :cid"
+            ),
+            {"cid": contract_id},
+        )
+    ).mappings().one_or_none()
+    if wanted is not None:
+        if not capture_spec:
+            capture_spec = wanted["capture_spec"] or None
+        if target_unit is None:
+            target_unit = wanted["target_unit"]
 
     # The subject rides inside capture_spec so it reaches the phone with the
     # rest of the requirements (_assignment_dict sends the whole spec), but it
@@ -551,6 +630,14 @@ async def create_task(
     # client's media or tilt answers.
     if subject is not None:
         capture_spec = {**(capture_spec or {}), "subject": subject}
+
+    # The client's privacy terms, merged last and always the client's: a
+    # partner's own capture_spec can neither carry nor drop them (see
+    # privacy_terms).
+    capture_spec = {
+        **(capture_spec or {}),
+        "privacy": privacy_terms(wanted["consent_and_compliance"] if wanted is not None else None),
+    }
 
     # Only hours may be split into fractions; the database refuses the rest
     # too (db/510), this says it in words.
@@ -756,6 +843,9 @@ _ASSIGNMENT_ROWS = (
     "       coalesce(w.display_name, u.full_name) AS worker_name, w.reference_code AS worker_ref, "
     "       t.reference_code AS task_ref, t.title AS task_title, "
     "       t.instructions AS task_instructions, t.capture_spec, t.target_unit, "
+    # a definer read (db/560): this runs in the worker's own session too,
+    # and a worker cannot read contract
+    "       task_acceptance(t.id) AS task_acceptance, "
     "       t.due_on AS task_due_on, t.status AS task_status, "
     "       coalesce(x.pending, 0) AS pending, coalesce(x.ready, 0) AS ready, "
     "       coalesce(x.quarantined, 0) AS quarantined, coalesce(x.total, 0) AS total, "
@@ -833,6 +923,7 @@ def _assignment_dict(r: Any) -> dict[str, Any]:
             "title": r["task_title"],
             "instructions": r["task_instructions"],
             "capture_spec": r["capture_spec"] or {},
+            "acceptance": stated_acceptance(r["task_acceptance"]),
             "target_unit": r["target_unit"],
             "due_on": r["task_due_on"],
             "status": r["task_status"],
@@ -2115,12 +2206,16 @@ _MY_OFFERS = text(
     "       t.id AS task_id, t.reference_code AS task_ref, t.title AS task_title, "
     "       t.instructions AS task_instructions, t.due_on AS task_due_on, t.status AS task_status, "
     "       t.target_unit, t.capture_spec, "
+    "       c.rubric_snapshot ->> 'acceptance' AS task_acceptance, "
     "       o.quantity, o.instructions, o.due_on, o.respond_by, "
     "       o.status AS offer_status, o.worker_limit, o.accepted_count, "
     "       r.response, r.responded_at, r.assignment_id "
     "FROM task_offer_recipient r "
     "JOIN task_offer o ON o.id = r.offer_id "
     "JOIN task t ON t.id = o.task_id "
+    # read as the supplier (see _my_offer_rows), which may read the contract
+    # of a task assigned to it: the criteria the worker is accepting
+    "LEFT JOIN contract c ON c.id = t.contract_id "
     "JOIN organisation org ON org.id = o.supplier_org_id "
     "JOIN app_user u ON u.id = r.worker_user_id "
     "LEFT JOIN crowd_worker w ON w.user_id = r.worker_user_id "
@@ -2155,7 +2250,10 @@ def _my_offer_dict(row: dict[str, Any]) -> dict[str, Any]:
     d["id"] = row["recipient_id"]
     d["places_left"] = max(0, int(row["worker_limit"]) - int(row["accepted_count"]))
     d["assignment_id"] = row["assignment_id"]
-    d["task"] = {**d["task"], "id": row["task_id"], "capture_spec": row["capture_spec"] or {}}
+    d["task"] = {
+        **d["task"], "id": row["task_id"], "capture_spec": row["capture_spec"] or {},
+        "acceptance": stated_acceptance(row["task_acceptance"]),
+    }
     return d
 
 

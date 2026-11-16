@@ -279,6 +279,10 @@ async def dataset_detail(
         .all()
     )
     d["samples"] = [_sample(s, owner_view=owner_view) for s in samples]
+    if d["is_owner"] and m["source"] == "contract":
+        # the seller form offers only these (seller.tsx); update_dataset and
+        # _readiness refuse anything else
+        d["allowed_permitted_uses"] = await _rfp_permitted_uses(session, m["contract_id"])
     if not owner_view:
         mine = await _one(
             session,
@@ -426,6 +430,16 @@ async def update_dataset(
                 raise CatalogueError("A dataset needs a title.")
         if k in _ARRAYS:
             v = list(v or [])
+        if k == "permitted_uses" and m["source"] == "contract":
+            # a listing of a contract's captures offers no use the client's
+            # request did not permit (its privacy terms, db/360)
+            allowed = await _rfp_permitted_uses(session, m["contract_id"])
+            outside = [u for u in v if u not in allowed]
+            if outside:
+                raise CatalogueError(
+                    f"The client's request does not permit {_uses_words(outside)}; "
+                    f"a listing of its captures may offer only {_uses_words(allowed) or 'nothing'}."
+                )
         if k == "file_count":
             v = int(v or 0)
         sets.append(f"{k} = CAST(:{k} AS request_category)" if k == "category" else f"{k} = :{k}")
@@ -690,6 +704,17 @@ async def _readiness(session: AsyncSession, m: Any) -> list[str]:
         problems.append("Add a one-line summary.")
     if not m["permitted_uses"]:
         problems.append("Say what buyers may use it for.")
+    if m["source"] == "contract":
+        allowed = await _rfp_permitted_uses(session, m["contract_id"])
+        outside = [u for u in (m["permitted_uses"] or []) if u not in allowed]
+        if not allowed:
+            problems.append(
+                "The client's request permitted no uses, so its captures cannot be offered."
+            )
+        elif outside:
+            problems.append(
+                f"Offer only what the client's request permits: {_uses_words(allowed)}."
+            )
     if not (m["licence_terms"] or "").strip():
         problems.append("Add your licence terms.")
     if not m["file_count"]:
@@ -1515,6 +1540,28 @@ async def create_lead(
 # ---------------------------------------------------------------------------
 
 
+async def _rfp_permitted_uses(session: AsyncSession, contract_id: uuid.UUID | None) -> list[str]:
+    """What the client's request permitted its data to be used for: all a
+    listing of that contract's captures may offer a buyer. The owner of such a
+    listing is the awarded partner, who may read the request."""
+    if contract_id is None:
+        return []
+    v = (
+        await session.execute(
+            text(
+                "SELECT r.consent_and_compliance -> 'permitted_uses' FROM contract c "
+                "JOIN request r ON r.id = c.request_id WHERE c.id = :c"
+            ),
+            {"c": contract_id},
+        )
+    ).scalar_one_or_none()
+    return [str(u) for u in v] if isinstance(v, list) else []
+
+
+def _uses_words(uses: list[str]) -> str:
+    return ", ".join(u.replace("_", " ") for u in uses)
+
+
 async def relist_contract(
     session: AsyncSession, claims: AccessClaims, contract_id: uuid.UUID
 ) -> uuid.UUID:
@@ -1531,7 +1578,8 @@ async def relist_contract(
         session,
         "SELECT r.title, r.category, r.countries, c.reference_code, c.status, "
         "       coalesce((r.consent_and_compliance ->> 'partner_reuse_allowed')::boolean, false) "
-        "         AS partner_reuse_allowed "
+        "         AS partner_reuse_allowed, "
+        "       r.consent_and_compliance AS consent "
         "FROM contract c JOIN request r ON r.id = c.request_id "
         "WHERE c.id = :c AND c.partner_org_id = :org AND c.deleted_at IS NULL",
         {"c": contract_id, "org": claims.org_id},
@@ -1540,6 +1588,13 @@ async def relist_contract(
         raise LookupError("contract not found")
     if not req["partner_reuse_allowed"]:
         raise CatalogueError("This request was exclusive to the client; its captures cannot be listed.")
+    # the request's privacy terms, by the rule the contract page also states
+    # (delivery.resale_block): people in frame or biometric processing
+    from sourcehub.modules.delivery import service as delivery
+
+    blocked = delivery.resale_block(req["consent"])
+    if blocked:
+        raise CatalogueError(blocked)
     if req["status"] != "completed":
         raise CatalogueError("A contract's captures can be listed once the client has approved the delivery.")
 

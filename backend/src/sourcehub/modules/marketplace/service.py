@@ -230,8 +230,13 @@ def _row(
 # replacements are structured and a placeholder would have to pass a CHECK, so
 # they are simply left NULL when not given. Since db/360 both defaults are
 # applied inside the json (_quality_bar, _consent_and_compliance).
+#
+# NO_ACCEPTANCE_STATED is public because the acceptance default is frozen into
+# every contract awarded from a request that left the field blank, and
+# delivery.stated_acceptance has to recognise it there as "nothing stated".
+NO_ACCEPTANCE_STATED = "Client review on delivery"
 _DEFAULTS = {
-    "acceptance": "Client review on delivery",
+    "acceptance": NO_ACCEPTANCE_STATED,
     "compliance_notes": "None specified",
 }
 

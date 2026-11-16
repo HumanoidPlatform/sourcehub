@@ -73,6 +73,23 @@ class MediaGone(Exception):  # noqa: N818 - named like MediaError and MediaInval
     session expired or was swept. The phone starts that upload again."""
 
 
+class DeidentificationRequired(MediaInvalid):
+    """The task's request asked for faces, plates or GPS to be removed and the
+    capture does not say it was (428). Its own answer, so the phone can tell it
+    from a refusal it cannot act on: a capture queued before the task carried
+    the terms, or by a build that could not clean it, is cleaned on the phone
+    and sent again rather than given up on."""
+
+
+def required_deidentification(capture_spec: dict[str, Any] | None) -> list[str]:
+    """What the client asked to be removed before a capture leaves the phone
+    (capture_spec.privacy.deidentification: blur_faces, redact_plates,
+    strip_gps). Empty for a task that asked for none, or from before 0061."""
+    privacy = (capture_spec or {}).get("privacy") or {}
+    asked = privacy.get("deidentification") or []
+    return [str(d) for d in asked] if isinstance(asked, list) else []
+
+
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".heic", ".webp"}
 VIDEO_EXTENSIONS = {".mp4", ".mov"}
 MAX_IMAGE_BYTES = 25 * 1024 * 1024
@@ -174,11 +191,26 @@ BADGE_ORDER = (
     "subject_unscored", "clip_unchecked",
 )
 
+# Where a capture was taken, withheld from the CLIENT on a task whose request
+# asked for GPS to be stripped (capture_spec.privacy, migration 0061): the
+# client asked to receive no locations, and this row is how it would receive
+# one. The supplier and the partner still see it, for the QA a location fix is
+# there for. Evaluated per row in the caller's session, so current_org_id() is
+# whoever is asking; a client reads its own task and contract under RLS.
+_LOCATION_WITHHELD = (
+    "EXISTS (SELECT 1 FROM task tk JOIN contract ct ON ct.id = tk.contract_id "
+    "        WHERE tk.id = a.task_id AND ct.client_org_id = current_org_id() "
+    "          AND (tk.capture_spec -> 'privacy' -> 'deidentification') "
+    "              @> '[\"strip_gps\"]'::jsonb)"
+)
 _ASSET_COLUMNS = (
     "a.id, a.task_id, a.assignment_id, a.submission_id, a.captured_by_user_id, "
     "coalesce(w.display_name, u.full_name) AS captured_by_name, "
     "a.filename, a.mime_type, a.size_bytes, a.duration_s, a.sha256, a.etag, a.status, a.quarantine_reason, "
-    "a.captured_at, a.captured_lat, a.captured_lon, a.uploaded_at, a.created_at, "
+    "a.captured_at, "
+    "CASE WHEN " + _LOCATION_WITHHELD + " THEN NULL ELSE a.captured_lat END AS captured_lat, "
+    "CASE WHEN " + _LOCATION_WITHHELD + " THEN NULL ELSE a.captured_lon END AS captured_lon, "
+    "a.uploaded_at, a.created_at, a.redaction, "
     "a.check_results, a.review_reason, a.review_note, a.reviewed_at, "
     "d.label AS review_label, a.batch_id, cb.batch_no, cb.status AS batch_status, "
     "a.replaces_asset_id, "
@@ -382,6 +414,10 @@ def _asset_dict(r: Any) -> dict[str, Any]:
         "captured_lon": r["captured_lon"],
         "uploaded_at": r["uploaded_at"],
         "created_at": r["created_at"],
+        # 'device_redacted': the phone removed what the request asked for
+        # (faces, plates, the file's location) before the file left it. Read
+        # with .get: a row built without the column says nothing was asked.
+        "redaction": r.get("redaction") or "not_required",
         # what the phone noticed before it queued the file (presign_asset);
         # recorded, not trusted — the reviewer reads it, nothing acts on it
         "device_checks": (r["check_results"] or {}).get("device") or [],
@@ -680,9 +716,14 @@ async def presign_capture(
     client_capture_id: uuid.UUID | None = None,
     resumable: bool = False,
     restart: bool = False,
+    deidentified: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Record the manifest and mint the upload: a one-object PUT URL, or for a
     big file the phone asked to send in chunks, a storage session.
+
+    deidentified is the phone's account of what it removed (faces, plates,
+    the file's location) on a task whose request asked for that: required
+    there, recorded as asset.redaction (DeidentificationRequired, 428).
 
     duration_s is a clip's running time as the device measured it. A task in
     hours counts its clips by it, so there it is required; anywhere else a
@@ -736,6 +777,16 @@ async def presign_capture(
     if captured_at.tzinfo is None:
         captured_at = captured_at.replace(tzinfo=dt.timezone.utc)
     duration = checked_duration(kind, duration_s, a.get("capture_spec"), a.get("target_unit"))
+    # The client's de-identification terms. The file goes straight to the
+    # client's bucket from here, so a capture the phone did not clean must not
+    # get a URL at all: fail closed (settings.require_device_deidentification).
+    asked = required_deidentification(a.get("capture_spec"))
+    if asked and deidentified is None and settings.require_device_deidentification:
+        raise DeidentificationRequired(
+            "This task's privacy terms are applied by the capture app before upload. "
+            "Update the app and capture again."
+        )
+    redaction = "device_redacted" if asked and deidentified is not None else "not_required"
 
     # Where this contract's client asked for delivery. Resolved through a
     # SECURITY DEFINER function: this runs in the worker's session, which
@@ -913,10 +964,11 @@ async def presign_capture(
             "                   contract_id, storage_key, filename, mime_type, size_bytes, sha256, "
             "                   client_capture_id, status, captured_at, captured_lat, "
             "                   captured_lon, metadata, check_results, storage_target_id, "
-            "                   replaces_asset_id, duration_s) "
+            "                   replaces_asset_id, duration_s, redaction) "
             "VALUES (:id, :task, :asg, :user, :org, :contract, :key, :name, :ct, :size, :sha, "
             "        :cid, 'pending', :cat, :lat, :lon, CAST(:meta AS jsonb), "
-            "        CAST(:checks AS jsonb), :target, :replaces, :dur)"
+            "        CAST(:checks AS jsonb), :target, :replaces, :dur, "
+            "        CAST(:redaction AS redaction_state))"
         ),
         {
             "id": asset_id, "task": a["task_id"], "asg": assignment_id, "user": claims.user_id,
@@ -933,10 +985,15 @@ async def presign_capture(
             # What the phone decided before it queued the file. Recorded, not
             # trusted: everything enforced above was checked here, on the
             # server, from the manifest the device sent.
-            "checks": json.dumps({"device": checks or []}),
+            # and, under device, what it removed before the file left it: the
+            # one account of it the client and the reviewers can read
+            "checks": json.dumps(
+                {"device": checks or []} | ({"deidentified": deidentified} if deidentified else {})
+            ),
             "target": target_id,
             "replaces": replaces_asset_id,
             "dur": duration,
+            "redaction": redaction,
         },
     )
     if chunked:

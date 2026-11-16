@@ -99,6 +99,15 @@ class Settings(BaseSettings):
     upload_sweep_enabled: bool = True
     upload_sweep_tick_seconds: int = 3600
 
+    # --- Device de-identification ------------------------------------------------
+    # A task whose request asked for faces blurred, plates covered or GPS
+    # stripped (capture_spec.privacy) takes only captures the phone says it
+    # cleaned: captures go straight to the client's bucket, so the phone is the
+    # only place it can happen (media.presign_capture answers 428 otherwise).
+    # On, fail closed. Off only while a capture app that can do it rolls out to
+    # the crowd; a capture then still records that it was not cleaned.
+    require_device_deidentification: bool = True
+
     # --- Mail outbox ---------------------------------------------------------
     # The pass (modules/outbox) that sends every e-mail the platform writes:
     # resets, invitations, task offers, reminders, DataHub replies, and the RFP
